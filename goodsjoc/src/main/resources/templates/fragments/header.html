@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<th:block th:fragment="headerFragment">
+	<div id="header">
+		<nav class="main-header navbar navbar-expand">
+			<!-- Left navbar links -->
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" data-widget="pushmenu"
+					href="#" role="button"><i class="fas fa-bars"></i></a></li>
+			</ul>
+
+			<!-- Right navbar links -->
+			<ul class="navbar-nav ml-auto">
+				<div class="float-right d-none d-sm-block">
+					<div class="btn-group justify-content-center"
+						data-toggle="buttons-checkbox">
+						<button id="lightBtn" type="button"
+							class="btn btn-sm btn-outline-secondary active">Light</button>
+						<button id="darkBtn" type="button"
+							class="btn btn-sm bg-navy btn-outline-secondary">Dark</button>
+					</div>
+				</div>
+
+			</ul>
+		</nav>
+	</div>
+
+<script type="text/javascript">
+	$(function(){
+		$('#lightBtn').click(function(){
+			$('body').removeClass('dark-mode');
+		});
+	});
+	$(function(){
+		$('#darkBtn').click(function(){
+			$('body').addClass('dark-mode');
+		});
+	});
+</script>	
+	
+</th:block>
+</html>
