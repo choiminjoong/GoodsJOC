@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" 
 	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <th:block th:replace="fragments/head :: headFragment"></th:block>
-<body class="hold-transition  sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">
+<body class="sidebar-mini sidebar-closed sidebar-collapse joc-dark1">
 <div class="wrapper">
 
 	<!-- Header -->
@@ -11,7 +11,7 @@
 	<!-- Sidebar -->
 	<th:block th:replace="fragments/sidebar :: sidebarFragment"></th:block>
 
-	<div class="content-wrapper" style="min-height: 2488.06px;">
+	<div class="content-wrapper joc-dark1" style="min-height: 2488.06px;">
 
 		<!-- 메인 컨텐츠 -->
 		<section class="content">
@@ -41,13 +41,13 @@
 		</section>
 	</div>
 
-	<!-- Control Sidebar -->
-	<aside class="control-sidebar control-sidebar-dark">
-		<!-- Control sidebar content goes here -->
-	</aside>
 
 	<!-- Footer -->
 	<th:block th:replace="fragments/footer :: footerFragment"></th:block>
+
+	<!-- Script 없으면 기능작동 안함 -->
+	<th:block th:replace="fragments/script :: scriptFragment"></th:block>
+
 
 </div>
 	
