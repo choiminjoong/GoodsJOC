@@ -5,19 +5,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/facility")
+@RequestMapping(value = "/basic_management/facility")
 public class FacilityController {
 	
 	@GetMapping("/facilityInsert")
-	public String whInsert() {
+	public String facilityInsert() {
 		
-		return "facility/facilityInsert";
+		return "basic_management/facility/facilityInsert";
 	}
 
 	@GetMapping("/facilityList")
 	public String facilityList() {
 		
-		return "facility/facilityList";
+		return "basic_management/facility/facilityList";
 	}
 	
 	

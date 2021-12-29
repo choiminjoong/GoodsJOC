@@ -5,18 +5,18 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/business")
+@RequestMapping(value = "/basic_management/business")
 public class BusinessController {
 
 	@GetMapping("/businessList")
 	public String businessList() {
 
-		return "business/businessList";
+		return "basic_management/business/businessList";
 	}
 
 	@GetMapping("/businessInsert")
 	public String businessInsert() {
 		
-		return "business/businessInsert";
+		return "basic_management/business/businessInsert";
 	}
 }

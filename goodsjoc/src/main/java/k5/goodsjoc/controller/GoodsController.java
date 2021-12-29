@@ -5,22 +5,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/goods")
+@RequestMapping(value = "/product_management/goods")
 public class GoodsController {
 
 	@GetMapping("/goodsCate")
 	public String goodsCate() {
 
-		return "goods/goodsCate";
+		return "product_management/goods/goodsCate";
 	}
 	@GetMapping("/goodsInsert")
 	public String goodsInsert() {
 		
-		return "goods/goodsInsert";
+		return "product_management/goods/goodsInsert";
 	}
-	@GetMapping("/goodsPrice")
-	public String goodsPrice() {
+	@GetMapping("/goodsList")
+	public String goodsList() {
 		
-		return "goods/goodsPrice";
+		return "product_management/goods/goodsList";
 	}
 }
