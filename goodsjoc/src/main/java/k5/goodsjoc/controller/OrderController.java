@@ -5,13 +5,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value = "/system_management/mart")
-public class MartController {
+@RequestMapping(value="/product_management/order")
+public class OrderController {
 
-	@GetMapping("/martInfo")
-	public String martInfo(){
+	@GetMapping("/orderInsert")
+	public String orderInsert() {
 
-		return "system_management/mart/martInfo";
+		return "product_management/order/orderInsert";
 	}
+	
+	
+	
 	
 }

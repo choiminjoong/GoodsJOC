@@ -1,9 +1,16 @@
 @charset "UTF-8";
 
 /* 미확정 */
-.joc-mode1{
-	color: #001F3F;
+.joc-dark1{
+	background-color: #454d55;
+	/* header, content-wrappe */
 }
+.joc-dark2{
+	background-color: #343a40;
+	/* footer */
+}
+
+
 .joc-mode2{
 	color:
 }
@@ -20,7 +27,4 @@
 /* 확정 */
 .preloader{
 	background-color: #fff;
-}
-.content-wrapper{
-	
 }

@@ -5,18 +5,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping(value= "/staff")
-public class StaffController {
+@RequestMapping(value= "/system_management/user")
+public class UserController {
 
-	@GetMapping("/staffList")
+	@GetMapping("/userList")
 	public String staffList() {
 		
-		return "staff/staffList";
+		return "system_management/user/userList";
 	}
 	
-	@GetMapping("/staffInsert")
-	public String staffInsert() {
-		
-		return "staff/staffInsert";
-	}
 }
