@@ -1,10 +1,10 @@
-package project.team5;
+package k5.goodsjoc;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class Team5ApplicationTests {
+class GoodsJocApplicationTests {
 
 	@Test
 	void contextLoads() {
