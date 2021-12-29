@@ -5,15 +5,15 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.1</version>
+		<version>2.6.2</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>project</groupId>
-	<artifactId>team5</artifactId>
+	<groupId>cafe24.t41ginew</groupId>
+	<artifactId>goodsJOC</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>team5</name>
-	<description>team5 project</description>
+	<name>goodsJOC</name>
+	<description>Project Mart-System by team goodsJOC</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>
