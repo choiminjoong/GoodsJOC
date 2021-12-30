@@ -7,23 +7,141 @@
 <th:block layout:fragment="customTitle">
 	<title>시설 조회</title>
 </th:block>
-<!-- 로케이션 제목 -->
-<th:block layout:fragment="locationTitle">
-	시설 조회
-</th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-	<a th:href="@{/main}">MAIN</a>		
-	> 기초관리 > 시설관리 > 조회
+	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>	
+	> 기초관리 > 시설관리
 </th:block>
 
 <th:block layout:fragment="customContents">
 
-<div class="row">	
+<div class="card card-warning card-tabs">
+	<div class="card-header p-0 pt-1">
+		<ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+			<li class="pt-2 px-3">
+				<h3 class="card-title">시설 등록</h3>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" id="custom-tabs-two-home-tab" href="#custom-tabs-two-home"
+				data-toggle="pill"  role="tab"aria-controls="custom-tabs-two-home" aria-selected="true">
+					창고 등록
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="custom-tabs-two-profile-tab" href="#custom-tabs-two-profile"
+				data-toggle="pill" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">
+					창고진열대 등록
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="custom-tabs-two-messages-tab" href="#custom-tabs-two-messages" 
+				data-toggle="pill" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">
+					판매진열대 등록
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="card-body">
+		<div class="tab-content" id="custom-tabs-two-tabContent">
+			<!-- 창고등록 폼 -->
+			<div class="tab-pane fade active show" id="custom-tabs-two-home"
+				role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+				<form class="form-horizontal">
+					<div class="card-body">
+						<div class="form-group row">
+							<label for="warehouseName" class="col-sm-2 col-form-label">창고명</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="warehouseName">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="warehouseType" class="col-sm-2 col-form-label">창고분류</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="warehouseType">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="warehouseType" class="col-sm-2 col-form-label">등록자</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="warehouseType" value="오대성"  readonly="readonly">
+							</div>
+						</div>
+					</div>	
+					<div class="card-body">
+						<button type="button" class="btn btn-default float-right">등록하기</button>
+					</div>
+				</form>
+			</div>
+			
+			<!-- 창고진열대 등록폼 -->
+			<div class="tab-pane fade" id="custom-tabs-two-profile"
+				role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+				<form class="form-horizontal">
+					<div class="card-body">
+						<div class="form-group row">
+							<label for="showcaseName" class="col-sm-2 col-form-label">창고진열대 위치</label>
+							<div class="col-sm-10">
+								<select id="showcaseName" class="form-control">
+									<option>창고1</option>
+									<option>창고2</option>
+									<option>창고3</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="showcaseName" class="col-sm-2 col-form-label">진열대 이름</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="showcaseName">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="staffId" class="col-sm-2 col-form-label">등록자</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="staffId" value="오대성"  readonly="readonly">
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<button type="button" class="btn btn-default float-right">등록하기</button>
+					</div>
+				</form>
+			</div>
+			
+			<!-- 판매진열대 등록 폼 -->
+			<div class="tab-pane fade" id="custom-tabs-two-messages"
+				role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
+				<form class="form-horizontal">
+					<div class="card-body">
+						<div class="form-group row">
+							<label for="martShowcaseName" class="col-sm-2 col-form-label">판매진열대 이름</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="martShowcaseName">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="staffId" class="col-sm-2 col-form-label">등록자</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="staffId" value="오대성"  readonly="readonly">
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<button type="button" class="btn btn-default float-right">등록하기</button>
+					</div>
+				</form>
+			</div>
+
+		</div>
+	</div>
+	<!-- /.card -->
+</div>
+
+
+	<div class=" row">	
 		<!-- 카테고리 리스트 화면 -->
 		<div class="row col-8">
 			<div class="col-12">
-				<div class="card card-navy color-pallete">
+				<div class="card card-warning">
 					<div class="card-header">
 						<h3 class="card-title">창고 목록</h3>
 						<div class="card-tools">
@@ -39,7 +157,7 @@
 						</div>
 					</div>
 					<!-- /.card-header -->
-					<div class="card-body table-responsive p-0" style="height: 622px;">
+					<div class="card-body table-responsive p-0" style="height: 552px;">
 						<table class="table table-head-fixed text-nowrap text-center">
 							<thead>
 								<tr>
@@ -82,14 +200,14 @@
 
 		<div class="row col-4">
 			<div class="col-12">
-				<div class="card card-navy color-pallete">
+				<div class="card card-warning">
 					<div class="card-header">
 						<h3 class="card-title">판매진열대 목록</h3>
 	
 						<div class="card-tools">
 							<div class="input-group input-group-sm" style="width: 150px;">
 								<input type="text" name="table_search"
-									class="form-control float-right" placeholder="팜매진열대 찾기">
+									class="form-control float-right" placeholder="판매진열대 찾기">
 								<div class="input-group-append">
 									<button type="submit" class="btn btn-default">
 										<i class="fas fa-search"></i>
@@ -99,7 +217,7 @@
 						</div>
 					</div>
 					<!-- /.card-header -->
-					<div class="card-body table-responsive p-0" style="height: 670px;">
+					<div class="card-body table-responsive p-0" style="height: 600px;">
 						<table class="table table-head-fixed text-nowrap text-center">
 							<thead>
 								<tr>
