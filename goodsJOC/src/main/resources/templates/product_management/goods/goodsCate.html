@@ -5,16 +5,12 @@
 	
 <!-- 페이지 제목 공간 -->
 <th:block layout:fragment="customTitle">
-	<title>상품 카테고리 관리</title>
-</th:block>
-<!-- 로케이션 제목 -->
-<th:block layout:fragment="locationTitle">
-	상품 카테고리 관리
+	<title>상품 카테고리</title>
 </th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-	<a th:href="@{/main}">MAIN</a>
-	> 상품관리 > 상품 > 카테고리 관리
+	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
+		> 상품관리 > 카테고리
 </th:block>
 	
 <!-- 메인 컨텐츠 영역 -->		
@@ -24,7 +20,7 @@
 		<!-- 카테고리 리스트 화면 -->
 		<div class="row col-9">
 			<div class="col-12">
-				<div class="card card-navy color-pallete">
+				<div class="card card-warning">
 					<div class="card-header">
 						<h3 class="card-title">카테고리 목록</h3>
 	
@@ -61,10 +57,10 @@
 									<td>John Doe</td>
 									<td>11-7-2014</td>
 									<td>
-										<button type="button" class="btn btn-outline-secondary btn-xs">수정하기</button>
+										<button type="button" class="btn btn-outline-primary btn-xs">수정하기</button>
 									</td>
 									<td>
-										<button type="button" class="btn btn-outline-secondary btn-xs">삭제하기</button>
+										<button type="button" class="btn btn-outline-danger btn-xs">삭제하기</button>
 									</td>
 								</tr>
 							</tbody>
@@ -78,7 +74,7 @@
 		
 		<!-- 카테고리 등록폼 -->
 		<div class="col-3">
-			<div class="card card-navy color-palette-box">
+			<div class="card card-warning">
 				<div class="card-header">
 					<h3 class="card-title">
 						카테고리 등록
@@ -112,7 +108,7 @@
 						<input type="text" class="form-control rounded-2" 
 							id="staffName" value="최민중" readonly="readonly">
 					</div>
-					<button type="button" class="btn btn-block bg-gradient-primary">등록하기</button>
+					<button type="button" class="btn btn-block bg-gradient-warning">등록하기</button>
 				</div>
 			</div>
 		</div>

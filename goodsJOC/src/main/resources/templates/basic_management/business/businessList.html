@@ -1,24 +1,242 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="@{layout/default}">
-	
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
 <!-- 페이지 제목 공간 -->
 <th:block layout:fragment="customTitle">
 	<title>거래처 조회</title>
 </th:block>
 <!-- 로케이션 제목 -->
 <th:block layout:fragment="locationTitle">
-	거래처 조회
+
 </th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
 	<a th:href="@{/main}">MAIN</a>
-	> 기초관리 > 거래처 관리 > 조회
-</th:block>
+		> 기초관리 > 거래처 관리 > 조회
+	</th:block>
 
-<!-- 메인 컨텐츠 영역 -->		
-<th:block layout:fragment="customContents">	       	 
+<!-- 메인 컨텐츠 영역 -->
+<th:block layout:fragment="customContents">
+	<div class="card card-warning card-tabs" style="margin-top: -1%">
+		<div class="card-header">
+			<h3 class="card-title">
+				<b>거래처 조회</b>
+			</h3>
+		</div>
+		<div class="card-body">
+			<div class="tab-content" id="custom-tabs-two-tabContent">
+				<!-- 주문검색 -->
+				<div class="form-group row">
+					<label class="col-sm-1 col-form-label">상세 검색</label>
+					<div class="col-sm-2">
+						<select id="orderCode" class="form-control custom-select">
+							<option value="개인">개인</option>
+							<option value="기업">기업</option>
+							<option value="거래처명">거래처명</option>
+							<option value="담당자">담당자</option>
+						</select>
 
+					</div>
+					<div class="input-group input-group-m" style="width: 500px;">
+						<input type="text" name="table_search" style="margin-left: 3%"
+							class="form-control float-right" placeholder="개인, 기업, 거래처명, 담당자로 검색할 수 있습니다.">
+					</div>
+					<div align="right" style="margin-left: 10%">
+						<a href="#">
+						<button type="button" class="btn-lg btn-warning" style="height: 90px;">
+							<b>검색</b>
+						</button></a>
+						<a href="businessInsert">
+						<button type="button" class="btn-lg btn-warning" style="height: 90px;">
+							<b>등록</b>
+						</button></a>
+					</div>
+				</div>
+				<!-- 주문일자검색 -->
+				<div class="form-group row" style="margin-top: -5%">
+					<label class="col-sm-1 col-form-label">일자 검색</label>
+					<div class="col-sm-5">
+						<input type="date" id="date" class="form-control">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- 거래처 리스트 화면 -->
+	<div class="col-md-13" style="margin-top: 1%">
+		<div class="card card-warning color-pallete">
+			<div class="card-header p-0 pt-1">
+				<h3 class="card-title"></h3>
+			</div>
+			<!-- /.card-header -->
+			<div class="card-body table-responsive p-0"> 
+				<table class="table table-head-fixed text-nowrap text-center">
+					<thead>
+						<tr>
+							<th>번호</th>
+							<th>구분</th>
+							<th>거래처명</th>
+							<th>대표자명</th>
+							<th>사업장등록번호</th>
+							<th>업종</th>
+							<th>업태</th>
+							<th>등록일</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>1</td>
+							<td>JB0001</td>
+							<td>애플마트</td>
+							<td>최민중</td>
+							<td>123-45-6789</td>
+							<td>123-45-6789</td>
+							<td>123-45-6789</td>
+							<td>2021-12-12</td>
+							<td class="text-right py-0 align-middle">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>JB0002</td>
+							<td>다모아마트</td>
+							<td>정도혜</td>
+							<td>532-45-1234</td>
+							<td>532-45-1234</td>
+							<td>532-45-1234</td>
+							<td>2021-12-12</td>
+							<td class="text-right py-0 align-middle">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>3</td>
+							<td>JB0003</td>
+							<td>이마트</td>
+							<td>오대성</td>
+							<td>532-45-1234</td>
+							<td>532-45-1234</td>
+							<td>532-45-1234</td>
+							<td>2021-12-12</td>
+							<td class="text-right py-0 align-middle">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>JB0004</td>
+							<td>싸그리마트</td>
+							<td>이영철</td>
+							<td>495-39-356</td>
+							<td>495-39-356</td>
+							<td>495-39-356</td>
+							<td>2021-12-12</td>
+							<td class="text-right py-0 align-middle">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>4</td>
+							<td>JB0005</td>
+							<td>순순마트</td>
+							<td>문영호</td>
+							<td>678-23-689</td>
+							<td>678-23-689</td>
+							<td>678-23-689</td>
+							<td>2021-12-12</td>
+							<td class="text-right py-0 align-middle">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>5</td>
+							<td>JB0006</td>
+							<td>호호마트</td>
+							<td>김호영</td>
+							<td>678-23-689</td>
+							<td>678-23-689</td>
+							<td>678-23-689</td>
+							<td>2021-12-12</td>
+							<td class="text-right py-0 align-middle">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>6</td>
+							<td>JB0007</td>
+							<td>인후동마트</td>
+							<td>김문혜</td>
+							<td>679-495-594</td>
+							<td>679-495-594</td>
+							<td>679-495-594</td>
+							<td>2021-12-12</td>
+							<td class="text-right py-0 align-middle">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>7</td>
+							<td>JB0008</td>
+							<td>송천마트</td>
+							<td>김하현</td>
+							<td>123-567-777</td>
+							<td>123-567-777</td>
+							<td>123-567-777</td>
+							<td>2021-12-12</td>
+							<td class="text-right py-0 align-middle">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td>8</td>
+							<td>JB0008</td>
+							<td>송천마트</td>
+							<td>김하현</td>
+							<td>123-567-777</td>
+							<td>123-567-777</td>
+							<td>123-567-777</td>
+							<td>2021-12-12</td>
+							<td class="text-right py-0 align-middle">
+								<div class="btn-group btn-group-sm">
+									<a href="#" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer"></div>
+		</div>
+	</div>
 </th:block>
 </html>

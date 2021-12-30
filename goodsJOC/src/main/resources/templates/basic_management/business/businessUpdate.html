@@ -6,7 +6,7 @@
 
 <!-- 페이지 제목 공간 -->
 <th:block layout:fragment="customTitle">
-	<title>거래처 등록</title>
+	<title>거래처 수정</title>
 </th:block>
 <!-- 로케이션 제목 -->
 <th:block layout:fragment="locationTitle">
@@ -15,7 +15,7 @@
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
 	<a th:href="@{/main}">MAIN</a>
-		> 기초관리 > 거래처 관리 > 등록
+		> 기초관리 > 거래처 관리 > 거래처 수정
 	</th:block>
 
 <!-- 메인 컨텐츠 영역 -->
@@ -23,34 +23,34 @@
 
 	<!-- 거래처 등록  -->
 	<div class="row justify-content-center">
-		<div class="col-md-8" style="margin-top: -1%">
+		<div class="col-md-7" style="margin-top: -1%">
 			<div class="card card-primary">
-				<div class="btn-sm bg-warning color-palette btn-block card-header ">
-					<b><i class="fas fa-check"></i>ㅤ거래처 등록</b>
+				<div class="btn-sm bg-navy color-palette btn-block card-header ">
+					<b><i class="fas fa-check"></i>ㅤ거래처 수정</b>
 				</div>
 
 				<div class="card-body">
 					<div class="form-group row">
 						<label for="Name" class="col-sm-3 col-form-label">* 거래처명</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="Name"
-								placeholder="필수입력해주세요.">
+							<input type="text" class="form-control" id="warehouseType"
+								value="애플마트" readonly="readonly">
 						</div>
 					</div>
+
 
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label">* 대표자명</label>
 						<div class="col-sm-9">
-							<input type="password" class="form-control" id="businesName"
-								placeholder="필수입력해주세요.">
+							<input type="text" class="form-control" id="businesName"
+								value="최민중" readonly="readonly">
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label">* 사업장등록번호</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="businesPartnerNum"
-								placeholder="필수입력해주세요.">
+							<input type="text" class="form-control" id="businesPartnerNum">
 						</div>
 					</div>
 
@@ -71,7 +71,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label">* 담당자 이름</label>
+						<label class="col-sm-3 col-form-label">*담당자 이름</label>
 						<div class="col-sm-9">
 							<input type="text" class="form-control" id="businesStaff"
 								placeholder="필수입력해주세요.">
@@ -79,7 +79,7 @@
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label">* 전화번호</label>
+						<label class="col-sm-3 col-form-label">전화번호</label>
 						<div class="col-sm-9">
 							<input type="tel" class="form-control" id="businesPhoneNum"
 								placeholder="...">
@@ -87,44 +87,23 @@
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label">* 이메일</label>
+						<label class="col-sm-3 col-form-label">상세주소</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="businesAddress"
+								placeholder="...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">이메일</label>
 						<div class="col-sm-9">
 							<input type="email" class="form-control" id="businesStaffEmail"
 								placeholder="...">
 						</div>
 					</div>
-					<div class="form-group row">
-						<label class="col-sm-3 col-form-label">* 상세주소</label>
-						<div class="col-sm-9">
-
-							<!--카카오톡 우편번호 api  -->
-							<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-							<script charset="UTF-8" type="text/javascript"
-								src="//t1.daumcdn.net/postcode/api/core/211103/1635999227231/211103.js"></script>
-							<script src="/resources/js/addressapi.js"></script>
-							<div class="form-group">
-								<input class="form-control" style="width: 40%; display: inline;"
-									placeholder="우편번호" name="addr1" id="addr1" type="text"
-									readonly="readonly">
-								<button type="button" class="btn btn-default"
-									onclick="execPostCode();">
-									<i class="fa fa-search"></i> 우편번호 찾기
-								</button>
-							</div>
-							<div class="form-group">
-								<input class="form-control" style="top: 5px;"
-									placeholder="도로명 주소" name="addr2" id="addr2" type="text"
-									readonly="readonly">
-							</div>
-							<div class="form-group">
-								<input class="form-control" placeholder="상세주소" name="addr3"
-									id="addr3" type="text">
-							</div>
-						</div>
-					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label">주거래 통장</label>
+						<label class="col-sm-3 col-form-label">주거래통장</label>
 						<div class="col-sm-9">
 							<input type="text" class="form-control" id="businesMainAccount"
 								placeholder="...">
@@ -148,16 +127,16 @@
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label">등록일자</label>
+						<label class="col-sm-3 col-form-label">등록일</label>
 						<div class="col-sm-9">
-							<input type="date" class="form-control" id="regDate"
+							<input type="datetime-local" class="form-control" id="regDate"
 								placeholder="...">
 						</div>
 					</div>
 				</div>
 				<!-- 등록버튼  -->
 				<a href="staffInsert"
-					class="btn btn-m bg-warning color-palette btn-block"><b>등록</b></a>
+					class="btn btn-m bg-navy color-palette btn-block"><b>수정 완료</b></a>
 			</div>
 		</div>
 	</div>
