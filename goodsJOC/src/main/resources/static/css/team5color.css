@@ -1,18 +1,14 @@
 @charset "UTF-8";
 
 /* 미확정 */
-.joc-dark1{
-	background-color: #454d55;
-	/* header, content-wrappe */
-}
-.joc-dark2{
-	background-color: #343a40;
-	/* footer */
-}
 
 
-.joc-mode2{
-	color:
+
+#main{
+	color: #fff; 
+}
+#main:hover {
+	color: #ffff00; 
 }
 .joc-1{
 	background-color: #fff;
@@ -27,4 +23,12 @@
 /* 확정 */
 .preloader{
 	background-color: #fff;
+}
+.joc-dark1{
+	background-color: #454d55;
+	/* header, content-wrappe */
+}
+.joc-dark2{
+	background-color: #343a40;
+	/* footer */
 }
