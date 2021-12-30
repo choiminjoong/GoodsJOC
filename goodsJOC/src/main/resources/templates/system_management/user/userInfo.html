@@ -7,13 +7,10 @@
 <th:block layout:fragment="customTitle">
 	<title>주문관리</title>
 </th:block>
-<!-- 로케이션 제목 -->
-<th:block layout:fragment="locationTitle">
-</th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-	<a th:href="@{/main}">MAIN</a>
-		> 기초관리 > 직원관리 > 직원상세보기
+	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
+		> 기초관리 > 직원관리 > 상세보기
 	</th:block>
 
 <!-- 메인 컨텐츠 영역 -->

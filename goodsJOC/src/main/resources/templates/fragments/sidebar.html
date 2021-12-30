@@ -89,7 +89,8 @@
 									<p>조회</p>
 								</a>
 							</li>
-						</ul>						
+						</ul>
+					</li>						
 
 					<!-- 거래관리-매입,매출 -->
 					<li class="nav-item">
@@ -99,18 +100,25 @@
 						</a>
 						<ul class="nav nav-treeview">
 							<li class="nav-item">
-								<a th:href="@{/product_management/goods/goodsList}" class="nav-link"> 
+								<a th:href="@{/trade_management/sales/salesInsert}" class="nav-link"> 
 									<i class="far fa-circle nav-icon"></i>
 									<p>매출 등록</p>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a th:href="@{/}" class="nav-link"> 
+								<a th:href="@{/trade_management/sales/salesList}" class="nav-link"> 
 									<i class="far fa-circle nav-icon"></i>
-									<p>매입/매출 조회</p>
+									<p>매출 및 영수증</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a th:href="@{/trade_management/sales/salesList}" class="nav-link"> 
+									<i class="far fa-circle nav-icon"></i>
+									<p>매입 및 거래명세서</p>
 								</a>
 							</li>
 						</ul>
+					</li>
 
 					<!-- 재고-입출고,재고이동,재고현황 -->
 					<li class="nav-item">
@@ -120,30 +128,37 @@
 						</a>
 						<ul class="nav nav-treeview">
 							<li class="nav-item">
-								<a href="#" class="nav-link"> 
+								<a th:href="@{/stock_management/warehousing/warehousingInsert}" class="nav-link"> 
 									<i class="far fa-circle nav-icon"></i>
 									<p>입고</p>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="#" class="nav-link"> 
+								<a th:href="@{/stock_management/display/displayList}" class="nav-link"> 
 									<i class="far fa-circle nav-icon"></i>
 									<p>재고 이동</p>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="#" class="nav-link"> 
+								<a th:href="@{/stock_management/goodsReturn/returnInsert}" class="nav-link"> 
 									<i class="far fa-circle nav-icon"></i>
-									<p>반품/폐기</p>
+									<p>반품</p>
 								</a>
 							</li>
 							<li class="nav-item">
-								<a href="#" class="nav-link"> 
+								<a th:href="@{/stock_management/disposal/disposalList}" class="nav-link"> 
+									<i class="far fa-circle nav-icon"></i>
+									<p>폐기</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a th:href="@{/stock_management/warehousing/warehousingList}" class="nav-link"> 
 									<i class="far fa-circle nav-icon"></i>
 									<p>재고 현황</p>
 								</a>
 							</li>
 						</ul>
+					</li>
 
 					<!-- 현황조회 -->
 					<li class="nav-item">

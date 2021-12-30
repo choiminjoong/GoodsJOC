@@ -7,24 +7,23 @@
 <th:block layout:fragment="customTitle">
 	<title>거래처 조회</title>
 </th:block>
-<!-- 로케이션 제목 -->
-<th:block layout:fragment="locationTitle">
-
-</th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-	<a th:href="@{/main}">MAIN</a>
-		> 기초관리 > 거래처 관리 > 조회
+	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
+		> 기초관리 > 거래처 관리
 	</th:block>
 
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
+
 	<div class="card card-warning card-tabs" style="margin-top: -1%">
 		<div class="card-header">
 			<h3 class="card-title">
-				<b>거래처 조회</b>
+				<b>거래처 관리</b>
 			</h3>
 		</div>
+			<!-- /.card-header -->
+		
 		<div class="card-body">
 			<div class="tab-content" id="custom-tabs-two-tabContent">
 				<!-- 주문검색 -->
@@ -41,21 +40,24 @@
 					</div>
 					<div class="input-group input-group-m" style="width: 500px;">
 						<input type="text" name="table_search" style="margin-left: 3%"
-							class="form-control float-right" placeholder="개인, 기업, 거래처명, 담당자로 검색할 수 있습니다.">
+							class="form-control float-right" placeholder="search...">
+						<div class="input-group-append">
+							<button type="submit" class="btn btn-default"></button>
+						</div>
 					</div>
-					<div align="right" style="margin-left: 10%">
-						<a href="#">
-						<button type="button" class="btn-lg btn-warning" style="height: 90px;">
+					<div align="right" style="margin-left: 15%">
+						<button type="button" class="btn btn-warning">
 							<b>검색</b>
-						</button></a>
-						<a href="businessInsert">
-						<button type="button" class="btn-lg btn-warning" style="height: 90px;">
-							<b>등록</b>
-						</button></a>
+						</button>
+						<a th:href="@{/basic_management/business/businessInsert}">
+							<button type="button" class="btn btn-warning">
+								<b>등록</b>
+							</button>
+						</a>
 					</div>
 				</div>
 				<!-- 주문일자검색 -->
-				<div class="form-group row" style="margin-top: -5%">
+				<div class="form-group row">
 					<label class="col-sm-1 col-form-label">일자 검색</label>
 					<div class="col-sm-5">
 						<input type="date" id="date" class="form-control">
@@ -65,14 +67,12 @@
 		</div>
 	</div>
 
+
 	<!-- 거래처 리스트 화면 -->
-	<div class="col-md-13" style="margin-top: 1%">
+	<div class="col-md-13" style="margin-top: -1%">
 		<div class="card card-warning color-pallete">
-			<div class="card-header p-0 pt-1">
-				<h3 class="card-title"></h3>
-			</div>
-			<!-- /.card-header -->
-			<div class="card-body table-responsive p-0"> 
+			<div class="card-header p-0 pt-1"></div>
+			<div class="card-body table-responsive p-0" style="height: 520px;">
 				<table class="table table-head-fixed text-nowrap text-center">
 					<thead>
 						<tr>
