@@ -14,7 +14,7 @@ public class SalesController {
 		System.out.println("경로: trade_management/sales/salesInsert(GET방식 성공) ");
 		
 		return "trade_management/sales/salesInsert";
-	}
+  }
 	
 	@GetMapping("/salesList")
 	public String salesList() {
