@@ -14,12 +14,13 @@ public class SalesController {
 		System.out.println("경로: trade_management/sales/salesInsert(GET방식 성공) ");
 		
 		return "trade_management/sales/salesInsert";
-	}
-	@GetMapping("/purchaseList1")
-	public String purchaseList1() {
+  }
+	
+	@GetMapping("/salesList")
+	public String salesList() {
 		System.out.println("페이지: 매출 조회");
-		System.out.println("경로: trade_management/sales/purchaseList1(GET방식 성공) ");
+		System.out.println("경로: trade_management/sales/salesList(GET방식 성공) ");
 		
-		return "trade_management/sales/purchaseList1";
+		return "trade_management/sales/salesList";
 	}
 }
