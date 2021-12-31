@@ -18,10 +18,17 @@ public class DisplayController {
 
 	@GetMapping("displayUpdate")
 	public String displayUpdate() {
-		System.out.println("페이지: 재고 이동 조회 ");
+		System.out.println("페이지: 재고 이동 정보 수정 ");
 		System.out.println("경로: stock_management/display/displayUpdate(GET방식 성공) ");
 		
 		return "/stock_management/display/displayUpdate";
+	}
+	@GetMapping("displayList")
+	public String displayList() {
+		System.out.println("페이지: 재고 이동 조회 ");
+		System.out.println("경로: stock_management/display/displayList(GET방식 성공) ");
+		
+		return "/stock_management/display/displayList";
 	}
 	
 	
