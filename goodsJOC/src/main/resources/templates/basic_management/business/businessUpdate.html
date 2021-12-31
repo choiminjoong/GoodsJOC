@@ -1,0 +1,146 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+
+<!-- 페이지 제목 공간 -->
+<th:block layout:fragment="customTitle">
+	<title>거래처 수정</title>
+</th:block>
+<!-- 로케이션 제목 -->
+<th:block layout:fragment="locationTitle">
+
+</th:block>
+<!-- 로케이션 위치 -->
+<th:block layout:fragment="locationPlace">
+	<a th:href="@{/main}">MAIN</a>
+		> 기초관리 > 거래처 관리 > 거래처 수정
+	</th:block>
+
+<!-- 메인 컨텐츠 영역 -->
+<th:block layout:fragment="customContents">
+
+	<!-- 거래처 등록  -->
+	<div class="row justify-content-center">
+		<div class="col-md-7" style="margin-top: -1%">
+			<div class="card card-primary">
+				<div class="btn-sm bg-warning color-palette btn-block card-header ">
+					<b><i class="fas fa-check"></i>ㅤ거래처 수정</b>
+				</div>
+
+				<div class="card-body">
+					<div class="form-group row">
+						<label for="Name" class="col-sm-3 col-form-label">* 거래처명</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="warehouseType"
+								value="애플마트" readonly="readonly">
+						</div>
+					</div>
+
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">* 대표자명</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="businesName"
+								value="최민중" readonly="readonly">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">* 사업장등록번호</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="businesPartnerNum">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">업태</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="businesStatus"
+								placeholder="...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">업종</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="businesSectors"
+								placeholder="...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">*담당자 이름</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="businesStaff"
+								placeholder="필수입력해주세요.">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">전화번호</label>
+						<div class="col-sm-9">
+							<input type="tel" class="form-control" id="businesPhoneNum"
+								placeholder="...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">상세주소</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="businesAddress"
+								placeholder="...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">이메일</label>
+						<div class="col-sm-9">
+							<input type="email" class="form-control" id="businesStaffEmail"
+								placeholder="...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">주거래통장</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="businesMainAccount"
+								placeholder="...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">계좌번호</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="businesAccountNum"
+								placeholder="...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">예금주</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" id="businesAccountHolder"
+								placeholder="...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">등록일</label>
+						<div class="col-sm-9">
+							<input type="datetime-local" class="form-control" id="regDate"
+								placeholder="...">
+						</div>
+					</div>
+				</div>
+				<!-- 등록버튼  -->
+				<a href="businessList"
+					class="btn btn-m bg-warning  color-palette btn-block"><b>수정 완료</b></a>
+			</div>
+		</div>
+	</div>
+
+
+</th:block>
+</html>
