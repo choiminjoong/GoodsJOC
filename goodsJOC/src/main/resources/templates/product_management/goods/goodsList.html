@@ -5,24 +5,20 @@
 	
 <!-- 페이지 제목 공간 -->
 <th:block layout:fragment="customTitle">
-	<title>상품 단가 관리</title>
-</th:block>
-<!-- 로케이션 제목 -->
-<th:block layout:fragment="locationTitle">
-	상품 단가 관리
+	<title>상품 조회</title>
 </th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-	<a th:href="@{/main}">MAIN</a>
-	> 기초관리 > 상품 > 단가관리
+<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
+	> 상품관리 > 조회
 </th:block>
 
 <!-- 메인 컨텐츠 영역 -->		
 <th:block layout:fragment="customContents">	       	 
 
-	<div class="card card-navy color-pallete">
+	<div class="card card-warning">
 		<div class="card-header">
-			<h3 class="card-title">상품 단가</h3>
+			<h3 class="card-title">상품 조회</h3>
 			<div class="card-tools">
 				<div class="input-group input-group-sm" style="width: 150px;">
 					<input type="text" name="table_search"
@@ -55,10 +51,10 @@
 						<td>John Doe</td>
 						<td>11-7-2014</td>
 						<td>
-							<button type="button" class="btn btn-outline-secondary btn-xs">수정하기</button>
+							<button type="button" class="btn btn-outline-primary btn-xs">수정하기</button>
 						</td>
 						<td>
-							<button type="button" class="btn btn-outline-secondary btn-xs">삭제하기</button>
+							<button type="button" class="btn btn-outline-danger btn-xs">삭제하기</button>
 						</td>
 					</tr>
 				</tbody>

@@ -7,13 +7,10 @@
 <th:block layout:fragment="customTitle">
 	<title>주문관리</title>
 </th:block>
-<!-- 로케이션 제목 -->
-<th:block layout:fragment="locationTitle">
-</th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-	<a th:href="@{/main}">MAIN</a>
-		> 기초관리 > 직원관리 > 직원정보수정
+	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
+		> 기초관리 > 직원관리 > 상세보기
 	</th:block>
 
 <!-- 메인 컨텐츠 영역 -->
@@ -34,7 +31,7 @@
 							</div>
 
 							<h3 class="profile-username text-center" style="margin-top: 20%">정도혜
-								관리자</h3>
+								사원</h3>
 
 							<p class="text-muted text-center">manager</p>
 							<ul class="list-group list-group-unbordered mb-4">
@@ -52,25 +49,25 @@
 					<div class="col-md-7">
 						<div class="card card-primary">
 							<div class="btn-sm bg-navy color-palette btn-block card-header ">
-								<b><i class="fas fa-check"></i>ㅤㅤ사원정보수정</b>
+								<b><i class="fas fa-check"></i>ㅤ사원정보 상세보기</b>
 							</div>
 							<div class="card-body">
 								<div class="form-group">
-									<label>* 이름</label> <input type="text" id="Name"
-										class="form-control">
+									<label>이름</label> 
+									<input type="text" id="Name"class="form-control" value="정도혜">
 								</div>
 
 								<div class="form-group">
-									<label>* 생년월일</label> <input type="date" id="staffBirth"
-										class="form-control">
+									<label>생년월일</label> <input type="date" id="userBirth"
+										class="form-control" value="1997-04-14">
 								</div>
 								<div class="form-group">
-									<label>* 사원직급</label> <input type="text" id="staffLevel"
-										class="form-control">
+									<label>사원직급</label> <input type="text" id="userLevel"
+										class="form-control" value="사원">
 								</div>
 
 								<div class="form-group">
-									<label>* 권한</label> <select id="levelNum"
+									<label>권한</label> <select id="levelNum"
 										class="form-control custom-select">
 										<option value="최고경영자 (관리자)">최고경영자(관리자)</option>
 										<option value="매니저">매니저</option>
@@ -80,7 +77,7 @@
 
 								<div class="form-group">
 									<label>Email</label> <input type="text" id="Email"
-										class="form-control">
+										class="form-control" value="ehgp8243@hanmail.net">
 								</div>
 
 								<div class="form-group">
@@ -89,8 +86,8 @@
 								</div>
 
 								<div class="form-group">
-									<label>전화번호</label> <input type="text" id="staffPhone"
-										class="form-control">
+									<label>전화번호</label> <input type="text" id="userPhone"
+										class="form-control" value="010-000-000">
 								</div>
 
 								<div class="form-group">
@@ -115,13 +112,14 @@
 											readonly="readonly">
 									</div>
 									<div class="form-group">
-										<input class="form-control" placeholder="상세주소" name="addr3"
+										<input class="form-control" value="전라북도 전주시 덕진구 인후동" name="addr3"
 											id="addr3" type="text">
 									</div>
 									<!--   <input type="button" onclick="kakaopost" class="form-control" value="우편번호찾기" style="text-align: left;"> -->
+
 									<!-- 등록버튼  -->
-									<a href="staffInsert"
-										class="btn btn-m bg-navy color-palette btn-block"><b>수정완료</b></a>
+									<a href="userInsert"
+										class="btn btn-m bg-navy color-palette btn-block"><b>확인</b></a>
 								</div>
 							</div>
 						</div>

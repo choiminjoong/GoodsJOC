@@ -25,29 +25,6 @@
 
 			<section class="content">
 				<div class="row justify-content-center" style="margin-top: -3%">
-					<!-- Profile Image -->
-					<div class="col-sm-3 card card-navy color-palette card-outline">
-						<div class="card-body box-profile">
-							<div class="text-center">
-								<img class="profile-user-img img-fluid img-circle"
-									src="../../dist/img/user2.png" alt="user-avatar">
-							</div>
-
-							<h3 class="profile-username text-center" style="margin-top: 20%">정도혜
-								관리자</h3>
-
-							<p class="text-muted text-center">manager</p>
-							<ul class="list-group list-group-unbordered mb-4">
-								<li class="list-group-item"><b>ID</b> <a
-									class="float-right">ehgp0343</a></li>
-								<li class="list-group-item"><b>사업장 코드</b> <a
-									class="float-right">mart1</a></li>
-								<li class="list-group-item"><b>사업장명</b> <a
-									class="float-right">OK마트</a></li>
-							</ul>
-						</div>
-					</div>
-
 					<!-- 사원정보입력폼  -->
 					<div class="col-md-7">
 						<div class="card card-primary">
@@ -61,11 +38,11 @@
 								</div>
 
 								<div class="form-group">
-									<label>* 생년월일</label> <input type="date" id="staffBirth"
+									<label>* 생년월일</label> <input type="date" id="userBirth"
 										class="form-control">
 								</div>
 								<div class="form-group">
-									<label>* 사원직급</label> <input type="text" id="staffLevel"
+									<label>* 사원직급</label> <input type="text" id="userLevel"
 										class="form-control">
 								</div>
 
@@ -74,7 +51,8 @@
 										class="form-control custom-select">
 										<option value="최고경영자 (관리자)">최고경영자(관리자)</option>
 										<option value="매니저">매니저</option>
-										<option value="사원">사원</option>
+										<option value="직원">직원</option>
+										<option value="비권한자">비권한자</option>
 									</select>
 								</div>
 
@@ -89,7 +67,7 @@
 								</div>
 
 								<div class="form-group">
-									<label>전화번호</label> <input type="text" id="staffPhone"
+									<label>전화번호</label> <input type="text" id="userPhone"
 										class="form-control">
 								</div>
 
@@ -121,7 +99,7 @@
 									<!--   <input type="button" onclick="kakaopost" class="form-control" value="우편번호찾기" style="text-align: left;"> -->
 
 									<!-- 등록버튼  -->
-									<a href="staffInsert"
+									<a href="userInsert"
 										class="btn btn-m bg-navy color-palette btn-block"><b>등록</b></a>
 								</div>
 							</div>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -13,8 +14,8 @@
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
 	<a th:href="@{/main}">MAIN</a>
-		> 기초관리 > 주문관리 > 주문서 등록
-	</th:block>
+			> 기초관리 > 주문관리 > 주문서 등록
+		</th:block>
 
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
@@ -26,7 +27,7 @@
 			<section class="content">
 				<div class="row justify-content-center" style="margin-top: -3%">
 					<!-- Profile Image -->
-					<div class="col-sm-2 card card-navy color-palette card-outline">
+					<div class="col-sm-2 card card-warning color-palette card-outline">
 						<div class="card-body box-profile">
 							<div class="text-center">
 								<img class="profile-user-img img-fluid img-circle"
@@ -42,13 +43,11 @@
 							</p>
 							<ul class="list-group list-group-unbordered mb-4">
 								<li class="list-group-item"><b>* 거래처 코드</b>
-									<p class="text-muted text-center">
-										<input type="text" id="Name" class="form-control">
-									</p>
-									<button type="button"
-										class="btn-sm bg-navy disabled color-palette"
-										data-toggle="modal" data-target="#exampleModalCenter1">거래처코드찾기
-									</button>
+									<button type="button" 
+										class="btn-sm bg-gray disabled color-palette"
+										data-toggle="modal" data-target="#exampleModalCenter1">거래처 찾기
+									</button> 
+								<input type="text" id="code" class="form-control">
 								<li class="list-group-item"><b>* 발주 관리번호</b> <a
 									class="float-right"><input type="text" id="Name"
 										class="form-control"></a></li>
@@ -59,7 +58,7 @@
 					<!--주문서입력폼  -->
 					<div class="col-md-9">
 						<div class="card card-primary">
-							<div class="bg-navy color-palette btn-block card-header ">
+							<div class="bg-warning color-palette btn-block card-header ">
 								<b><i class="fas fa-check"></i>ㅤ주문서 작성</b>
 							</div>
 							<div class="card-body">
@@ -72,10 +71,9 @@
 									<label>요청일</label> <input type="date" id="date"
 										class="form-control">
 								</div>
-								
-								<!--  상품목록  -->
+								<!--  상품목록 -->
 								<div class="col-md-16">
-									<div class="card card-navy color-pallete">
+									<div class="card card-warning color-pallete">
 										<div class="card-header">
 											<h3 class="card-title">
 												<b>주문목록</b>
@@ -90,10 +88,9 @@
 													<tr>
 														<th>
 															<button type="button"
-																class="btn-sm bg-navy disabled color-palette"
+																class="btn-sm bg-gray disabled color-palette"
 																data-toggle="modal" data-target="#exampleModalCenter2">상품찾기
 															</button>
-															
 														</th>
 														<th>수량</th>
 														<th>단가</th>
@@ -196,13 +193,11 @@
 																<td>2.</td>
 																<td>고당도 포도</td>
 																<td>1</td>
-																</td>
 																<td>
 																	<div>
 																		<a href="goodsCheck"><button type="button"
 																				class="btn btn-xs btn-secondary">선택</button></a>
 																	</div>
-
 																</td>
 															</tr>
 															<tr>
@@ -327,8 +322,8 @@
 									</div>
 								</div>
 								<!-- 등록버튼  -->
-								<a href="orderLook"
-									class="btn btn-m bg-navy color-palette btn-block"><b>등록</b></a>
+								<a th:href="@{/product_management/order/orderList}"
+									class="btn btn-m bg-warning color-palette btn-block"><b>등록</b></a>
 							</div>
 						</div>
 					</div>
