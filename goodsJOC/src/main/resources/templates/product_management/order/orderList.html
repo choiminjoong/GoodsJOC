@@ -19,7 +19,7 @@
 
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
-	<!-- 거래처 리스트 화면 -->
+	<!-- 주문 검색,등록버튼 -->
 	<div class="col-md-14">
 		<div class="card card-warning color-pallete">
 			<div class="card-header">
@@ -28,20 +28,18 @@
 				</h3>
 			</div>
 			<div class="card-body">
-				<div align="right" style="margin-left: 10%">
+				<div align="right" style="margin-left: 5%">
 					<a href="#">
-						<button type="button" class="btn-lg btn-warning"
-							style="height: 90px;">
+						<button type="button" class="btn-lg btn-info">
 							<b>검색</b>
 						</button>
 					</a> <a href="orderlnsert">
-						<button type="button" class="btn-lg btn-warning"
-							style="height: 90px;">
+						<button type="button" class="btn-lg btn-info">
 							<b>등록</b>
 						</button>
 					</a>
 				</div>
-				<div class="tab-content" id="custom-tabs-two-tabContent" style="margin-top: -8%">
+				<div class="tab-content" id="custom-tabs-two-tabContent" style="margin-top:-4%">
 					<!-- 주문검색 -->
 					<div class="form-group row">
 						<label class="col-sm-1 col-form-label">주문검색</label>
@@ -83,14 +81,13 @@
 
 
 	<!-- 주문테이블 -->
-		<div class="col-md-13" style="margin-top: 1%">
+		<div class="col-md-13" style="margin-top: -1%">
 			<div class="card card-warning color-pallete">
 				<div class="card-header p-0 pt-1">
 				<h3 class="card-title"></h3>
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body table-responsive p-0"> 
-					<div style="margin-top: -1%"></div>
 					<table class="table table-head-fixed text-nowrap text-center">
 						<thead>
 							<tr>
