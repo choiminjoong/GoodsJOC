@@ -12,6 +12,14 @@ public class User {
 	private String martCode;
 	private String levelNum;
 	private String regDate;
+	private Level level;
+
+	public Level getLevel() {
+		return level;
+	}
+	public void setLevel(Level level) {
+		this.level = level;
+	}
 	
 	@Override
 	public String toString() {

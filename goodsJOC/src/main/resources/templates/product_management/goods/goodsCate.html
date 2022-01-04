@@ -51,11 +51,11 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
+								<tr th:if="${not #lists.isEmpty(goodsCateList)}" th:each="l : ${goodsCateList}">
 									<td>1</td>
-									<td>183</td>
-									<td>John Doe</td>
-									<td>11-7-2014</td>
+									<td th:text="${l.categoryName}"></td>
+									<td th:text="${l.regDate}"></td>
+									<td th:text="${l.ID}"></td>
 									<td>
 										<button type="button" class="btn btn-outline-primary btn-xs">수정하기</button>
 									</td>

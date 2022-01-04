@@ -22,10 +22,11 @@ public class BusinessController {
 	@GetMapping("/businessList")
 	public String businessList(Model model) {
 		System.out.println("페이지: 거래처 관리 ");
-		System.out.println("경로: basic_management/business/businessList(GET방식 성공) ");
 		
 		List<Business> businessList = businessService.getBusinessList();
-		model.addAttribute("businessList");
+		model.addAttribute("businessList", businessList);
+		System.out.println("경로: basic_management/business/businessList(GET방식 성공) ");
+		
 		
 		return "basic_management/business/businessList";
 	}

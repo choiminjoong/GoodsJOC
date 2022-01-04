@@ -15,15 +15,20 @@ import k5.goodsjoc.mapper.MartMapper;
 public class MartService {
 	
 	private MartMapper martMapper;
-	
 	public MartService(MartMapper martMapper) {
 		this.martMapper = martMapper;
 	}
+
 	
+	public int updateMartInfo(Mart mart) {
+		
+		return martMapper.updateMartInfo(mart);
+	}
+	
+	//매장정보 조회
 	public Mart getMartInfoByMartCode(String martCode) {
 
 		return martMapper.getMartInfoByMartCode(martCode);
-		
 	}
 	
 	

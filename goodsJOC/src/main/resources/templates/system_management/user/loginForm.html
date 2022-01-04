@@ -28,7 +28,7 @@
 
 				<form th:action="@{/system_management/user/login}" method="post">
 					<div class="input-group mb-3">
-						<input type="text" name="ID" placeholder="아이디">
+						<input type="text" name="ID" class="form-control" value="martAdmin" placeholder="아이디">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<i class="fas fa-user-circle"></i>
@@ -36,7 +36,7 @@
 						</div>
 					</div>
 					<div class="input-group mb-3">
-						<input type="password" name="PW" class="form-control" placeholder="비밀번호">
+						<input type="password" name="PW" class="form-control" value="0000" placeholder="비밀번호">
 						<div class="input-group-append">
 							<div class="input-group-text">
 								<span class="fas fa-lock"></span>
@@ -57,18 +57,18 @@
 						<!-- /.col -->
 					</div>
 				</form>
+				<div class="social-auth-links text-center">
+					<p>- OR -</p>
+					<a th:href="@{/system_management/user/userInsert}" class="btn btn-block btn-primary"> 
+						<i class="fas fa-user-plus"></i> 회원가입
+					</a>
+					<a href="#" class="btn btn-block btn-danger"> 
+						<i class="fab fa-sistrix"></i> 비밀번호 찾기
+					</a>
+				</div>
 
 				<div class="social-auth-links text-center mb-3">
-		
 				</div>
-				<!-- /.social-auth-links -->
-
-				<p class="mb-1">
-					<a href="forgot-password.html">I forgot my password</a>
-				</p>
-				<p class="mb-0">
-					<a href="register.html" class="text-center">Register a new membership</a>
-				</p>
 			</div>
 			<!-- /.login-card-body -->
 		</div>

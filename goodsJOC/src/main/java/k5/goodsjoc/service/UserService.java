@@ -23,8 +23,8 @@ public class UserService {
 	}
 	
 	//사용자 전체조회
-	public List<User> getUserList(){
+	public List<User> getUserList(String martCode){
 		
-		return userMapper.getUserList();
+		return userMapper.getUserList(martCode);
 	}
 }

@@ -13,6 +13,6 @@ public interface UserMapper {
 	public User getUserInfoByID(String ID);
 	
 	//회원전체조회
-	public List<User> getUserList();
+	public List<User> getUserList(String martCode);
 	
 }
