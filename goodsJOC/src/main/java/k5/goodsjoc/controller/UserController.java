@@ -2,6 +2,7 @@ package k5.goodsjoc.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -47,19 +48,21 @@ public class UserController {
 			Mart martInfo = martService.getMartInfoByMartCode(userInfo.getMartCode());
 			
 			if(userInfo != null && userInfo.getPW() != null && PW.equals(userInfo.getPW())) {
-				session.setAttribute("SID", ID);
+				session.setAttribute("SID", userInfo.getID());
 				session.setAttribute("SNAME", userInfo.getName());
-				session.setAttribute("SMART", martInfo.getMartName());
+				session.setAttribute("SMARTCODE", martInfo.getMartCode());
+				session.setAttribute("SMARTNAME", martInfo.getMartName());
+				session.setAttribute("SLEVLEL", userInfo.getLevelNum());
 				if(userInfo.getLevelNum().equals("1")) {
-					session.setAttribute("SLEVEL", "SW개발사");
+					session.setAttribute("SLEVELNAME", "SW개발사");
 				}else if(userInfo.getLevelNum().equals("2")) {
-					session.setAttribute("SLEVEL", "관리자");
+					session.setAttribute("SLEVELNAME", "관리자");
 				}else if(userInfo.getLevelNum().equals("3")) {
-					session.setAttribute("SLEVEL", "매니저");
+					session.setAttribute("SLEVELNAME", "매니저");
 				}else if(userInfo.getLevelNum().equals("4")) {
-					session.setAttribute("SLEVEL", "직원");
+					session.setAttribute("SLEVELNAME", "직원");
 				}else if(userInfo.getLevelNum().equals("5")) {
-					session.setAttribute("SLEVEL", "비권한자");
+					session.setAttribute("SLEVELNAME", "비권한자");
 				}
 				System.out.println("session: " + session);
 				
@@ -79,12 +82,16 @@ public class UserController {
 	}
 	
 	@GetMapping("/userList")
-	public String staffList(Model model) {
+	public String staffList(HttpServletRequest request, Model model) {
 		System.out.println("페이지: 사용자 목록 ");
 		System.out.println("경로: system_management/user/userList(GET방식 성공) ");
 
-		List<User> userList = userService.getUserList();
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<User> userList = userService.getUserList(sessionMartCode);
 		model.addAttribute("userList", userList);
+		System.out.println(userList);
 		
 		return "system_management/user/userList";
 	}

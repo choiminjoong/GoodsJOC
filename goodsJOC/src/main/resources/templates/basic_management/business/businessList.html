@@ -92,171 +92,21 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>1</td>
-							<td>JB0001</td>
-							<td>애플마트</td>
-							<td>최민중</td>
-							<td>123-45-6789</td>
-							<td>123-45-6789</td>
-							<td>123-45-6789</td>
-							<td>2021-12-12</td>
+						<tr th:if="${not #lists.isEmpty(businessList)}" th:each="l : ${businessList}">
+							<td th:text="${l.no}">1</td>
+							<td th:text="${l.businessType}"></td>
+							<td th:text="${l.businessName}"></td>
+							<td th:text="${l.partnerName}"></td>
+							<td th:text="${l.registerNum}"></td>
+							<td th:text="${l.sectors}"></td>
+							<td th:text="${l.status}"></td>
+							<td th:text="${l.regDate}"></td>
 							<!-- 수정버튼  -->
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
 									<a href="businessUpdate" class="btn btn-info"><i
 										class="fas fa-highlighter"></i></a> <a href="#"
 										class="btn btn-danger"><i class="fas fa-trash"></i></a>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>2</td>
-							<td>JB0002</td>
-							<td>다모아마트</td>
-							<td>정도혜</td>
-							<td>532-45-1234</td>
-							<td>532-45-1234</td>
-							<td>532-45-1234</td>
-							<td>2021-12-12</td>
-							<!-- 수정버튼  -->
-							<td class="text-right py-0 align-middle">
-								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i
-										class="fas fa-highlighter"></i></a>
-									<!-- 삭제버튼  -->
-									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>JB0003</td>
-							<td>이마트</td>
-							<td>오대성</td>
-							<td>532-45-1234</td>
-							<td>532-45-1234</td>
-							<td>532-45-1234</td>
-							<td>2021-12-12</td>
-							<td class="text-right py-0 align-middle">
-								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i
-										class="fas fa-highlighter"></i></a> <a href="#"
-										class="btn btn-danger"><i class="fas fa-trash"></i></a>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>JB0004</td>
-							<td>싸그리마트</td>
-							<td>이영철</td>
-							<td>495-39-356</td>
-							<td>495-39-356</td>
-							<td>495-39-356</td>
-							<td>2021-12-12</td>
-							<!-- 수정버튼  -->
-							<td class="text-right py-0 align-middle">
-								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i
-										class="fas fa-highlighter"></i></a>
-									<!-- 삭제버튼  -->
-									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>4</td>
-							<td>JB0005</td>
-							<td>순순마트</td>
-							<td>문영호</td>
-							<td>678-23-689</td>
-							<td>678-23-689</td>
-							<td>678-23-689</td>
-							<td>2021-12-12</td>
-							<!-- 수정버튼  -->
-							<td class="text-right py-0 align-middle">
-								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i
-										class="fas fa-highlighter"></i></a>
-									<!-- 삭제버튼  -->
-									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>5</td>
-							<td>JB0006</td>
-							<td>호호마트</td>
-							<td>김호영</td>
-							<td>678-23-689</td>
-							<td>678-23-689</td>
-							<td>678-23-689</td>
-							<td>2021-12-12</td>
-							<!-- 수정버튼  -->
-							<td class="text-right py-0 align-middle">
-								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i
-										class="fas fa-highlighter"></i></a>
-									<!-- 삭제버튼  -->
-									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>6</td>
-							<td>JB0007</td>
-							<td>인후동마트</td>
-							<td>김문혜</td>
-							<td>679-495-594</td>
-							<td>679-495-594</td>
-							<td>679-495-594</td>
-							<td>2021-12-12</td>
-							<!-- 수정버튼  -->
-							<td class="text-right py-0 align-middle">
-								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i
-										class="fas fa-highlighter"></i></a>
-									<!-- 삭제버튼  -->
-									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>7</td>
-							<td>JB0008</td>
-							<td>송천마트</td>
-							<td>김하현</td>
-							<td>123-567-777</td>
-							<td>123-567-777</td>
-							<td>123-567-777</td>
-							<td>2021-12-12</td>
-							<!-- 수정버튼  -->
-							<td class="text-right py-0 align-middle">
-								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i
-										class="fas fa-highlighter"></i></a>
-									<!-- 삭제버튼  -->
-									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
-								</div>
-							</td>
-						</tr>
-						<tr>
-							<td>8</td>
-							<td>JB0008</td>
-							<td>송천마트</td>
-							<td>김하현</td>
-							<td>123-567-777</td>
-							<td>123-567-777</td>
-							<td>123-567-777</td>
-							<td>2021-12-12</td>
-							<!-- 수정버튼  -->
-							<td class="text-right py-0 align-middle">
-								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i
-										class="fas fa-highlighter"></i></a>
-									<!-- 삭제버튼  -->
-									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 								</div>
 							</td>
 						</tr>

@@ -3,7 +3,7 @@
 <th:block th:fragment="sidebarFragment">
 	<aside id="sidebarMode" class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
-		<a th:href="@{/}" class="brand-link text-center"> 
+		<a th:href="@{/main}" class="brand-link text-center"> 
 			<i class="fab fa-raspberry-pi"></i>
 			<span class="brand-text font-weight-light">Goods JOC</span>
 		</a>
@@ -17,7 +17,7 @@
 				</div>
 				<div class="info" th:if="${session.SID != null}">
 					<a th:href="@{/system_management/user/userInfo}" class="d-block" th:text="${session.SNAME}"></a>
-					(<a th:href="@{/system_management/mart/martInfo}" th:text="${session.SMART}"></a> <th:block th:text="${session.SLEVEL}"></th:block>)
+					(<a th:href="@{/system_management/mart/martInfo}" th:text="${session.SMARTNAME}"></a> <th:block th:text="${session.SLEVELNAME}"></th:block>)
 				</div>
 			</div>
 			

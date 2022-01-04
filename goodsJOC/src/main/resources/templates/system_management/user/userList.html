@@ -69,13 +69,24 @@
 												<b th:text="${l.name}"></b>
 											</h2>
 											<p class="text-muted text-sm">
-												<b>About: </b> <label th:text="${l.levelNum}"></label> / level 1
+												<b>Level: </b> <label th:text="${l.level.getLevelName()}"></label>
 											</p>
 											<ul class="ml-4 mb-0 fa-ul text-muted">
-												<li class="small"><span class="fa-li"> <i
-														class="fas fa-lg fa-building"></i></span> 주소 : 전라븍도 전주시</li>
-												<li class="small"><span class="fa-li"> <i
-														class="fas fa-lg fa-phone"></i></span> 전화번호 : 010-000-000</li>
+												<li class="small">
+													<span class="fa-li"> 
+														<i class="fas fa-lg fa-birthday-cake"></i>
+													</span> 생년월일 : <span th:text="${l.birthday}"></span>
+												</li>
+												<li class="small">
+													<span class="fa-li"> 
+														<i class="fas fa-lg fa-phone"></i>
+													</span>전화번호 : <span th:text="${l.phone}"></span>
+												</li>
+												<li class="small">
+													<span class="fa-li"> 
+														<i class="fas fa-lg fa-building"></i>
+													</span> 주소 : <span th:text="${l.address}"></span>
+												</li>
 											</ul>
 										</div>
 										<div class="col-5 text-center">
@@ -89,65 +100,9 @@
 										<a th:href="@{/system_management/user/userInfo}"
 											class="btn-sm bg-gray disabled color-palette"
 											style="margin-right: 5px;"> <i class="fas fa-user"></i>
-											사원정보보기
-										</a> <label style="margin-right: 5px;">
-											<button type="button"
-												class="btn-xs bg-gray disabled color-palette"
-												data-toggle="modal" data-target="#exampleModalCenter1">
-												수정</button>
-										</label> <label style="margin-right: 5px;">
-											<button type="button"
-												class="btn-xs bg-gray disabled color-palette"
-												data-toggle="modal" data-target="#exampleModalCenter2">
-												삭제</button>
-										</label>
+											권한 수정
+										</a>
 									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--수정 Modal -->
-					<div class="modal fade" id="exampleModalCenter1" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalCenterTitle"
-						aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">알림</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">수정 하시겠습니까?</div>
-								<div class="modal-footer">
-									<a href="userUpdate"><button type="button"
-											class="btn btn-secondary">예</button></a>
-									<button type="button" class="btn btn-info"
-										data-dismiss="modal">아니오</button>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!--삭제 Modal -->
-					<div class="modal fade" id="exampleModalCenter2" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalCenterTitle"
-						aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">알림</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">삭제 하시겠습니까?</div>
-								<div class="modal-footer">
-									<a href="userInsert"><button type="button"
-											class="btn btn-secondary">예</button></a>
-									<button type="button" class="btn btn-info"
-										data-dismiss="modal">아니오</button>
 								</div>
 							</div>
 						</div>

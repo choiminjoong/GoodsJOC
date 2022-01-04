@@ -9,7 +9,6 @@ public class Warehouse {
 	private String martCode;
 	private String ID;
 	private String regDate;
-
 	
 	@Override
 	public String toString() {

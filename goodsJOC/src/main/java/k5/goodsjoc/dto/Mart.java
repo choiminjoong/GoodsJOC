@@ -7,7 +7,6 @@ public class Mart {
 	private String partnerName;
 	private String partnerPhone;
 	private String registerNum;
-	private String martType;
 	private String sectors;
 	private String status;
 	private String callNum;
@@ -23,7 +22,7 @@ public class Mart {
 	@Override
 	public String toString() {
 		return "Mart [martCode=" + martCode + ", martName=" + martName + ", partnerName=" + partnerName
-				+ ", partnerPhone=" + partnerPhone + ", registerNum=" + registerNum + ", martType=" + martType
+				+ ", partnerPhone=" + partnerPhone + ", registerNum=" + registerNum
 				+ ", sectors=" + sectors + ", status=" + status + ", callNum=" + callNum + ", address=" + address
 				+ ", FAX=" + FAX + ", martStaff=" + martStaff + ", martStaffPhone=" + martStaffPhone
 				+ ", martStaffEmail=" + martStaffEmail + ", note=" + note + ", regDate=" + regDate + ", editDate="
@@ -58,12 +57,6 @@ public class Mart {
 	}
 	public void setRegisterNum(String registerNum) {
 		this.registerNum = registerNum;
-	}
-	public String getMartType() {
-		return martType;
-	}
-	public void setMartType(String martType) {
-		this.martType = martType;
 	}
 	public String getSectors() {
 		return sectors;

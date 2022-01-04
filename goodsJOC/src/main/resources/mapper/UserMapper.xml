@@ -4,6 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.UserMapper">
 	<resultMap type="User" id="userResultMap">
+		<id column="levelNum" property="levelNum" />
 		<result column="ID" property="ID" />
 		<result column="PW" property="PW" />
 		<result column="name" property="name" />
@@ -12,26 +13,40 @@
 		<result column="email" property="email" />
 		<result column="address" property="address" />
 		<result column="martCode" property="martCode" />
-		<result column="levelNum" property="levelNum" />
 		<result column="regDate" property="regDate" />
+		
+		<association javaType="Level" property="level">
+			<id column="levelNum" property="levelNum" />
+			<result column="levelName" property="levelName"/>
+			<result column="note" property="note"/>
+		</association>
 	</resultMap>	
 
 
 
 	<select id="getUserList" parameterType="String" resultMap="userResultMap">
-		SELECT
-			ID
-			,PW
-			,name
-			,birthday
-			,phone
-			,email
-			,address
-			,martCode
-			,levelNum
-			,regDate
-		FROM
-			tb_user
+		SELECT 
+			u.ID
+			,u.PW
+			,u.name
+			,u.birthday
+			,u.phone
+			,u.email
+			,u.address
+			,u.martCode
+			,u.levelNum
+			,u.regDate
+			,l.levelName
+		FROM 
+			tb_user AS u
+			INNER JOIN 
+			tb_systemLevel AS l
+			ON
+			u.levelNum = l.levelNum
+		WHERE
+			martCode= #{martCode}
+		ORDER BY
+			levelNum;
 	</select>
 
 	<select id="getUserInfoByID" parameterType="String" resultMap="userResultMap">

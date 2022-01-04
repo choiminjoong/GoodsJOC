@@ -1,10 +1,15 @@
 package k5.goodsjoc.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import k5.goodsjoc.dto.Mart;
@@ -21,30 +26,49 @@ public class MartController {
 	public MartController(MartService martService) {
 		this.martService = martService;
 	}	
-	
-	//조회
+
+
 	@GetMapping("/martInfo")
-	public String martInfo(Model model){
+	public String martInfo(HttpServletRequest request, Model model){
 		System.out.println("페이지: 매장정보 ");
 		System.out.println("경로: system_management/mart/martInfo(GET방식 성공) ");
-	
-		Mart martInfo = martService.getMartInfoByMartCode("JBJJ001");
+		
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		Mart martInfo = martService.getMartInfoByMartCode(sessionMartCode);
 		model.addAttribute("martInfo", martInfo);
 		System.out.println("model: " + martInfo);
 
 		return "system_management/mart/martInfo";
 	}
+	@PostMapping("/martUpdate")
+	public String martUpdate(Mart mart) {
+		System.out.println("페이지: 매장정보 수정 ");
+		System.out.println("경로: system_management/mart/martUpdate(POST방식 성공) ");
+		
+		martService.updateMartInfo(mart);
+		
+		return "redirect:/system_management/mart/martInfo";
+	}
+	
 	@GetMapping("/martUpdate")
-	public String martUpdate(Model model){
+	public String martUpdate(HttpServletRequest request, Model model){
 		System.out.println("페이지: 매장정보 수정 ");
 		System.out.println("경로: system_management/mart/martUpdate(GET방식 성공) ");
+
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");		
 		
-		Mart martInfo = martService.getMartInfoByMartCode("JBJJ001");
+		Mart martInfo = martService.getMartInfoByMartCode(sessionMartCode);
 		model.addAttribute("martInfo", martInfo);
 		System.out.println("model: " + martInfo);
 		
 		return "system_management/mart/martUpdate";
 	}
+
+	
+	//나중에 개발사용 고객사업장 등록폼 사용할 예정
 	@GetMapping("/sw_martInsert")
 	public String martInsert(){
 		System.out.println("페이지: 매장 등록 ");
