@@ -22,35 +22,34 @@
 				<b>거래처 관리</b>
 			</h3>
 		</div>
-			<!-- /.card-header -->
-		
+		<!-- /.card-header -->
+
 		<div class="card-body">
 			<div class="tab-content" id="custom-tabs-two-tabContent">
 				<!-- 주문검색 -->
 				<div class="form-group row">
 					<label class="col-sm-1 col-form-label">상세 검색</label>
 					<div class="col-sm-2">
+					<form th:action="@{/business/businessList}" method="post">
 						<select id="orderCode" class="form-control custom-select">
 							<option value="개인">개인</option>
 							<option value="기업">기업</option>
 							<option value="거래처명">거래처명</option>
 							<option value="담당자">담당자</option>
 						</select>
-
+					</form>
+					
 					</div>
 					<div class="input-group input-group-m" style="width: 500px;">
 						<input type="text" name="table_search" style="margin-left: 3%"
-							class="form-control float-right" placeholder="search...">
-						<div class="input-group-append">
-							<button type="submit" class="btn btn-default"></button>
-						</div>
+							class="form-control float-right" placeholder="거래처 상세검색">
 					</div>
-					<div align="right" style="margin-left: 15%">
-						<button type="button" class="btn btn-warning">
+					<div align="right" style="margin-left: 4%">
+						<button type="button" class="btn btn-lg btn-info">
 							<b>검색</b>
 						</button>
 						<a th:href="@{/basic_management/business/businessInsert}">
-							<button type="button" class="btn btn-warning">
+							<button type="button" class="btn btn-lg btn-info">
 								<b>등록</b>
 							</button>
 						</a>
@@ -59,7 +58,11 @@
 				<!-- 주문일자검색 -->
 				<div class="form-group row">
 					<label class="col-sm-1 col-form-label">일자 검색</label>
-					<div class="col-sm-5">
+					<div class="col-sm-2">
+						<input type="date" id="date" class="form-control">
+					</div>
+					<th:block><b>~</b></th:block>
+					<div class="col-sm-2">
 						<input type="date" id="date" class="form-control">
 					</div>
 				</div>
@@ -68,8 +71,9 @@
 	</div>
 
 
+
 	<!-- 거래처 리스트 화면 -->
-	<div class="col-md-13" style="margin-top: -1%">
+	<div class="col-md-13" style="margin-top: 1%">
 		<div class="card card-warning color-pallete">
 			<div class="card-header p-0 pt-1"></div>
 			<div class="card-body table-responsive p-0" style="height: 520px;">
@@ -97,10 +101,12 @@
 							<td>123-45-6789</td>
 							<td>123-45-6789</td>
 							<td>2021-12-12</td>
+							<!-- 수정버튼  -->
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i class="fas fa-eye"></i></a>
-									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+									<a href="businessUpdate" class="btn btn-info"><i
+										class="fas fa-highlighter"></i></a> <a href="#"
+										class="btn btn-danger"><i class="fas fa-trash"></i></a>
 								</div>
 							</td>
 						</tr>
@@ -113,9 +119,12 @@
 							<td>532-45-1234</td>
 							<td>532-45-1234</td>
 							<td>2021-12-12</td>
+							<!-- 수정버튼  -->
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="businessUpdate" class="btn btn-info"><i
+										class="fas fa-highlighter"></i></a>
+									<!-- 삭제버튼  -->
 									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 								</div>
 							</td>
@@ -131,8 +140,9 @@
 							<td>2021-12-12</td>
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i class="fas fa-eye"></i></a>
-									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+									<a href="businessUpdate" class="btn btn-info"><i
+										class="fas fa-highlighter"></i></a> <a href="#"
+										class="btn btn-danger"><i class="fas fa-trash"></i></a>
 								</div>
 							</td>
 						</tr>
@@ -145,9 +155,12 @@
 							<td>495-39-356</td>
 							<td>495-39-356</td>
 							<td>2021-12-12</td>
+							<!-- 수정버튼  -->
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="businessUpdate" class="btn btn-info"><i
+										class="fas fa-highlighter"></i></a>
+									<!-- 삭제버튼  -->
 									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 								</div>
 							</td>
@@ -161,9 +174,12 @@
 							<td>678-23-689</td>
 							<td>678-23-689</td>
 							<td>2021-12-12</td>
+							<!-- 수정버튼  -->
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="businessUpdate" class="btn btn-info"><i
+										class="fas fa-highlighter"></i></a>
+									<!-- 삭제버튼  -->
 									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 								</div>
 							</td>
@@ -177,9 +193,12 @@
 							<td>678-23-689</td>
 							<td>678-23-689</td>
 							<td>2021-12-12</td>
+							<!-- 수정버튼  -->
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="businessUpdate" class="btn btn-info"><i
+										class="fas fa-highlighter"></i></a>
+									<!-- 삭제버튼  -->
 									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 								</div>
 							</td>
@@ -193,9 +212,12 @@
 							<td>679-495-594</td>
 							<td>679-495-594</td>
 							<td>2021-12-12</td>
+							<!-- 수정버튼  -->
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="businessUpdate" class="btn btn-info"><i
+										class="fas fa-highlighter"></i></a>
+									<!-- 삭제버튼  -->
 									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 								</div>
 							</td>
@@ -209,9 +231,12 @@
 							<td>123-567-777</td>
 							<td>123-567-777</td>
 							<td>2021-12-12</td>
+							<!-- 수정버튼  -->
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="businessUpdate" class="btn btn-info"><i
+										class="fas fa-highlighter"></i></a>
+									<!-- 삭제버튼  -->
 									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 								</div>
 							</td>
@@ -225,9 +250,12 @@
 							<td>123-567-777</td>
 							<td>123-567-777</td>
 							<td>2021-12-12</td>
+							<!-- 수정버튼  -->
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i class="fas fa-eye"></i></a>
+									<a href="businessUpdate" class="btn btn-info"><i
+										class="fas fa-highlighter"></i></a>
+									<!-- 삭제버튼  -->
 									<a href="#" class="btn btn-danger"><i class="fas fa-trash"></i></a>
 								</div>
 							</td>
