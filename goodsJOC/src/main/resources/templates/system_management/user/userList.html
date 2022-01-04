@@ -5,7 +5,7 @@
 
 <!-- 페이지 제목 공간 -->
 <th:block layout:fragment="customTitle">
-	<title>주문관리</title>
+	<title>직원 조회</title>
 </th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
@@ -16,330 +16,92 @@
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
 
-	<!-- 등록 및 검색바영역  -->
-
-	<div class="card card-warning card-tabs" style="margin-top: -1%">
-		<div class="card-header p-0 pt-3"></div>
-		<div class="card-body">
-			<div class="tab-content" id="custom-tabs-two-tabContent">
-				<!-- 주문검색 -->
-				<div class="form-group row">
-					<label class="col-sm-1 col-form-label">상세 검색</label>
-					<div class="col-sm-2">
-						<select id="orderCode" class="form-control custom-select">
-							<option value="이름">이름</option>
-							<option value="권한">권한</option>
-						</select>
-					</div>
-					<div class="input-group input-group-m" style="width: 700px;">
-						<input type="text" name="table_search" style="margin-left: 3%"
-							class="form-control float-right"
-							placeholder="이름 및 권한으로 검색이 가능합니다.">
-						<div class="input-group-append">
-							<button type="submit" class="btn btn-default"></button>
-						</div>
-						<button type="button" class="btn btn-warning"
-							style="margin-left: 2%">
-							<b>검 색</b>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	   <!-- 등록 및 검색바영역  -->
+   <div class="card card-warning card-tabs" style="margin-top: -1%">
+      <div class="card-header p-0 pt-3"></div>
+      <div class="card-body">
+         <div class="tab-content" id="custom-tabs-two-tabContent">
+            <!-- 주문검색 -->
+            <div class="form-group row">
+               <label class="col-sm-1 col-form-label">상세 검색</label>
+               <div class="col-sm-2">
+                  <select id="orderCode" class="form-control custom-select">
+                     <option value="상세정보검색">상세정보검색</option>
+                     <option value="이름">이름</option>
+                     <option value="권한">권한</option>
+                     <option value="전화번호">전화번호</option>
+                     <option value="주소">주소</option>
+                  </select>
+               </div>
+               <div class="input-group input-group-m" style="width: 700px;">
+                  <input type="text" name="table_search" style="margin-left: 3%"
+                     class="form-control float-right"
+                     placeholder="사원정보 검색 가능합니다.">
+                  <div class="input-group-append">
+                     <button type="submit" class="btn btn-default"></button>
+                  </div>
+                  <button type="button" class="btn btn-warning"
+                     style="margin-left: 2%">
+                     <b>검 색</b>
+                  </button>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 
 
 	<!--사원정보card영역  -->
 	<section class="content">
-		<div class="card" style="margin-top: -1%">
-			<div class="card-header p-0 pt-1"></div>
+		<div class="card card-warning" >
+			<div class="card-header p-0 pt-1">
+			</div>
 			<div class="card-body pb-0">
 				<div class="row">
-					<div
-						class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+					<div th:if="${not #lists.isEmpty(userList)}" th:each="l : ${userList}" 
+						 class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
 						<div class="card bg-light d-flex flex-fill">
 							<div class="card-header text-muted border-bottom-0">사원정보</div>
-							<div class="card-body pt-0">
-								<div class="row">
-									<div class="col-7">
-										<h2 class="lead">
-											<b>오대성</b>
-										</h2>
-										<p class="text-muted text-sm">
-											<b>About: </b> user / level 1
-										</p>
-										<ul class="ml-4 mb-0 fa-ul text-muted">
-											<li class="small"><span class="fa-li"> <i
-													class="fas fa-lg fa-building"></i></span> 주소 : 전라븍도 전주시</li>
-											<li class="small"><span class="fa-li"> <i
-													class="fas fa-lg fa-phone"></i></span> 전화번호 : 010-000-000</li>
-										</ul>
+								<div class="card-body pt-0">
+									<div class="row">
+										<div class="col-7">
+											<h2 class="lead">
+												<b th:text="${l.name}"></b>
+											</h2>
+											<p class="text-muted text-sm">
+												<b>About: </b> <label th:text="${l.levelNum}"></label> / level 1
+											</p>
+											<ul class="ml-4 mb-0 fa-ul text-muted">
+												<li class="small"><span class="fa-li"> <i
+														class="fas fa-lg fa-building"></i></span> 주소 : 전라븍도 전주시</li>
+												<li class="small"><span class="fa-li"> <i
+														class="fas fa-lg fa-phone"></i></span> 전화번호 : 010-000-000</li>
+											</ul>
+										</div>
+										<div class="col-5 text-center">
+											<img th:src="@{/image/user2.png}" alt="user-avatar"
+												class="img-circle img-fluid">
+										</div>
 									</div>
-									<div class="col-5 text-center">
-										<img th:src="@{/image/user2.png}" alt="user-avatar"
-											class="img-circle img-fluid">
+								</div>	
+								<div class="card-footer">
+									<div class="text-right">
+										<a th:href="@{/system_management/user/userInfo}"
+											class="btn-sm bg-gray disabled color-palette"
+											style="margin-right: 5px;"> <i class="fas fa-user"></i>
+											사원정보보기
+										</a> <label style="margin-right: 5px;">
+											<button type="button"
+												class="btn-xs bg-gray disabled color-palette"
+												data-toggle="modal" data-target="#exampleModalCenter1">
+												수정</button>
+										</label> <label style="margin-right: 5px;">
+											<button type="button"
+												class="btn-xs bg-gray disabled color-palette"
+												data-toggle="modal" data-target="#exampleModalCenter2">
+												삭제</button>
+										</label>
 									</div>
-								</div>
-							</div>	
-							<div class="card-footer">
-								<div class="text-right">
-									<a th:href="@{/system_management/user/userInfo}"
-										class="btn-sm bg-gray disabled color-palette"
-										style="margin-right: 5px;"> <i class="fas fa-user"></i>
-										사원정보보기
-									</a> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter1">
-											수정</button>
-									</label> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter2">
-											삭제</button>
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div
-						class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
-						<div class="card bg-light d-flex flex-fill">
-							<div class="card-header text-muted border-bottom-0">사원정보</div>
-							<div class="card-body pt-0">
-								<div class="row">
-									<div class="col-7">
-										<h2 class="lead">
-											<b>최민중</b>
-										</h2>
-										<p class="text-muted text-sm">
-											<b>About: </b> user / level 1
-										</p>
-										<ul class="ml-4 mb-0 fa-ul text-muted">
-											<li class="small"><span class="fa-li"><i
-													class="fas fa-lg fa-building"></i></span> 주소 : 전라븍도 전주시</li>
-											<li class="small"><span class="fa-li"><i
-													class="fas fa-lg fa-phone"></i></span> 전화번호 : 010-000-000</li>
-										</ul>
-									</div>
-									<div class="col-5 text-center">
-										<img th:src="@{/image/user2.png}" alt="user-avatar"
-											class="img-circle img-fluid">
-									</div>
-								</div>
-							</div>
-							<div class="card-footer">
-								<div class="text-right">
-									<a href="userInfo"
-										class="btn-sm bg-gray disabled color-palette"
-										style="margin-right: 5px;"> <i class="fas fa-user"></i>
-										사원정보보기
-									</a> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter1">
-											수정</button>
-									</label> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter2">
-											삭제</button>
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div
-						class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
-						<div class="card bg-light d-flex flex-fill">
-							<div class="card-header text-muted border-bottom-0">사원정보</div>
-							<div class="card-body pt-0">
-								<div class="row">
-									<div class="col-7">
-										<h2 class="lead">
-											<b>김지수</b>
-										</h2>
-										<p class="text-muted text-sm">
-											<b>About: </b> user / level 1
-										</p>
-										<ul class="ml-4 mb-0 fa-ul text-muted">
-											<li class="small"><span class="fa-li"><i
-													class="fas fa-lg fa-building"></i></span> 주소 : 전라븍도 전주시</li>
-											<li class="small"><span class="fa-li"><i
-													class="fas fa-lg fa-phone"></i></span> 전화번호 : 010-000-000</li>
-										</ul>
-									</div>
-									<div class="col-5 text-center">
-										<img th:src="@{/image/user2.png}" alt="user-avatar"
-											class="img-circle img-fluid">
-									</div>
-								</div>
-							</div>
-							<div class="card-footer">
-								<div class="text-right">
-									<a href="userInfo"
-										class="btn-sm bg-gray disabled color-palette"
-										style="margin-right: 5px;"> <i class="fas fa-user"></i>
-										사원정보보기
-									</a> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter1">
-											수정</button>
-									</label> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter2">
-											삭제</button>
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div
-						class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
-						<div class="card bg-light d-flex flex-fill">
-							<div class="card-header text-muted border-bottom-0">사원정보</div>
-							<div class="card-body pt-0">
-								<div class="row">
-									<div class="col-7">
-										<h2 class="lead">
-											<b>문영호</b>
-										</h2>
-										<p class="text-muted text-sm">
-											<b>About: </b> user / level 1
-										</p>
-										<ul class="ml-4 mb-0 fa-ul text-muted">
-											<li class="small"><span class="fa-li"><i
-													class="fas fa-lg fa-building"></i></span> 주소 : 전라븍도 전주시</li>
-											<li class="small"><span class="fa-li"><i
-													class="fas fa-lg fa-phone"></i></span> 전화번호 : 010-000-000</li>
-										</ul>
-									</div>
-									<div class="col-5 text-center">
-										<img th:src="@{/image/user2.png}" alt="user-avatar"
-											class="img-circle img-fluid">
-									</div>
-								</div>
-							</div>
-							<div class="card-footer">
-								<div class="text-right">
-									<a href="userInfo"
-										class="btn-sm bg-gray disabled color-palette"
-										style="margin-right: 5px;"> <i class="fas fa-user"></i>
-										사원정보보기
-									</a> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter1">
-											수정</button>
-									</label> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter2">
-											삭제</button>
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div
-						class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
-						<div class="card bg-light d-flex flex-fill">
-							<div class="card-header text-muted border-bottom-0">사원정보</div>
-							<div class="card-body pt-0">
-								<div class="row">
-									<div class="col-7">
-										<h2 class="lead">
-											<b>김문환</b>
-										</h2>
-										<p class="text-muted text-sm">
-											<b>About: </b> staff / level 1
-										</p>
-										<ul class="ml-4 mb-0 fa-ul text-muted">
-											<li class="small"><span class="fa-li"> <i
-													class="fas fa-lg fa-building"></i>
-											</span> 주소 : 전라븍도 전주시</li>
-											<li class="small"><span class="fa-li"> <i
-													class="fas fa-lg fa-phone"></i>
-											</span> 전화번호 : 010-000-000</li>
-										</ul>
-									</div>
-									<div class="col-5 text-center">
-										<img th:src="@{/image/user2.png}" alt="user-avatar"
-											class="img-circle img-fluid">
-									</div>
-								</div>
-							</div>
-							<div class="card-footer">
-								<div class="text-right">
-									<a href="userInfo"
-										class="btn-sm bg-gray disabled color-palette"
-										style="margin-right: 5px;"> <i class="fas fa-user"></i>
-										사원정보보기
-									</a> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter1">
-											수정</button>
-									</label> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter2">
-											삭제</button>
-									</label>
-								</div>
-							</div>
-						</div>
-					</div>
-
-					<div
-						class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
-						<div class="card bg-light d-flex flex-fill">
-							<div class="card-header text-muted border-bottom-0">사원정보</div>
-							<div class="card-body pt-0">
-								<div class="row">
-									<div class="col-7">
-										<h2 class="lead">
-											<b>정지수</b>
-										</h2>
-										<p class="text-muted text-sm">
-											<b>About: </b> user / level 1
-										</p>
-										<ul class="ml-4 mb-0 fa-ul text-muted">
-											<li class="small"><span class="fa-li"><i
-													class="fas fa-lg fa-building"></i></span> 주소 : 전라븍도 전주시</li>
-											<li class="small"><span class="fa-li"><i
-													class="fas fa-lg fa-phone"></i></span> 전화번호 : 010-000-000</li>
-										</ul>
-									</div>
-									<div class="col-5 text-center">
-										<img th:src="@{/image/user2.png}" alt="user-avatar"
-											class="img-circle img-fluid">
-									</div>
-								</div>
-							</div>
-							<div class="card-footer">
-								<div class="text-right">
-									<a href="userInfo"
-										class="btn-sm bg-gray disabled color-palette"
-										style="margin-right: 5px;"> <i class="fas fa-user"></i>
-										사원정보보기
-									</a> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter1">
-											수정</button>
-									</label> <label style="margin-right: 5px;">
-										<button type="button"
-											class="btn-xs bg-gray disabled color-palette"
-											data-toggle="modal" data-target="#exampleModalCenter2">
-											삭제</button>
-									</label>
 								</div>
 							</div>
 						</div>
@@ -392,8 +154,6 @@
 					</div>
 				</div>
 			</div>
-			<div class="card-footer"></div>
-		</div>
 	</section>
 </th:block>
 </html>

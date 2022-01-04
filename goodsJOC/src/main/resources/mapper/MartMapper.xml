@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k5.goodsjoc.mapper.MartMapper">
+	<resultMap type="Mart" id="martResultMap">
+		<result column="martCode" property="martCode" />
+		<result column="martName" property="martName" />
+		<result column="partnerName" property="partnerName" />
+		<result column="partnerPhone" property="partnerPhone" />
+		<result column="registerNum" property="registerNum" />
+		<result column="martType" property="martType" />
+		<result column="sectors" property="sectors" />
+		<result column="status" property="status" />
+		<result column="callNum" property="callNum" />
+		<result column="address" property="address" />
+		<result column="FAX" property="FAX" />
+		<result column="martStaff" property="martStaff" />
+		<result column="martStaffPhone" property="martStaffPhone" />
+		<result column="martStaffEmail" property="martStaffEmail" />
+		<result column="note" property="note" />
+		<result column="regDate" property="regDate" />
+		<result column="editDate" property="editDate" />
+	</resultMap>	
+
+	<select id="getMartInfoByMartCode" parameterType="String" resultMap="martResultMap">
+		SELECT 
+			 martCode
+			,martName
+			,partnerName
+			,partnerPhone
+			,registerNum
+			,martType
+			,sectors
+			,status
+			,callNum
+			,address
+			,FAX
+			,martStaff
+			,martStaffPhone
+			,martStaffEmail
+			,note
+			,regDate
+			,editDate
+		FROM 
+			tb_mart
+		WHERE 
+			martCode = #{martCode};
+	</select>
+</mapper>

@@ -28,7 +28,7 @@
 				</h3>
 			</div>
 			<div class="card-body">
-				<div align="right" style="margin-left: 5%">
+				<div align="right" style="margin-left: 2%">
 					<a href="#">
 						<button type="button" class="btn-lg btn-info">
 							<b>검색</b>
@@ -39,7 +39,8 @@
 						</button>
 					</a>
 				</div>
-				<div class="tab-content" id="custom-tabs-two-tabContent" style="margin-top:-4%">
+				<div class="tab-content" id="custom-tabs-two-tabContent"
+					style="margin-top: -4%">
 					<!-- 주문검색 -->
 					<div class="form-group row">
 						<label class="col-sm-1 col-form-label">주문검색</label>
@@ -50,7 +51,7 @@
 								<option value="주문일자">주문일자</option>
 							</select>
 						</div>
-						<div class="input-group input-group-m" style="width: 500px;">
+						<div class="input-group input-group-m" style="width: 550px;">
 							<input type="text" name="table_search" style="margin-left: 3%"
 								class="form-control float-right"
 								placeholder="주문번호, 주문자로 검색할 수있습니다.">
@@ -70,7 +71,13 @@
 
 						<!-- 주문일자검색 -->
 						<label class="col-sm-1 col-form-label" style="margin-left: 2%">주문일자</label>
-						<div class="col-sm-3">
+						<div class="col-sm-2">
+							<input type="date" id="date" class="form-control">
+						</div>
+						<th:block>
+							<b>~</b>
+						</th:block>
+						<div class="col-sm-2">
 							<input type="date" id="date" class="form-control">
 						</div>
 					</div>
@@ -81,128 +88,128 @@
 
 
 	<!-- 주문테이블 -->
-		<div class="col-md-13" style="margin-top: -1%">
-			<div class="card card-warning color-pallete">
-				<div class="card-header p-0 pt-1">
+	<div class="col-md-13" style="margin-top: -1%">
+		<div class="card card-warning color-pallete">
+			<div class="card-header p-0 pt-1">
 				<h3 class="card-title"></h3>
-				</div>
-				<!-- /.card-header -->
-				<div class="card-body table-responsive p-0"> 
-					<table class="table table-head-fixed text-nowrap text-center">
-						<thead>
-							<tr>
-								<th>주문번호</th>
-								<th>거래처명</th>
-								<th>상품명</th>
-								<th>주문일자</th>
-								<th>주문서상세내역</th>
-								<th>상태</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>orderCode1</td>
-								<td>애플마트</td>
-								<td>고당도 딸기</td>
-								<td>2021-09-12</td>
-								<td>
-									<button type="button" class="btn btn-outline-secondary btn-xs">
-										<a href="orderDetail">주문서 상세보기</a>
-									</button>
-								</td>
-								<td style="color: blue;"><b>승인</b></td>
-							</tr>
-							<tr>
-								<td>orderCode-2</td>
-								<td>다모아마트</td>
-								<td>고당도 딸기</td>
-								<td>2021-09-13</td>
-								<td>
-									<button type="button" class="btn btn-outline-secondary btn-xs">
-										<a href="orderDetail">주문서 상세보기</a>
-									</button>
-								</td>
-								<td style="color: blue;"><b>승인</b></td>
-							</tr>
-							<tr>
-								<td>orderCode-3</td>
-								<td>이마트</td>
-								<td>고당도 딸기</td>
-								<td>2021-09-14</td>
-								<td>
-									<button type="button" class="btn btn-outline-secondary btn-xs">
-										<a href="orderDetail">주문서 상세보기</a>
-									</button>
-								</td>
-								<td style="color: blue;"><b>승인</b></td>
-							</tr>
-							<tr>
-								<td>orderCode-4</td>
-								<td>싸그리마트</td>
-								<td>고당도 딸기</td>
-								<td>2021-10-12</td>
-								<td>
-									<button type="button" class="btn btn-outline-secondary btn-xs">
-										<a href="#">주문서 상세보기</a>
-									</button>
-								</td>
-								<td style="color: green;"><b>진행중</b></td>
-							</tr>
-							<tr>
-								<td>orderCode1-5</td>
-								<td>순순마트</td>
-								<td>고당도 딸기</td>
-								<td>2021-12-12</td>
-								<td>
-									<button type="button" class="btn btn-outline-secondary btn-xs">
-										<a href="#">주문서 상세보기</a>
-									</button>
-								</td>
-								<td style="color: green;"><b>진행중</b></td>
-							</tr>
-							<tr>
-								<td>orderCode-6</td>
-								<td>호호마트</td>
-								<td>고당도 딸기</td>
-								<td>2021-12-20</td>
-								<td>
-									<button type="button" class="btn btn-outline-secondary btn-xs">
-										<a href="#">주문서 상세보기</a>
-									</button>
-								</td>
-								<td style="color: green;"><b>진행중</b></td>
-							</tr>
-							<tr>
-								<td>orderCode-7</td>
-								<td>인후동마트</td>
-								<td>고당도 딸기</td>
-								<td>2021-12-24</td>
-								<td>
-									<button type="button" class="btn btn-outline-secondary btn-xs">
-										<a href="#">주문서 상세보기</a>
-									</button>
-								</td>
-								<td style="color: red;"><b>반려</b></td>
-							</tr>
-							<tr>
-								<td>orderCode-8</td>
-								<td>송천마트</td>
-								<td>고당도 딸기</td>
-								<td>2021-12-30</td>
-								<td>
-									<button type="button" class="btn btn-outline-secondary btn-xs"
-										onclick="orderDetail">
-										<a href="#">주문서 상세보기</a>
-									</button>
-								</td>
-								<td style="color: red;"><b>반려</b></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="card-footer"></div>
 			</div>
+			<!-- /.card-header -->
+			<div class="card-body table-responsive p-0">
+				<table class="table table-head-fixed text-nowrap text-center">
+					<thead>
+						<tr>
+							<th>주문번호</th>
+							<th>거래처명</th>
+							<th>상품명</th>
+							<th>주문일자</th>
+							<th>주문서상세내역</th>
+							<th>상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>orderCode1</td>
+							<td>애플마트</td>
+							<td>고당도 딸기</td>
+							<td>2021-09-12</td>
+							<td>
+								<button type="button" class="btn btn-outline-secondary btn-xs">
+									<a href="orderDetail">주문서 상세보기</a>
+								</button>
+							</td>
+							<td style="color: blue;"><b>승인</b></td>
+						</tr>
+						<tr>
+							<td>orderCode-2</td>
+							<td>다모아마트</td>
+							<td>고당도 딸기</td>
+							<td>2021-09-13</td>
+							<td>
+								<button type="button" class="btn btn-outline-secondary btn-xs">
+									<a href="orderDetail">주문서 상세보기</a>
+								</button>
+							</td>
+							<td style="color: blue;"><b>승인</b></td>
+						</tr>
+						<tr>
+							<td>orderCode-3</td>
+							<td>이마트</td>
+							<td>고당도 딸기</td>
+							<td>2021-09-14</td>
+							<td>
+								<button type="button" class="btn btn-outline-secondary btn-xs">
+									<a href="orderDetail">주문서 상세보기</a>
+								</button>
+							</td>
+							<td style="color: blue;"><b>승인</b></td>
+						</tr>
+						<tr>
+							<td>orderCode-4</td>
+							<td>싸그리마트</td>
+							<td>고당도 딸기</td>
+							<td>2021-10-12</td>
+							<td>
+								<button type="button" class="btn btn-outline-secondary btn-xs">
+									<a href="#">주문서 상세보기</a>
+								</button>
+							</td>
+							<td style="color: green;"><b>진행중</b></td>
+						</tr>
+						<tr>
+							<td>orderCode1-5</td>
+							<td>순순마트</td>
+							<td>고당도 딸기</td>
+							<td>2021-12-12</td>
+							<td>
+								<button type="button" class="btn btn-outline-secondary btn-xs">
+									<a href="#">주문서 상세보기</a>
+								</button>
+							</td>
+							<td style="color: green;"><b>진행중</b></td>
+						</tr>
+						<tr>
+							<td>orderCode-6</td>
+							<td>호호마트</td>
+							<td>고당도 딸기</td>
+							<td>2021-12-20</td>
+							<td>
+								<button type="button" class="btn btn-outline-secondary btn-xs">
+									<a href="#">주문서 상세보기</a>
+								</button>
+							</td>
+							<td style="color: green;"><b>진행중</b></td>
+						</tr>
+						<tr>
+							<td>orderCode-7</td>
+							<td>인후동마트</td>
+							<td>고당도 딸기</td>
+							<td>2021-12-24</td>
+							<td>
+								<button type="button" class="btn btn-outline-secondary btn-xs">
+									<a href="#">주문서 상세보기</a>
+								</button>
+							</td>
+							<td style="color: red;"><b>반려</b></td>
+						</tr>
+						<tr>
+							<td>orderCode-8</td>
+							<td>송천마트</td>
+							<td>고당도 딸기</td>
+							<td>2021-12-30</td>
+							<td>
+								<button type="button" class="btn btn-outline-secondary btn-xs"
+									onclick="orderDetail">
+									<a href="#">주문서 상세보기</a>
+								</button>
+							</td>
+							<td style="color: red;"><b>반려</b></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="card-footer"></div>
 		</div>
+	</div>
 </th:block>
 </html>
 

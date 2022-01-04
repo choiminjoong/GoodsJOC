@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k5.goodsjoc.mapper.UserMapper">
+	<resultMap type="User" id="userResultMap">
+		<result column="ID" property="ID" />
+		<result column="PW" property="PW" />
+		<result column="name" property="name" />
+		<result column="birthday" property="birthday" />
+		<result column="phone" property="phone" />
+		<result column="email" property="email" />
+		<result column="address" property="address" />
+		<result column="martCode" property="martCode" />
+		<result column="levelNum" property="levelNum" />
+		<result column="regDate" property="regDate" />
+	</resultMap>	
+
+
+
+	<select id="getUserList" parameterType="String" resultMap="userResultMap">
+		SELECT
+			ID
+			,PW
+			,name
+			,birthday
+			,phone
+			,email
+			,address
+			,martCode
+			,levelNum
+			,regDate
+		FROM
+			tb_user
+	</select>
+
+	<select id="getUserInfoByID" parameterType="String" resultMap="userResultMap">
+		SELECT 
+			ID
+			,PW
+			,name
+			,birthday
+			,phone
+			,email
+			,address
+			,martCode
+			,levelNum
+			,regDate
+		FROM 
+			tb_user
+		WHERE 
+			ID = #{ID};
+	</select>
+	
+</mapper>
