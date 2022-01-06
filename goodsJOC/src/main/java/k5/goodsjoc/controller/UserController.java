@@ -42,10 +42,14 @@ public class UserController {
 		
 		System.out.println("페이지: 로그인처리 ");
 		System.out.println("경로: system_management/user/loginForm(POST방식) ");		
+		System.out.println("입력받은 ID: " + ID);
+		System.out.println("입력받은 PW: " + PW);
 		
 		if(ID != null && !"".equals(ID) && PW != null && !"".equals(PW)){
 			User userInfo = userService.getUserInfoByID(ID);
+			System.out.println("userInfo: " + userInfo);
 			Mart martInfo = martService.getMartInfoByMartCode(userInfo.getMartCode());
+			System.out.println("martInfo: " + martInfo);
 			
 			if(userInfo != null && userInfo.getPW() != null && PW.equals(userInfo.getPW())) {
 				session.setAttribute("SID", userInfo.getID());
@@ -64,12 +68,14 @@ public class UserController {
 				}else if(userInfo.getLevelNum().equals("5")) {
 					session.setAttribute("SLEVELNAME", "비권한자");
 				}
+
 				System.out.println("session: " + session);
-				
+				System.out.println("로그인 성공");
 				return "redirect:/main";	
 			}
+			
 		}
-		
+		System.out.println("로그인 실패");
 		return "system_management/user/loginForm";
 	}
 	

@@ -29,29 +29,28 @@
 	
 	<select id="getBusinessList" parameterType="String" resultMap="businessResultMap">
 		SELECT 
-				businessCode, 
-				businessName, 
-				partnerName, 
-				partnerPhone, 
-				registerNum, 
-				businessType, 
-				sectors, 
-				status, 
-				callNum, 
-				address, 
-				FAX, 
-				businessStaff, 
-				businessStaffPhone,
-				businessStaffEmail, 
-				note, 
-				martCode, 
-				ID, 
-				regDate
-			FROM 
-				tb_business
+			businessCode, 
+			businessName, 
+			partnerName, 
+			partnerPhone, 
+			registerNum, 
+			businessType, 
+			sectors, 
+			status, 
+			callNum, 
+			address, 
+			FAX, 
+			businessStaff, 
+			businessStaffPhone,
+			businessStaffEmail, 
+			note, 
+			martCode, 
+			ID, 
+			DATE(regDate) AS regDate
+		FROM 
+			tb_business
+		WHERE
+			martCode = #{martCode};
 	</select>
 
-	
-	
-	
 </mapper>

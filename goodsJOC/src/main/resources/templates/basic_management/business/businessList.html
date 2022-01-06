@@ -16,59 +16,72 @@
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
 
-	<div class="card card-warning card-tabs" style="margin-top: -1%">
-		<div class="card-header">
-			<h3 class="card-title">
-				<b>거래처 관리</b>
-			</h3>
-		</div>
-		<!-- /.card-header -->
-
-		<div class="card-body">
-			<div class="tab-content" id="custom-tabs-two-tabContent">
-				<!-- 주문검색 -->
-				<div class="form-group row">
-					<label class="col-sm-1 col-form-label">상세 검색</label>
-					<div class="col-sm-2">
-					<form th:action="@{/business/businessList}" method="post">
-						<select id="orderCode" class="form-control custom-select">
-							<option value="개인">개인</option>
-							<option value="기업">기업</option>
-							<option value="거래처명">거래처명</option>
-							<option value="담당자">담당자</option>
-						</select>
-					</form>
-					
-					</div>
-					<div class="input-group input-group-m" style="width: 500px;">
-						<input type="text" name="table_search" style="margin-left: 3%"
-							class="form-control float-right" placeholder="거래처 상세검색">
-					</div>
-					<div align="right" style="margin-left: 4%">
-						<button type="button" class="btn btn-lg btn-info">
-							<b>검색</b>
-						</button>
-						<a th:href="@{/basic_management/business/businessInsert}">
-							<button type="button" class="btn btn-lg btn-info">
-								<b>등록</b>
-							</button>
-						</a>
-					</div>
-				</div>
-				<!-- 주문일자검색 -->
-				<div class="form-group row">
-					<label class="col-sm-1 col-form-label">일자 검색</label>
-					<div class="col-sm-2">
-						<input type="date" id="date" class="form-control">
-					</div>
-					<th:block><b>~</b></th:block>
-					<div class="col-sm-2">
-						<input type="date" id="date" class="form-control">
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+	   <!-- 주문 검색,등록버튼 -->
+   <div class="col-md-13">
+      <div class="card card-warning color-pallete">
+         <div class="card-header">
+            <h3 class="card-title">
+               <b>거래처 조회</b>
+            </h3>
+         </div>
+         <div class="card-body">
+            <div align="right">
+               <a href="#">
+                  <button type="button" class="btn-lg btn-info">
+                     <b>검색</b>
+                  </button>
+               </a> <a href="businessInsert">
+                  <button type="button" class="btn-lg btn-info">
+                     <b>등록</b>
+                  </button>
+               </a>
+            </div>
+            <div class="tab-content" id="custom-tabs-two-tabContent"
+               style="margin-top: -4%">
+               <!-- 주문검색 -->
+               <div class="form-group row">
+                  <label class="col-sm-1 col-form-label">키워드검색</label>
+                  <div class="col-sm-2">
+                     <select id="orderCode" class="form-control custom-select">
+                        <option value="키워드검색">키워드검색</option>
+                        <option value="개인">개인</option>
+                        <option value="기업">기업</option>
+                        <option value="거래처명">거래처명</option>
+                        <option value="담당자">담당자</option>
+                     </select>
+                  </div>
+                  <div class="input-group input-group-m" style="width: 600px;">
+                     <input type="text" name="table_search" style="margin-left: 3%"
+                        class="form-control float-right" placeholder="검색어를 입력해주세요.">
+                     <div class="input-group-append"></div>
+                  </div>
+               </div>
+               <!-- 통합검색  -->
+               <div class="form-group row">
+                  <label class="col-sm-1 col-form-label">통합검색</label>
+                  <div class="col-sm-8">
+                     <input type="text" name="table_search"
+                        class="form-control float-right" placeholder="검색어를 입력해주세요.">
+                     <div class="input-group-append"></div>
+                  </div>
+               </div>
+               <!-- 주문일자검색 -->
+               <div class="form-group row">
+                  <label class="col-sm-1 col-form-label">일자검색</label>
+                  <div class="col-sm-3">
+                     <input type="date" id="date" class="form-control">
+                  </div>
+                  <th:block>
+                     <b>~</b>
+                  </th:block>
+                  <div class="col-sm-3">
+                     <input type="date" id="date" class="form-control">
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
 
 
 
@@ -76,7 +89,7 @@
 	<div class="col-md-13" style="margin-top: 1%">
 		<div class="card card-warning color-pallete">
 			<div class="card-header p-0 pt-1"></div>
-			<div class="card-body table-responsive p-0" style="height: 520px;">
+			<div class="card-body table-responsive p-0">
 				<table class="table table-head-fixed text-nowrap text-center">
 					<thead>
 						<tr>
@@ -92,8 +105,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${not #lists.isEmpty(businessList)}" th:each="l : ${businessList}">
-							<td th:text="${l.no}">1</td>
+						<tr th:if="${not #lists.isEmpty(businessList)}" th:each="l, i : ${businessList}">
+							<td th:text="${i.index+1}"></td>
 							<td th:text="${l.businessType}"></td>
 							<td th:text="${l.businessName}"></td>
 							<td th:text="${l.partnerName}"></td>
@@ -104,9 +117,12 @@
 							<!-- 수정버튼  -->
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
-									<a href="businessUpdate" class="btn btn-info"><i
-										class="fas fa-highlighter"></i></a> <a href="#"
-										class="btn btn-danger"><i class="fas fa-trash"></i></a>
+									<a href="businessUpdate" class="btn btn-info">
+										<i class="fas fa-highlighter"></i>
+									</a>
+									<a href="#" class="btn btn-danger">
+										<i class="fas fa-trash"></i>
+										</a>
 								</div>
 							</td>
 						</tr>

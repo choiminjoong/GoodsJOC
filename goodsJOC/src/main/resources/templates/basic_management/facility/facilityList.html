@@ -178,11 +178,11 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr>
-									<td>1</td>
-									<td>A</td>
-									<td>A-F3-12</td>
-									<td>냉동창고</td>
+								<tr th:if="${not #lists.isEmpty(warehouseList)}" th:each="l, i : ${warehouseList}">
+									<td th:text="${i.index + 1}"></td>
+									<td th:text="${l.warehouseName}"> </td>
+									<td th:text=${l.shelf.getShelfName()}></td>
+									<td th:text="${l.warehouseType}"></td>
 									<td>
 										<button type="button" class="btn btn-outline-primary btn-xs">수정하기</button>
 									</td>
@@ -235,8 +235,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:if="${not #lists.isEmpty(showcaseList)}" th:each="l : ${showcaseList}" >
-									<td>1</td>
+								<tr th:if="${not #lists.isEmpty(showcaseList)}" th:each="l, i : ${showcaseList}" >
+									<td th:text="${i.index+1}"></td>
 									<td th:text="${l.showcasePlace}"></td>
 									<td>
 										<button type="button" class="btn btn-outline-primary btn-xs">수정하기</button>

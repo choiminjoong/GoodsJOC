@@ -2,6 +2,9 @@ package k5.goodsjoc.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +23,17 @@ public class BusinessController {
 	}
 	
 	@GetMapping("/businessList")
-	public String businessList(Model model) {
+	public String businessList(Model model, HttpServletRequest request) {
 		System.out.println("페이지: 거래처 관리 ");
-		
-		List<Business> businessList = businessService.getBusinessList();
-		model.addAttribute("businessList", businessList);
 		System.out.println("경로: basic_management/business/businessList(GET방식 성공) ");
+		
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<Business> businessList = businessService.getBusinessList(sessionMartCode);
+		model.addAttribute("businessList", businessList);
+		
+		
 		
 		
 		return "basic_management/business/businessList";

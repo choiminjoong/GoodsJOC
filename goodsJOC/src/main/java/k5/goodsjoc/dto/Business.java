@@ -19,6 +19,7 @@ public class Business {
 	private String martCode;
 	private String ID;
 	private String regDate;
+	
 	public String getBusinessCode() {
 		return businessCode;
 	}
