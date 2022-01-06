@@ -6,6 +6,7 @@ public class GoodsCate {
 	private String martCode;
 	private String ID;
 	private String regDate;
+
 	public String getCategoryCode() {
 		return categoryCode;
 	}
