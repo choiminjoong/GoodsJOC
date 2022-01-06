@@ -1,12 +1,28 @@
 package k5.goodsjoc.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import k5.goodsjoc.dto.Showcase;
+import k5.goodsjoc.dto.Warehouse;
+import k5.goodsjoc.service.FacilityService;
 
 @Controller
 @RequestMapping(value = "/basic_management/facility")
 public class FacilityController {
+	
+	private FacilityService facilityService;
+	public FacilityController(FacilityService facilityService) {
+		this.facilityService = facilityService;
+	}
+	
 	
 	@GetMapping("/facilityInsert")
 	public String facilityInsert() {
@@ -15,7 +31,20 @@ public class FacilityController {
 	}
 
 	@GetMapping("/facilityList")
-	public String facilityList() {
+	public String facilityList(HttpServletRequest request, Model model) {
+		System.out.println("페이지: 시설 관리 ");
+		System.out.println("경로: basic_management/facility/facilityList(GET방식 성공) ");
+
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<Showcase> showcaseList = facilityService.getShowcaseList();
+		model.addAttribute("showcaseList",showcaseList);
+		System.out.println("model에 담긴 showcaseList: " + showcaseList);
+		
+		List<Warehouse> warehouseList = facilityService.getWarehouseList(sessionMartCode);
+		model.addAttribute("warehouseList", warehouseList);
+		System.out.println("model에 담긴 warehouseList: " + warehouseList);
 		
 		return "basic_management/facility/facilityList";
 	}
