@@ -13,13 +13,12 @@ import k5.goodsjoc.mapper.BusinessMapper;
 public class BusinessService {
 	
 	private final BusinessMapper businessMapper;
-	
 	public BusinessService(BusinessMapper businessMapper) {
 		this.businessMapper = businessMapper;
 	}
 	
-	public List<Business> getBusinessList(){
-		return businessMapper.getBusinessList();
+	public List<Business> getBusinessList(String martCode){
+		return businessMapper.getBusinessList(martCode);
 		
 	}	
 }

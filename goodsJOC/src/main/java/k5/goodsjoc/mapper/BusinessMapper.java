@@ -10,7 +10,7 @@ import k5.goodsjoc.dto.Business;
 public interface BusinessMapper {
 	
 	// 거래처 전체 조회
-	public List<Business> getBusinessList();
+	public List<Business> getBusinessList(String martCode);
 	
 	
 }

@@ -1,28 +1,24 @@
 package k5.goodsjoc.dto;
 
-public class Warehouse {
-
+public class Shelf {
+	private String shelfCode;
 	private String warehouseCode;
-	private String warehouseName;
-	private String warehouseType;
+	private String shelfName;
 	private String totalStock;
 	private String martCode;
 	private String ID;
 	private String regDate;
 	
-	private Shelf shelf;
-	
-	public Shelf getShelf() {
-		return shelf;
-	}
-	public void setShelf(Shelf shelf) {
-		this.shelf = shelf;
-	}
 	@Override
 	public String toString() {
-		return "Warehouse [warehouseCode=" + warehouseCode + ", warehouseName=" + warehouseName + ", warehouseType="
-				+ warehouseType + ", totalStock=" + totalStock + ", martCode=" + martCode + ", ID=" + ID + ", regDate="
-				+ regDate + "]";
+		return "Shelf [shelfCode=" + shelfCode + ", warehouseCode=" + warehouseCode + ", shelfName=" + shelfName
+				+ ", totalStock=" + totalStock + ", martCode=" + martCode + ", ID=" + ID + ", regDate=" + regDate + "]";
+	}
+	public String getShelfCode() {
+		return shelfCode;
+	}
+	public void setShelfCode(String shelfCode) {
+		this.shelfCode = shelfCode;
 	}
 	public String getWarehouseCode() {
 		return warehouseCode;
@@ -30,17 +26,11 @@ public class Warehouse {
 	public void setWarehouseCode(String warehouseCode) {
 		this.warehouseCode = warehouseCode;
 	}
-	public String getWarehouseName() {
-		return warehouseName;
+	public String getShelfName() {
+		return shelfName;
 	}
-	public void setWarehouseName(String warehouseName) {
-		this.warehouseName = warehouseName;
-	}
-	public String getWarehouseType() {
-		return warehouseType;
-	}
-	public void setWarehouseType(String warehouseType) {
-		this.warehouseType = warehouseType;
+	public void setShelfName(String shelfName) {
+		this.shelfName = shelfName;
 	}
 	public String getTotalStock() {
 		return totalStock;
@@ -66,6 +56,5 @@ public class Warehouse {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	
-	
+
 }
