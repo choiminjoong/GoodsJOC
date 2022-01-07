@@ -22,16 +22,13 @@
 
 	<section class="content">
 		<div class="content-header"></div>
-		<div class="container-fluid">
-
-			<section class="content">
 				<div class="row justify-content-center" style="margin-top: -3%">
 					<!-- Profile Image -->
 					<div class="col-sm-2 card card-warning color-palette card-outline">
 						<div class="card-body box-profile">
 							<div class="text-center">
-								<img class="profile-user-img img-fluid img-circle"
-									src="../../dist/img/building.png" alt="user-avatar">
+									<img th:src="@{/image/building.png}" alt="building-avatar"
+										class="img-circle img-fluid">
 							</div>
 
 							<h3 class="profile-username text-center" style="margin-top: 20%">
@@ -42,21 +39,20 @@
 								<input type="text" id="Name" class="form-control">
 							</p>
 							<ul class="list-group list-group-unbordered mb-4">
-								<li class="list-group-item"><b>* 거래처 코드</b>
-									<button type="button" 
-										class="btn-sm bg-gray disabled color-palette"
-										data-toggle="modal" data-target="#exampleModalCenter1">거래처 찾기
-									</button> 
-								<input type="text" id="code" class="form-control">
-								<li class="list-group-item"><b>* 발주 관리번호</b> <a
-									class="float-right"><input type="text" id="Name"
-										class="form-control"></a></li>
+								<li class="list-group-item"><b>* 거래처 코드</b></li>
+									<button type="button" class="btn-sm bg-info disabled color-palette" 
+										data-toggle="modal" data-target="#exampleModalCenter1">거래처 찾기</button> 
+								<input type="text" id="code" class="form-control" style="margin-top: 3%">
+								<li class="list-group-item"><b>* 발주 관리번호</b> 
+								<a class="float-right"><input type="text" id="Name"class="form-control"></a></li>
 							</ul>
 						</div>
+						
 					</div>
+					
 
 					<!--주문서입력폼  -->
-					<div class="col-md-9">
+					<div class="col-md-7">
 						<div class="card card-primary">
 							<div class="bg-warning color-palette btn-block card-header ">
 								<b><i class="fas fa-check"></i>ㅤ주문서 작성</b>
@@ -88,7 +84,7 @@
 													<tr>
 														<th>
 															<button type="button"
-																class="btn-sm bg-gray disabled color-palette"
+																class="btn-sm bg-info disabled color-palette"
 																data-toggle="modal" data-target="#exampleModalCenter2">상품찾기
 															</button>
 														</th>
