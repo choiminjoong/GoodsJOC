@@ -11,9 +11,12 @@ import k5.goodsjoc.dto.GoodsCate;
 public interface GoodsMapper {
 
 	
-	//상품리스트 조회 
+	//상품리스트 조회(카테고리+상품) 
 	public List<Goods> getGoodsList(String martCode);
 
+	
+	//카테고리 등록
+	public int addGoodsCate(GoodsCate goodsCate);
 	//카테고리 조회
 	public List<GoodsCate> getGoodsCateList(String martCode);
 }

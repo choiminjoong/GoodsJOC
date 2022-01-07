@@ -41,7 +41,7 @@ public class GoodsController {
 		
 		List<GoodsCate> goodsCateList = goodsService.getGoodsCateList(sessionMartCode);
 		model.addAttribute("goodsCateList", goodsCateList);
-		System.out.println("model에 담긴 정보: " + model);
+		System.out.println("model에 담긴 상품카테고리: " + model);
 		
 		return "product_management/goods/goodsCate";
 	}
@@ -61,9 +61,13 @@ public class GoodsController {
 		HttpSession session = request.getSession();
 		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
 		
+		List<GoodsCate> goodsCateList = goodsService.getGoodsCateList(sessionMartCode);
+		model.addAttribute("goodsCateList", goodsCateList);
+		System.out.println("model에 담긴 상품카테고리: " + model);
+		
 		List<Goods> goodsList = goodsService.getGoodsList(sessionMartCode);
 		model.addAttribute("goodsList", goodsList);
-		System.out.println("model에 담긴 정보: " + model);
+		System.out.println("model에 담긴 상품리스트: " + model);
 		
 		
 		return "product_management/goods/goodsList";

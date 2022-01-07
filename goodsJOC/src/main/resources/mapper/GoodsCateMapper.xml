@@ -18,10 +18,11 @@
 				categoryName, 
 				martCode, 
 				ID, 
-				regDate
+				DATE(regDate) AS regDate
 			FROM 
 				tb_category
-			
+			WHERE
+				martCode = #{martCode}
 		</select>
 
 	
