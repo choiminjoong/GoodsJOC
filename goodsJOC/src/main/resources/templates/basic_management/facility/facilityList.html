@@ -14,139 +14,132 @@
 </th:block>
 
 <th:block layout:fragment="customContents">
-<div>
-	<div class="card card-warning card-tabs">
-		<div class="card-header p-0 pt-1">
-			<ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-				<div class="card-tools">
-					<button type="button" class="btn btn-tool" data-card-widget="collapse">
-						<i class="fas fa-minus"></i>
-					</button>
-				</div>
-				<li class="pt-2 px-3">
-					<h3 class="card-title"><b>시설 등록</b></h3>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" id="custom-tabs-two-home-tab" href="#custom-tabs-two-home"
-					data-toggle="pill"  role="tab"aria-controls="custom-tabs-two-home" aria-selected="true">
-						창고 등록
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="custom-tabs-two-profile-tab" href="#custom-tabs-two-profile"
-					data-toggle="pill" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">
-						창고진열대 등록
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="custom-tabs-two-messages-tab" href="#custom-tabs-two-messages" 
-					data-toggle="pill" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">
-						판매진열대 등록
-					</a>
-				</li>
-			</ul>
-		</div>
-		
-		<div class="card-body">
-			<div class="tab-content" id="custom-tabs-two-tabContent">
-				<!-- 창고등록 폼 -->
-				<div class="tab-pane fade active show" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
-					<form class="form-horizontal">
-						<div class="card-body row">
-							<div class="col-10">
-								<div class="form-group row">
-									<label for="warehouseName" class="col-sm-2 col-form-label">창고명</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="warehouseName">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="warehouseType" class="col-sm-2 col-form-label">창고분류</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="warehouseType">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="warehouseType" class="col-sm-2 col-form-label">등록자</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="warehouseType" value="오대성"  readonly="readonly">
-									</div>
-								</div>
-							</div>
-							<div class="col-2">
-								<button type="button" class="btn btn-info btn-lg">등록하기</button>
-							</div>
-						</div>	
-					</form>
-				</div>
-				
-				<!-- 창고진열대 등록폼 -->
-				<div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
-					<form class="form-horizontal">
-						<div class="card-body row">
-							<div class="col-10">
-								<div class="form-group row">
-									<label for="showcaseName" class="col-sm-2 col-form-label">창고진열대 위치</label>
-									<div class="col-sm-10">
-										<select id="showcaseName" class="form-control">
-											<option>창고1</option>
-											<option>창고2</option>
-											<option>창고3</option>
-										</select>
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="showcaseName" class="col-sm-2 col-form-label">진열대 이름</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="showcaseName">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="staffId" class="col-sm-2 col-form-label">등록자</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="staffId" value="오대성"  readonly="readonly">
-									</div>
-								</div>
-							</div>
-							<div class="col-2">
-								<button type="button" class="btn btn-info btn-lg">등록하기</button>
+
+<div class="card card-warning card-tabs">
+	<div class="card-header p-0 pt-1">
+		<ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+			<li class="pt-2 px-3">
+				<h3 class="card-title">시설 등록</h3>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link active" id="custom-tabs-two-home-tab" href="#custom-tabs-two-home"
+				data-toggle="pill"  role="tab"aria-controls="custom-tabs-two-home" aria-selected="true">
+					창고 등록
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="custom-tabs-two-profile-tab" href="#custom-tabs-two-profile"
+				data-toggle="pill" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">
+					창고진열대 등록
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="custom-tabs-two-messages-tab" href="#custom-tabs-two-messages" 
+				data-toggle="pill" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">
+					판매진열대 등록
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div class="card-body">
+		<div class="tab-content" id="custom-tabs-two-tabContent">
+			<!-- 창고등록 폼 -->
+			<div class="tab-pane fade active show" id="custom-tabs-two-home"
+				role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+				<form class="form-horizontal">
+					<div class="card-body">
+						<div class="form-group row">
+							<label for="warehouseName" class="col-sm-2 col-form-label">창고명</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="warehouseName">
 							</div>
 						</div>
-					</form>
-				</div>
-				
-				<!-- 판매진열대 등록 폼 -->
-				<div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
-					<form class="form-horizontal">
-						<div class="card-body row">
-							<div class="col-10">
-								<div class="form-group row">
-									<label for="martShowcaseName" class="col-sm-2 col-form-label">판매진열대 이름</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="martShowcaseName">
-									</div>
-								</div>
-								<div class="form-group row">
-									<label for="staffId" class="col-sm-2 col-form-label">등록자</label>
-									<div class="col-sm-10">
-										<input type="text" class="form-control" id="staffId" value="오대성"  readonly="readonly">
-									</div>
-								</div>
-							</div>
-							<div class="col-2">
-								<button type="button" class="btn btn-info btn-lg">등록하기</button>
+						<div class="form-group row">
+							<label for="warehouseType" class="col-sm-2 col-form-label">창고분류</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="warehouseType">
 							</div>
 						</div>
-					</form>
-				</div>
+						<div class="form-group row">
+							<label for="warehouseType" class="col-sm-2 col-form-label">등록자</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="warehouseType" value="오대성"  readonly="readonly">
+							</div>
+						</div>
+					</div>	
+					<div class="card-body">
+						<button type="button" class="btn btn-default float-right">등록하기</button>
+					</div>
+				</form>
 			</div>
+			
+			<!-- 창고진열대 등록폼 -->
+			<div class="tab-pane fade" id="custom-tabs-two-profile"
+				role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+				<form class="form-horizontal">
+					<div class="card-body">
+						<div class="form-group row">
+							<label for="showcaseName" class="col-sm-2 col-form-label">창고진열대 위치</label>
+							<div class="col-sm-10">
+								<select id="showcaseName" class="form-control">
+									<option>창고1</option>
+									<option>창고2</option>
+									<option>창고3</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="showcaseName" class="col-sm-2 col-form-label">진열대 이름</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="showcaseName">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="staffId" class="col-sm-2 col-form-label">등록자</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="staffId" value="오대성"  readonly="readonly">
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<button type="button" class="btn btn-default float-right">등록하기</button>
+					</div>
+				</form>
+			</div>
+			
+			<!-- 판매진열대 등록 폼 -->
+			<div class="tab-pane fade" id="custom-tabs-two-messages"
+				role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
+				<form class="form-horizontal">
+					<div class="card-body">
+						<div class="form-group row">
+							<label for="martShowcaseName" class="col-sm-2 col-form-label">판매진열대 이름</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="martShowcaseName">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="staffId" class="col-sm-2 col-form-label">등록자</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="staffId" value="오대성"  readonly="readonly">
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<button type="button" class="btn btn-default float-right">등록하기</button>
+					</div>
+				</form>
+			</div>
+
 		</div>
 	</div>
+	<!-- /.card -->
+</div>
 
 
-	<div class="row">	
+	<div class=" row">	
 		<!-- 카테고리 리스트 화면 -->
-		<div class="row col-7">
+		<div class="row col-8">
 			<div class="col-12">
 				<div class="card card-warning">
 					<div class="card-header">
@@ -178,19 +171,19 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:if="${not #lists.isEmpty(warehouseList)}" th:each="l, i : ${warehouseList}">
-									<td th:text="${i.index + 1}"></td>
-									<td th:text="${l.warehouseName}"> </td>
-									<td th:text=${l.shelf.getShelfName()}></td>
-									<td th:text="${l.warehouseType}"></td>
+								<tr>
+									<td>1</td>
+									<td>A</td>
+									<td>A-F3-12</td>
+									<td>냉동창고</td>
 									<td>
-										<button type="button" class="btn btn-outline-primary btn-xs">수정하기</button>
+										<button type="button" class="btn btn-outline-secondary btn-xs">수정하기</button>
 									</td>
 									<td>
-										<button type="button" class="btn btn-outline-danger btn-xs">진열대삭제</button>
+										<button type="button" class="btn btn-outline-secondary btn-xs">진열대삭제</button>
 									</td>
 									<td>
-										<button type="button" class="btn btn-danger btn-xs">창고삭제</button>
+										<button type="button" class="btn btn-outline-secondary btn-xs">창고삭제</button>
 									</td>
 								</tr>
 							</tbody>
@@ -205,7 +198,7 @@
 			</div>
 		</div>
 
-		<div class="row col-5">
+		<div class="row col-4">
 			<div class="col-12">
 				<div class="card card-warning">
 					<div class="card-header">
@@ -235,14 +228,14 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:if="${not #lists.isEmpty(showcaseList)}" th:each="l, i : ${showcaseList}" >
-									<td th:text="${i.index+1}"></td>
-									<td th:text="${l.showcasePlace}"></td>
+								<tr>
+									<td>1</td>
+									<td>A-00-01</td>
 									<td>
-										<button type="button" class="btn btn-outline-primary btn-xs">수정하기</button>
+										<button type="button" class="btn btn-outline-secondary btn-xs">수정하기</button>
 									</td>
 									<td>
-										<button type="button" class="btn btn-outline-danger btn-xs">삭제하기</button>
+										<button type="button" class="btn btn-outline-secondary btn-xs">삭제하기</button>
 									</td>
 								</tr>
 							</tbody>
@@ -254,6 +247,6 @@
 			</div>
 		</div>
 	</div>
-</div>
+
 </th:block>
 </html>

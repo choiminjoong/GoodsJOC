@@ -9,7 +9,7 @@ public class MainController {
 	@GetMapping("/")
 	public String login() {
 	 
-		return "system_management/user/loginForm"; 
+		return "main"; 
 	}
 	@GetMapping("/main")
 	public String main() {

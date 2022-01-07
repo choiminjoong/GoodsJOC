@@ -1,40 +1,17 @@
 package k5.goodsjoc.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import k5.goodsjoc.dto.Business;
-import k5.goodsjoc.service.BusinessService;
 
 @Controller
 @RequestMapping(value = "/basic_management/business")
 public class BusinessController {
-	
-	private BusinessService businessService;
-	public BusinessController(BusinessService businessService) {
-		this.businessService = businessService;
-	}
-	
+
 	@GetMapping("/businessList")
-	public String businessList(Model model, HttpServletRequest request) {
+	public String businessList() {
 		System.out.println("페이지: 거래처 관리 ");
 		System.out.println("경로: basic_management/business/businessList(GET방식 성공) ");
-		
-		HttpSession session = request.getSession();
-		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
-		
-		List<Business> businessList = businessService.getBusinessList(sessionMartCode);
-		model.addAttribute("businessList", businessList);
-		
-		
-		
 		
 		return "basic_management/business/businessList";
 	}
@@ -43,7 +20,7 @@ public class BusinessController {
 	public String businessInsert() {
 		System.out.println("페이지: 거래처 등록 ");
 		System.out.println("경로: basic_management/business/businessInsert(GET방식 성공) ");		
-
+		
 		
 		return "basic_management/business/businessInsert";
 	}

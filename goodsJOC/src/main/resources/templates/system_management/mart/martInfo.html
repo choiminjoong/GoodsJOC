@@ -16,7 +16,7 @@
 <!-- 메인 컨텐츠 영역 -->		
 <th:block layout:fragment="customContents">	       	 
 		
-	<div class="row" >
+	<div class="row">
 		<div class="col-9 mx-auto">
 			<div class="card card-warning">
 				<div class="card-header">
@@ -25,60 +25,65 @@
 				<!-- /.card-header -->
 				<!-- form start -->
 				<form class="form-horizontal">
-					<div class="card-body" th:if="${not #lists.isEmpty(martInfo)}" th:each="l : ${martInfo}">
+					<div class="card-body">
 						<div class="form-group row">
-							<label for="martCode"  class="col-sm-2 col-form-label">매장 고유코드</label>
+							<label for="martCode" class="col-sm-2 col-form-label">매장 고유코드</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martCode" th:value="${l.martCode}" readonly="readonly" >
+								<input type="text" class="form-control" id="martCode" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="martName" class="col-sm-2 col-form-label">사업장명</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martName" th:value="${l.martName}" readonly="readonly">
+								<input type="text" class="form-control" id="martName" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="partnerName" class="col-sm-2 col-form-label">대표자</label>
+							<label for="martPartnerName" class="col-sm-2 col-form-label">대표자</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="partnerName" th:value="${l.partnerName}" readonly="readonly">
+								<input type="text" class="form-control" id="martPartnerName" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="registerNum" class="col-sm-2 col-form-label">사업자 등록번호</label>
+							<label for="martRegNum" class="col-sm-2 col-form-label">사업자 등록번호</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="registerNum" th:value="${l.registerNum}" readonly="readonly">
+								<input type="text" class="form-control" id="martRegNum" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="address" class="col-sm-2 col-form-label">주소</label>
+							<label for="martPhoneNum" class="col-sm-2 col-form-label">사업장 연락처</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="address" th:value="${l.address}" readonly="readonly">
+								<input type="text" class="form-control" id="martPhoneNum" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="callNum" class="col-sm-2 col-form-label">사업장 연락처</label>
+							<label for="martAddress" class="col-sm-2 col-form-label">주소</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="callNum" th:value="${l.callNum}" readonly="readonly">
-							</div>
-						</div>
-				
-						<div class="form-group row">
-							<label for="FAX" class="col-sm-2 col-form-label">FAX</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="FAX" th:value="${l.FAX}" readonly="readonly">
+								<input type="text" class="form-control" id="martAddress" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="sectors" class="col-sm-2 col-form-label">업종</label>
+							<label for="martEmail" class="col-sm-2 col-form-label">이메일</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="sectors" th:value="${l.sectors}" readonly="readonly">
+								<input type="text" class="form-control" id="martEmail" readonly="readonly">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="status" class="col-sm-2 col-form-label">업태</label>
+							<label for="martEmail" class="col-sm-2 col-form-label">FAX</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="status" th:value="${l.status}" readonly="readonly">
+								<input type="text" class="form-control" id="FAX" readonly="readonly">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="martSectors" class="col-sm-2 col-form-label">업종</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="martSectors" readonly="readonly">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="martStatus" class="col-sm-2 col-form-label">업태</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="martStatus" readonly="readonly">
 							</div>
 						</div>
 					</div>	
@@ -89,7 +94,6 @@
 					</div>
 				</form>
 			</div>
-			
 		</div>
 	</div>
 		

@@ -1,87 +1,113 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<title>GoodsJOCㅣ회원가입</title>
-<th:block th:replace="fragments/head :: headFragment"></th:block>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
 
-<body style="background-color: #001F3F;">
-	<div class="row justify-content-center" style="margin-top: 5%">
-		<div class="col-md-7">
-			<div class="card card-primary">
-				<div class="btn-sm bg-warning btn-block card-header ">
-					<h4><i class="fas fa-tags"></i>회원가입</h4>
+<!-- 페이지 제목 공간 -->
+<th:block layout:fragment="customTitle">
+	<title>주문관리</title>
+</th:block>
+<!-- 로케이션 제목 -->
+<th:block layout:fragment="locationTitle">
+</th:block>
+<!-- 로케이션 위치 -->
+<th:block layout:fragment="locationPlace">
+	<a th:href="@{/main}">MAIN</a>
+		> 기초관리 > 직원관리 > 직원등록
+	</th:block>
+
+<!-- 메인 컨텐츠 영역 -->
+<th:block layout:fragment="customContents">
+
+	<section class="content">
+		<div class="content-header"></div>
+		<div class="container-fluid">
+
+			<section class="content">
+				<div class="row justify-content-center" style="margin-top: -3%">
+					<!-- 사원정보입력폼  -->
+					<div class="col-md-7">
+						<div class="card card-primary">
+							<div class="btn-sm bg-warning color-palette btn-block card-header ">
+								<b><i class="fas fa-check"></i>ㅤ사원정보입력</b>
+							</div>
+							<div class="card-body">
+								<div class="form-group">
+									<label>* 이름</label> <input type="text" id="Name"
+										class="form-control">
+								</div>
+
+								<div class="form-group">
+									<label>* 생년월일</label> <input type="date" id="userBirth"
+										class="form-control">
+								</div>
+								<div class="form-group">
+									<label>* 사원직급</label> <input type="text" id="userLevel"
+										class="form-control">
+								</div>
+
+								<div class="form-group">
+									<label>* 권한</label> <select id="levelNum"
+										class="form-control custom-select">
+										<option value="최고경영자 (관리자)">최고경영자(관리자)</option>
+										<option value="매니저">매니저</option>
+										<option value="직원">직원</option>
+										<option value="비권한자">비권한자</option>
+									</select>
+								</div>
+
+								<div class="form-group">
+									<label>Email</label> <input type="text" id="Email"
+										class="form-control">
+								</div>
+
+								<div class="form-group">
+									<label>입사일</label> <input type="datetime-local" id="date"
+										class="form-control">
+								</div>
+
+								<div class="form-group">
+									<label>전화번호</label> <input type="text" id="userPhone"
+										class="form-control">
+								</div>
+
+								<div class="form-group">
+									<label for="inputProjectLeader">주소</label>
+									<!--카카오톡 우편번호 api  -->
+									<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+									<script charset="UTF-8" type="text/javascript"
+										src="//t1.daumcdn.net/postcode/api/core/211103/1635999227231/211103.js"></script>
+									<script src="/resources/js/addressapi.js"></script>
+									<div class="form-group">
+										<input class="form-control"
+											style="width: 40%; display: inline;" placeholder="우편번호"
+											name="addr1" id="addr1" type="text" readonly="readonly">
+										<button type="button" class="btn btn-default"
+											onclick="execPostCode();">
+											<i class="fa fa-search"></i> 우편번호 찾기
+										</button>
+									</div>
+									<div class="form-group">
+										<input class="form-control" style="top: 5px;"
+											placeholder="도로명 주소" name="addr2" id="addr2" type="text"
+											readonly="readonly">
+									</div>
+									<div class="form-group">
+										<input class="form-control" placeholder="상세주소" name="addr3"
+											id="addr3" type="text">
+									</div>
+									<!--   <input type="button" onclick="kakaopost" class="form-control" value="우편번호찾기" style="text-align: left;"> -->
+
+									<!-- 등록버튼  -->
+									<a href="userInsert"
+										class="btn btn-m bg-warning color-palette btn-block"><b>등록</b></a>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="card-body">
-					<div class="form-group">
-						<label><code>*</code>아이디</label> 
-						<div class="input-group input-group">
-							<input type="text" class="form-control"> <span
-								class="input-group-append">
-								<button type="button" class="btn btn-info btn-flat">ID 중복 확인</button>
-							</span>
-						</div>
-					</div>
-					<div class="form-group">
-						<label><code>*</code>비밀번호</label> 
-						<input type="password" class="form-control">
-					</div>
-					<div class="form-group">
-						<label><code>*</code>비밀번호 확인</label> 
-						<input type="password" class="form-control">
-					</div>
-					<div class="form-group">
-						<label><code>*</code>이름</label> 
-						<input type="password" class="form-control">
-					</div>
-					<div class="form-group">
-						<label><code>*</code>생년월일</label> 
-						<input type="date" id="userBirth" class="form-control">
-					</div>
-					<div class="form-group">
-						<label><code>*</code>연락처</label> 
-						<input type="text" id="userBirth" class="form-control">
-					</div>
-					<div class="form-group">
-						<label><code>*</code>Email</label> 
-						<input type="text" id="Email" class="form-control">
-					</div>
-					<div class="form-group">
-						<label for="inputProjectLeader"><code>*</code>주소</label>
-						<!--카카오톡 우편번호 api  -->
-						<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-						<script charset="UTF-8" type="text/javascript"
-							src="//t1.daumcdn.net/postcode/api/core/211103/1635999227231/211103.js"></script>
-						<script src="/resources/js/addressapi.js"></script>
-						<div class="form-group">
-							<input class="form-control"
-								style="width: 40%; display: inline;" placeholder="우편번호"
-								name="addr1" id="addr1" type="text" readonly="readonly">
-							<button type="button" class="btn btn-default"
-								onclick="execPostCode();">
-								<i class="fa fa-search"></i> 우편번호 찾기
-							</button>
-						</div>
-						<div class="form-group">
-							<input class="form-control" style="top: 5px;"
-								placeholder="도로명 주소" name="addr2" id="addr2" type="text"
-								readonly="readonly">
-						</div>
-						<div class="form-group">
-							<input class="form-control" placeholder="상세주소" name="addr3"
-								id="addr3" type="text">
-						</div>
-						<div class="form-group">
-							<label><code>*</code>마트고유번호</label>
-							<input type="text" id="martCode" class="form-control" placeholder="매장관리자와 상의하시오">
-						</div>
-
-						<!--   <input type="button" onclick="kakaopost" class="form-control" value="우편번호찾기" style="text-align: left;"> -->
-
-						<!-- 등록버튼  -->
-						<a th:href="@{/system_management/user/loginForm}" class="btn btn-m bg-warning btn-block"><b>등록</b></a>
-					</div>
-				</div>
-			</div>
+			</section>
 		</div>
-	</div>
-</body>
+	</section>
+</th:block>
 </html>
