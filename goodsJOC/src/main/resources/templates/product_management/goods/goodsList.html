@@ -9,7 +9,7 @@
 </th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
+<a id="main" th:href="@{/main}" class="joc-a2"><b>MAIN</b></a>
 	> 상품관리 > 조회
 </th:block>
 
@@ -22,12 +22,84 @@
 				<b>상품정보 조회</b>
 			</h3>
 		</div>
-		<!-- /.card-header -->
 		<div class="card-body table-responsive">
-			조건창
+			<form th:action="@{/product_management/goods/goodsList}" method="post">
+				<div class="tab-content row" id="custom-tabs-two-tabContent">
+					<div class="col-10">
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">카테고리</label>
+							<div class="col-sm-3">
+								<div class="input-group mb-2">
+									<input type="text" class="form-control">
+									<div class="input-group-append">
+										<button type="button" id="modalTableBtn" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+											<i class="fas fa-search"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-1"></div>
+							<label class="col-sm-1 col-form-label">매입가</label>
+							<div class="col-sm-2">
+								<input name="minPurchasePrice" type="number" class="form-control text-center" value=0>
+							</div>
+							<div class="col-sm-1 text-center">
+								<b>~</b>
+							</div>	
+							<div class="col-sm-2">
+								<input name="maxPurchasePrice" type="number" class="form-control text-center" value=0>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">과세유형</label>
+							<div class="col-sm-3">
+								<select name="searchTaxType" class="form-control custom-select text-center">
+									<option value="">전체보기</option>
+									<option value="과세">과세</option>
+									<option value="비과세">비과세</option>
+								</select>	
+								
+							</div>
+							
+							<div class="col-sm-1"></div>
+							<label class="col-sm-1 col-form-label">판매가</label>
+							<div class="col-sm-2">
+								<input name="minSalesPrice" type="number" class="form-control text-center" value=0>
+							</div>
+							<div class="col-sm-1 text-center">
+								<b>~</b>
+							</div>	
+							<div class="col-sm-2">
+								<input name="maxSalesPrice" type="number" class="form-control text-center" value=0>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">상품명</label>
+							<div class="col-sm-5">
+								<input name="searchGoodsName" type="text" class="form-control float-right">
+							</div>
+							<div class="col-sm-2"></div>
+							<div class="col-sm-2">
+								<button type="submit" class="btn btn-block bg-gradient-warning btn-lg">검색</button>
+							</div>
+							<div class="col-sm-1">
+								<a th:href="@{/product_management/goods/goodsList}" type="button" class="btn btn-block bg-gradient-warning btn-lg">
+									<i class="fas fa-redo-alt"></i>
+								</a>
+							</div>
+						</div>
+					</div>				
+					<div class="col-2" align="center">
+						<a th:href="@{/product_management/goods/goodsCate}" class="btn btn-block bg-gradient-info btn-lg">카테고리등록</a>
+						<a th:href="@{/product_management/goods/goodsInsert}" class="btn btn-block bg-gradient-info btn-lg">상품등록</a>
+						<button type="button" class="btn btn-block bg-gradient-info btn-lg">단가조정</button>
+					</div>
+				</div>
+			</form>
 		</div>
-		<!-- /.card-body -->
 	</div>
+
+
 
 	<div class="card card-warning">
 		<div class="card-header p-0 pt-1"></div>
@@ -36,6 +108,7 @@
 				<thead>
 					<tr>
 						<th>번호</th>
+						<th>과세유형</th>
 						<th>카테고리</th>
 						<th>상품명</th>
 						<th>바코드</th>
@@ -44,12 +117,13 @@
 						<th>매입단가</th>
 						<th>판매단가</th>
 						<th>마진</th>
-						<th>상세보기</th>
+						<th>수정 및 삭제</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:if="${not #lists.isEmpty(goodsList)}" th:each="l, i : ${goodsList}">
 						<td th:text="${i.index+1}"></td>
+						<td th:text="${l.taxType}"></td>
 						<td th:text="${l.goodsCate.getCategoryName()}">카테고리</td>
 						<td th:text="${l.goodsName}">상품명</td>
 						<td th:text="${l.barcode}">바코드</td>
@@ -60,12 +134,12 @@
 						<td th:text="${l.margin}">마진</td>
 						<td>
 							<div class="btn-group btn-group-sm">
-								<a th:href="@{/product_management/goods/goodsUpdate}" class="btn btn-info">
+								<a th:href="@{/product_management/goods/goodsUpdate(barcode=${l.barcode})}" class="btn btn-primary">
 									<i class="fas fa-highlighter"></i>
 								</a>
 								<a href="#" class="btn btn-danger">
 									<i class="fas fa-trash"></i>
-									</a>
+								</a>
 							</div>
 						</td>
 					</tr>
@@ -75,5 +149,48 @@
 		<!-- /.card-body -->
 	</div>
 
+	<!-- 카테고리 검색 모달  -->
+	<div class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title">상품 카테고리 검색</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div class="card-body table-responsive" style="height:480px;">
+						<table id="modalAjax" class="table table-bordered table-hover table-head-fixed text-nowrap">
+							<thead>
+								<tr>
+									<th>NO</th>
+									<th>카테고리명</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${not #lists.isEmpty(goodsCateList)}" th:each="l,i : ${goodsCateList}">
+									<td th:text="${i.index+1}"></td>
+									<td th:text="${l.categoryName}"></td>
+									<td>
+										<button type="button" class="button btn-sm btn-info">선택</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer justify-content-between">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+	</div>
+
 </th:block>
+
 </html>
