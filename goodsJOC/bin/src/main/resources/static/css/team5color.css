@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+/* 미확정 */
+
+
+
+
+.joc-1{
+	background-color: #fff;
+}
+.joc-2{
+	background-color: #001F3F;
+}
+
+
+
+
+/* 확정 */
+.preloader{
+	background-color: #fff;
+}
+.joc-dark1{
+	background-color: #EDEDED;
+	/* header, content-wrappe */
+}
+.joc-dark2{
+	background-color: #343a40;
+	/* footer */
+}
+#main{
+	color: #fff; 
+}
+#main:hover {
+	color: #ffff00; 
+}

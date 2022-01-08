@@ -35,12 +35,18 @@
 
 							<p class="text-muted text-center">manager</p>
 							<ul class="list-group list-group-unbordered mb-4">
-								<li class="list-group-item"><b>ID</b> <a
-									class="float-right">ehgp0343</a></li>
-								<li class="list-group-item"><b>사업장 코드</b> <a
-									class="float-right">mart1</a></li>
-								<li class="list-group-item"><b>사업장명</b> <a
-									class="float-right">OK마트</a></li>
+								<li class="list-group-item"><b>ID</b>								
+								<a class="float-right">
+								<span id="ID" th:text=${session.SID}/></a></li>				
+
+								<li class="list-group-item"><b>사업장코드</b>								
+								<a class="float-right">
+								<span id="ID" th:text=${session.SMARTCODE}/></a></li>				
+								
+							<li class="list-group-item"><b>사업장명</b>								
+								<a class="float-right">
+								<span id="ID" th:text=${session.SMARTNAME}/></a></li>				
+
 							</ul>
 						</div>
 					</div>
@@ -54,12 +60,13 @@
 							<div class="card-body">
 								<div class="form-group">
 									<label>이름</label> 
-									<input type="text" id="Name"class="form-control" value="정도혜">
+									<input type="text" id="Name"class="form-control" 
+									th:value=${session.SNAME} readonly="readonly">
 								</div>
 
 								<div class="form-group">
 									<label>생년월일</label> <input type="date" id="userBirth"
-										class="form-control" value="1997-04-14">
+										class="form-control">
 								</div>
 								<div class="form-group">
 									<label>사원직급</label> <input type="text" id="userLevel"
@@ -67,17 +74,18 @@
 								</div>
 
 								<div class="form-group">
-									<label>권한</label> <select id="levelNum"
-										class="form-control custom-select">
-										<option value="최고경영자 (관리자)">최고경영자(관리자)</option>
-										<option value="매니저">매니저</option>
-										<option value="사원">사원</option>
-									</select>
+									<div class="form-group">
+									<label>권한</label> 
+									<input type="text" id="Level"class="form-control" 
+									th:value=${session.SLEVLEL} readonly="readonly">
+								</div>
+							
 								</div>
 
 								<div class="form-group">
 									<label>Email</label> <input type="text" id="Email"
-										class="form-control" value="ehgp8243@hanmail.net">
+										class="form-control" 
+										value="전라북도 전주시 덕진구" readonly="readonly">
 								</div>
 
 								<div class="form-group">
@@ -87,7 +95,8 @@
 
 								<div class="form-group">
 									<label>전화번호</label> <input type="text" id="userPhone"
-										class="form-control" value="010-000-000">
+										class="form-control" 
+										value="010-000-000" readonly="readonly">
 								</div>
 
 								<div class="form-group">

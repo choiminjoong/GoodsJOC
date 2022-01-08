@@ -9,7 +9,6 @@ import k5.goodsjoc.dto.Warehouse;
 
 @Mapper
 public interface FacilityMapper {
-
 	
 	//창고정보 조회
 	public List<Warehouse> getWarehouseList(String martCode);

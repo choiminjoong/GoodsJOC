@@ -57,6 +57,7 @@ public class UserController {
 				session.setAttribute("SMARTCODE", martInfo.getMartCode());
 				session.setAttribute("SMARTNAME", martInfo.getMartName());
 				session.setAttribute("SLEVLEL", userInfo.getLevelNum());
+				session.setAttribute("SPHONE", userInfo.getPhone());
 				if(userInfo.getLevelNum().equals("1")) {
 					session.setAttribute("SLEVELNAME", "SW개발사");
 				}else if(userInfo.getLevelNum().equals("2")) {
