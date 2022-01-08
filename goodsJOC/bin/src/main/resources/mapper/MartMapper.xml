@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k5.goodsjoc.mapper.MartMapper">
+	<resultMap type="Mart" id="martResultMap">
+		<result column="martCode" property="martCode" />
+		<result column="martName" property="martName" />
+		<result column="partnerName" property="partnerName" />
+		<result column="partnerPhone" property="partnerPhone" />
+		<result column="registerNum" property="registerNum" />
+		<result column="sectors" property="sectors" />
+		<result column="status" property="status" />
+		<result column="callNum" property="callNum" />
+		<result column="address" property="address" />
+		<result column="FAX" property="FAX" />
+		<result column="martStaff" property="martStaff" />
+		<result column="martStaffPhone" property="martStaffPhone" />
+		<result column="martStaffEmail" property="martStaffEmail" />
+		<result column="note" property="note" />
+		<result column="regDate" property="regDate" />
+		<result column="editDate" property="editDate" />
+	</resultMap>	
+
+	<update id="updateMartInfo" parameterType="Mart">
+		UPDATE
+			tb_mart	
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="martName != null and martName != ''.toString()">
+				,martName = #{martName}
+			</if>
+			<if test="partnerName != null and partnerName != ''.toString()">
+				,partnerName = #{partnerName}
+			</if>
+			<if test="partnerPhone != null and partnerPhone != ''.toString()">
+				,partnerPhone = #{partnerPhone}
+			</if>
+			<if test="registerNum != null and registerNum != ''.toString()">
+				,registerNum = #{registerNum}
+			</if>
+			<if test="sectors != null and sectors != ''.toString()">
+				,sectors = #{sectors}
+			</if>
+			<if test="callNum != null and callNum != ''.toString()">
+				,callNum = #{callNum}
+			</if>
+			<if test="address != null and address != ''.toString()">
+				,address = #{address}
+			</if>
+			<if test="FAX != null and FAX != ''.toString()">
+				,FAX = #{FAX}
+			</if>
+			<if test="martStaff != null and martStaff != ''.toString()">
+				,martStaff = #{martStaff}
+			</if>
+			<if test="martStaffPhone != null and martStaffPhone != ''.toString()">
+				,martStaffPhone = #{martStaffPhone}
+			</if>
+			<if test="martStaffEmail != null and martStaffEmail != ''.toString()">
+				,martStaffEmail = #{martStaffEmail}
+			</if>
+			<if test="note != null and note != ''.toString()">
+				,note = #{note}
+			</if>
+			,editDate=NOW()
+		</trim>
+		WHERE 
+			martCode=#{martCode}
+	</update>
+	
+
+	<select id="getMartInfoByMartCode" parameterType="String" resultMap="martResultMap">
+		SELECT 
+			 martCode
+			,martName
+			,partnerName
+			,partnerPhone
+			,registerNum
+			,sectors
+			,status
+			,callNum
+			,address
+			,FAX
+			,martStaff
+			,martStaffPhone
+			,martStaffEmail
+			,note
+			,regDate
+			,editDate
+		FROM 
+			tb_mart
+		WHERE 
+			martCode = #{martCode};
+	</select>
+</mapper>

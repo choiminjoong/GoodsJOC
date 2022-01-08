@@ -10,8 +10,8 @@ import k5.goodsjoc.dto.GoodsCate;
 
 @Mapper
 public interface GoodsMapper {
-
 	
+
 	//상품리스트 조회(카테고리+상품) 
 	public List<Goods> getGoodsList(String martCode);
 	

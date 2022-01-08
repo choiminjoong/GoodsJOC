@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k5.goodsjoc.mapper.SalesMapper">
+	<resultMap type="Sales" id="salesResultMap">
+		<result column="salesCode" 				property="salesCode"/>
+		<result column="receiptNum" 			property="receiptNum"/>
+		<result column="salesTotalPrice" 		property="salesTotalPrice"/>
+		<result column="martCode" 				property="martCode"/>		
+		<result column="ID" 					property="ID"/>
+		<result column="regDate"				property="regDate"/>
+		<result column="canselCheck" 			property="canselCheck"/>
+		<result column="casnselStaff" 			property="casnselStaff"/>
+		<result column="canselDate" 			property="canselDate"/>
+	</resultMap>		
+	
+	<select id="getSalesList" parameterType="String" resultMap="salesResultMap">
+		SELECT 
+			salesCode, 
+			receiptNum, 
+			salesTotalPrice, 
+			martCode, 
+			ID,
+			regDate, 
+			canselCheck, 
+			casnselStaff, 
+			canselDate
+		FROM 
+			tb_sales
+	</select>
+</mapper>

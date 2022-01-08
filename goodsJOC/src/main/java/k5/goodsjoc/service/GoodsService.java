@@ -13,6 +13,7 @@ import k5.goodsjoc.mapper.GoodsMapper;
 @Service
 @Transactional
 public class GoodsService {
+
 	
 	private final GoodsMapper goodsMapper;
 	public GoodsService(GoodsMapper goodsMapper) {
@@ -42,3 +43,4 @@ public class GoodsService {
 
 
 }
+

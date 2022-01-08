@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
+	
+<!-- 페이지 제목 공간 -->
+<th:block layout:fragment="customTitle">
+	<title>상품 조회</title>
+</th:block>
+<!-- 로케이션 위치 -->
+<th:block layout:fragment="locationPlace">
+<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
+	> 상품관리 > 조회
+</th:block>
+
+<!-- 메인 컨텐츠 영역 -->		
+<th:block layout:fragment="customContents">	       	 
+
+	<div class="card card-warning">
+		<div class="card-header">
+			<h3 class="card-title">
+				<b>상품정보 조회</b>
+			</h3>
+		</div>
+		<!-- /.card-header -->
+		<div class="card-body table-responsive">
+			조건창
+		</div>
+		<!-- /.card-body -->
+	</div>
+
+	<div class="card card-warning">
+		<div class="card-header p-0 pt-1"></div>
+		<div class="card-body table-responsive p-0">
+			<table class="table table-head-fixed text-nowrap text-center">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>카테고리</th>
+						<th>상품명</th>
+						<th>바코드</th>
+						<th>재고량</th>
+						<th>매입처</th>
+						<th>매입단가</th>
+						<th>판매단가</th>
+						<th>마진</th>
+						<th>상세보기</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${not #lists.isEmpty(goodsList)}" th:each="l, i : ${goodsList}">
+						<td th:text="${i.index+1}"></td>
+						<td th:text="${l.goodsCate.getCategoryName()}">카테고리</td>
+						<td th:text="${l.goodsName}">상품명</td>
+						<td th:text="${l.barcode}">바코드</td>
+						<td th:text="${l.goodsTotalStock}">재고량</td>
+						<td th:text="${l.business.getBusinessName()}">매입처</td>
+						<td th:text="${l.purchasePrice}">매입단가</td>
+						<td th:text="${l.salesPrice}">판매단가</td>
+						<td th:text="${l.margin}">마진</td>
+						<td>
+							<div class="btn-group btn-group-sm">
+								<a th:href="@{/product_management/goods/goodsUpdate}" class="btn btn-info">
+									<i class="fas fa-highlighter"></i>
+								</a>
+								<a href="#" class="btn btn-danger">
+									<i class="fas fa-trash"></i>
+									</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- /.card-body -->
+	</div>
+
+</th:block>
+</html>

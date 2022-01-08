@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+   layout:decorate="@{layout/default}">
+
+<!-- 페이지 제목 공간 -->
+<th:block layout:fragment="customTitle">
+   <title>주문관리</title>
+</th:block>
+<!-- 로케이션 제목 -->
+<th:block layout:fragment="locationTitle">
+</th:block>
+<!-- 로케이션 위치 -->
+<th:block layout:fragment="locationPlace">
+   <a th:href="@{/main}">MAIN</a>
+      > 거래관리 > 매출관리 > 매출등록
+   </th:block>
+
+<!-- 메인 컨텐츠 영역 -->
+<th:block layout:fragment="customContents">
+   <!-- 거래처 리스트 화면 -->
+   <div class="col-md-14">
+      <div class="card card-warning card-tabs" style="margin-top: -1%">
+      <div class="card-header">
+         <h3 class="card-title">
+            <b>매출 등록</b>
+         </h3>
+      </div>
+      <div class="card-body">
+         <div class="tab-content" id="custom-tabs-two-tabContent">
+            <!-- 주문일자검색 -->
+            <div class="form-group row">
+               <label class="col-sm-1 col-form-label">일자검색</label>
+               <div class="col-sm-2">
+                  <input type="date" id="date" class="form-control">
+               </div>
+               <th:block><b>~</b></th:block>
+               <div class="col-sm-2">
+                  <input type="date" id="date" class="form-control">
+               </div>
+               <div align="right" style="margin-left: 3%">
+                  <a href="#">
+                  <button type="button" class="btn-lg btn-info">
+                     <b>검색</b>
+                  </button></a>
+                  <a href="salesList">
+                  <button type="button" class="btn-lg btn-info">
+                     <b>등록</b>
+                  </button></a>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+  </div>
+
+   <!-- 테이블시작  -->
+   <!-- /.card-header -->
+   <!-- 거래처 리스트 화면 -->
+   <div class="col-md-13" style="margin-top: 1%">
+      <div class="card card-warning color-pallete">
+         <div class="card-header p-0 pt-1">
+            <h3 class="card-title"></h3>
+         </div>
+         <!-- /.card-header -->
+         <div class="card-body table-responsive p-0"> 
+            <table class="table table-head-fixed text-nowrap text-center">
+               <thead>
+                  <tr>
+                     <th>바코드</th>
+                     <th>상품명</th>
+                     <th>판매가</th>
+                     <th>수량</th>
+                     <th>합계</th>
+                     <th>공급가액</th>
+                     <th>부가세</th>
+                  </tr>
+               </thead>
+               <tbody>
+                  <tr>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td> 
+                    <td><input type="text" name="code" class="ccde" size="10"></td>                     
+                    <td><input type="text" name="code" class="ccde" size="10"></td>                     
+                  </tr>
+                  <tr>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td> 
+                    <td><input type="text" name="code" class="ccde" size="10"></td>                    
+                    <td><input type="text" name="code" class="ccde" size="10"></td>                    
+                  </tr>
+                  <tr>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td> 
+                    <td><input type="text" name="code" class="ccde" size="10"></td> 
+                    <td><input type="text" name="code" class="ccde" size="10"></td> 
+                    
+                  </tr>
+                  <tr>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td> 
+                    <td><input type="text" name="code" class="ccde" size="10"></td>               
+                    <td><input type="text" name="code" class="ccde" size="10"></td>               
+                  </tr>
+                  <tr>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td> 
+                    <td><input type="text" name="code" class="ccde" size="10"></td>                     
+                    <td><input type="text" name="code" class="ccde" size="10"></td>                     
+                  </tr>
+                  <tr>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td>
+                    <td><input type="text" name="code" class="ccde" size="10"></td> 
+                    <td><input type="text" name="code" class="ccde" size="10"></td>                      
+                    <td><input type="text" name="code" class="ccde" size="10"></td>                      
+                  </tr>                      
+               </tbody>
+            </table>
+         </div>
+         <div class="card-footer"></div>
+      </div>
+   </div>
+</th:block>
+</html>
