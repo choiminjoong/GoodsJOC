@@ -53,6 +53,8 @@ public class BusinessController {
 		System.out.println("페이지: 거래처 수정 ");
 		System.out.println("경로: basic_management/business/businessUpdate(GET방식 성공) ");		
 		
+		
+		
 		return "basic_management/business/businessUpdate";
 	}
 }

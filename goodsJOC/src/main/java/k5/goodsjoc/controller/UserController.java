@@ -68,7 +68,7 @@ public class UserController {
 				}else if(userInfo.getLevelNum().equals("5")) {
 					session.setAttribute("SLEVELNAME", "비권한자");
 				}
-
+       
 				System.out.println("session: " + session);
 				System.out.println("로그인 성공");
 				return "redirect:/main";	
@@ -78,6 +78,7 @@ public class UserController {
 		System.out.println("로그인 실패");
 		return "system_management/user/loginForm";
 	}
+	
 	
 	@GetMapping("/loginForm")
 	public String loginForm() {
@@ -114,7 +115,7 @@ public class UserController {
 	public String userUpdate() {
 		System.out.println("페이지: 개인정보수정 ");
 		System.out.println("경로: system_management/user/userUpdate(GET방식 성공) ");
-		
+
 		return "system_management/user/userUpdate";
 	}
 
