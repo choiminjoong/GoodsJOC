@@ -20,9 +20,7 @@ import k5.goodsjoc.service.MartService;
 public class MartController {
 
 	private static final Logger log = LoggerFactory.getLogger(MartController.class);
-
-	private MartService martService;
-	
+	private final MartService martService;
 	public MartController(MartService martService) {
 		this.martService = martService;
 	}	
@@ -46,6 +44,7 @@ public class MartController {
 	public String martUpdate(Mart mart) {
 		System.out.println("페이지: 매장정보 수정 ");
 		System.out.println("경로: system_management/mart/martUpdate(POST방식 성공) ");
+		log.info("수정화면에서 받은 martInfo: {}", mart);
 		
 		martService.updateMartInfo(mart);
 		

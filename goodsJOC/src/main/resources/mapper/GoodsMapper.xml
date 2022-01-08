@@ -49,8 +49,74 @@
 		</association>
 	</resultMap> 
 
-
-
+ 	<select id="getSearchGoodsList" parameterType="Map" resultMap="goodsResultMap">
+		SELECT
+			c.categoryCode
+			,c.categoryName
+			,b.businessCode
+			,b.businessName
+			,g.barcode
+			,g.businessCode
+			,g.categoryCode
+			,g.goodsName
+			,g.weight
+			,g.unit
+			,g.maker
+			,g.taxType
+			,g.purchasePrice
+			,g.salesPrice
+			,g.margin
+			,g.uncheckedQTY
+			,g.warehouseStock
+			,g.showcaseStock
+			,g.goodsTotalStock
+			,g.martCode
+			,g.ID
+			,g.regDate
+			,u.ID
+			,u.NAME	
+		FROM
+			tb_category AS c
+			INNER JOIN 
+			tb_goods AS g
+			on
+			c.categoryCode = g.categoryCode 
+			INNER join
+			tb_business AS b
+			on
+			g.businessCode = b.businessCode
+			INNER join
+			tb_user AS u
+			ON 
+			g.ID = u.ID
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="searchCategory != null and searchCategory != ''.toString()">
+				AND c.categoryName = #{searchCategory}
+			</if>
+			<if test="minPurchasePrice != null and minPurchasePrice != 0">
+				AND g.purchasePrice >= #{minPurchasePrice}
+			</if>
+ 			<if test="maxPurchasePrice != null and maxPurchasePrice != 0">
+				AND #{maxPurchasePrice} >= g.purchasePrice
+			</if>
+			<if test="searchTaxType != null and searchTaxType != ''.toString()">
+				AND g.taxType = #{searchTaxType}
+			</if>
+			<if test="minSalesPrice != null and minSalesPrice != 0">
+				AND g.salesPrice >= #{minSalesPrice}
+			</if>
+			<if test="maxSalesPrice != null and maxSalesPrice != 0">
+				AND #{maxSalesPrice} >= g.salesPrice
+			</if>
+			<if test="searchGoodsName != null and searchGoodsName != ''.toString()">
+				AND g.goodsName LIKE CONCAT('%', #{searchGoodsName}, '%')
+			</if>
+			<if test="martCode != null and martCode != ''.toString()">
+				AND g.martCode = #{martCode}
+			</if>
+		</trim>	
+	</select>
+	<!--  -->
 	<select id="getGoodsList" resultMap="goodsResultMap">
 		SELECT
 			c.categoryCode
