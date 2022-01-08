@@ -94,6 +94,8 @@ public class BusinessController {
 		model.addAttribute("businesslnfo", businesslnfo);
 		System.out.println("모델에 담긴 비즈니스정보: "  + model);
 		
+		
+		
 		return "basic_management/business/businessUpdate";
 		}	
 

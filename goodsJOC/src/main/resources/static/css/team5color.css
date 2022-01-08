@@ -12,7 +12,12 @@
 	background-color: #001F3F;
 }
 
-
+.joc-a1{
+	color: #fff;
+}
+.jac-a2{
+	color: #0000ff;
+}
 
 
 /* 확정 */
@@ -28,7 +33,7 @@
 	/* footer */
 }
 #main{
-	color: #fff; 
+	color: #00ff00; 
 }
 #main:hover {
 	color: #ffff00; 
