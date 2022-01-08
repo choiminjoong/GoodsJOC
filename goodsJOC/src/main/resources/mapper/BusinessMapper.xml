@@ -23,9 +23,7 @@
 		<result column="ID" 					property="ID"/>
 		<result column="regDate"				property="regDate"/>
 	</resultMap>
-	
-	
-	
+
 	
 	<select id="getBusinessList" parameterType="String" resultMap="businessResultMap">
 		SELECT 
@@ -52,5 +50,104 @@
 		WHERE
 			martCode = #{martCode};
 	</select>
-
+	
+	<select id="getBusinessInfoByCode" parameterType="String" resultType="Business">
+	SELECT 
+		businessCode, 
+		businessName, 
+		partnerName, 
+		partnerPhone, 
+		registerNum, 
+		businessType, 
+		sectors, 
+		`status`, 
+		callNum, 
+		address, 
+		FAX, 
+		businessStaff, 
+		businessStaffPhone, 
+		businessStaffEmail, 
+		note, 
+		martCode, 
+		ID, 
+		regDate
+	FROM 
+		tb_business
+	WHERE 
+		businessCode  = #{businessCode}
+	</select>
+	
+	<update id="updateBusinessInfo" parameterType="Business">
+		UPDATE tb_business		
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="businessName != null and businessName != ''.toString()">
+				,businessName = #{businessName}
+			</if>
+			<if test="partnerName != null and partnerName != ''.toString()">
+				,partnerName = #{partnerName}
+			</if>
+			<if test="registerNum != null and registerNum != ''.toString()">
+				,registerNum = #{registerNum}
+			</if>
+			<if test="businessType != null and businessType != ''.toString()">
+				,businessType = #{businessType}
+			</if>
+			<if test="sectors != null and sectors != ''.toString()">
+				,sectors = #{sectors}
+			</if>
+			<if test="status != null and status != ''.toString()">
+				,status = #{status}
+			</if>
+			<if test="callNum != null and callNum != ''.toString()">
+				,callNum = #{callNum}
+			</if>
+			<if test="address != null and address != ''.toString()">
+				,address = #{address}
+			</if>
+			<if test="FAX != null and FAX != ''.toString()">
+				,FAX = #{FAX}
+			</if>
+			<if test="businessStaff != null and businessStaff != ''.toString()">
+				,businessStaff = #{businessStaff}
+			</if>
+			<if test="businessStaffPhone != null and businessStaffPhone != ''.toString()">
+				,businessStaffPhone = #{businessStaffPhone}
+			</if>
+			<if test="businessStaffEmail != null and businessStaffEmail != ''.toString()">
+				,businessStaffEmail = #{businessStaffEmail}
+			</if>
+			<if test="note != null and note != ''.toString()">
+				,note = #{note}
+			</if>
+		</trim>
+		WHERE 
+			businessCode=#{businessCode}
+	</update>
+	
+	<select id="getBusinessListBySearchKey" resultType="Business">
+		SELECT 
+			b.businessName, 
+			b.partnerName, 
+			b.partnerPhone, 
+			b.registerNum, 
+			b.businessType, 
+			b.sectors, 
+			b.`status`, 
+			b.callNum, 
+			b.address, 
+			b.FAX, 
+			b.businessStaff, 
+			b.businessStaffPhone, 
+			b.businessStaffEmail, 
+			b.note
+		FROM 
+			tb_business AS b
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchValue != null and searchValue != ''.toString()">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			</if>
+		</trim>
+	</select>
+	
+	
 </mapper>

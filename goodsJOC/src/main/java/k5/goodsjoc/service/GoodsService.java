@@ -12,21 +12,19 @@ import k5.goodsjoc.mapper.GoodsMapper;
 @Service
 @Transactional
 public class GoodsService {
-	
-	private final GoodsMapper goodsMapper;
-	public GoodsService(GoodsMapper goodsMapper) {
-		this.goodsMapper = goodsMapper;
-	}
-	
-
-	
-	public List<Goods> getGoodsList(String martCode){ 
-		
-		return goodsMapper.getGoodsList(martCode); 
-	}
-	
-	
-	public List<GoodsCate> getGoodsCateList(String martCode){
-		return goodsMapper.getGoodsCateList(martCode);
-	}
+   
+   private final GoodsMapper goodsMapper;
+   public GoodsService(GoodsMapper goodsMapper) {
+      this.goodsMapper = goodsMapper;
+   }
+   
+   
+   public List<Goods> getGoodsList(String martCode){      
+      return goodsMapper.getGoodsList(); 
+   }
+   
+   
+   public List<GoodsCate> getGoodsCateList(String martCode){
+      return goodsMapper.getGoodsCateList();
+   }
 }

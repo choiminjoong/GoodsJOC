@@ -108,16 +108,14 @@
 				<table class="table table-head-fixed text-nowrap text-center">
 					<thead>
 						<tr>
-							<th>주문코드</th>
+							<th>번호</th>
 							<th>매입처</th>
 							<th>주문번호</th>
 							<th>납품일</th>
+							<th>상태</th>
 							<th>매입일시</th>
 							<th>매장고유코드</th>
-							<th>등록자</th>
-							<th>등록일</th>
 							<th>주문서상세내역</th>
-							<th>상태</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -129,8 +127,6 @@
 							<td th:text="${l.state}"></td>		
 							<td th:text="${l.purchaseDate}"></td>		
 							<td th:text="${l.martCode}"></td>		
-							<td th:text="${l.ID}"></td>		
-							<td th:text="${l.regDate}"></td>		
 							<td>
 								<button type="button" class="btn btn-outline-secondary btn-xs">
 									<a href="orderDetail">주문서 상세보기</a>

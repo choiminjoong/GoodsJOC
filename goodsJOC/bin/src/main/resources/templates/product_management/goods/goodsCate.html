@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
+	
+<!-- 페이지 제목 공간 -->
+<th:block layout:fragment="customTitle">
+	<title>상품 카테고리</title>
+</th:block>
+<!-- 로케이션 위치 -->
+<th:block layout:fragment="locationPlace">
+	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
+		> 상품관리 > 카테고리
+</th:block>
+	
+<!-- 메인 컨텐츠 영역 -->		
+<th:block layout:fragment="customContents">
+
+	<div class="row">	
+		<!-- 카테고리 리스트 화면 -->
+		<div class="row col-9">
+			<div class="col-12">
+				<div class="card card-warning">
+					<div class="card-header">
+						<h3 class="card-title">카테고리 목록</h3>
+	
+						<div class="card-tools">
+							<div class="input-group input-group-sm" style="width: 150px;">
+								<input type="text" name="table_search"
+									class="form-control float-right" placeholder="카테고리 찾기">
+	
+								<div class="input-group-append">
+									<button type="submit" class="btn btn-default">
+										<i class="fas fa-search"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /.card-header -->
+					<div class="card-body table-responsive p-0" style="height: 670px;">
+						<table class="table table-head-fixed text-nowrap text-center">
+							<thead>
+								<tr>
+									<th>번호</th>
+									<th>카테고리명</th>
+									<th>등록일</th>
+									<th>등록자</th>
+									<th>수정</th>
+									<th>삭제</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr th:if="${not #lists.isEmpty(goodsCateList)}" th:each="l : ${goodsCateList}">
+									<td>1</td>
+									<td th:text="${l.categoryName}"></td>
+									<td th:text="${l.regDate}"></td>
+									<td th:text="${l.ID}"></td>
+									<td>
+										<button type="button" class="btn btn-outline-primary btn-xs">수정하기</button>
+									</td>
+									<td>
+										<button type="button" class="btn btn-outline-danger btn-xs">삭제하기</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- /.card-body -->
+				</div>
+				<!-- /.card -->
+			</div>
+		</div>
+		
+		<!-- 카테고리 등록폼 -->
+		<div class="col-3">
+			<div class="card card-warning">
+				<div class="card-header">
+					<h3 class="card-title">
+						카테고리 등록
+					</h3>
+					 <div class="card-tools">
+	                <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
+	                  <i class="fas fa-minus"></i>
+	                </button>
+	              </div>
+				</div>
+				<!-- /.card-header -->
+				<div class="card-body">
+					<div class="form-group">
+						<label for="goodsCateName">
+							카테고리 명
+						</label> 
+						<input type="text" class="form-control form-control-border border-width-2"
+							id="goodsCateName" placeholder="카테고리의 이름을 입력해주세요">
+					</div>
+					<div class="form-group">
+						<label for="martName">
+							매장명
+						</label> 
+						<input type="text" class="form-control rounded-2" 
+							id="martName" value="민중마트" readonly="readonly">
+					</div>
+					<div class="form-group">
+						<label for="staffName">
+							등록자
+						</label> 
+						<input type="text" class="form-control rounded-2" 
+							id="staffName" value="최민중" readonly="readonly">
+					</div>
+					<button type="button" class="btn btn-block bg-gradient-warning">등록하기</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+</th:block>
+</html>
