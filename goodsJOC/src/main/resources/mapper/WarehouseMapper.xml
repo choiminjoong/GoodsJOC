@@ -49,5 +49,43 @@
 			w.warehouseCode = s.warehouseCode
 		WHERE w.martCode = #{martCode} AND s.martCode = #{martCode};
 	</select>
-
+	
+	<insert id="warehouseInsert" parameterType="Warehouse">
+		INSERT INTO 
+				tb_warehouse
+					(warehouseName, 
+					warehouseType, 
+					totalStock, 
+					martCode, 
+					ID, 
+					regDate)
+		VALUES (#{warehouseName}, #{warehouseType}, 0, #{martCode}, #{ID}, NOW())
+	</insert>
+	
+	<select id="getWarehouseListByMartCode" resultType="Warehouse">
+		SELECT 
+			warehouseCode,
+			warehouseName,
+			martCode
+		FROM
+			tb_warehouse
+		WHERE
+			martCode = #{martCode}
+	</select>
+	
+	<insert id="shelfInsert" parameterType="Shelf">
+		INSERT INTO 
+				tb_shelf
+			(warehouseCode, shelfName, martCode, ID, regDate)
+		VALUES (#{warehouseCode}, #{shelfName}, #{martCode}, #{ID}, NOW())
+	</insert>
+	
+	<insert id="showcaseInsert" parameterType="Showcase">
+		INSERT INTO 
+			tb_showcase
+			(showcasePlace, martCode, ID, regDate)
+		VALUES (#{showcasePlace}, #{martCode}, #{ID}, NOW())
+	</insert>
+	
+	
 </mapper>
