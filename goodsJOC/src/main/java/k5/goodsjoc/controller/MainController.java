@@ -21,6 +21,11 @@ public class MainController {
 		
 		return "main"; 
 	}
+	@GetMapping("/error500")
+	public String error500() {
+		
+		return "system_management/error/error500"; 
+	}
 
 	
 }

@@ -26,8 +26,8 @@
 
 	<select id="getUserList" parameterType="String" resultMap="userResultMap">
 		SELECT 
-			u.ID
-			,u.PW
+			u.ID				as id
+			,u.PW				as pw
 			,u.name
 			,u.birthday
 			,u.phone
@@ -36,7 +36,8 @@
 			,u.martCode
 			,u.levelNum
 			,u.regDate
-			,l.levelName
+			,u.levelNum
+			,l.levelName		as level.levelName
 		FROM 
 			tb_user AS u
 			INNER JOIN 
@@ -46,7 +47,7 @@
 		WHERE
 			martCode= #{martCode}
 		ORDER BY
-			levelNum;
+			u.levelNum ASC;
 	</select>
 
 	<select id="getUserInfoByID" parameterType="String" resultMap="userResultMap">

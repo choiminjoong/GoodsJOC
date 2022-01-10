@@ -12,6 +12,7 @@ public class User {
 	private String martCode;
 	private String levelNum;
 	private String regDate;
+
 	private Level level;
 
 	public Level getLevel() {
