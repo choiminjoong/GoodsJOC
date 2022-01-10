@@ -33,8 +33,7 @@
 			<result column="martCode" 				property="martCode"/>
 			<result column="ID" 					property="ID"/>
 			<result column="regDate"				property="regDate"/>
-		</association>
-		
+		</association>		
 	</resultMap>
 	
 
@@ -56,8 +55,27 @@
 		ON o.businessCode = b.businessCode
 	
 	</select>
+	
+	
+	<select id="getOrderListBySearchKey" resultMap="OrderResultMap">		 
+	SELECT 
+		o.orderCode, 
+		o.businessCode, 
+		o.orderNum, 
+		o.deliveryDate, 
+		o.state, 
+		o.purchaseDate, 
+		o.martCode, 
+		o.ID, 
+		o.regDate
+	FROM 
+		tb_order AS o
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchValue != null and searchValue != ''.toString()">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			</if>
+		</trim>
+	</select>
+	
 
-	
-	
-	
 </mapper>

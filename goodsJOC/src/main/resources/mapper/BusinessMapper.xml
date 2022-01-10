@@ -126,6 +126,7 @@
 	
 	<select id="getBusinessListBySearchKey" resultType="Business">
 		SELECT 
+			b.businessCode,
 			b.businessName, 
 			b.partnerName, 
 			b.partnerPhone, 
@@ -148,6 +149,4 @@
 			</if>
 		</trim>
 	</select>
-	
-	
 </mapper>
