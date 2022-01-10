@@ -58,8 +58,10 @@ public class BusinessController {
 			searchKey = "businessName";
 		}else if(searchKey != null && "businessType".equals(searchKey)) {
 			searchKey = "businessType";
-		}else {
-			searchKey = "businessStaff";
+		}else if(searchKey != null && "partnerName".equals(searchKey)) {
+			searchKey = "partnerName";		
+		}else  {
+			searchKey = "sectors";
 		}
 		// 검색키 검색어를 통해서 회원목록 조회
 		
@@ -83,6 +85,7 @@ public class BusinessController {
 		return "basic_management/business/businessInsert";
 	}
 	
+	
 	// 거래처 수정화면
 	@GetMapping("/businessUpdate")
 	public String businessUpdate(@RequestParam(value="businessCode", required = false) String businessCode, Model model) {		
@@ -92,9 +95,7 @@ public class BusinessController {
 				
 		Business businesslnfo = businessService.getBusinessInfoByCode(businessCode);
 		model.addAttribute("businesslnfo", businesslnfo);
-		System.out.println("모델에 담긴 비즈니스정보: "  + model);
-		
-		
+		System.out.println("모델에 담긴 비즈니스정보: " + model);		
 		
 		return "basic_management/business/businessUpdate";
 		}	
@@ -109,6 +110,6 @@ public class BusinessController {
 		businessService.updateBusinessInfo(business);
 		
 		return "redirect:/basic_management/business/businessList";
-		}	
+	}	
 }
 

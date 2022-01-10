@@ -28,69 +28,57 @@
 				</h3>
 			</div>
 			<div class="card-body">
-				<div align="right" style="margin-left: 2%">
-					<a href="#">
-						<button type="button" class="btn-lg btn-info">
-							<b>검색</b>
-						</button>
-					</a> <a href="orderlnsert">
-						<button type="button" class="btn-lg btn-info">
-							<b>등록</b>
-						</button>
-					</a>
-				</div>
-				<div class="tab-content" id="custom-tabs-two-tabContent"
-					style="margin-top: -4%">
+				<div class="tab-content" id="custom-tabs-two-tabContent">
 					<!-- 주문검색 -->
-					<div class="form-group row">
-						<label class="col-sm-1 col-form-label">주문검색</label>
-						<div class="col-sm-2">
-							<select id="orderCode" class="form-control custom-select">
-								<option value="키워드검색">키워드검색</option>
-								<option value="주문번호">주문번호</option>
-								<option value="주문자">주문자</option>
-								<option value="주문일자">주문일자</option>
-							</select>
-						</div>
-						<div class="input-group input-group-m" style="width: 600px;">
-							<input type="text" name="table_search" style="margin-left: 3%"
-								class="form-control float-right"
-								placeholder="키워드로 검색할 수 있습니다.">
-							<div class="input-group-append"></div>
-						</div>
-					</div>
-					<!-- 통합검색  -->
-					<div class="form-group row">
-						<label class="col-sm-1 col-form-label">통합검색</label>
-						<div class="col-sm-8">
-							<input type="text" name="table_search"
-								class="form-control float-right" placeholder="검색어를 입력해주세요.">
-							<div class="input-group-append"></div>
-						</div>
-					</div>
-					<!-- 주문상태검색 -->
-					<div class="form-group row">
-						<label class="col-sm-1 col-form-label">주문상태</label>
-						<div class="col-sm-2">
-							<select id="orderCode" class="form-control custom-select">
-								<option value="승인">승인</option>
-								<option value="반려">반려</option>
-								<option value="진행중">진행중</option>
-							</select>
+					<form th:action="@{/product_management/order/orderList}" method="post">
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">주문검색</label>
+							<div class="col-sm-2">
+								<select name="searchKey" class="form-control custom-select">
+									<option value="orderNum">주문번호</option>
+									<option value="businessName">매입처</option>
+									<option value="deliveryDate">납품일</option>
+								</select>
+							</div>
+							<div class="input-group input-group-m" style="width: 600px;">
+								<input type="text" name="searchValue" style="margin-left: 3%"
+									class="form-control float-right" placeholder="검색어를 입력해주세요.">
+								<div class="input-group-append"></div>
+							</div>
+							<div align="right" style="margin-left: 2%">
+								<button type="submit" class="btn-lg btn-info">
+									<b>검색</b>
+								</button>
+								<button type="button" class="btn-lg btn-info">
+									<b>등록</b>
+								</button>
+							</div>
 						</div>
 
-						<!-- 주문일자검색 -->
-						<label class="col-sm-1 col-form-label" style="margin-left: 2%">주문일자</label>
-						<div class="col-sm-2">
-							<input type="date" id="date" class="form-control">
+						<!-- 주문상태검색 -->
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">주문상태</label>
+							<div class="col-sm-2">
+								<select id="orderCode" class="form-control custom-select" name="searchState">
+									<option value="state">승인</option>
+									<option value="">반려</option>
+									<option value="">진행중</option>
+								</select>
+							</div>
+
+							<!-- 주문일자검색 -->
+							<label class="col-sm-1 col-form-label" style="margin-left: 2%">주문일자</label>
+							<div class="col-sm-2">
+								<input type="date" id="date" class="form-control">
+							</div>
+							<th:block>
+								<b>~</b>
+							</th:block>
+							<div class="col-sm-2">
+								<input type="date" id="date" class="form-control">
+							</div>
 						</div>
-						<th:block>
-							<b>~</b>
-						</th:block>
-						<div class="col-sm-2">
-							<input type="date" id="date" class="form-control">
-						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -123,13 +111,13 @@
 							<td th:text="${l.orderCode}"></td>
 							<td th:text="${l.business.getBusinessName()}"></td>
 							<td th:text="${l.orderNum}"></td>
-							<td th:text="${l.deliveryDate}"></td>		
-							<td th:text="${l.state}"></td>		
-							<td th:text="${l.purchaseDate}"></td>		
-							<td th:text="${l.martCode}"></td>		
+							<td th:text="${l.deliveryDate}"></td>
+							<td th:text="${l.state}"></td>
+							<td th:text="${l.purchaseDate}"></td>
+							<td th:text="${l.martCode}"></td>
 							<td>
 								<button type="button" class="btn btn-outline-secondary btn-xs">
-									<a href="orderDetail">주문서 상세보기</a>
+										<a th:href="@{/product_management/order/orderDetail}">주문서 상세보기</a>
 								</button>
 							</td>
 						</tr>
