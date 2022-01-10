@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import k5.goodsjoc.dto.Goods;
 import k5.goodsjoc.dto.GoodsCate;
+import k5.goodsjoc.dto.PurchasePrice;
+import k5.goodsjoc.dto.SalesPrice;
 import k5.goodsjoc.mapper.GoodsMapper;
 
 @Service
@@ -39,6 +41,32 @@ public class GoodsService {
 
 	public List<Map<String, Object>> goodsCateModal() {
 		return goodsMapper.goodsCateModal();
+	}
+
+	public Goods getGoodsInfoByBarcode(String barcode) {
+		return goodsMapper.getGoodsInfoByBarcode(barcode);
+	}
+
+
+	//단일상품 매입가 리스트
+	public List<PurchasePrice> getPurchasePriceListByBarcode(String barcode) {
+		return goodsMapper.getPurchasePriceListByBarcode(barcode);
+	}
+	//단일상품 판매가 리스트
+	public List<SalesPrice> getSalesPriceListByBarcode(String barcode) {
+		return goodsMapper.getSalesPriceListByBarcode(barcode);
+	}
+
+
+	//상품 판매단가 수정
+	public int updateGoodsPrice(String barcode, String salesPrice) {
+		return goodsMapper.updateGoodsPrice(barcode, salesPrice);
+	}
+
+
+
+	public int addSalesPrice(Map<String, Object> paramMap) {
+		return goodsMapper.addSalesPrice(paramMap);
 	}
 
 

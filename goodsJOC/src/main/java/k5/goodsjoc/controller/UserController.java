@@ -5,6 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +22,7 @@ import k5.goodsjoc.dto.User;
 @Controller
 @RequestMapping(value= "/system_management/user")
 public class UserController {
-
+	private static final Logger log = LoggerFactory.getLogger(UserController.class);
 	private MartService martService;
 	private UserService userService;
 	public UserController(UserService userService, MartService martService) {
@@ -39,7 +41,6 @@ public class UserController {
 	@PostMapping("/login")
 	public String login(@RequestParam(value="ID", required=false) String ID,
 						@RequestParam(value="PW", required=false) String PW, HttpSession session) {
-		
 		System.out.println("페이지: 로그인처리 ");
 		System.out.println("경로: system_management/user/loginForm(POST방식) ");		
 		System.out.println("입력받은 ID: " + ID);
@@ -69,8 +70,6 @@ public class UserController {
 				}else if(userInfo.getLevelNum().equals("5")) {
 					session.setAttribute("SLEVELNAME", "비권한자");
 				}
-       
-				System.out.println("session: " + session);
 				System.out.println("로그인 성공");
 				return "redirect:/main";	
 			}
@@ -121,11 +120,81 @@ public class UserController {
 	}
 
 	@GetMapping("/userInfo")
-	public String userInfo() {
+	
+	public String userInfo(HttpServletRequest request, Model model) {
 		System.out.println("페이지: 직원상세");
 		System.out.println("경로: system_management/user/userInfo(GET방식 성공) ");
+		
+		HttpSession session = request.getSession();
+		String sessionID = (String) session.getAttribute("SID");
+		User userInfo = userService.getUserInfoByID(sessionID);
+		model.addAttribute("userInfo", userInfo);
 		
 		return "system_management/user/userInfo";
 	}
 	
-}
+	// 사용자 검색
+	@PostMapping("/userList")
+	public String getSearchUserList(
+			 @RequestParam(value="searchKey", required = false) String searchKey,
+			@RequestParam(value="searchValue", required = false) String searchValue,
+			Model model){
+		System.out.println(searchKey);
+		System.out.println(searchValue);
+					
+		if(searchKey != null && "name".equals(searchKey)) {
+			searchKey = "name";
+		}else if(searchKey != null && "phone".equals(searchKey)) {
+			searchKey = "phone";
+		}else if(searchKey != null && "email".equals(searchKey)) {
+			searchKey = "email";		
+		}else if(searchKey != null && "birthday".equals(searchKey)) {
+			searchKey = "birthday";		
+		}else  {
+			searchKey = "levelNum";
+		}
+		// 검색키 검색어를 통해서 사용자목록 조회
+			
+		List<User> userList = userService.getUserListBySearchKey(searchKey, searchValue);
+		
+		// 조회된 회원목록 model에 값을 저장
+		model.addAttribute("title", "사원목록조회");
+		model.addAttribute("userList", userList);
+			
+		return "system_management/user/userList";
+		}
+	 @PostMapping("/userUpdateAction") 
+	 public String userInfoUpdate(User user) {
+		 System.out.println("페이지: 개인정보수정처리");
+		 System.out.println("경로: system_management/user/userUpdateAction(POST방식 성공) ");
+			
+		 userService.updateUserInfo(user);
+		 
+		 return "redirect:/system_management/user/userInfo";
+	 }
+	
+	/*		
+	 // 거래처 수정화면  
+	  @GetMapping("/userUpdate") public String
+	  userUpdate(@RequestParam(value=" ID", required = false) String ID, Model
+	  model) { System.out.println("페이지: 거래처 수정 ");
+	  System.out.println("경로: system_management/user/userUpdate(GET방식 성공) ");
+	 System.out.println("리트스에서 받은 거래처 코드: " + ID);
+	  
+	  User userlnfo = userService.getUserInfoByID(ID);
+	  model.addAttribute("userlnfo", userlnfo);
+	  System.out.println("모델에 담긴 비즈니스정보: " + model);
+	  
+	  return "system_management/user/userUpdate"; }
+	  
+	  // 거래처 수정작업	  
+	  @PostMapping("/userUpdate") public String businessUpdate(User user) {
+	  System.out.println("페이지: 거래처 수정 ");
+	  System.out.println("경로: basic_management/business/businessUpdate(POST방식 성공) "
+	  );
+	 
+	  userService.updateUserInfo(user);
+	  
+	  return "redirect:/system_management/user/userUpdate"; }
+*/	 
+	}

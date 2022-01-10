@@ -7,6 +7,8 @@ import org.apache.ibatis.annotations.Mapper;
 
 import k5.goodsjoc.dto.Goods;
 import k5.goodsjoc.dto.GoodsCate;
+import k5.goodsjoc.dto.PurchasePrice;
+import k5.goodsjoc.dto.SalesPrice;
 
 @Mapper
 public interface GoodsMapper {
@@ -24,6 +26,17 @@ public interface GoodsMapper {
 
 	public List<Map<String, Object>> goodsCateModal();
 
+	//단일 상품정보 조회
 	public Goods getGoodsInfoByBarcode(String barcode);
+
+	//단일상품 매입가 리스트
+	public List<PurchasePrice> getPurchasePriceListByBarcode(String barcode);
+	//단일상품 판매가 리스트
+	public List<SalesPrice> getSalesPriceListByBarcode(String barcode);
+
+	//상품 판매단가 수정
+	public int updateGoodsPrice(String barcode, String salesPrice);
+
+	public int addSalesPrice(Map<String, Object> paramMap);
 
 }
