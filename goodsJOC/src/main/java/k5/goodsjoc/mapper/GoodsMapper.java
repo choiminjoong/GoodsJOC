@@ -39,4 +39,6 @@ public interface GoodsMapper {
 
 	public int addSalesPrice(Map<String, Object> paramMap);
 
+	public List<Map<String, Object>> getCategoryList(String martCode);
+
 }

@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import k5.goodsjoc.dto.Goods;
 import k5.goodsjoc.dto.GoodsCate;
 import k5.goodsjoc.dto.PurchasePrice;
@@ -32,6 +34,17 @@ public class GoodsController {
 		this.goodsService = goodsService;
 	}
 
+	@PostMapping("/searchCategoryModal")
+	@ResponseBody
+	public List<Map<String, Object>> searchCategoryModal1(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<Map<String, Object>> categoryModal = goodsService.getCategoryList(sessionMartCode);
+		
+		return categoryModal;
+	}
+	
 	@PostMapping("/goodsPriceUpdate")
 	public String goodsPriceUpdate(HttpServletRequest request, Goods goods, Model model) {
 		System.out.println("페이지: 상품단가 변경액션 ");
@@ -41,29 +54,38 @@ public class GoodsController {
 		String barcode = goods.getBarcode();
 		String salesPrice = goods.getSalesPrice();
 
-		//판매가 수정
-		goodsService.updateGoodsPrice(barcode, salesPrice);
+		if(salesPrice != null && salesPrice != "".toString()) {
+			//판매가 수정
+			int updateSucess = goodsService.updateGoodsPrice(barcode, salesPrice);
+			System.out.println("판매단가 수정 완료 ");
+			
+			if(updateSucess > 0) {
+				System.out.println("판매단가 기록");
+				//판매가 변경기록을 위한  Insert 매개변수 ID, MARTCODE
+				HttpSession session = request.getSession();
+				String sessionID = (String) session.getAttribute("SID");
+				String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+				
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("martCode", sessionMartCode);
+				paramMap.put("ID", sessionID);
+				paramMap.put("barcode", barcode);
+				paramMap.put("salesPrice", salesPrice);
+				
+				//판매가 변경 기록하기
+				goodsService.addSalesPrice(paramMap);
+				
+				return "redirect:/product_management/goods/goodsList";
+			}
+		}
 		
-		//판매가 변경기록을 위한  Insert 매개변수 ID, MARTCODE
-		HttpSession session = request.getSession();
-		String sessionID = (String) session.getAttribute("SID");
-		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
-		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("martCode", sessionMartCode);
-			paramMap.put("ID", sessionID);
-			paramMap.put("barcode", barcode);
-			paramMap.put("salesPrice", salesPrice);
-		//판매가 변경 기록하기
-		goodsService.addSalesPrice(paramMap);
-		
-		return "redirect:/product_management/goods/goodsList";
+		return "system_management/error/error500";
 	}
 	
 	@GetMapping("/goodsPriceList")
 	public String goodsPriceList(@RequestParam(value="barcode", required= false) String barcode, Model model) {
 		System.out.println("페이지: 상품단가 조정 ");
-		System.out.println("경로: product_management/goods/goodsPriceList(GET방식 성공) ");
+		System.out.println("경로: product_management/goods/goodsPriceList(GET방식 성공)");
 		System.out.println("리스트에서 받은 바코드: " + barcode);
 		
 		Goods goodsInfo = goodsService.getGoodsInfoByBarcode(barcode);

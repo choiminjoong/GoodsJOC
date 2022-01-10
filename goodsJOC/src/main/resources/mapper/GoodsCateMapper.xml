@@ -11,11 +11,14 @@
 		<result column="regDate" 				property="regDate"/>
 	</resultMap>
 		
-		<select id="goodsCateModal" resultType="Map">
+		<select id="getCategoryList" parameterType="String" resultType="Map">
 			SELECT
-				categoryName
+				categoryCode
+				,categoryName
 			FROM
 				tb_category
+			WHERE
+				martCode = #{martCode}
 		</select>
 
 		<select id="getGoodsCateList" parameterType="String" resultMap="goodsCateResultMap">
