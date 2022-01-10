@@ -3,7 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.GoodsMapper">
-
 	<resultMap type="Goods" id="goodsResultMap">
 		<id column="businessCode" property="businessCode" />
 		<id column="categoryCode" property="categoryCode" />
@@ -48,6 +47,47 @@
 			<result column="regDate" property="regDate" />
 		</association>
 	</resultMap> 
+	
+	<select id="getGoodsInfoByBarcode" parameterType="String" resultMap="goodsResultMap">
+		SELECT
+			c.categoryName
+			,b.businessName
+			,g.barcode
+			,g.businessCode
+			,g.categoryCode
+			,g.goodsName
+			,g.weight
+			,g.unit
+			,g.maker
+			,g.taxType
+			,g.purchasePrice
+			,g.salesPrice
+			,g.margin
+			,g.uncheckedQTY
+			,g.warehouseStock
+			,g.showcaseStock
+			,g.goodsTotalStock
+			,g.martCode
+			,g.ID
+			,g.regDate
+			,u.NAME	
+		FROM
+			tb_category AS c
+			INNER JOIN 
+			tb_goods AS g
+			on
+			c.categoryCode = g.categoryCode 
+			INNER join
+			tb_business AS b
+			on
+			g.businessCode = b.businessCode
+			INNER join
+			tb_user AS u
+			ON 
+			g.ID = u.ID
+		WHERE
+			g.barcode = #{barcode}
+	</select>
 
  	<select id="getSearchGoodsList" parameterType="Map" resultMap="goodsResultMap">
 		SELECT
@@ -159,7 +199,106 @@
 			g.ID = u.ID
 		WHERE
 			g.martCode = #{martCode}
+		ORDER BY
+			c.categoryName
 	</select> 
 
+	<resultMap type="PurchasePrice" id="purchasePriceMap">
+		<id column="martCode" property="martCode" />
+		<id column="ID" property="ID" />
+		<id column="barcode" property="barcode" />
+		<result column="IDX" property="IDX" />
+		<result column="regDate" property="regDate" />
+		<result column="purchasePrice" property="purchasePrice" />
+
+		<association javaType="Mart" property="mart">
+			<id column="martCode" property="martCode" />
+			<result column="martName" property="martName"/>
+		</association>
+		<association javaType="User" property="user">
+			<id column="ID" property="ID"/>
+			<result column="name" property="name"/>
+		</association>
+		<association javaType="Goods" property="goods">
+			<id column="barcode" property="barcode" />
+			<result column="goodsName" property="goodsName"/>	
+		</association>
+	</resultMap>
+	<resultMap type="SalesPrice" id="salesPriceMap">
+		<id column="martCode" property="martCode" />
+		<id column="ID" property="ID" />
+		<id column="IDX" property="IDX" />
+		<id column="barcode" property="barcode" />
+		<result column="regDate" property="regDate" />
+		<result column="salesPrice" property="salesPrice" />
+
+		<association javaType="Mart" property="mart">
+			<id column="martCode" property="martCode" />
+			<result column="martName" property="martName"/>
+		</association>
+		<association javaType="User" property="user">
+			<id column="ID" property="ID"/>
+			<result column="name" property="name"/>
+		</association>
+		<association javaType="Goods" property="goods">
+			<id column="barcode" property="barcode" />
+			<result column="goodsName" property="goodsName"/>	
+		</association>
+	</resultMap>
+
+	<select id="getPurchasePriceListByBarcode" resultMap="purchasePriceMap">
+		SELECT
+			p.IDX
+			,p.purchasePrice
+			,p.regDate
+			,u.name
+		FROM 
+			tb_purchasePrice AS p
+			INNER join
+			tb_user AS u
+			ON
+			p.ID = u.ID
+		WHERE
+			p.barcode = #{barcode}
+		ORDER BY
+			p.regDate DESC
+	</select>
+	<select id="getSalesPriceListByBarcode" resultMap="salesPriceMap">
+		SELECT
+			s.IDX
+			,s.salesPrice
+			,s.regDate
+			,u.name 
+		FROM 
+			tb_salesPrice AS s
+			INNER join
+			tb_user AS u
+			ON
+			s.ID = u.ID
+		WHERE
+			s.barcode = #{barcode}
+		ORDER BY
+			s.regDate DESC
+	</select>
+
+	<update id="updateGoodsPrice">
+		UPDATE 
+			tb_goods
+		SET
+			salesPrice= #{salesPrice}
+		WHERE
+			barcode= #{barcode}
+	</update>
+	<insert id="addSalesPrice" parameterType="Map">
+		INSERT INTO tb_salesPrice
+			(barcode, salesPrice, martCode, ID, regDate)
+		VALUES(
+			#{barcode}
+			,#{salesPrice}
+			,#{martCode}
+			,#{ID}
+			,NOW()
+		);
+	</insert>
 	
 </mapper>
