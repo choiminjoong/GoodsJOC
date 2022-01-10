@@ -92,7 +92,7 @@
 					<div class="col-2" align="center">
 						<a th:href="@{/product_management/goods/goodsCate}" class="btn btn-block bg-gradient-info btn-lg">카테고리등록</a>
 						<a th:href="@{/product_management/goods/goodsInsert}" class="btn btn-block bg-gradient-info btn-lg">상품등록</a>
-						<button type="button" class="btn btn-block bg-gradient-info btn-lg">단가조정</button>
+						<a th:href="@{/product_management/order/orderInsert}" class="btn btn-block bg-gradient-info btn-lg">상품주문</a>
 					</div>
 				</div>
 			</form>
@@ -108,12 +108,12 @@
 				<thead>
 					<tr>
 						<th>번호</th>
-						<th>과세유형</th>
 						<th>카테고리</th>
 						<th>상품명</th>
 						<th>바코드</th>
-						<th>재고량</th>
 						<th>매입처</th>
+						<th>과세유형</th>
+						<th>재고량</th>
 						<th>매입단가</th>
 						<th>판매단가</th>
 						<th>마진</th>
@@ -123,12 +123,12 @@
 				<tbody>
 					<tr th:if="${not #lists.isEmpty(goodsList)}" th:each="l, i : ${goodsList}">
 						<td th:text="${i.index+1}"></td>
-						<td th:text="${l.taxType}"></td>
 						<td th:text="${l.goodsCate.getCategoryName()}">카테고리</td>
 						<td th:text="${l.goodsName}">상품명</td>
 						<td th:text="${l.barcode}">바코드</td>
-						<td th:text="${l.goodsTotalStock}">재고량</td>
 						<td th:text="${l.business.getBusinessName()}">매입처</td>
+						<td th:text="${l.taxType}"></td>
+						<td th:text="${l.goodsTotalStock}">재고량</td>
 						<td th:text="${l.purchasePrice}">매입단가</td>
 						<td th:text="${l.salesPrice}">판매단가</td>
 						<td th:text="${l.margin}">마진</td>
@@ -136,6 +136,9 @@
 							<div class="btn-group btn-group-sm">
 								<a th:href="@{/product_management/goods/goodsUpdate(barcode=${l.barcode})}" class="btn btn-primary">
 									<i class="fas fa-highlighter"></i>
+								</a>
+								<a th:href="@{/product_management/goods/goodsPriceList(barcode=${l.barcode})}" class="btn btn-info">
+									<i class="fas fa-won-sign"></i>
 								</a>
 								<a href="#" class="btn btn-danger">
 									<i class="fas fa-trash"></i>
@@ -190,6 +193,7 @@
 			<!-- /.modal-dialog -->
 		</div>
 	</div>
+
 
 </th:block>
 

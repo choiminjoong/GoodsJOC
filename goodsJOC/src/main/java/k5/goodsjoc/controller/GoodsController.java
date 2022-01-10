@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import k5.goodsjoc.dto.Goods;
 import k5.goodsjoc.dto.GoodsCate;
+import k5.goodsjoc.dto.PurchasePrice;
+import k5.goodsjoc.dto.SalesPrice;
 import k5.goodsjoc.service.GoodsService;
 
 @Controller
@@ -28,6 +30,51 @@ public class GoodsController {
 	private GoodsService goodsService;
 	public GoodsController(GoodsService goodsService) {
 		this.goodsService = goodsService;
+	}
+
+	@PostMapping("/goodsPriceUpdate")
+	public String goodsPriceUpdate(HttpServletRequest request, Goods goods, Model model) {
+		System.out.println("페이지: 상품단가 변경액션 ");
+		System.out.println("경로: product_management/goods/goodsPriceUpdate(Post방식 성공) ");
+		System.out.println("리스트에서 받은 바코드: " + goods.getBarcode());
+		System.out.println("수정할 판매단가: " + goods.getSalesPrice());
+		String barcode = goods.getBarcode();
+		String salesPrice = goods.getSalesPrice();
+
+		//판매가 수정
+		goodsService.updateGoodsPrice(barcode, salesPrice);
+		
+		//판매가 변경기록을 위한  Insert 매개변수 ID, MARTCODE
+		HttpSession session = request.getSession();
+		String sessionID = (String) session.getAttribute("SID");
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("martCode", sessionMartCode);
+			paramMap.put("ID", sessionID);
+			paramMap.put("barcode", barcode);
+			paramMap.put("salesPrice", salesPrice);
+		//판매가 변경 기록하기
+		goodsService.addSalesPrice(paramMap);
+		
+		return "redirect:/product_management/goods/goodsList";
+	}
+	
+	@GetMapping("/goodsPriceList")
+	public String goodsPriceList(@RequestParam(value="barcode", required= false) String barcode, Model model) {
+		System.out.println("페이지: 상품단가 조정 ");
+		System.out.println("경로: product_management/goods/goodsPriceList(GET방식 성공) ");
+		System.out.println("리스트에서 받은 바코드: " + barcode);
+		
+		Goods goodsInfo = goodsService.getGoodsInfoByBarcode(barcode);
+		model.addAttribute("goodsInfo", goodsInfo);
+		
+		List<PurchasePrice> purchasePriceList = goodsService.getPurchasePriceListByBarcode(barcode);
+		List<SalesPrice> salesPriceList = goodsService.getSalesPriceListByBarcode(barcode);
+		model.addAttribute("purchasePriceList", purchasePriceList);
+		model.addAttribute("salesPriceList", salesPriceList);
+		
+		return "product_management/goods/goodsPriceList";
 	}
 	
 	@GetMapping("/goodsUpdate")
