@@ -18,57 +18,119 @@
 
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
-
 	<section class="content">
 		<div class="content-header"></div>
 		<div class="container-fluid">
 			<div class="row justify-content-center" style="margin-top: -3%">
+			<!-- Profile Image -->
+					<div class="col-sm-2 card card-warning color-palette card-outline">
+						<div class="card-body box-profile">
+							<div class="text-center">
+								<img class="profile-user-img img-fluid img-circle"
+									th:src="@{/image/user2.png}" alt="user-avatar">
+							</div>
+
+							<h3 class="profile-username text-center" style="margin-top: 10%" th:text=${session.SNAME}></h3>
+
+							<p class="text-muted text-center" th:text=${session.SLEVELNAME}></p>
+								<ul class="list-group list-group-unbordered mb-4">
+								
+								<li class="list-group-item"><b>ID</b>								
+								<a class="float-right">
+								<span id="ID" th:text=${session.SID}/></a></li>				
+
+								<li class="list-group-item"><b>사업장명</b>								
+								<a class="float-right">
+								<span id="ID" th:text=${session.SMARTNAME}/></a></li>		
+								
+								<li class="list-group-item"><b>사업장코드</b>								
+								<a class="float-right">
+								<span id="ID" th:text=${session.SMARTCODE}/></a></li>				
+							</ul>
+						</div>
+					</div>
 				<!-- 사원정보입력폼  -->
 				<div class="col-md-7">
 					<div class="card card-primary">
-						<div
-							class="btn-sm bg-warning color-palette btn-block card-header ">
-							<b><i class="fas fa-check"></i>ㅤㅤ사원정보수정</b>
+						<div class="btn-sm bg-warning color-palette btn-block card-header">
+							<b><i class="fas fa-check"></i>ㅤ사원 권한수정</b>
 						</div>
 						<div class="card-body">
 							<div class="form-group">
-								<label><code>*</code> 이름</label> <input type="text"
-									class="form-control" name="name" id="name">
+								<label><code>*</code> 비밀번호</label> 
+								<input type="text" class="form-control" name="PW" readonly="readonly">
 							</div>
 
 							<div class="form-group">
-								<label><code>*</code> 생년월일</label> <input type="text"
-									class="form-control" name="birthday" id="birthday">
+								<label><code>*</code> 비밀번호 확인</label> 
+								<input type="text" class="form-control" name="PW" readonly="readonly">
 							</div>
+							
 							<div class="form-group">
-								<label><code>*</code> 사원직급</label> <input type="text"
-									class="form-control" name="levelNum" id="levelNum">
+								<label><code>*</code> 권한</label> 							
+								<select class="form-control custom-select" name="levelNum">
+									<option>:: 선택  ::</option>
+									<option>관리자</option>
+									<option>매니저</option>
+									<option>직원</option>
+									<option>비권한자</option>
+								</select>
+							</div>
+							
+							<div class="form-group">
+								<label><code>*</code> 생년월일</label> 
+								<input type="text" class="form-control" name="birthday" readonly="readonly">
 							</div>
 
 							<div class="form-group">
 								<label>Email</label> <input type="text" class="form-control"
-									name="email" id="email">
+									name="email" readonly="readonly">
 							</div>
 
 							<div class="form-group">
 								<label>전화번호</label> <input type="text" class="form-control"
-									name="phone" id="phone">
+									name="phone" readonly="readonly">
 
 							</div>
-
-							<div class="form-group">
-								<label>상세주소</label> <input type="text" class="form-control"
-									name="address" id="address">
+						<div class="form-group">
+							<label for="inputProjectLeader">주소</label>
+										<!--카카오톡 우편번호 api  -->
+										<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+										<script charset="UTF-8" type="text/javascript"
+											src="//t1.daumcdn.net/postcode/api/core/211103/1635999227231/211103.js"></script>
+										<script src="/resources/js/addressapi.js"></script>
+										<div class="form-group">
+											<input class="form-control"
+												style="width: 40%; display: inline;" placeholder="우편번호"
+												name="addr1" id="addr1" type="text" readonly="readonly">
+											<button type="button" class="btn btn-default"
+												onclick="execPostCode();">
+												<i class="fa fa-search"></i> 우편번호 찾기
+											</button>
+										</div>
+										<div class="form-group">
+											<input class="form-control" style="top: 5px;"
+												placeholder="도로명 주소" name="addr2" id="addr2" type="text" readonly="readonly">
+										</div>
+										<div class="form-group">
+											<input class="form-control" name="address" type="text"  readonly="readonly">
+										</div>
+										
+									<!--닫기 버튼 -->		
+									<a th:href="@{/system_management/user/userList}" class="btn btn-m bg-warning  color-palette" style="float: right;">
+										<b>닫기</b></a>
+									<div style="margin-right: 10%">
+									<!--수정 버튼 -->	
+										<button type="submit" class="btn btn-m bg-info" style="float: right;">
+											<b>수정 완료</b>
+										</button>
+									</div>
+								</div>
 							</div>
-							<button type="submit"
-								class="btn btn-m bg-warning  color-palette btn-block">
-								<b>수정 완료</b>
-							</button>
 						</div>
-					</div>
-				</div>
+					</th:block>
+				</form>				
 			</div>
-		</div>
-	</section>
-</th:block>
+		</section>
+	</th:block>
 </html>

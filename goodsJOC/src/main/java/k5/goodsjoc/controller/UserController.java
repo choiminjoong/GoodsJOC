@@ -133,7 +133,7 @@ public class UserController {
 		return "system_management/user/userInfo";
 	}
 	
-	// 사용자 검색
+	//사용자 검색
 	@PostMapping("/userList")
 	public String getSearchUserList(
 			 @RequestParam(value="searchKey", required = false) String searchKey,
@@ -163,8 +163,10 @@ public class UserController {
 			
 		return "system_management/user/userList";
 		}
-	 @PostMapping("/userUpdateAction") 
-	 public String userInfoUpdate(User user) {
+	
+	//사원정보 수정처리
+	@PostMapping("/userUpdateAction") 
+	 public String userUpdateAction(User user) {
 		 System.out.println("페이지: 개인정보수정처리");
 		 System.out.println("경로: system_management/user/userUpdateAction(POST방식 성공) ");
 			
@@ -173,28 +175,5 @@ public class UserController {
 		 return "redirect:/system_management/user/userInfo";
 	 }
 	
-	/*		
-	 // 거래처 수정화면  
-	  @GetMapping("/userUpdate") public String
-	  userUpdate(@RequestParam(value=" ID", required = false) String ID, Model
-	  model) { System.out.println("페이지: 거래처 수정 ");
-	  System.out.println("경로: system_management/user/userUpdate(GET방식 성공) ");
-	 System.out.println("리트스에서 받은 거래처 코드: " + ID);
-	  
-	  User userlnfo = userService.getUserInfoByID(ID);
-	  model.addAttribute("userlnfo", userlnfo);
-	  System.out.println("모델에 담긴 비즈니스정보: " + model);
-	  
-	  return "system_management/user/userUpdate"; }
-	  
-	  // 거래처 수정작업	  
-	  @PostMapping("/userUpdate") public String businessUpdate(User user) {
-	  System.out.println("페이지: 거래처 수정 ");
-	  System.out.println("경로: basic_management/business/businessUpdate(POST방식 성공) "
-	  );
-	 
-	  userService.updateUserInfo(user);
-	  
-	  return "redirect:/system_management/user/userUpdate"; }
-*/	 
-	}
+	
+}
