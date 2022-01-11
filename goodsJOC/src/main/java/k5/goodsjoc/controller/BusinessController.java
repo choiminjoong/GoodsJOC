@@ -84,8 +84,7 @@ public class BusinessController {
 		
 		return "basic_management/business/businessInsert";
 	}
-	
-	
+		
 	// 거래처 수정화면
 	@GetMapping("/businessUpdate")
 	public String businessUpdate(@RequestParam(value="businessCode", required = false) String businessCode, Model model) {		
@@ -100,7 +99,7 @@ public class BusinessController {
 		return "basic_management/business/businessUpdate";
 		}	
 
-	// 거래처 수정작업
+	// 거래처 수정 작업
 	@PostMapping("/businessUpdate")
 	public String businessUpdate(Business business) {		
 		System.out.println("페이지: 거래처 수정 ");
@@ -111,5 +110,19 @@ public class BusinessController {
 		
 		return "redirect:/basic_management/business/businessList";
 	}	
+	
+	
+	//거래처 등록
+	@PostMapping("/businessInsert")
+	public String businessInsert(Business business) {
+		System.out.println("페이지: 거래처 등록 ");
+		System.out.println("경로: basic_management/business/businessInsert(POST방식 성공) ");	
+		System.out.println("화면에서 받은 거래처 정보 : "+  business);
+		
+		businessService.businessInsert(business);
+		
+		return "redirect:/basic_management/business/businessList";
+	}
+	
 }
 

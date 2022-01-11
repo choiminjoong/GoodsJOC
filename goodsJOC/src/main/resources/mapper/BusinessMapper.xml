@@ -149,4 +149,46 @@
 			</if>
 		</trim>
 	</select>
+		
+	<insert id="businessInsert" parameterType="Business">
+	INSERT INTO
+		tb_business(
+			businessName,
+			partnerName,
+			partnerPhone, 
+			registerNum,
+			businessType,
+			sectors,
+			`status`,
+			callNum,
+			address,
+			FAX,
+			businessStaff,
+			businessStaffPhone,
+			businessStaffEmail,
+			note,
+			martCode,
+			ID,
+			regDate
+	)VALUES (
+		#{businessName},
+		#{partnerName},
+		#{partnerPhone},
+		#{registerNum},
+		#{businessType},
+		#{sectors},
+		#{status},
+		#{callNum},
+		#{address},
+		#{FAX},
+		#{businessStaff},
+		#{businessStaffPhone},
+		#{businessStaffEmail},
+		#{note},
+		#{martCode},
+		#{ID},
+		NOW()
+	);
+	</insert>
+	
 </mapper>

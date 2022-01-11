@@ -32,6 +32,7 @@
 						<label class="col-sm-1 col-form-label">키워드검색</label>
 							<div class="col-sm-2">
 								<select name="searchKey" class="form-control custom-select">
+									<option>:: 선택  ::</option>
 									<option value="businessType">구분</option>
 									<option value="businessName">거래처명</option>
 									<option value="partnerName">대표자</option>
@@ -58,10 +59,12 @@
 							<button type="submit" class="btn-lg btn-info">
 								<b>검색</b>
 							</button>
+							<a th:href="@{/basic_management/business/businessInsert}">
 							<button type="button" class="btn-lg btn-info">
 								<b>등록</b>
 							</button>
-						</div>
+							</a>
+						</div>	
 					</div>
 				</div>
 			</form>

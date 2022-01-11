@@ -21,6 +21,9 @@ public interface BusinessMapper {
 	// 거래처 정보 수정
 	public int updateBusinessInfo(Business business);
 	
+	//거래처 등록
+	public int businessInsert(Business business);
+	
 
 }
 

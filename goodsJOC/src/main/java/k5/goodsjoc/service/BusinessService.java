@@ -34,8 +34,13 @@ public class BusinessService {
 	}
 	
 	// 거래처 정보 수정
-		public int updateBusinessInfo(Business business) {	
-			return businessMapper.updateBusinessInfo(business);
+	public int updateBusinessInfo(Business business) {	
+		return businessMapper.updateBusinessInfo(business);
+		}
+		
+	//거래처 등록	
+	public int businessInsert(Business business) {
+		return businessMapper.businessInsert(business);
 		}
 	
 }

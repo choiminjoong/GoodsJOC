@@ -27,6 +27,7 @@
 					<label class="col-sm-1 col-form-label">키워드검색</label>
 					<div class="col-sm-2">
 						<select name="searchKey" class="form-control custom-select">
+							<option>:: 선택  ::</option>
 							<option value="name">이름</option>
 							<option value="phone">전화번호</option>
 							<option value="email">이메일</option>
@@ -86,16 +87,17 @@
 							</div>
 							<div class="card-footer">
 								<div class="text-right">
-									<button class="btn-sm bg-gray disabled color-palette" 
+									<a th:href="@{/system_management/user/userUpdate}"
+									 class="btn-sm bg-gray disabled color-palette" 
 										style="margin-right: 5px;"> 
-										<i class="fas fa-user"></i> 권한 수정</button>
+										<i class="fas fa-user"></i> 권한 수정정</a>
 									</div>
 								</div>
 							</div>
 						</div>
+					</div>
 				</div>
 			</div>
-		</div>
-	</section>
-</th:block>
+		</section>
+	</th:block>
 </html>
