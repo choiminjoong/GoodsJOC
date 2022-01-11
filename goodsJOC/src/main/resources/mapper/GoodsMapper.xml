@@ -3,51 +3,42 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.GoodsMapper">
+	<!-- user innerjoin business,goodsCate,user ResultMap(최민중) -->
 	<resultMap type="Goods" id="goodsResultMap">
-		<id column="businessCode" property="businessCode" />
-		<id column="categoryCode" property="categoryCode" />
-		<id column="ID" property="ID" />
-		<result column="barcode" property="barcode" />
-		<result column="goodsName" property="goodsName" />
-		<result column="weight" property="weight" />
-		<result column="unit" property="unit" />
-		<result column="maker" property="maker" />
-		<result column="taxType" property="taxType" />
-		<result column="purchasePrice" property="purchasePrice" />
-		<result column="salesPrice" property="salesPrice" />
-		<result column="margin" property="margin" />
-		<result column="uncheckedQTY" property="uncheckedQTY" />
-		<result column="warehouseStock" property="warehouseStock" />
-		<result column="showcaseStock" property="showcaseStock" />
-		<result column="goodsTotalStock" property="goodsTotalStock" />
-		<result column="martCode" property="martCode" />
-		<result column="regDate" property="regDate" />
-
-		<association javaType="Business" property="business">
-			<id column="businessCode" property="businessCode" />
-			<result column="businessName" property="businessName"/>
+		<id column="barcode" 				property="barcode" />
+		<result column="businessCode" 		property="businessCode" />
+		<result column="categoryCode" 		property="categoryCode"/>
+		<result column="goodsName" 			property="goodsName" />
+		<result column="weight" 			property="weight" />
+		<result column="unit" 				property="unit" />
+		<result column="maker" 				property="maker" />
+		<result column="taxType" 			property="taxType" />
+		<result column="purchasePrice" 		property="purchasePrice" />
+		<result column="salesPrice" 		property="salesPrice" />
+		<result column="margin" 			property="margin" />
+		<result column="uncheckedQTY" 		property="uncheckedQTY" />
+		<result column="warehouseStock" 	property="warehouseStock" />
+		<result column="showcaseStock" 		property="showcaseStock" />
+		<result column="goodsTotalStock" 	property="goodsTotalStock" />
+		<result column="martCode" 			property="martCode" />
+		<result column="ID" 				property="id" />
+		<result column="regDate" 			property="regDate" />
+		
+		<association javaType="Business" 	property="business">
+			<id column="businessCode" 		property="businessCode"/>
+			<result column="businessName" 	property="businessName"/>
 		</association>
-		<association javaType="GoodsCate" property="goodsCate">
-			<id column="categoryCode" property="categoryCode"/>
-			<result column="categoryName" property="categoryName"/>
-			<result column="martCode" property="martCode"/>
-			<result column="ID" property="ID"/>
-			<result column="regDate" property="regDate"/>
+		<association javaType="GoodsCate" 	property="goodsCate">
+			<id column="categoryCode" 		property="categoryCode"/>
+			<result column="categoryName" 	property="categoryName"/>
 		</association>
-		<association javaType="User" property="user">
-			<id column="ID" property="ID"/>
-			<result column="name" property="name"/>
-			<result column="PW" property="PW" />
-			<result column="name" property="name" />
-			<result column="birthday" property="birthday" />
-			<result column="phone" property="phone" />
-			<result column="email" property="email" />
-			<result column="address" property="address" />
-			<result column="martCode" property="martCode" />
-			<result column="regDate" property="regDate" />
+		<association javaType="User" 		property="user">
+			<id column="ID" 				property="id" />
+			<result column="name" 	property="name"/>
 		</association>
 	</resultMap> 
 	
+	<!-- 바코드중복 확인 -->
 	<select id="goodsCheckByBarcode" parameterType="String" resultType="int">
 		SELECT
 			COUNT(1)
@@ -56,30 +47,14 @@
 		WHERE
 			barcode = #{barcode};
 	</select>
-	
+
+	<!-- 바코드로 상품 정보조회(최민중) -->
 	<select id="getGoodsInfoByBarcode" parameterType="String" resultMap="goodsResultMap">
 		SELECT
-			c.categoryName
-			,b.businessName
-			,g.barcode
-			,g.businessCode
-			,g.categoryCode
-			,g.goodsName
-			,g.weight
-			,g.unit
-			,g.maker
-			,g.taxType
-			,g.purchasePrice
-			,g.salesPrice
-			,g.margin
-			,g.uncheckedQTY
-			,g.warehouseStock
-			,g.showcaseStock
-			,g.goodsTotalStock
-			,g.martCode
-			,g.ID
-			,g.regDate
-			,u.NAME	
+			g.barcode, g.businessCode, g.categoryCode, g.goodsName, g.weight, g.unit
+			, g.maker,g.taxType, g.purchasePrice, g.salesPrice, g.margin, g.uncheckedQTY
+			, g.warehouseStock, g.showcaseStock, g.goodsTotalStock, g.martCode, g.ID, g.regDate
+			, c.categoryName, b.businessName ,u.name	
 		FROM
 			tb_category AS c
 			INNER JOIN 
@@ -98,32 +73,13 @@
 			g.barcode = #{barcode}
 	</select>
 
+	<!-- 상품조건 조회(최민중) -->
  	<select id="getSearchGoodsList" parameterType="Map" resultMap="goodsResultMap">
 		SELECT
-			c.categoryCode
-			,c.categoryName
-			,b.businessCode
-			,b.businessName
-			,g.barcode
-			,g.businessCode
-			,g.categoryCode
-			,g.goodsName
-			,g.weight
-			,g.unit
-			,g.maker
-			,g.taxType
-			,g.purchasePrice
-			,g.salesPrice
-			,g.margin
-			,g.uncheckedQTY
-			,g.warehouseStock
-			,g.showcaseStock
-			,g.goodsTotalStock
-			,g.martCode
-			,g.ID
-			,g.regDate
-			,u.ID
-			,u.NAME	
+			g.barcode, g.businessCode, g.categoryCode, g.goodsName, g.weight, g.unit
+			, g.maker, g.taxType, g.purchasePrice, g.salesPrice, g.margin, g.uncheckedQTY
+			, g.warehouseStock, g.showcaseStock, g.goodsTotalStock, g.martCode, g.ID,g.regDate
+			, c.categoryName, b.businessName, u.name	
 		FROM
 			tb_category AS c
 			INNER JOIN 
@@ -140,7 +96,7 @@
 			g.ID = u.ID
 		<trim prefix="WHERE" prefixOverrides="AND |OR">
 			<if test="searchCategory != null and searchCategory != ''.toString()">
-				AND c.categoryCode = #{searchCategory}
+				AND g.categoryCode = #{searchCategory}
 			</if>
 			<if test="minPurchasePrice != null and minPurchasePrice != 0">
 				AND g.purchasePrice >= #{minPurchasePrice}
@@ -165,33 +121,14 @@
 			</if>
 		</trim>	
 	</select>
-	<!--  -->
+
+	<!-- 상품조회화면(최민중) -->
 	<select id="getGoodsList" resultMap="goodsResultMap">
 		SELECT
-			c.categoryCode
-			,c.categoryName
-			,b.businessCode
-			,b.businessName
-			,g.barcode
-			,g.businessCode
-			,g.categoryCode
-			,g.goodsName
-			,g.weight
-			,g.unit
-			,g.maker
-			,g.taxType
-			,g.purchasePrice
-			,g.salesPrice
-			,g.margin
-			,g.uncheckedQTY
-			,g.warehouseStock
-			,g.showcaseStock
-			,g.goodsTotalStock
-			,g.martCode
-			,g.ID
-			,g.regDate
-			,u.ID
-			,u.NAME	
+			g.barcode, g.businessCode, g.categoryCode, g.goodsName, g.weight, g.unit, g.maker
+			, g.taxType, g.purchasePrice, g.salesPrice, g.margin, g.uncheckedQTY, g.warehouseStock
+			, g.showcaseStock, g.goodsTotalStock, g.martCode, g.ID, g.regDate
+			, u.name, c.categoryName, b.businessName
 		FROM
 			tb_category AS c
 			INNER JOIN 
@@ -212,11 +149,12 @@
 			c.categoryName
 	</select> 
 
+	<!-- purchasePrice innerjoin mart,user,goods ResultMap(최민중) -->
 	<resultMap type="PurchasePrice" id="purchasePriceMap">
 		<id column="martCode" property="martCode" />
-		<id column="ID" property="ID" />
+		<id column="ID" property="id" />
 		<id column="barcode" property="barcode" />
-		<result column="IDX" property="IDX" />
+		<result column="IDX" property="idx" />
 		<result column="regDate" property="regDate" />
 		<result column="purchasePrice" property="purchasePrice" />
 
@@ -225,7 +163,7 @@
 			<result column="martName" property="martName"/>
 		</association>
 		<association javaType="User" property="user">
-			<id column="ID" property="ID"/>
+			<id column="ID" property="id"/>
 			<result column="name" property="name"/>
 		</association>
 		<association javaType="Goods" property="goods">
@@ -233,11 +171,13 @@
 			<result column="goodsName" property="goodsName"/>	
 		</association>
 	</resultMap>
+	
+	<!-- salesPrice innerjoin mart,user,goods ResultMap(최민중) -->
 	<resultMap type="SalesPrice" id="salesPriceMap">
 		<id column="martCode" property="martCode" />
-		<id column="ID" property="ID" />
-		<id column="IDX" property="IDX" />
-		<id column="barcode" property="barcode" />
+		<result column="ID" property="id" />
+		<result column="IDX" property="idx" />
+		<result column="barcode" property="barcode" />
 		<result column="regDate" property="regDate" />
 		<result column="salesPrice" property="salesPrice" />
 
@@ -246,7 +186,7 @@
 			<result column="martName" property="martName"/>
 		</association>
 		<association javaType="User" property="user">
-			<id column="ID" property="ID"/>
+			<id column="ID" property="id"/>
 			<result column="name" property="name"/>
 		</association>
 		<association javaType="Goods" property="goods">
@@ -255,12 +195,10 @@
 		</association>
 	</resultMap>
 
+	<!-- 상품매입가리스트 (최민중) => 단가수정페이지-최근 매입가보여주기 -->
 	<select id="getPurchasePriceListByBarcode" resultMap="purchasePriceMap">
 		SELECT
-			p.IDX
-			,p.purchasePrice
-			,p.regDate
-			,u.name
+			p.IDX, p.purchasePrice, p.regDate, u.name
 		FROM 
 			tb_purchasePrice AS p
 			INNER join
@@ -272,12 +210,11 @@
 		ORDER BY
 			p.regDate DESC
 	</select>
+	
+	<!-- 상품판매가리스트 (최민중) => 단가수정페이지-최근 판매가보여주기 -->
 	<select id="getSalesPriceListByBarcode" resultMap="salesPriceMap">
 		SELECT
-			s.IDX
-			,s.salesPrice
-			,s.regDate
-			,u.name 
+			s.IDX, s.salesPrice, s.regDate, u.name 
 		FROM 
 			tb_salesPrice AS s
 			INNER join
@@ -290,6 +227,7 @@
 			s.regDate DESC
 	</select>
 
+	<!-- 상품판매가 변경 (최민중) -->
 	<update id="updateGoodsPrice">
 		UPDATE 
 			tb_goods
@@ -298,10 +236,16 @@
 		WHERE
 			barcode= #{barcode}
 	</update>
+	
+	<!-- 상품판매가 변경후 기록남기기(최민중) -->
 	<insert id="addSalesPrice" parameterType="Map">
-		INSERT INTO tb_salesPrice
-			(barcode, salesPrice, martCode, ID, regDate)
-		VALUES(
+		INSERT INTO tb_salesPrice(
+			barcode
+			, salesPrice
+			, martCode
+			, ID
+			, regDate
+		)VALUES(
 			#{barcode}
 			,#{salesPrice}
 			,#{martCode}
@@ -310,4 +254,32 @@
 		);
 	</insert>
 	
+	<!-- 상품카테고리 ResultMap(최민중) -->
+	<resultMap type="GoodsCate" id="goodsCateResultMap">
+		<result column="categoryCode" property="categoryCode"/>
+		<result column="categoryName" 			property="categoryName"/>
+		<result column="martCode" 				property="martCode"/>
+		<result column="ID" 					property="ID"/>
+		<result column="regDate" 				property="regDate"/>
+	</resultMap>
+	
+	<!-- 상품카테고리 선택용 모달(최민중) -->
+	<select id="getCategoryList" parameterType="String" resultType="Map">
+		SELECT
+			categoryCode, categoryName
+		FROM
+			tb_category
+		WHERE
+			martCode = #{martCode}
+	</select>
+
+	<!-- 상품카테고리 조회화면(최민중) -->
+	<select id="getGoodsCateList" parameterType="String" resultMap="goodsCateResultMap">
+		SELECT 
+			categoryCode, categoryName, martCode, ID, DATE(regDate) AS regDate
+		FROM 
+			tb_category
+		WHERE
+			martCode = #{martCode}
+	</select>
 </mapper>

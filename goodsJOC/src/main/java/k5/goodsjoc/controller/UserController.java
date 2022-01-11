@@ -39,21 +39,21 @@ public class UserController {
 	}
 	
 	@PostMapping("/login")
-	public String login(@RequestParam(value="ID", required=false) String ID,
-						@RequestParam(value="PW", required=false) String PW, HttpSession session) {
+	public String login(@RequestParam(value="id", required=false) String id,
+						@RequestParam(value="pw", required=false) String pw, HttpSession session) {
 		System.out.println("페이지: 로그인처리 ");
 		System.out.println("경로: system_management/user/loginForm(POST방식) ");		
-		System.out.println("입력받은 ID: " + ID);
-		System.out.println("입력받은 PW: " + PW);
+		System.out.println("입력받은 ID: " + id);
+		System.out.println("입력받은 PW: " + pw);
 		
-		if(ID != null && !"".equals(ID) && PW != null && !"".equals(PW)){
-			User userInfo = userService.getUserInfoByID(ID);
+		if(id != null && !"".equals(id) && pw != null && !"".equals(pw)){
+			User userInfo = userService.getUserInfoByID(id);
 			System.out.println("userInfo: " + userInfo);
 			Mart martInfo = martService.getMartInfoByMartCode(userInfo.getMartCode());
 			System.out.println("martInfo: " + martInfo);
 			
-			if(userInfo != null && userInfo.getPW() != null && PW.equals(userInfo.getPW())) {
-				session.setAttribute("SID", userInfo.getID());
+			if(userInfo != null && userInfo.getPw() != null && pw.equals(userInfo.getPw())) {
+				session.setAttribute("SID", userInfo.getId());
 				session.setAttribute("SNAME", userInfo.getName());
 				session.setAttribute("SMARTCODE", martInfo.getMartCode());
 				session.setAttribute("SMARTNAME", martInfo.getMartName());

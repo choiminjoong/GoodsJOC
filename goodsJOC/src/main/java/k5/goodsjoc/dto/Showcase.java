@@ -5,8 +5,14 @@ public class Showcase {
 	private String showcasePlace;
 	private String stock;
 	private String martCode;
-	private String ID;
+	private String id;
 	private String regDate;
+
+	@Override
+	public String toString() {
+		return "Showcase [showcaseCode=" + showcaseCode + ", showcasePlace=" + showcasePlace + ", stock=" + stock
+				+ ", martCode=" + martCode + ", id=" + id + ", regDate=" + regDate + "]";
+	}
 	public String getShowcaseCode() {
 		return showcaseCode;
 	}
@@ -31,11 +37,11 @@ public class Showcase {
 	public void setMartCode(String martCode) {
 		this.martCode = martCode;
 	}
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -43,11 +49,4 @@ public class Showcase {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	@Override
-	public String toString() {
-		return "facility [showcaseCode=" + showcaseCode + ", showcasePlace=" + showcasePlace + ", stock=" + stock
-				+ ", martCode=" + martCode + ", ID=" + ID + ", regDate=" + regDate + "]";
-	}
-	
-	
 }

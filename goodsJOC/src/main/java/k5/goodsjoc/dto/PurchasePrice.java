@@ -1,39 +1,28 @@
 package k5.goodsjoc.dto;
 
 public class PurchasePrice {
-	private String IDX ;
+	private String idx ;
 	private String barcode;
 	private String purchasePrice;
 	private String martCode;
-	private String ID;
+	private String id;
 	private String regDate;
 	
 	private Goods goods;
 	private User user;
-	
-	public Goods getGoods() {
-		return goods;
-	}
-	public void setGoods(Goods goods) {
-		this.goods = goods;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
-	}
-	
+	private Mart mart;
+
 	@Override
 	public String toString() {
-		return "PurchasePrice [IDX=" + IDX + ", barcode=" + barcode + ", purchasePrice=" + purchasePrice + ", martCode="
-				+ martCode + ", ID=" + ID + ", regDate=" + regDate + "]";
+		return "PurchasePrice [idx=" + idx + ", barcode=" + barcode + ", purchasePrice=" + purchasePrice + ", martCode="
+				+ martCode + ", id=" + id + ", regDate=" + regDate + ", goods=" + goods + ", user=" + user + ", mart="
+				+ mart + "]";
 	}
-	public String getIDX() {
-		return IDX;
+	public String getIdx() {
+		return idx;
 	}
-	public void setIDX(String iDX) {
-		IDX = iDX;
+	public void setIdx(String idx) {
+		this.idx = idx;
 	}
 	public String getBarcode() {
 		return barcode;
@@ -53,11 +42,11 @@ public class PurchasePrice {
 	public void setMartCode(String martCode) {
 		this.martCode = martCode;
 	}
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -65,6 +54,22 @@ public class PurchasePrice {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	
-	
+	public Goods getGoods() {
+		return goods;
+	}
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public Mart getMart() {
+		return mart;
+	}
+	public void setMart(Mart mart) {
+		this.mart = mart;
+	}
 }
