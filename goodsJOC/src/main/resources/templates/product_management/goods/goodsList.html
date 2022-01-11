@@ -27,12 +27,15 @@
 				<div class="tab-content row" id="custom-tabs-two-tabContent">
 					<div class="col-10">
 						<div class="form-group row">
+							<div class="col-1" style="display: none">
+								<input type="text" id="cateCodeInput" name="searchCategory" class="form-control">
+							</div>
 							<label class="col-sm-1 col-form-label">카테고리</label>
 							<div class="col-sm-3">
 								<div class="input-group mb-2">
-									<input type="text" class="form-control">
+									<input type="text" id="cateNameInput" class="form-control text-center" readonly>
 									<div class="input-group-append">
-										<button type="button" id="modalTableBtn" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+										<button type="button" id="searchCategoryBtn" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
 											<i class="fas fa-search"></i>
 										</button>
 									</div>
@@ -60,7 +63,6 @@
 								</select>	
 								
 							</div>
-							
 							<div class="col-sm-1"></div>
 							<label class="col-sm-1 col-form-label">판매가</label>
 							<div class="col-sm-2">
@@ -163,38 +165,81 @@
 					</button>
 				</div>
 				<div class="modal-body">
-					<div class="card-body table-responsive" style="height:480px;">
-						<table id="modalAjax" class="table table-bordered table-hover table-head-fixed text-nowrap">
-							<thead>
-								<tr>
-									<th>NO</th>
-									<th>카테고리명</th>
-									<th></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:if="${not #lists.isEmpty(goodsCateList)}" th:each="l,i : ${goodsCateList}">
-									<td th:text="${i.index+1}"></td>
-									<td th:text="${l.categoryName}"></td>
-									<td>
-										<button type="button" class="button btn-sm btn-info">선택</button>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+						<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+							<div class="row">
+								<div class="col-sm-12">
+									<table style="width:100%" id="dataTableAjax" class="text-center table table-bordered table-hover dataTable dtr-inline"
+										role="grid" aria-describedby="example2_info">
+										<thead>
+											<tr style="width:540px;" role="row">
+												<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+													aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+													카테고리명</th>
+												<th tabindex="0" rowspan="1" colspan="1">
+													선택하기
+												</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="modal-footer justify-content-between">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-				</div>
-				<!-- /.modal-content -->
 			</div>
-			<!-- /.modal-dialog -->
 		</div>
 	</div>
+</th:block>
 
-
+<th:block layout:fragment="customJs">		
+	
+	<script type="text/javascript">
+		$(function(){
+			$(document).on('click', '.catePickBtn', function(){
+				var cateCodePick = $(this).attr('data-categoryCode');
+				var cateNamePick = $(this).attr('data-categoryName');
+				console.log(cateCodePick);
+				console.log(cateNamePick);
+				$('#cateCodeInput').val(cateCodePick);
+				$('#cateNameInput').val(cateNamePick);
+			});
+			
+			$(document).on('click', '#searchCategoryBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#dataTableAjax').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/product_management/goods/searchCategoryModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "categoryName"},
+						{ data: "categoryCode"}								
+					],
+					columnDefs: [
+						{
+							targets: [1],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn = '<button type="button" data-dismiss="modal" class="btn btn-info catePickBtn" data-categoryCode="'+ row.categoryCode +'" data-categoryName="'+ row.categoryName +'">선택</button>';
+								return htmlbtn;
+							}
+						}
+					]
+				});
+			});
+		});
+	</script>
+	
 </th:block>
 
 </html>

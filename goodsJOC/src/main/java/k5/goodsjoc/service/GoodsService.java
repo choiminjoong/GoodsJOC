@@ -70,5 +70,21 @@ public class GoodsService {
 	}
 
 
+	//모달용 카테고리리스트
+	public List<Map<String, Object>> getCategoryList(String martCode) {
+
+		return goodsMapper.getCategoryList(martCode);
+	}
+
+
+
+	public int goodsCheckByBarcode(String barcode) {
+		int result = 0;
+		result += goodsMapper.goodsCheckByBarcode(barcode);
+		
+		return result;
+	}
+
+
 }
 

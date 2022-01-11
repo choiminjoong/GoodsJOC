@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import k5.goodsjoc.dto.Goods;
 import k5.goodsjoc.dto.GoodsCate;
 import k5.goodsjoc.dto.PurchasePrice;
@@ -31,7 +33,35 @@ public class GoodsController {
 	public GoodsController(GoodsService goodsService) {
 		this.goodsService = goodsService;
 	}
-
+	
+	//상품관리 > 등록페이지 바코드 사용여부확인 Ajax (최민중)
+	@PostMapping("/barcodeCheck")
+	@ResponseBody
+	public boolean barcodeCheck(@RequestParam(value="barcode", required=false) String barcode) {
+		System.out.println("바코드 사용여부 확인 버튼Ajax");
+		System.out.println("등록폼에서 확인할 바코드: " + barcode);
+		
+		boolean checkResult = false;
+		int check = goodsService.goodsCheckByBarcode(barcode);
+		if(check > 0) checkResult = true;
+		
+		return checkResult;
+	}
+	
+	
+	//상품관리 내 상품카테고리 선택 모달 Ajax (최민중)
+	@PostMapping("/searchCategoryModal")
+	@ResponseBody
+	public List<Map<String, Object>> searchCategoryModal(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<Map<String, Object>> categoryModal = goodsService.getCategoryList(sessionMartCode);
+		
+		return categoryModal;
+	}
+	
+	//상품관리 > 조회 > 단가수정작업 (최민중)
 	@PostMapping("/goodsPriceUpdate")
 	public String goodsPriceUpdate(HttpServletRequest request, Goods goods, Model model) {
 		System.out.println("페이지: 상품단가 변경액션 ");
@@ -41,29 +71,39 @@ public class GoodsController {
 		String barcode = goods.getBarcode();
 		String salesPrice = goods.getSalesPrice();
 
-		//판매가 수정
-		goodsService.updateGoodsPrice(barcode, salesPrice);
+		if(salesPrice != null && salesPrice != "".toString()) {
+			//판매가 수정
+			int updateSucess = goodsService.updateGoodsPrice(barcode, salesPrice);
+			System.out.println("판매단가 수정 완료 ");
+			
+			if(updateSucess > 0) {
+				System.out.println("판매단가 기록");
+				//판매가 변경기록을 위한  Insert 매개변수 ID, MARTCODE
+				HttpSession session = request.getSession();
+				String sessionID = (String) session.getAttribute("SID");
+				String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+				
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("martCode", sessionMartCode);
+				paramMap.put("ID", sessionID);
+				paramMap.put("barcode", barcode);
+				paramMap.put("salesPrice", salesPrice);
+				
+				//판매가 변경 기록하기
+				goodsService.addSalesPrice(paramMap);
+				
+				return "redirect:/product_management/goods/goodsList";
+			}
+		}
 		
-		//판매가 변경기록을 위한  Insert 매개변수 ID, MARTCODE
-		HttpSession session = request.getSession();
-		String sessionID = (String) session.getAttribute("SID");
-		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
-		
-		Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.put("martCode", sessionMartCode);
-			paramMap.put("ID", sessionID);
-			paramMap.put("barcode", barcode);
-			paramMap.put("salesPrice", salesPrice);
-		//판매가 변경 기록하기
-		goodsService.addSalesPrice(paramMap);
-		
-		return "redirect:/product_management/goods/goodsList";
+		return "system_management/error/error500";
 	}
 	
+	//상품관리 > 조회 > 단가조정 (최민중)
 	@GetMapping("/goodsPriceList")
 	public String goodsPriceList(@RequestParam(value="barcode", required= false) String barcode, Model model) {
 		System.out.println("페이지: 상품단가 조정 ");
-		System.out.println("경로: product_management/goods/goodsPriceList(GET방식 성공) ");
+		System.out.println("경로: product_management/goods/goodsPriceList(GET방식 성공)");
 		System.out.println("리스트에서 받은 바코드: " + barcode);
 		
 		Goods goodsInfo = goodsService.getGoodsInfoByBarcode(barcode);
@@ -77,6 +117,7 @@ public class GoodsController {
 		return "product_management/goods/goodsPriceList";
 	}
 	
+	//상품정보 수정 페이지 (미완성)
 	@GetMapping("/goodsUpdate")
 	public String goodsUpdate(@RequestParam(value="barcode", required= false) String barcode, Model model) {
 		System.out.println("barcode: " + barcode);
@@ -87,6 +128,7 @@ public class GoodsController {
 		return "product_management/goods/goodsUpdate";
 	}
 	
+	//상품관리 > 카테고리 페이지 (최민중)
 	@GetMapping("/goodsCate")
 	public String goodsCate(HttpServletRequest request, Model model) {
 		System.out.println("페이지: 상품 카테고리 ");
@@ -102,6 +144,7 @@ public class GoodsController {
 		return "product_management/goods/goodsCate";
 	}
 	
+	//상품관리 > 등록 페이지(최민중)
 	@GetMapping("/goodsInsert")
 	public String goodsInsert() {
 		System.out.println("페이지: 상품 등록 ");
@@ -110,6 +153,7 @@ public class GoodsController {
 		return "product_management/goods/goodsInsert";
 	}	
 	
+	//상품관리 > 조회 > 조건검색하기 (최민중)
 	@PostMapping("/goodsList")
 	public String goodsList(@RequestParam(value="searchCategory", required=false) String searchCategory,
 							@RequestParam(value="minPurchasePrice", required=false) String minPurchasePrice,
@@ -158,6 +202,7 @@ public class GoodsController {
 		return "product_management/goods/goodsList";
 	}
 	
+	//상품관리 > 조회 페이지 (최민중)
 	@GetMapping("/goodsList")
 	public String goodsList(HttpServletRequest request, Model model) {
 		System.out.println("페이지: 상품 조회 ");
