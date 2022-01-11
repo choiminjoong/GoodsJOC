@@ -34,15 +34,15 @@
               <div class="row invoice-info">
               <!-- /.col -->
                 <div class="col-sm-4 invoice-col" style="margin-top: 1%" th:each="view : ${viewOrder}">
-                  <strong>barcode :</strong><span th:text="${view.barcode}" />
+                  <strong>barcode :</strong><span th:text="${view.barcode}"></span>
                 </div>
                 <div class="col-sm-3 invoice-col" style="margin-left:-3cm">
                   <address th:each="view : ${viewOrder}">
                     <strong>거래처 :</strong><br>
-                   	 거래처명 : <span th:text="${view.businessName}" /><br>
+                   	 거래처명 : <span th:text="${view.businessName}"></span><br>
                  	 주문일자 : <br>
-                    Phone: <span th:text="${view.partnerPhone}" /><br>
-                    Email: <span th:text="${view.businessStaffEmail}" />
+                    Phone: <span th:text="${view.partnerPhone}"></span><br>
+                    Email: <span th:text="${view.businessStaffEmail}"></span>
                   </address>
                 </div>
               </div>
@@ -63,7 +63,7 @@
                     </tr>
                     </thead>
                     <tbody align="center">
-                    <tr th:each="view : ${viewOrder}">
+                    <tr th:each ="view : ${viewOrder}">
                       <td th:text="${view.orderNum}"></td>
                       <td th:text="${view.goodsName}"></td>
                       <td th:text="${view.QTY}"></td>

@@ -51,8 +51,8 @@
 								</tr>
 							</thead>
 							<tbody>
-								<tr th:if="${not #lists.isEmpty(goodsCateList)}" th:each="l : ${goodsCateList}">
-									<td>1</td>
+								<tr th:if="${not #lists.isEmpty(goodsCateList)}" th:each="l, i : ${goodsCateList}">
+									<td th:text="${i.index+1}"></td>
 									<td th:text="${l.categoryName}"></td>
 									<td th:text="${l.regDate}"></td>
 									<td th:text="${l.ID}"></td>
@@ -87,32 +87,43 @@
 				</div>
 				<!-- /.card-header -->
 				<div class="card-body">
-					<div class="form-group">
-						<label for="goodsCateName">
-							카테고리 명
-						</label> 
-						<input type="text" class="form-control form-control-border border-width-2"
-							id="goodsCateName" placeholder="카테고리의 이름을 입력해주세요">
-					</div>
-					<div class="form-group">
-						<label for="martName">
-							매장명
-						</label> 
-						<input type="text" class="form-control rounded-2" 
-							id="martName" value="민중마트" readonly="readonly">
-					</div>
-					<div class="form-group">
-						<label for="staffName">
-							등록자
-						</label> 
-						<input type="text" class="form-control rounded-2" 
-							id="staffName" value="최민중" readonly="readonly">
-					</div>
-					<button type="button" class="btn btn-block bg-gradient-warning">등록하기</button>
+					<form>
+						<div class="form-group">
+							<label for="goodsCateName">
+								카테고리 명
+							</label> 
+							<input type="text" class="form-control form-control-border border-width-2"
+								id="goodsCateName" placeholder="카테고리의 이름을 입력해주세요">
+						</div>
+						<div class="form-group">
+							<label for="martName">
+								매장명
+							</label> 
+							<input type="text" class="form-control rounded-2" 
+								id="martName" th:value="${session.SMARTNAME}" readonly="readonly">
+						</div>
+						<div class="form-group">
+							<label for="staffName">
+								등록자
+							</label> 
+							<input type="text" class="form-control rounded-2" 
+								id="staffName" th:value="${session.SNAME}" readonly="readonly">
+						</div>
+						<button type="button" class="btn btn-block bg-gradient-warning">등록하기</button>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 	
 </th:block>
+
+<!-- 스크립트 -->
+<th:block layout:fragment="customJs">
+
+
+
+
+</th:block>
+
 </html>

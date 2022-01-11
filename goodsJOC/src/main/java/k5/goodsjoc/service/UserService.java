@@ -4,27 +4,39 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import k5.goodsjoc.dto.User;
 import k5.goodsjoc.mapper.UserMapper;
 
 @Service
 @Transactional
 public class UserService {
-	
+
 	private UserMapper userMapper;
+
 	public UserService(UserMapper userMapper) {
 		this.userMapper = userMapper;
 	}
-	
-	public User getUserInfoByID(String ID) {
-		
-		return userMapper.getUserInfoByID(ID);
-	}
-	
-	//사용자 전체조회
-	public List<User> getUserList(String martCode){
-		
+
+	// 사용자 전체조회
+	public List<User> getUserList(String martCode) {
 		return userMapper.getUserList(martCode);
 	}
+
+	// 사용자 단일 정보조회
+	public User getUserInfoByID(String ID) {
+		return userMapper.getUserInfoByID(ID);
+	}
+
+	// 사용자 조건 검색
+	public List<User> getUserListBySearchKey(String searchKey, String searchValue) {
+		return userMapper.getUserListBySearchKey(searchKey, searchValue);
+
+	}
+
+	// 사용자 정보 수정
+	public int updateUserInfo(User user) {
+		return userMapper.userUpdateInfo(user);
+	}
+
+	
 }

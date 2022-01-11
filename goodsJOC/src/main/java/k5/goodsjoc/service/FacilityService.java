@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import k5.goodsjoc.dto.Shelf;
 import k5.goodsjoc.dto.Showcase;
 import k5.goodsjoc.dto.Warehouse;
 import k5.goodsjoc.mapper.FacilityMapper;
@@ -24,5 +25,22 @@ public class FacilityService {
 		
 		public List<Showcase> getShowcaseList(){
 			return facilityMapper.getShowcaseList();
+		}
+
+		public int warehouseInsert(Warehouse warehouse) {
+			return facilityMapper.warehouseInsert(warehouse);
+		}
+		
+		public List<Warehouse> getWarehouseListByMartCode(String martCode) {
+			return facilityMapper.getWarehouseListByMartCode(martCode);
+		}
+
+		public int shelfInsert(Shelf shelf) {
+			return facilityMapper.shelfInsert(shelf);
+		}
+
+		public int showcaseInsert(Showcase showcase) {
+			return facilityMapper.showcaseInsert(showcase);
+			
 		}
 }

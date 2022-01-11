@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customTitle">
+	<title>폐기 등록</title>
+</th:block>
+<!-- 로케이션 제목 -->
+<th:block layout:fragment="locationTitle">
+</th:block>
+<!-- 로케이션 위치 -->
+<th:block layout:fragment="locationPlace">
+   <a th:href="@{/main}">MAIN</a>
+      > 재고관리 > 폐기관리 > 폐기등록
+   </th:block>
+<th:block layout:fragment="customContents">
+	<section class="content">
+		<div class="container-fluid">
+			<!---------------폐기 등록---------------->
+			<div class="col">
+				<div class="card card-warning">
+					<div class="card-header">
+						<h3 class="card-title"><b>폐기 등록</b></h3>
+
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool"
+								data-card-widget="collapse" title="Collapse">
+								<i class="fas fa-minus"></i>
+							</button>
+						</div>
+					</div>
+					<!----------------폐기 등록 폼 ---------------->
+					<div class="card-body">
+						<div class="form-group">
+							<label for="inputName">*상품명</label> <input type="text"
+								id="inputName" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="inputClientCompany">*수량</label> <input type="text"
+								id="inputClientCompany" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="inputStatus">*거래처명</label> <input type="text"
+								id="inputClientCompany" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="inputStatus">*담당자</label> <input type="text"
+								id="inputClientCompany" class="form-control">
+						</div>
+						<div class="form-group">
+							<label for="inputProjectLeader">*폐기일</label> <input type="date"
+								id="inputProjectLeader" class="form-control">
+						</div>
+					</div>
+					<!-- /.card-body -->
+					<!----------------버튼-------------->
+					<a href="scrapList"
+						class="btn btn-m bg-warning color-palette btn-block"><b>등록</b></a>
+				</div>
+			</div>
+
+			<!-- /.card -->
+		</div>
+	</section>

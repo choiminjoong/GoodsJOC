@@ -3,8 +3,8 @@
 <th:block th:fragment="sidebarFragment">
 	<aside id="sidebarMode" class="main-sidebar sidebar-dark-primary elevation-4">
 		<!-- Brand Logo -->
-		<a th:href="@{/main}" class="brand-link text-center"> 
-			<i class="fab fa-raspberry-pi"></i>
+		<a th:href="@{/main}" class="brand-link"> 
+			<img src="/image/KakaoTalk_20211227_192452407.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
 			<span class="brand-text font-weight-light">Goods JOC</span>
 		</a>
 
@@ -17,7 +17,11 @@
 				</div>
 				<div class="info" th:if="${session.SID != null}">
 					<a th:href="@{/system_management/user/userInfo}" class="d-block" th:text="${session.SNAME}"></a>
-					(<a th:href="@{/system_management/mart/martInfo}" th:text="${session.SMARTNAME}"></a> <th:block th:text="${session.SLEVELNAME}"></th:block>)
+					<span style="color: #c2c7d0;">(</span>
+					<a th:href="@{/system_management/mart/martInfo}" th:text="${session.SMARTNAME}"></a>
+					<span style="color: #c2c7d0;">-</span>
+					<span style="color: #c2c7d0;" th:text="${session.SLEVELNAME}"></span>
+					<span style="color: #c2c7d0;">)</span>
 				</div>
 			</div>
 			
@@ -28,13 +32,13 @@
 					<li class="nav-item">
 						<a href="#" class="nav-link"> 
 							<i class="nav-icon fas fa-circle"></i>
-							<p> 기초관리 <i class="right fas fa-angle-left"></i> </p>
+							<p> 기초관리 <i class="right fas fa-angle-left"></i></p>
 						</a>
 						<ul class="nav nav-treeview">
 							<li class="nav-item">
 								<a th:href="@{/system_management/mart/martInfo}" class="nav-link"> 
 									<i class="far fa-circle nav-icon"></i>
-									<p>매장 정보 </p>
+									<p>매장 정보</p>
 								</a>
 							</li>
 							<li class="nav-item">
@@ -114,7 +118,7 @@
 								</a>
 							</li>
 							<li class="nav-item">
-								<a th:href="@{/trade_management/sales/purchaseList1}" class="nav-link"> 
+								<a th:href="@{/trade_management/sales/purchaseList}" class="nav-link"> 
 									<i class="far fa-circle nav-icon"></i>
 									<p>매입 및 거래명세서</p>
 								</a>

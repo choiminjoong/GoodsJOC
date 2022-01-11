@@ -3,8 +3,6 @@
 /* 미확정 */
 
 
-
-
 .joc-1{
 	background-color: #fff;
 }
@@ -12,7 +10,12 @@
 	background-color: #001F3F;
 }
 
-
+.joc-a1{
+	color: #fff;
+}
+.jac-a2{
+	color: #0000ff;
+}
 
 
 /* 확정 */
@@ -28,7 +31,9 @@
 	/* footer */
 }
 #main{
-	color: #fff; 
+	text-shadow:-1px 0 #343a40, 0 1px #343a40, 1px 0 #343a40, 0 -1px #343a40;
+	color: #fff;
+	font-size: 18px;
 }
 #main:hover {
 	color: #ffff00; 

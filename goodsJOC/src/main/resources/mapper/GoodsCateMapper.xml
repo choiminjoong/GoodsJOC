@@ -10,7 +10,16 @@
 		<result column="ID" 					property="ID"/>
 		<result column="regDate" 				property="regDate"/>
 	</resultMap>
-	
+		
+		<select id="getCategoryList" parameterType="String" resultType="Map">
+			SELECT
+				categoryCode
+				,categoryName
+			FROM
+				tb_category
+			WHERE
+				martCode = #{martCode}
+		</select>
 
 		<select id="getGoodsCateList" parameterType="String" resultMap="goodsCateResultMap">
 			SELECT 
@@ -18,10 +27,11 @@
 				categoryName, 
 				martCode, 
 				ID, 
-				regDate
+				DATE(regDate) AS regDate
 			FROM 
 				tb_category
-			
+			WHERE
+				martCode = #{martCode}
 		</select>
 
 	

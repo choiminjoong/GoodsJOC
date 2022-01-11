@@ -16,7 +16,6 @@
 
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
-
 	<!-- 거래처 등록  -->
 	<div class="row justify-content-center">
 		<div class="col-md-6" style="margin-top: -1%">
@@ -25,107 +24,128 @@
 					<b><i class="fas fa-check"></i>ㅤ거래처 등록</b>
 				</div>
 
+				<form th:action="@{/basic_management/business/businessInsert}" method="post">
 				<div class="card-body">
 					<div class="form-group row">
 						<label for="Name" class="col-sm-3 col-form-label"><code>*</code> 거래처명</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="Name"
-								placeholder="필수 입력해주세요.">
+							<input type="text" class="form-control" name="businessName" placeholder="필수 입력해주세요.">
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label"><code>*</code> 대표자명</label>
 						<div class="col-sm-9">
-							<input type="password" class="form-control" id="businesName"
-								placeholder="필수 입력해주세요.">
+							<input type="text" class="form-control" name="partnerName" placeholder="필수 입력해주세요.">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label"><code>*</code> 대표자번호</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="partnerPhone" placeholder="필수 입력해주세요.">
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label"><code>*</code> 사업장등록번호</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="businesPartnerNum"
-								placeholder="필수 입력해주세요.">
+							<input type="text" class="form-control" name="registerNum" placeholder="필수 입력해주세요.">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label"><code>*</code> 구분</label>
+						<div class="col-sm-9">
+						<select name="businessType" class="form-control">
+							<option>:: 선택  ::</option>
+							<option>개인</option>
+							<option>기업</option>						
+						</select>
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label"><code>*</code> 업종</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="sectors" placeholder="...">
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label">업태</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" id="businesStatus"
-								placeholder="...">
-						</div>
-					</div>
-
-					<div class="form-group row">
-						<label class="col-sm-3 col-form-label">업종</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="businesSectors"
-								placeholder="...">
-						</div>
-					</div>
-
-					<div class="form-group row">
-						<label class="col-sm-3 col-form-label"><code>*</code> 담당자 이름</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" id="businesStaff"
-								placeholder="필수 입력해주세요.">
+							<input type="text" class="form-control" name="status" placeholder="...">
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label"><code>*</code> 전화번호</label>
 						<div class="col-sm-9">
-							<input type="tel" class="form-control" id="businesPhoneNum"
-								placeholder="...">
+							<input type="text" class="form-control" name="callNum" placeholder="...">
 						</div>
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label"><code>*</code> 이메일</label>
+						<label class="col-sm-3 col-form-label"><code>*</code> 상세주소</label>
 						<div class="col-sm-9">
-							<input type="email" class="form-control" id="businesStaffEmail"
-								placeholder="...">
+							<input type="text" class="form-control" name="address" placeholder="...">
 						</div>
 					</div>
-					<div class="form-group row">
-						<label class="col-sm-3 col-form-label">상세주소</label>
-						<div class="col-sm-9">
 
-							<!--카카오톡 우편번호 api  -->
-							<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-							<script charset="UTF-8" type="text/javascript"
-								src="//t1.daumcdn.net/postcode/api/core/211103/1635999227231/211103.js"></script>
-							<script src="/resources/js/addressapi.js"></script>
-							<div class="form-group">
-								<input class="form-control" style="width: 40%; display: inline;"
-									placeholder="우편번호" name="addr1" id="addr1" type="text"
-									readonly="readonly">
-								<button type="button" class="btn btn-default"
-									onclick="execPostCode();">
-									<i class="fa fa-search"></i> 우편번호 찾기
-								</button>
-							</div>
-							<div class="form-group">
-								<input class="form-control" style="top: 5px;"
-									placeholder="도로명 주소" name="addr2" id="addr2" type="text"
-									readonly="readonly">
-							</div>
-							<div class="form-group">
-								<input class="form-control" placeholder="상세주소" name="addr3"
-									id="addr3" type="text">
-							</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">FAX</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="FAX" placeholder="...">
 						</div>
 					</div>
-				</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label"> 담당자 이름</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="businessStaff" placeholder="필수 입력해주세요.">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label"> 담당자 연락처</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="businessStaffPhone" placeholder="필수 입력해주세요.">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label"> 담당자 이메일</label>
+						<div class="col-sm-9">
+							<input type="email" class="form-control" name="businessStaffEmail" placeholder="...">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label"> 비고</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="note" placeholder="...">
+						</div>
+					</div>
+					
+					<div class="form-group row" style="display: none">
+						<label class="col-sm-3 col-form-label">등록자</label>
+						<div class="col-sm-9">
+							<input type="text" th:value="${session.SID}" class="form-control" name="ID" placeholder="...">
+						</div>
+					</div>
+
+					<div class="form-group row" style="display: none">
+						<label class="col-sm-3 col-form-label">마트고유코트</label>
+						<div class="col-sm-9">
+							<input type="text" th:value="${session.SMARTCODE}" class="form-control" name="martCode" placeholder="...">
+						</div>
+					</div>
 				<!-- 등록버튼  -->
-				<a th:href="@{/basic_management/business/businessList}"
-					class="btn btn-m bg-warning color-palette btn-block"><b>등록</b></a>
+					<button type="submit" class="btn btn-m bg-warning color-palette btn-block"><b>등록</b></button>
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
-
-
 </th:block>
 </html>

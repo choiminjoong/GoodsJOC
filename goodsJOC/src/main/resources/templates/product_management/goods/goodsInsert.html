@@ -27,48 +27,56 @@
 				<form class="form-horizontal">
 					<div class="card-body">
 						<div class="form-group row">
-							<label for="barcode" class="col-sm-2 col-form-label">바코드</label>
+							<label for="barcode" class="col-sm-2 col-form-label"><code>*</code>바코드</label>
+							<div class="input-group mb-2 col-sm-10">
+								<input type="text" id="barcodeInput" class="form-control text-center">
+								<div class="input-group-append">
+									<button type="button" id="barcodeCheclkBtn" class="btn btn-info">
+										사용여부 확인
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="form-group row" style="display:none">
+							<label for="barcode" class="col-sm-2 col-form-label">상품코드</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="barcode">
+								<input type="text" class="form-control" id="cateCodeInput">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="goodsCate" class="col-sm-2 col-form-label">카테고리</label>
-							<div class="col-sm-10">
-								<select id="goodsCate" class="form-control">
-									<option>1</option>
-									<option>option 2</option>
-									<option>option 3</option>
-									<option>option 4</option>
-									<option>option 5</option>
-								</select>
+							<label for="goodsCate" class="col-sm-2 col-form-label"><code>*</code>카테고리</label>
+							<div class="input-group mb-2 col-sm-10">
+								<input type="text" id="cateNameInput" class="form-control text-center" readonly>
+								<div class="input-group-append">
+									<button type="button" id="searchCategoryBtn" class="btn btn-info" data-toggle="modal" data-target="#modal-default">
+										카테고리 조회
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martRegNum" class="col-sm-2 col-form-label">상품명</label>
+							<label for="martRegNum" class="col-sm-2 col-form-label"><code>*</code>상품명</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="martRegNum">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="goodsCate" class="col-sm-2 col-form-label">매입처</label>
-							<div class="col-sm-10">
-								<select id="goodsCate" class="form-control">
-									<option>1</option>
-									<option>option 2</option>
-									<option>option 3</option>
-									<option>option 4</option>
-									<option>option 5</option>
-								</select>
+							<label for="goodsCate" class="col-sm-2 col-form-label"><code>*</code>매입처</label>
+							<div class="input-group mb-2 col-sm-10">
+								<input type="text" id="cateNameInput" class="form-control text-center" readonly>
+								<div class="input-group-append">
+									<button type="button" id="searchCategoryBtn" class="btn btn-info" data-toggle="modal" data-target="#modal-default">
+										
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martPartnerName" class="col-sm-2 col-form-label">세금유형</label>
+							<label for="martPartnerName" class="col-sm-2 col-form-label"><code>*</code>세금유형</label>
 							<div class="col-sm-10">
 								<select id="goodsCate" class="form-control">
 									<option>과세</option>
-									<option>면세</option>
-									<option>영세</option>
+									<option>비과세</option>
 								</select>
 							</div>
 						</div>
@@ -85,20 +93,138 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martRegNum" class="col-sm-2 col-form-label">제조사</label>
+							<label for="martRegNum" class="col-sm-2 col-form-label"><code>*</code>제조사</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="martRegNum">
 							</div>
 						</div>
 					</div>
 					<div class="card-footer">
-						<a th:href="@{/product_manager/goods/goodsList}">
-							<button type="button" class="btn btn-warning float-right" >등록하기</button>
+						<a th:href="@{#}">
+							<button type="button" class="btn btn-warning float-right">등록하기</button>
 						</a>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	
+	<!-- 카테고리 검색 모달  -->
+	<div class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title">상품 카테고리 검색</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+						<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+							<div class="row">
+								<div class="col-sm-12">
+									<table style="width:100%" id="dataTableAjax" class="text-center table table-bordered table-hover dataTable dtr-inline"
+										role="grid" aria-describedby="example2_info">
+										<thead>
+											<tr style="width:540px;" role="row">
+												<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+													aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+													카테고리명</th>
+												<th tabindex="0" rowspan="1" colspan="1">
+													선택하기
+												</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+
+<th:block layout:fragment="customJs">		
+	
+	<script type="text/javascript">
+		$(function(){
+				
+			//바코드 사용여부 체크
+			$(document).on('click', '#barcodeCheclkBtn', function(){
+				var barcodeCheck = $('#barcodeInput').val();
+				
+				if(typeof barcodeCheck != 'undefined' && barcodeCheck != null && barcodeCheck != ''){
+					var request = $.ajax({
+						url: '/product_management/goods/barcodeCheck',
+						method: 'POST',
+						data: {'barcode' : barcodeCheck},
+						dataType: 'json'
+					});
+					request.done(function(data){
+						if(data){
+							alert("이미 사용하고 있는 바코드입니다.");
+						}else{
+							alert("사용 가능합니다.");
+							$('#addBtn').prop('disabled', false);
+						}
+						
+					});
+					request.fail(function(jqXHR, textStatus){
+						alert("Request failed: " + textStatus)
+					});
+				}else{
+					alert("바코드를 입력해주세요")
+					return false;
+				}
+			});
+			
+			//카테고리 선택
+			$(document).on('click', '.catePickBtn', function(){
+				var cateCodePick = $(this).attr('data-categoryCode');
+				var cateNamePick = $(this).attr('data-categoryName');
+				console.log(cateCodePick);
+				console.log(cateNamePick);
+				$('#cateCodeInput').val(cateCodePick);
+				$('#cateNameInput').val(cateNamePick);
+			});
+			
+			//카테고리 리스트 조회 AJax
+			$(document).on('click', '#searchCategoryBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#dataTableAjax').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/product_management/goods/searchCategoryModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "categoryName"},
+						{ data: "categoryCode"}								
+					],
+					columnDefs: [
+						{
+							targets: [1],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn = '<button type="button" data-dismiss="modal" class="btn btn-info catePickBtn" data-categoryCode="'+ row.categoryCode +'" data-categoryName="'+ row.categoryName +'">선택</button>';
+								return htmlbtn;
+							}
+						}
+					]
+				});
+			});
+		});
+	</script>
 </th:block>
 </html>

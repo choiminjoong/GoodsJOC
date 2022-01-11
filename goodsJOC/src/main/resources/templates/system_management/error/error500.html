@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
+	
+<!-- 페이지 제목 공간 -->
+<th:block layout:fragment="customTitle">
+	<title> 에러 </title>
+</th:block>
+<!-- 로케이션 제목 -->
+<th:block layout:fragment="locationTitle">
+ERROR
+</th:block>
+<!-- 로케이션 위치 -->
+<th:block layout:fragment="locationPlace">
+
+	
+	<a th:href="@{/main}">MAIN</a>
+	
+</th:block>
+
+<!-- 메인 컨텐츠 영역 -->		
+<th:block layout:fragment="customContents">	       	 
+
+<section class="content">
+      <div class="error-page">
+        <h2 class="headline text-danger"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">500</font></font></h2>
+
+        <div class="error-content">
+          <h3><i class="fas fa-exclamation-triangle text-danger"></i><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">앗! </font><font style="vertical-align: inherit;">문제가 발생했습니다.</font></font></h3>
+
+          <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+            바로 수정하도록 하겠습니다. </font><font style="vertical-align: inherit;">그동안 </font></font><a href="../../index.html"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">대시보드로 돌아가</font></font></a><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 거나 검색 양식을 사용해 볼 </font><font style="vertical-align: inherit;">수 있습니다 </font><font style="vertical-align: inherit;">.
+          </font></font></p>
+
+          <form class="search-form">
+            <div class="input-group">
+              <input type="text" name="search" class="form-control" placeholder="찾다">
+
+              <div class="input-group-append">
+                <button type="submit" name="submit" class="btn btn-danger"><i class="fas fa-search"></i>
+                </button>
+              </div>
+            </div>
+            <!-- /.input-group -->
+          </form>
+        </div>
+      </div>
+      <!-- /.error-page -->
+
+    </section>
+
+</th:block>
+</html>

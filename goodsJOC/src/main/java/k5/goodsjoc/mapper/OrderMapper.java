@@ -15,6 +15,9 @@ public interface OrderMapper {
 
 	//주문내역 상세 조회
 	public List<ViewOrder> getViewOrder();
-
+	
+	//주문 단일정보 검색
+	public List<Order> getOrderListBySearchKey(String searchKey, String searchValue);
+	
 	
 }

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GoodsJOCㅣLogin</title>
+<!-- Google Font: Source Sans Pro -->
+<link rel="stylesheet"
+	th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback}">
+<!-- Font Awesome -->
+<link rel="stylesheet"
+	th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+<!-- icheck bootstrap -->
+<link rel="stylesheet"
+	th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+<!-- Theme style -->
+<link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+</head>
+<body class="hold-transition login-page" style="background-color: #001F3F;">
+	<div class="login-box">
+		<div class="text-center">
+			<h1 style="color: #fff;"> Goods <b style="color: #ffff00;">JOC</b> </h1>
+		</div>
+		<!-- /.login-logo -->
+		<div class="card">
+			<div class="card-body login-card-body">
+				<p class="login-box-msg">Sign in to start your session</p>
+
+				<form th:action="@{/system_management/user/login}" method="post">
+					<div class="input-group mb-3">
+						<input type="text" name="ID" class="form-control" value="martAdmin" placeholder="아이디">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<i class="fas fa-user-circle"></i>
+							</div>
+						</div>
+					</div>
+					<div class="input-group mb-3">
+						<input type="password" name="PW" class="form-control" value="0000" placeholder="비밀번호">
+						<div class="input-group-append">
+							<div class="input-group-text">
+								<span class="fas fa-lock"></span>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-8">
+							<div class="icheck-warning">
+								<input type="checkbox" id="remember"> <label
+									for="remember"> Remember Me </label>
+							</div>
+						</div>
+						<!-- /.col -->
+						<div class="col-4">
+							<button type="submit" class="btn btn-warning btn-block">Sign In</button>
+						</div>
+						<!-- /.col -->
+					</div>
+				</form>
+				<div class="social-auth-links text-center">
+					<p>- OR -</p>
+					<a th:href="@{/system_management/user/userInsert}" class="btn btn-block btn-primary"> 
+						<i class="fas fa-user-plus"></i> 회원가입
+					</a>
+					<a href="#" class="btn btn-block btn-danger"> 
+						<i class="fab fa-sistrix"></i> 비밀번호 찾기
+					</a>
+				</div>
+
+				<div class="social-auth-links text-center mb-3">
+				</div>
+			</div>
+			<!-- /.login-card-body -->
+		</div>
+	</div>
+	<!-- /.login-box -->
+
+	<!-- jQuery -->
+	<script th:src="@{/plugins/jquery/jquery.min.js}"></script>
+	<!-- Bootstrap 4 -->
+	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<!-- AdminLTE App -->
+	<script th:src="@{/dist/js/adminlte.min.js}"></script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
+<th:block layout:fragment="customTitle">
+	<title>ksmart41</title>
+</th:block>
+<th:block layout:fragment="customContents">
+	<section class="content">
+		<div class="container-fluid">
+			<!--------------------재고 검색 폼--------------------->
+			<div class="col-12">
+				<div class="card card-warning card-tabs">
+					<div class="card-header">
+						<h3 class="card-title">
+							<b>재고이동조회</b>
+						</h3>
+					</div>
+					<div class="card-header p-0 pt-1"></div>
+					<div class="card-body">
+						<div class="tab-content" id="custom-tabs-two-tabContent">
+							<!-- 주문검색 -->
+							<div class="form-group row">
+								<label class="col-sm-1 col-form-label">이동검색</label>
+								<div class="col-sm-2">
+									<select id="orderCode" class="form-control custom-select">
+										<option value="상품명">상품명</option>
+										<option value="담당자">담당자</option>
+										<option value="창고">창고</option>
+									</select>
+								</div>
+								<div class="input-group input-group-m" style="width: 700px;">
+									<input type="text" name="table_search" style="margin-left: 3%"
+										class="form-control float-right"
+										placeholder="상품명, 이동일자로 검색할 수있습니다.">
+									<div class="input-group-append">
+										<button type="submit" class="btn btn-default">
+											<i class="fas fa-search"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							<!-----------------검수상태검색------------------>
+							<div class="form-group row">
+								<!-- 주문일자검색 -->
+								<label class="col-sm-1 col-form-label">이동일자</label>
+								<div class="col-sm-3">
+									<input type="date" id="date" class="form-control">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-------------------검수 조회 폼--------------------->
+			<div class="col-12">
+				<div class="card card-warning card-tabs">
+					<div class="card-header p-0 pt-1"></div>
+					<!-- /.card-header -->
+					<div class="card-body table-responsive p-0" style="height: 300px;">
+						<div class="col-12">
+							<table class="table table-hover text-nowrap">
+								<thead>
+									<tr>
+										<th></th>
+										<th>상품명</th>
+										<th>출고 창고</th>
+										<th>출고 진열대</th>
+										<th>입고 창고</th>
+										<th>입고 진열대</th>
+										<th>이동 수량</th>
+										<th>담당자</th>
+										<th>이동일자</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td><input type="checkbox"></td>
+										<td>흙당근</td>
+										<td>창고101</td>
+										<td><span class="tag tag-success">1-1-1</span></td>
+										<td>창고201</td>
+										<td>2-1-1</td>
+										<td>10EA</td>
+										<td>오대성</td>
+										<td>2021-10-11</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox"></td>
+										<td>고당도사과</td>
+										<td>창고102</td>
+										<td><span class="tag tag-warning">1-2-1</span></td>
+										<td>창고202</td>
+										<td>1-3-1</td>
+										<td>15EA</td>
+										<td>정도혜</td>
+										<td>2021-11-11</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox"></td>
+										<td>꿀배</td>
+										<td>창고103</td>
+										<td><span class="tag tag-warning">1-3-1</span></td>
+										<td>창고203</td>
+										<td>1-1-3</td>
+										<td>20EA</td>
+										<td>최민중</td>
+										<td>2021-09-11</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox"></td>
+										<td>고당도딸기</td>
+										<td>창고104</td>
+										<td><span class="tag tag-warning">1-4-1</span></td>
+										<td>창고204</td>
+										<td>1-1-4</td>
+										<td>20EA</td>
+										<td>김지원</td>
+										<td>2021-11-21</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox"></td>
+										<td>오이고추</td>
+										<td>창고105</td>
+										<td><span class="tag tag-warning">1-5-1</span></td>
+										<td>창고205</td>
+										<td>1-1-5</td>
+										<td>30EA</td>
+										<td>김환철</td>
+										<td>2021-12-11</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox"></td>
+										<td>느타리버섯</td>
+										<td>창고106</td>
+										<td><span class="tag tag-warning">1-6-1</span></td>
+										<td>창고206</td>
+										<td>1-1-6</td>
+										<td>10EA</td>
+										<td>오한수</td>
+										<td>2021-12-30</td>
+									</tr>
+									<tr>
+										<td><input type="checkbox"></td>
+										<td>치커리</td>
+										<td>창고107</td>
+										<td><span class="tag tag-warning">1-7-1</span></td>
+										<td>창고207</td>
+										<td>1-1-7</td>
+										<td>35EA</td>
+										<td>김유성</td>
+										<td>2021-09-11</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!----------------버튼---------------->
+					<div class="card-footer">
+						<label class="float-right">
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#exampleModalCenter">삭제</button>
+						</label> <label class="float-right" style="margin-right: 5px;"> <a
+							href="goodsRevision"><button type="submit"
+									class="btn btn-primary">수정</button></a>
+						</label> <label class="float-right" style="margin-right: 5px;"> <a
+							href="goodsReg"><button type="submit" class="btn btn-primary">등록</button></a>
+						</label>
+					</div>
+
+					<!--------------Modal-------------->
+					<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+						role="dialog" aria-labelledby="exampleModalCenterTitle"
+						aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLongTitle">알림</h5>
+									<button type="button" class="close" data-dismiss="modal"
+										aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">정말 삭제 하시겠습니까?</div>
+								<div class="modal-footer">
+									<a href="goodsCheck"><button type="button"
+											class="btn btn-secondary">예</button></a>
+									<button type="button" class="btn btn-primary"
+										data-dismiss="modal">아니오</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<!-- /.card -->
+			</div>
+		</div>
+
+
+	</section>

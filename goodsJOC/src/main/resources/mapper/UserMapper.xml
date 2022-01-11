@@ -26,8 +26,8 @@
 
 	<select id="getUserList" parameterType="String" resultMap="userResultMap">
 		SELECT 
-			u.ID
-			,u.PW
+			u.ID				as id
+			,u.PW				as pw
 			,u.name
 			,u.birthday
 			,u.phone
@@ -36,6 +36,7 @@
 			,u.martCode
 			,u.levelNum
 			,u.regDate
+			,u.levelNum
 			,l.levelName
 		FROM 
 			tb_user AS u
@@ -46,7 +47,7 @@
 		WHERE
 			martCode= #{martCode}
 		ORDER BY
-			levelNum;
+			u.levelNum ASC;
 	</select>
 
 	<select id="getUserInfoByID" parameterType="String" resultMap="userResultMap">
@@ -67,4 +68,62 @@
 			ID = #{ID};
 	</select>
 	
+	<select id="getUserListBySearchKey" resultMap="userResultMap">		 
+		SELECT 
+			u.name, 
+			u.birthday, 
+			u.phone,
+			u.email,
+			u.address,
+			u.martCode, 
+			u.levelNum
+		FROM 
+			tb_user AS u
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchValue != null and searchValue != ''.toString()">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			</if>
+		</trim>
+	</select>
+	
+	<update id="userUpdateInfo" parameterType="User">
+      UPDATE tb_user      
+      <trim prefix="SET" prefixOverrides=",">
+         <if test="name != null and name != ''.toString()">
+            ,name = #{name}
+         </if>
+         <if test="PW != null and PW != ''.toString()">
+            ,PW = #{PW}
+         </if>
+         <if test="birthday != null and birthday != ''.toString()">
+            ,birthday = #{birthday}
+         </if>
+         <if test="levelNum != null and levelNum != ''.toString()">
+            ,levelNum = #{levelNum}
+         </if>
+         <if test="email != null and email != ''.toString()">
+            ,email = #{email}
+         </if>
+         <if test="phone != null and phone != ''.toString()">
+            ,phone = #{phone}
+         </if>
+         <if test="address != null and address != ''.toString()">
+            ,address = #{address}
+         </if>
+      </trim>
+      WHERE 
+         ID=#{ID};
+   </update>
+	
+	
+	
+
+
+
+
+
+
+
+
+
 </mapper>

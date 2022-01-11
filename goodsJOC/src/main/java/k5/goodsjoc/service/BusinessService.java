@@ -17,8 +17,30 @@ public class BusinessService {
 		this.businessMapper = businessMapper;
 	}
 	
+	// 거래처 전체 조회
 	public List<Business> getBusinessList(String martCode){
 		return businessMapper.getBusinessList(martCode);
+	}
+	
+	// 거래처 단일 정보 조회
+	public Business getBusinessInfoByCode(String businessCode) {		
+		return businessMapper.getBusinessInfoByCode(businessCode);
+	}
+	
+	
+	// 거래처 조건 검색
+	public List<Business> getBusinessListBySearchKey(String searchKey, String searchValue) {
+		return businessMapper.getBusinessListBySearchKey(searchKey, searchValue);
+	}
+	
+	// 거래처 정보 수정
+	public int updateBusinessInfo(Business business) {	
+		return businessMapper.updateBusinessInfo(business);
+		}
 		
-	}	
+	//거래처 등록	
+	public int businessInsert(Business business) {
+		return businessMapper.businessInsert(business);
+		}
+	
 }

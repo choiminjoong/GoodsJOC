@@ -51,30 +51,42 @@
 			<div class="tab-content" id="custom-tabs-two-tabContent">
 				<!-- 창고등록 폼 -->
 				<div class="tab-pane fade active show" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
-					<form class="form-horizontal">
+					<form class="form-horizontal" th:action="@{/basic_management/facility/warehouseInsert}" method="post">
 						<div class="card-body row">
 							<div class="col-10">
 								<div class="form-group row">
 									<label for="warehouseName" class="col-sm-2 col-form-label">창고명</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="warehouseName">
+										<input type="text" class="form-control" name="warehouseName">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="warehouseType" class="col-sm-2 col-form-label">창고분류</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="warehouseType">
+										<input type="text" class="form-control" name="warehouseType">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="warehouseType" class="col-sm-2 col-form-label">등록자</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="warehouseType" value="오대성"  readonly="readonly">
+										<input type="text" class="form-control" th:value="${session.SNAME}"  readonly="readonly">
+									</div>
+								</div>
+								<div class="form-group row" style="display:none">
+									<label for="warehouseType" class="col-sm-2 col-form-label">아이디</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="ID" th:value="${session.SID}"  readonly="readonly">
+									</div>
+								</div>
+								<div class="form-group row" style="display:none">
+									<label for="warehouseType" class="col-sm-2 col-form-label">마트</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="martCode" th:value="${session.SMARTCODE}"  readonly="readonly">
 									</div>
 								</div>
 							</div>
 							<div class="col-2">
-								<button type="button" class="btn btn-info btn-lg">등록하기</button>
+								<button type="submit" class="btn btn-info btn-lg">등록하기</button>
 							</div>
 						</div>	
 					</form>
@@ -82,34 +94,46 @@
 				
 				<!-- 창고진열대 등록폼 -->
 				<div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
-					<form class="form-horizontal">
+					<form class="form-horizontal" th:action="@{/basic_management/facility/shelfInsert}" method="post">
 						<div class="card-body row">
 							<div class="col-10">
 								<div class="form-group row">
 									<label for="showcaseName" class="col-sm-2 col-form-label">창고진열대 위치</label>
 									<div class="col-sm-10">
-										<select id="showcaseName" class="form-control">
-											<option>창고1</option>
-											<option>창고2</option>
-											<option>창고3</option>
-										</select>
+											<select class="form-control" name="warehouseCode">
+												<th:block th:if="${not #lists.isEmpty(warehouseNameList)}" th:each="w : ${warehouseNameList}" class="form-control">
+													<option th:value="${w.warehouseCode}" th:text="${w.warehouseName}"></option>
+												</th:block>
+											</select>
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="showcaseName" class="col-sm-2 col-form-label">진열대 이름</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="showcaseName">
+										<input type="text" class="form-control" name="shelfName">
+									</div>
+								</div>
+								<div class="form-group row" style="display:none">
+									<label for="warehouseType" class="col-sm-2 col-form-label"></label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="ID" th:value="${session.SID}"  readonly="readonly">
 									</div>
 								</div>
 								<div class="form-group row">
-									<label for="staffId" class="col-sm-2 col-form-label">등록자</label>
+									<label for="warehouseType" class="col-sm-2 col-form-label">등록자</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="staffId" value="오대성"  readonly="readonly">
+										<input type="text" class="form-control" th:value="${session.SNAME}"  readonly="readonly">
+									</div>
+								</div>
+								<div class="form-group row" style="display:none">
+									<label for="warehouseType" class="col-sm-2 col-form-label">마트</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="martCode" th:value="${session.SMARTCODE}"  readonly="readonly">
 									</div>
 								</div>
 							</div>
 							<div class="col-2">
-								<button type="button" class="btn btn-info btn-lg">등록하기</button>
+								<button type="submit" class="btn btn-info btn-lg">등록하기</button>
 							</div>
 						</div>
 					</form>
@@ -117,24 +141,36 @@
 				
 				<!-- 판매진열대 등록 폼 -->
 				<div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
-					<form class="form-horizontal">
+					<form class="form-horizontal" th:action="@{/basic_management/facility/showcaseInsert}" method="post">
 						<div class="card-body row">
 							<div class="col-10">
 								<div class="form-group row">
 									<label for="martShowcaseName" class="col-sm-2 col-form-label">판매진열대 이름</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="martShowcaseName">
+										<input type="text" class="form-control" name="showcasePlace">
+									</div>
+								</div>
+								<div class="form-group row" style="display:none">
+									<label for="warehouseType" class="col-sm-2 col-form-label"></label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="ID" th:value="${session.SID}"  readonly="readonly">
 									</div>
 								</div>
 								<div class="form-group row">
-									<label for="staffId" class="col-sm-2 col-form-label">등록자</label>
+									<label for="warehouseType" class="col-sm-2 col-form-label">등록자</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" id="staffId" value="오대성"  readonly="readonly">
+										<input type="text" class="form-control" th:value="${session.SNAME}"  readonly="readonly">
+									</div>
+								</div>
+								<div class="form-group row" style="display:none">
+									<label for="warehouseType" class="col-sm-2 col-form-label">마트</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="martCode" th:value="${session.SMARTCODE}"  readonly="readonly">
 									</div>
 								</div>
 							</div>
 							<div class="col-2">
-								<button type="button" class="btn btn-info btn-lg">등록하기</button>
+								<button type="submit" class="btn btn-info btn-lg">등록하기</button>
 							</div>
 						</div>
 					</form>
