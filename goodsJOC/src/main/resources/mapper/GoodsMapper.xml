@@ -48,6 +48,15 @@
 		</association>
 	</resultMap> 
 	
+	<select id="goodsCheckByBarcode" parameterType="String" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			tb_goods
+		WHERE
+			barcode = #{barcode};
+	</select>
+	
 	<select id="getGoodsInfoByBarcode" parameterType="String" resultMap="goodsResultMap">
 		SELECT
 			c.categoryName
@@ -131,7 +140,7 @@
 			g.ID = u.ID
 		<trim prefix="WHERE" prefixOverrides="AND |OR">
 			<if test="searchCategory != null and searchCategory != ''.toString()">
-				AND c.categoryName = #{searchCategory}
+				AND c.categoryCode = #{searchCategory}
 			</if>
 			<if test="minPurchasePrice != null and minPurchasePrice != 0">
 				AND g.purchasePrice >= #{minPurchasePrice}
