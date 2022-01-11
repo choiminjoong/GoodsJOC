@@ -1,27 +1,18 @@
 package k5.goodsjoc.dto;
 
 public class Warehouse {
-
 	private String warehouseCode;
 	private String warehouseName;
 	private String warehouseType;
 	private String totalStock;
 	private String martCode;
-	private String ID;
+	private String id;
 	private String regDate;
-	
-	private Shelf shelf;
-	
-	public Shelf getShelf() {
-		return shelf;
-	}
-	public void setShelf(Shelf shelf) {
-		this.shelf = shelf;
-	}
+
 	@Override
 	public String toString() {
 		return "Warehouse [warehouseCode=" + warehouseCode + ", warehouseName=" + warehouseName + ", warehouseType="
-				+ warehouseType + ", totalStock=" + totalStock + ", martCode=" + martCode + ", ID=" + ID + ", regDate="
+				+ warehouseType + ", totalStock=" + totalStock + ", martCode=" + martCode + ", id=" + id + ", regDate="
 				+ regDate + "]";
 	}
 	public String getWarehouseCode() {
@@ -54,11 +45,11 @@ public class Warehouse {
 	public void setMartCode(String martCode) {
 		this.martCode = martCode;
 	}
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -66,6 +57,4 @@ public class Warehouse {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	
-	
 }

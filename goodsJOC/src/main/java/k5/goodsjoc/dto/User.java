@@ -2,8 +2,8 @@ package k5.goodsjoc.dto;
 
 public class User {
 
-	private String ID;
-	private String PW;
+	private String id;
+	private String pw;
 	private String name;
 	private String birthday;
 	private String phone;
@@ -15,30 +15,23 @@ public class User {
 
 	private Level level;
 
-	public Level getLevel() {
-		return level;
-	}
-	public void setLevel(Level level) {
-		this.level = level;
-	}
-	
 	@Override
 	public String toString() {
-		return "User [ID=" + ID + ", PW=" + PW + ", name=" + name + ", birthday=" + birthday + ", phone=" + phone
+		return "User [id=" + id + ", pw=" + pw + ", name=" + name + ", birthday=" + birthday + ", phone=" + phone
 				+ ", email=" + email + ", address=" + address + ", martCode=" + martCode + ", levelNum=" + levelNum
-				+ ", regDate=" + regDate + "]";
+				+ ", regDate=" + regDate + ", level=" + level + "]";
 	}
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
-	public String getPW() {
-		return PW;
+	public String getPw() {
+		return pw;
 	}
-	public void setPW(String pW) {
-		PW = pW;
+	public void setPw(String pw) {
+		this.pw = pw;
 	}
 	public String getName() {
 		return name;
@@ -88,5 +81,10 @@ public class User {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	
+	public Level getLevel() {
+		return level;
+	}
+	public void setLevel(Level level) {
+		this.level = level;
+	}
 }
