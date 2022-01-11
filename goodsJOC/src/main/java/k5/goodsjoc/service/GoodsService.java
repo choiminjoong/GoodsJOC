@@ -77,5 +77,14 @@ public class GoodsService {
 	}
 
 
+
+	public int goodsCheckByBarcode(String barcode) {
+		int result = 0;
+		result += goodsMapper.goodsCheckByBarcode(barcode);
+		
+		return result;
+	}
+
+
 }
 

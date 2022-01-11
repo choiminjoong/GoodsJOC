@@ -37,7 +37,7 @@
 			,u.levelNum
 			,u.regDate
 			,u.levelNum
-			,l.levelName		as level.levelName
+			,l.levelName
 		FROM 
 			tb_user AS u
 			INNER JOIN 

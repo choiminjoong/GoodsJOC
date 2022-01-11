@@ -10,6 +10,7 @@ public class Order {
 	private String martCode;
 	private String ID;
 	private String regDate;
+
 	private Business business;
 		
 	public Business getBusiness() {

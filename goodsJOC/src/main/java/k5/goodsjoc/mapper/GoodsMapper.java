@@ -41,4 +41,6 @@ public interface GoodsMapper {
 
 	public List<Map<String, Object>> getCategoryList(String martCode);
 
+	public int goodsCheckByBarcode(String barcode);
+
 }
