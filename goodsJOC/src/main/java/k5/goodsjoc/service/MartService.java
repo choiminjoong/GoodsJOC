@@ -31,5 +31,4 @@ public class MartService {
 		return martMapper.getMartInfoByMartCode(martCode);
 	}
 	
-	
 }

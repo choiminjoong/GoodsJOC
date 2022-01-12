@@ -18,7 +18,7 @@ public interface BusinessMapper {
 	// 거래처 목록 검색
 	public List<Business> getBusinessListBySearchKey(String searchKey, String searchValue);
 	
-	// 거래처 정보 수정
+	// 거래처 정보 수정`
 	public int updateBusinessInfo(Business business);
 	
 	//거래처 등록
