@@ -14,7 +14,7 @@ public class MainController {
 	@GetMapping("/")
 	public String main() {
 		
-		return "main"; 
+		return "system_management/user/loginForm"; 
 	}
 	@GetMapping("/main")
 	public String mainForm() {
