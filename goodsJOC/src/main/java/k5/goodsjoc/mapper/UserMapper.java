@@ -21,6 +21,7 @@ public interface UserMapper {
 	//사용자 정보 수정
 	public int userUpdateInfo(User user);
 	
-	
+	//사용자 권한정보 수정
+	public int updateUser(User user);
 
 }

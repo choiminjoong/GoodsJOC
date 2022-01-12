@@ -41,16 +41,18 @@
 
 								<li class="list-group-item"><b>사업장명</b>								
 								<a class="float-right">
-								<span id="ID" th:text=${session.SMARTNAME}/></a></li>		
+								<span id="smartName" th:text=${session.SMARTNAME}/></a></li>		
 								
 								<li class="list-group-item"><b>사업장코드</b>								
 								<a class="float-right">
-								<span id="ID" th:text=${session.SMARTCODE}/></a></li>				
+								<span id="smartCode" th:text=${session.SMARTCODE}></span></a></li>				
 							</ul>
 						</div>
 					</div>
 				<!-- 사원정보입력폼  -->
 				<div class="col-md-7">
+				<form th:action="@{/system_management/user/userUpdate}" method="post">
+					<th:block th:if="${not #lists.isEmpty(userUpdate)}" th:each="l : ${userUpdate}">				
 					<div class="card card-primary">
 						<div class="btn-sm bg-warning color-palette btn-block card-header">
 							<b><i class="fas fa-check"></i>ㅤ사원 권한수정</b>
@@ -58,38 +60,33 @@
 						<div class="card-body">
 							<div class="form-group">
 								<label><code>*</code> 비밀번호</label> 
-								<input type="text" class="form-control" name="PW" readonly="readonly">
+								<input type="password" class="form-control" name="PW" th:value="${l.PW}" readonly="readonly">
 							</div>
 
 							<div class="form-group">
 								<label><code>*</code> 비밀번호 확인</label> 
-								<input type="text" class="form-control" name="PW" readonly="readonly">
+								<input type="password" class="form-control" name="PW" th:value="${l.PW}" readonly="readonly">
 							</div>
 							
 							<div class="form-group">
-								<label><code>*</code> 권한</label> 							
-								<select class="form-control custom-select" name="levelNum">
-									<option>:: 선택  ::</option>
-									<option>관리자</option>
-									<option>매니저</option>
-									<option>직원</option>
-									<option>비권한자</option>
-								</select>
+								<label><code>*</code> 권한</label> 
+								<input type="text" class="form-control" name="levelNum" th:value="${l.levelNum}">
+								<code>①SW개발자 ②관리자 ③매니저  ④직원  ⑤비권한자</code>
 							</div>
 							
 							<div class="form-group">
 								<label><code>*</code> 생년월일</label> 
-								<input type="text" class="form-control" name="birthday" readonly="readonly">
+								<input type="date" class="form-control" name="birthday" th:value="${l.birthday}" readonly="readonly">
 							</div>
 
 							<div class="form-group">
-								<label>Email</label> <input type="text" class="form-control"
-									name="email" readonly="readonly">
+								<label>Email</label> <input type="email" class="form-control"
+									name="email" th:value="${l.email}" readonly="readonly">
 							</div>
 
 							<div class="form-group">
-								<label>전화번호</label> <input type="text" class="form-control"
-									name="phone" readonly="readonly">
+								<label>전화번호</label> <input type="number" class="form-control"
+									name="phone" th:value="${l.phone}" readonly="readonly">
 
 							</div>
 						<div class="form-group">
@@ -110,10 +107,11 @@
 										</div>
 										<div class="form-group">
 											<input class="form-control" style="top: 5px;"
-												placeholder="도로명 주소" name="addr2" id="addr2" type="text" readonly="readonly">
+												placeholder="도로명 주소" name="addr2" id="addr2" type="text"
+												readonly="readonly">
 										</div>
 										<div class="form-group">
-											<input class="form-control" name="address" type="text"  readonly="readonly">
+											<input class="form-control" name="address" th:value="${l.address}" id="addr3" type="text"  readonly="readonly">
 										</div>
 										
 									<!--닫기 버튼 -->		
@@ -127,9 +125,9 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div>		
 					</th:block>
-				</form>				
+				</form>	
 			</div>
 		</section>
 	</th:block>

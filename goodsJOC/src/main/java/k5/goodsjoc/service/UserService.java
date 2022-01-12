@@ -23,8 +23,8 @@ public class UserService {
 	}
 
 	// 사용자 단일 정보조회
-	public User getUserInfoByID(String ID) {
-		return userMapper.getUserInfoByID(ID);
+	public User getUserInfoByID(String iD) {
+		return userMapper.getUserInfoByID(iD);
 	}
 
 	// 사용자 조건 검색
@@ -37,6 +37,11 @@ public class UserService {
 	public int updateUserInfo(User user) {
 		return userMapper.userUpdateInfo(user);
 	}
-
 	
+	//사원 권한정보 수정
+	public int updateUser(User user) {
+		return userMapper.updateUser(user);
+	}
+
+
 }
