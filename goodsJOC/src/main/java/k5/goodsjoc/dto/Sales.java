@@ -10,7 +10,14 @@ public class Sales {
 	private String canselCheck;
 	private String casnselStaff;
 	private String canselDate;
+	private Goods goods;
 	
+	public Goods getGoods() {
+		return goods;
+	}
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
 	@Override
 	public String toString() {
 		return "Sales [salesCode=" + salesCode + ", receiptNum=" + receiptNum + ", salesTotalPrice=" + salesTotalPrice

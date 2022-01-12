@@ -19,16 +19,7 @@ public class Business {
 	private String martCode;
 	private String id;
 	private String regDate;
-
-	@Override
-	public String toString() {
-		return "Business [businessCode=" + businessCode + ", businessName=" + businessName + ", partnerName="
-				+ partnerName + ", partnerPhone=" + partnerPhone + ", registerNum=" + registerNum + ", businessType="
-				+ businessType + ", sectors=" + sectors + ", status=" + status + ", callNum=" + callNum + ", address="
-				+ address + ", fax=" + fax + ", businessStaff=" + businessStaff + ", businessStaffPhone="
-				+ businessStaffPhone + ", businessStaffEmail=" + businessStaffEmail + ", note=" + note + ", martCode="
-				+ martCode + ", id=" + id + ", regDate=" + regDate + "]";
-	}
+	
 	public String getBusinessCode() {
 		return businessCode;
 	}
@@ -93,7 +84,7 @@ public class Business {
 		return fax;
 	}
 	public void setFax(String fax) {
-		fax = fax;
+		this.fax = fax;
 	}
 	public String getBusinessStaff() {
 		return businessStaff;
@@ -137,4 +128,6 @@ public class Business {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+
+
 }

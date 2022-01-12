@@ -124,7 +124,7 @@ public class UserController {
       return "system_management/user/userInfo";
    }
    
-   //사용자 검색
+   //직원관리 > 직원검색(정도혜)
    @PostMapping("/userList")
    public String getSearchUserList(
           @RequestParam(value="searchKey", required = false) String searchKey,
@@ -144,8 +144,8 @@ public class UserController {
       }else  {
          searchKey = "levelNum";
       }
-      // 검색키 검색어를 통해서 사용자목록 조회
-         
+     
+      // 검색키 검색어를 통해서 직원목록 조회         
       List<User> userList = userService.getUserListBySearchKey(searchKey, searchValue);
       
       // 조회된 회원목록 model에 값을 저장
@@ -155,7 +155,7 @@ public class UserController {
       return "system_management/user/userList";
       }
    
-   //사원정보 수정처리
+   //직원관리 > 직원정보 수정처리(정도혜)
    @PostMapping("/userUpdateAction") 
     public String userUpdateAction(User user) {
        System.out.println("페이지: 개인정보수정처리");
@@ -165,9 +165,8 @@ public class UserController {
        
        return "redirect:/system_management/user/userInfo";
     }
-   
-   
-     //사원권한 수정화면     
+    
+     //직원관리 > 사원권한 수정화면 (정도혜)     
      @GetMapping("/userUpdate") 
      public String userUpdate(@RequestParam(value="id", required = false) String id, Model model) {
      System.out.println("페이지: 사원권한수정 ");
@@ -180,7 +179,7 @@ public class UserController {
      
      return "system_management/user/userUpdate";}
      
-     //사원권한 수정 작업
+     //직원관리 > 사원권한 수정 작업 (정도혜)
      @PostMapping("/userLevelUpdate") 
      public String userLevelUpdate(User user) 
      { System.out.println("페이지: 사원권한 수정 ");
