@@ -38,6 +38,35 @@
 		</association>
 	</resultMap> 
 	
+	<!-- 상품 등록 -->
+	<insert id="addGoodsAction" parameterType="Goods">
+		INSERT INTO tb_goods(
+			barcode
+			,businessCode
+			,categoryCode
+			,weight
+			,unit
+			,maker
+			,taxType
+			,goodsName
+			,martCode
+			,ID
+			,regDate
+		)VALUES (
+			#{barcode}
+			,#{businessCode}
+			,#{categoryCode}
+			,#{weight}
+			,#{unit}
+			,#{maker}
+			,#{taxType}
+			,#{goodsName}
+			,#{martCode}
+			,#{id}
+			,NOW()
+		)
+	</insert>
+	
 	<!-- 바코드중복 확인 -->
 	<select id="goodsCheckByBarcode" parameterType="String" resultType="int">
 		SELECT
@@ -146,7 +175,7 @@
 		WHERE
 			g.martCode = #{martCode}
 		ORDER BY
-			c.categoryName
+			g.regDate ASC
 	</select> 
 
 	<!-- purchasePrice innerjoin mart,user,goods ResultMap(최민중) -->
@@ -262,6 +291,19 @@
 		<result column="ID" 					property="ID"/>
 		<result column="regDate" 				property="regDate"/>
 	</resultMap>
+	
+	<!-- 상품카테고리 조건검색(최민중) -->
+	<select id="getSearchGoodsCateList" resultType="GoodsCate">
+		SELECT
+			categoryCode, categoryName, martCode, ID, regDate
+		FROM
+			tb_category
+		WHERE
+			martCode = #{martCode}
+			<if test="searchCate != null and searchCate != ''.toString()">
+				AND categoryName LIKE CONCAT('%', #{searchCate}, '%')
+			</if>
+	</select>
 	
 	<!-- 상품카테고리 선택용 모달(최민중) -->
 	<select id="getCategoryList" parameterType="String" resultType="Map">

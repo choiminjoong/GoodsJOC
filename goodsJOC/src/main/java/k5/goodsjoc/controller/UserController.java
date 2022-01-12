@@ -169,26 +169,26 @@ public class UserController {
    
      //사원권한 수정화면     
      @GetMapping("/userUpdate") 
-     public String userUpdate(@RequestParam(value="ID", required = false) String ID, Model model) {
+     public String userUpdate(@RequestParam(value="id", required = false) String id, Model model) {
      System.out.println("페이지: 사원권한수정 ");
      System.out.println("경로: system_management/user/userUpdate(GET방식 성공) "); 
-     System.out.println("리트스에서 받은 거래처 코드: " + ID);
+     System.out.println("리트스에서 받은 거래처 코드: " + id);
      
-     User userUpdate = userService.getUserInfoByID(ID);
+     User userUpdate = userService.getUserInfoByID(id);
      model.addAttribute("userUpdate", userUpdate);
      System.out.println("모델에 담긴 비즈니스정보: " + model);
      
      return "system_management/user/userUpdate";}
      
      //사원권한 수정 작업
-     @PostMapping("/userUpdate") 
-     public String userUpdate(User user) 
+     @PostMapping("/userLevelUpdate") 
+     public String userLevelUpdate(User user) 
      { System.out.println("페이지: 사원권한 수정 ");
-     System.out.println("경로: system_management/user/userUpdate(POST방식 성공) "); 
+     System.out.println("경로: system_management/user/userLevelUpdate(POST방식 성공) "); 
      log.info("수정화면에서 받은 userUpdate : {}", user);
      
-     userService.updateUser(user);
+     userService.updateUserLevel(user);
      
-     return "redirect:/system_management/user/userUpdate";}
+     return "redirect:/system_management/user/userList";}
     
 }

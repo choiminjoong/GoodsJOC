@@ -39,8 +39,8 @@ public class UserService {
 	}
 	
 	//사원 권한정보 수정
-	public int updateUser(User user) {
-		return userMapper.updateUser(user);
+	public int updateUserLevel(User user) {
+		return userMapper.updateUserLevel(user);
 	}
 
 
