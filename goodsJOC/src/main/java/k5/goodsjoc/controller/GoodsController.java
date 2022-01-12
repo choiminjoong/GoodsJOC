@@ -26,12 +26,36 @@ import k5.goodsjoc.service.GoodsService;
 @Controller
 @RequestMapping(value = "/product_management/goods")
 public class GoodsController {
-
 	private static final Logger log = LoggerFactory.getLogger(GoodsController.class);
-	
 	private GoodsService goodsService;
 	public GoodsController(GoodsService goodsService) {
 		this.goodsService = goodsService;
+	}
+
+	//상품등록후 상품리스트로 전환
+	@PostMapping("/goodsInsertAction")
+	public String goodsInsertAction(Goods goods) {
+		System.out.println("상품등록처리 POST방식:");
+		System.out.println("입력받은 데이터: " + goods);
+		goodsService.addGoodsAction(goods);
+		
+		return "redirect:/product_management/goods/goodsList";
+	}
+	
+	
+	@PostMapping("/searchGoodsCate")
+	public String searchGoodsCate(HttpServletRequest request, Model model,
+								  @RequestParam(value="searchCate", required=false)String searchCate) {
+		System.out.println("화면에서 받은 카테고리 조건 입력값: " + searchCate);
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<GoodsCate> goodsCateList = goodsService.getSearchGoodsCateList(searchCate, sessionMartCode);
+		
+		model.addAttribute("goodsCateList", goodsCateList);
+		System.out.println("model에 담긴 상품카테고리: " + model);
+		
+		return "product_management/goods/goodsCate";
 	}
 	
 	//상품관리 > 등록페이지 바코드 사용여부확인 Ajax (최민중)

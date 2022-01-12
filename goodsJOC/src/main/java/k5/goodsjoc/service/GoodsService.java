@@ -29,7 +29,6 @@ public class GoodsService {
 		return goodsMapper.getGoodsList(martCode); 
 	}
 	
-	
 	public List<GoodsCate> getGoodsCateList(String martCode){
 		return goodsMapper.getGoodsCateList(martCode);
 	}
@@ -57,26 +56,20 @@ public class GoodsService {
 		return goodsMapper.getSalesPriceListByBarcode(barcode);
 	}
 
-
 	//상품 판매단가 수정
 	public int updateGoodsPrice(String barcode, String salesPrice) {
 		return goodsMapper.updateGoodsPrice(barcode, salesPrice);
 	}
 
-
-
 	public int addSalesPrice(Map<String, Object> paramMap) {
 		return goodsMapper.addSalesPrice(paramMap);
 	}
-
 
 	//모달용 카테고리리스트
 	public List<Map<String, Object>> getCategoryList(String martCode) {
 
 		return goodsMapper.getCategoryList(martCode);
 	}
-
-
 
 	public int goodsCheckByBarcode(String barcode) {
 		int result = 0;
@@ -85,6 +78,13 @@ public class GoodsService {
 		return result;
 	}
 
-
+	//상품카테고리 조건검색
+	public List<GoodsCate> getSearchGoodsCateList(String searchCate, String martCode) {
+		return goodsMapper.getSearchGoodsCateList(searchCate, martCode);
+	}
+	//상품등록
+	public int addGoodsAction(Goods goods) {
+		return goodsMapper.addGoodsAction(goods);
+	}
 }
 

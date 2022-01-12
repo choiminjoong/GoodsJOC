@@ -115,7 +115,7 @@
          </if>
       </trim>
       WHERE 
-         ID=#{ID};
+         ID=#{id};
    </update>
 
 	<update id="updateUserLevel" parameterType="User">

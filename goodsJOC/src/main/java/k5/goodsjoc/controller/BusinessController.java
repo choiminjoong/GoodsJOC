@@ -1,6 +1,7 @@
 package k5.goodsjoc.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k5.goodsjoc.dto.Business;
 import k5.goodsjoc.service.BusinessService;
@@ -28,7 +30,17 @@ public class BusinessController {
 		this.businessService = businessService;
 	}
 	
-	//거래처관리 > 거래처 목록 전체조회	(정도혜)
+	@PostMapping("/searchBusinessModal")
+	@ResponseBody
+	public List<Business> searchBusinessModal(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+	
+		List<Business> businessModal = businessService.getBusinessList(sessionMartCode);
+		
+		return businessModal;
+	}
+
 	@GetMapping("/businessList")
 	public String businessList(Model model, HttpServletRequest request) {
 		System.out.println("페이지: 거래처 관리 ");
