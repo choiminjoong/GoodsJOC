@@ -14,10 +14,19 @@
 		<result column="address"	property="address"/>
 		<result column="martCode"	property="martCode"/>
 		<result column="levelNum"	property="levelNum"/>
-		<result column="regDate"	property="regDate"/>
+		<result column="regDate"	property="regDate"/>		
 		
-		<collection resultMap="levelResultMap" 	property="level"/>
+		<association javaType="Level" property="level">
+			<id column="levelNum"	property="levelNum"/>
+			<result column="levelName"	property="levelName" />
+		</association>
+
+		<association javaType="Mart" property="mart">
+			<id column="martCode"	property="martCode"/>
+			<result column="martName"	property="martName" />		
+		</association>
 	</resultMap>
+	
 	<resultMap type="level" id="levelResultMap">
 		<result column="levelNum"	property="levelNum" />
 		<result column="levelName"	property="levelName" />
@@ -44,9 +53,18 @@
 	<!-- ID로 유저정보 조회(최민중) => 로그인, 개인정보수정, 등록자이름 -->
 	<select id="getUserInfoByID" parameterType="String" resultMap="userResultMap">
 		SELECT 
-			ID, PW, name, birthday, phone, email, address, martCode, levelNum, regDate
+			u.ID, u.PW, u.name, u.birthday, u.phone, u.email, u.address, u.martCode, u.levelNum, u.regDate
+			, l.levelName, m.martName
 		FROM 
-			tb_user
+			tb_user as u
+			INNER JOIN
+			tb_systemLevel as l
+			ON
+			u.levelNum = l.levelNum
+			INNER JOIN
+			tb_mart as m
+			ON
+			u.martCode = m.martCode
 		WHERE 
 			ID = #{ID};
 	</select>
@@ -98,6 +116,15 @@
       </trim>
       WHERE 
          ID=#{ID};
+   </update>
+
+	<update id="updateUserLevel" parameterType="User">
+		UPDATE 
+			tb_user      
+		SET   
+			levelNum = #{levelNum}          
+		WHERE 
+			ID=#{id};
    </update>
 
 </mapper>
