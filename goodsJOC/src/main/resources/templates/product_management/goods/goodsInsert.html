@@ -24,12 +24,12 @@
 				</div>
 				<!-- /.card-header -->
 				<!-- form start -->
-				<form class="form-horizontal">
+				<form th:action="@{/product_management/goods/goodsInsertAction}" method="POST" id="goodsInsertForm" class="form-horizontal">
 					<div class="card-body">
 						<div class="form-group row">
-							<label for="barcode" class="col-sm-2 col-form-label"><code>*</code>바코드</label>
+							<label for="barcodeInput" class="col-sm-2 col-form-label"><code>*</code>바코드</label>
 							<div class="input-group mb-2 col-sm-10">
-								<input type="text" id="barcodeInput" class="form-control text-center">
+								<input type="text" id="barcodeInput" name="barcode" class="form-control text-center insertCheck">
 								<div class="input-group-append">
 									<button type="button" id="barcodeCheclkBtn" class="btn btn-info">
 										사용여부 확인
@@ -37,16 +37,16 @@
 								</div>
 							</div>
 						</div>
-						<div class="form-group row" style="display:none">
-							<label for="barcode" class="col-sm-2 col-form-label">상품코드</label>
+						<div style="display:none">
+							<label>상품카테고리코드</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="cateCodeInput">
+								<input type="text" class="form-control" name="categoryCode" id="cateCodeInput">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="goodsCate" class="col-sm-2 col-form-label"><code>*</code>카테고리</label>
+							<label for="cateNameInput" class="col-sm-2 col-form-label"><code>*</code>카테고리</label>
 							<div class="input-group mb-2 col-sm-10">
-								<input type="text" id="cateNameInput" class="form-control text-center" readonly>
+								<input type="text" id="cateNameInput" class="form-control text-center insertCheck" readonly>
 								<div class="input-group-append">
 									<button type="button" id="searchCategoryBtn" class="btn btn-info" data-toggle="modal" data-target="#modal-default">
 										카테고리 조회
@@ -55,60 +55,62 @@
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martRegNum" class="col-sm-2 col-form-label"><code>*</code>상품명</label>
+							<label for="goodsName" class="col-sm-2 col-form-label"><code>*</code>상품명</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martRegNum">
+								<input type="text" class="form-control insertCheck" id="goodsName" name="goodsName">
+							</div>
+						</div>
+						<div style="display:none">
+							<label>거래처코드</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="businessCode" id="businessCodeInput">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="barcode" class="col-sm-2 col-form-label">거래처코드</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="businessCodeInput">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="goodsCate" class="col-sm-2 col-form-label"><code>*</code>매입처</label>
+							<label for="businessNameInput" class="col-sm-2 col-form-label"><code>*</code>매입처</label>
 							<div class="input-group mb-2 col-sm-10">
-								<input type="text" id="cateNameInput" class="form-control text-center" readonly>
+								<input type="text" id="businessNameInput" class="form-control text-center insertCheck" readonly>
 								<div class="input-group-append">
-									<button type="button" id="searchCategoryBtn" class="btn btn-info" data-toggle="modal" data-target="#modal-default2">
+									<button type="button" id="searchBusinessBtn" class="btn btn-info" data-toggle="modal" data-target="#modal-default2">
 										매입처 검색
 									</button>
 								</div>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martPartnerName" class="col-sm-2 col-form-label"><code>*</code>세금유형</label>
+							<label for="taxType" class="col-sm-2 col-form-label"><code>*</code>세금유형</label>
 							<div class="col-sm-10">
-								<select id="goodsCate" class="form-control">
-									<option>과세</option>
-									<option>비과세</option>
+								<select class="form-control insertCheck" id="taxType" name="taxType">
+									<option value="과세">과세</option>
+									<option value="비과세">비과세</option>
 								</select>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martRegNum" class="col-sm-2 col-form-label">규격</label>
+							<label for="weight" class="col-sm-2 col-form-label">규격</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martRegNum">
+								<input type="text" class="form-control" id="weight" name="weight">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martRegNum" class="col-sm-2 col-form-label">단위</label>
+							<label for="unit" class="col-sm-2 col-form-label">단위</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martRegNum">
+								<input type="text" class="form-control" id="unit" name="unit">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martRegNum" class="col-sm-2 col-form-label"><code>*</code>제조사</label>
+							<label for="maker" class="col-sm-2 col-form-label"><code>*</code>제조사</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martRegNum">
+								<input type="text" class="form-control insertCheck" id="maker" name="maker">
 							</div>
+						</div>
+						<div style="display:none">
+							<input type="text" name="id" th:value="${session.SID}" readonly>
+							<input type="text" name="martCode" th:value="${session.SMARTCODE}" readonly>
 						</div>
 					</div>
 					<div class="card-footer">
-						<a th:href="@{#}">
-							<button type="button" class="btn btn-warning float-right">등록하기</button>
-						</a>
+						<button type="button" id="goodsInsertBtn" class="btn btn-warning float-right">등록하기</button>
 					</div>
 				</form>
 			</div>
@@ -165,15 +167,23 @@
 						<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
 							<div class="row">
 								<div class="col-sm-12">
-									<table style="width:100%" id="dataTableAjax" class="text-center table table-bordered table-hover dataTable dtr-inline"
+									<table style="width:100%" id="dataTableAjax2" class="text-center table table-bordered table-hover dataTable dtr-inline"
 										role="grid" aria-describedby="example2_info">
 										<thead>
 											<tr style="width:540px;" role="row">
 												<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
 													aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
-													카테고리명</th>
+													구분</th>
+												<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+													aria-label="Browser: activate to sort column descending"aria-sort="ascending">
+													거래처명
+												</th>
+												<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+													aria-label="Browser: activate to sort column descending"aria-sort="ascending">
+													대표자
+												</th>
 												<th tabindex="0" rowspan="1" colspan="1">
-													선택하기
+														선택하기
 												</th>
 											</tr>
 										</thead>
@@ -191,7 +201,33 @@
 	
 	<script type="text/javascript">
 		$(function(){
-				
+			//1이상시 사용여부확인 체크완료
+			var checkCnt= 0;
+			
+			//등록시 체크 후 insertAction
+			$(document).on('click', '#goodsInsertBtn', function(){
+				if(checkCnt == 0){
+					alert('바코드 사용여부를 확인해주세요')
+					return false;
+				}else{
+					var checkList = $('.insertCheck')
+					var nullCnt = 0;
+					for(var i=0; i<checkList.length; i++){
+						if($(checkList[i]).val().trim() == ''){
+							nullCnt +=1
+						}
+					}
+					if(nullCnt == 0){
+						alert('상품이 등록되었습니다.');
+						$('#goodsInsertForm').submit();
+						return false;
+					}else{
+						alert("필수표시( * )가 체크된 입력칸을 채워주세요");
+						return false;
+					}
+				}
+			});
+			
 			//바코드 사용여부 체크
 			$(document).on('click', '#barcodeCheclkBtn', function(){
 				var barcodeCheck = $('#barcodeInput').val();
@@ -209,6 +245,7 @@
 						}else{
 							alert("사용 가능합니다.");
 							$('#addBtn').prop('disabled', false);
+							checkCnt += 1;
 						}
 						
 					});
@@ -220,6 +257,8 @@
 					return false;
 				}
 			});
+			
+			
 			
 			//카테고리 선택
 			$(document).on('click', '.catePickBtn', function(){
@@ -265,6 +304,54 @@
 						}
 					]
 				});
+			});
+
+			//거래처리스트 조회 AJax
+			$(document).on('click', '#searchBusinessBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#dataTableAjax2').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/basic_management/business/searchBusinessModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "businessType"},
+						{ data: "businessName"},
+						{ data: "partnerName"},
+						{ data: "businessCode"}								
+					],
+					columnDefs: [
+						{
+							targets: [3],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn2 = '<button type="button" data-dismiss="modal" class="btn btn-info businessPickBtn" data-businessCode="'+ row.businessCode +'" data-businessName="'+ row.businessName +'">선택</button>';
+								return htmlbtn2;
+							}
+						}
+					]
+				});
+			});
+			
+			//거래처 선택
+			$(document).on('click', '.businessPickBtn', function(){
+				var businessCodePick = $(this).attr('data-businessCode');
+				var businessNamePick = $(this).attr('data-businessName');
+				console.log(businessCodePick);
+				console.log(businessNamePick);
+				$('#businessCodeInput').val(businessCodePick);
+				$('#businessNameInput').val(businessNamePick);
 			});
 		});
 	</script>

@@ -62,28 +62,16 @@
 								<th:block th:if="${not #lists.isEmpty(userInfo)}" th:each="l : ${userInfo}">
 									<div class="form-group" style="display:none">
 										<label>아이디</label> 
-<<<<<<< HEAD
-										<input type="text" name="id" id="pw" class="form-control" th:value="${l.id}">
-=======
 										<input type="text" name="id" class="form-control" th:value="${l.id}">
->>>>>>> branch 'develop' of https://github.com/choiminjoong/GoodsJOC.git
 									</div>
 									<div class="form-group">
 										<label>비밀번호</label> 
-<<<<<<< HEAD
-										<input type="password" name="pw" id="pw" class="form-control" th:value="${l.pw}">
-=======
 										<input type="password" name="pw" class="form-control" th:value="${l.pw}">
->>>>>>> branch 'develop' of https://github.com/choiminjoong/GoodsJOC.git
 									</div>
 									
 									<div class="form-group">
 										<label>비밀번호 확인</label> 
-<<<<<<< HEAD
-										<input type="password" id="pw" class="form-control"  th:value="${l.pw}">
-=======
 										<input type="password" class="form-control"  th:value="${l.pw}">
->>>>>>> branch 'develop' of https://github.com/choiminjoong/GoodsJOC.git
 									</div>
 						
 									<div class="form-group">
@@ -95,7 +83,7 @@
 	
 									<div class="form-group">
 										<label>전화번호</label> 
-										<input type="number" name="phone" th:value="${l.phone}" class="form-control" >
+										<input type="text" name="phone" th:value="${l.phone}" class="form-control" >
 									</div>
 	
 									<div class="form-group">
