@@ -93,87 +93,102 @@ public class UserController {
 		System.out.println("페이지: 사용자 목록 ");
 		System.out.println("경로: system_management/user/userList(GET방식 성공) ");
 
-		HttpSession session = request.getSession();
-		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
-		
-		List<User> userList = userService.getUserList(sessionMartCode);
-		model.addAttribute("userList", userList);
-		System.out.println(userList);
-		
-		return "system_management/user/userList";
-	}
+      HttpSession session = request.getSession();
+      String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+      
+      List<User> userList = userService.getUserList(sessionMartCode);
+      model.addAttribute("userList", userList);
+      System.out.println(userList);
+      
+      return "system_management/user/userList";
+   }
 
-	@GetMapping("/userInsert")
-	public String userInsert() {
-		System.out.println("페이지: 회원가입 ");
-		System.out.println("경로: system_management/user/userInsert(GET방식 성공) ");
-		
-		return "system_management/user/userInsert";
-	}
+   @GetMapping("/userInsert")
+   public String userInsert() {
+      System.out.println("페이지: 회원가입 ");
+      System.out.println("경로: system_management/user/userInsert(GET방식 성공) ");
+      
+      return "system_management/user/userInsert";
+   }
 
-	@GetMapping("/userUpdate")
-	public String userUpdate() {
-		System.out.println("페이지: 개인정보수정 ");
-		System.out.println("경로: system_management/user/userUpdate(GET방식 성공) ");
-
-		return "system_management/user/userUpdate";
-	}
-
-	@GetMapping("/userInfo")
-	
-	public String userInfo(HttpServletRequest request, Model model) {
-		System.out.println("페이지: 직원상세");
-		System.out.println("경로: system_management/user/userInfo(GET방식 성공) ");
-		
-		HttpSession session = request.getSession();
-		String sessionID = (String) session.getAttribute("SID");
-		User userInfo = userService.getUserInfoByID(sessionID);
-		model.addAttribute("userInfo", userInfo);
-		
-		return "system_management/user/userInfo";
-	}
-	
-	//사용자 검색
-	@PostMapping("/userList")
-	public String getSearchUserList(
-			 @RequestParam(value="searchKey", required = false) String searchKey,
-			@RequestParam(value="searchValue", required = false) String searchValue,
-			Model model){
-		System.out.println(searchKey);
-		System.out.println(searchValue);
-					
-		if(searchKey != null && "name".equals(searchKey)) {
-			searchKey = "name";
-		}else if(searchKey != null && "phone".equals(searchKey)) {
-			searchKey = "phone";
-		}else if(searchKey != null && "email".equals(searchKey)) {
-			searchKey = "email";		
-		}else if(searchKey != null && "birthday".equals(searchKey)) {
-			searchKey = "birthday";		
-		}else  {
-			searchKey = "levelNum";
-		}
-		// 검색키 검색어를 통해서 사용자목록 조회
-			
-		List<User> userList = userService.getUserListBySearchKey(searchKey, searchValue);
-		
-		// 조회된 회원목록 model에 값을 저장
-		model.addAttribute("title", "사원목록조회");
-		model.addAttribute("userList", userList);
-			
-		return "system_management/user/userList";
-		}
-	
-	//사원정보 수정처리
-	@PostMapping("/userUpdateAction") 
-	 public String userUpdateAction(User user) {
-		 System.out.println("페이지: 개인정보수정처리");
-		 System.out.println("경로: system_management/user/userUpdateAction(POST방식 성공) ");
-			
-		 userService.updateUserInfo(user);
-		 
-		 return "redirect:/system_management/user/userInfo";
-	 }
-	
-	
+   @GetMapping("/userInfo")   
+   public String userInfo(HttpServletRequest request, Model model) {
+      System.out.println("페이지: 직원상세");
+      System.out.println("경로: system_management/user/userInfo(GET방식 성공) ");
+      
+      HttpSession session = request.getSession();
+      String sessionID = (String) session.getAttribute("SID");
+      User userInfo = userService.getUserInfoByID(sessionID);
+      model.addAttribute("userInfo", userInfo);
+      
+      return "system_management/user/userInfo";
+   }
+   
+   //사용자 검색
+   @PostMapping("/userList")
+   public String getSearchUserList(
+          @RequestParam(value="searchKey", required = false) String searchKey,
+         @RequestParam(value="searchValue", required = false) String searchValue,
+         Model model){
+      System.out.println(searchKey);
+      System.out.println(searchValue);
+               
+      if(searchKey != null && "name".equals(searchKey)) {
+         searchKey = "name";
+      }else if(searchKey != null && "phone".equals(searchKey)) {
+         searchKey = "phone";
+      }else if(searchKey != null && "email".equals(searchKey)) {
+         searchKey = "email";      
+      }else if(searchKey != null && "birthday".equals(searchKey)) {
+         searchKey = "birthday";      
+      }else  {
+         searchKey = "levelNum";
+      }
+      // 검색키 검색어를 통해서 사용자목록 조회
+         
+      List<User> userList = userService.getUserListBySearchKey(searchKey, searchValue);
+      
+      // 조회된 회원목록 model에 값을 저장
+      model.addAttribute("title", "사원목록조회");
+      model.addAttribute("userList", userList);
+         
+      return "system_management/user/userList";
+      }
+   
+   //사원정보 수정처리
+   @PostMapping("/userUpdateAction") 
+    public String userUpdateAction(User user) {
+       System.out.println("페이지: 개인정보수정처리");
+       System.out.println("경로: system_management/user/userUpdateAction(POST방식 성공) ");
+         
+       userService.updateUserInfo(user);
+       
+       return "redirect:/system_management/user/userInfo";
+    }
+   
+   
+     //사원권한 수정화면     
+     @GetMapping("/userUpdate") 
+     public String userUpdate(@RequestParam(value="id", required = false) String id, Model model) {
+     System.out.println("페이지: 사원권한수정 ");
+     System.out.println("경로: system_management/user/userUpdate(GET방식 성공) "); 
+     System.out.println("리트스에서 받은 거래처 코드: " + id);
+     
+     User userUpdate = userService.getUserInfoByID(id);
+     model.addAttribute("userUpdate", userUpdate);
+     System.out.println("모델에 담긴 비즈니스정보: " + model);
+     
+     return "system_management/user/userUpdate";}
+     
+     //사원권한 수정 작업
+     @PostMapping("/userLevelUpdate") 
+     public String userLevelUpdate(User user) 
+     { System.out.println("페이지: 사원권한 수정 ");
+     System.out.println("경로: system_management/user/userLevelUpdate(POST방식 성공) "); 
+     log.info("수정화면에서 받은 userUpdate : {}", user);
+     
+     userService.updateUserLevel(user);
+     
+     return "redirect:/system_management/user/userList";}
+    
 }
