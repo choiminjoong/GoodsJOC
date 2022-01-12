@@ -154,13 +154,13 @@
 		#{status},
 		#{callNum},
 		#{address},
-		#{FAX},
+		#{fax},
 		#{businessStaff},
 		#{businessStaffPhone},
 		#{businessStaffEmail},
 		#{note},
 		#{martCode},
-		#{ID},
+		#{id},
 		NOW()
 	);
 	</insert>

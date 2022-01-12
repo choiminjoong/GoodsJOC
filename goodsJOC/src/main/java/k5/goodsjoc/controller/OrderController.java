@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import k5.goodsjoc.dto.Business;
 import k5.goodsjoc.dto.Order;
 import k5.goodsjoc.dto.ViewOrder;
 import k5.goodsjoc.service.OrderService;
@@ -24,7 +23,7 @@ public class OrderController {
 		this.orderService = orderService;
 	}
 	
-	
+	// 주문관리 > 주문등록 (정도혜)
 	@GetMapping("/orderInsert")
 	public String orderInsert() {
 		System.out.println("페이지: 주문 등록");
@@ -32,7 +31,8 @@ public class OrderController {
 		
 		return "product_management/order/orderInsert";
 	}
-
+	
+	// 주문관리 > 주문목록 (정도혜)
 	@GetMapping("/orderList")
 	public String orderList(Model model) {
 		System.out.println("페이지: 주문 관리");
@@ -44,6 +44,7 @@ public class OrderController {
 		return "product_management/order/orderList";
 	}
 	
+	// 주문관리 > 주문상세 (정도혜)
 	@GetMapping("/orderDetail")
 	public String orderDetail(Model model) {
 		System.out.println("페이지: 주문 상세");
@@ -55,7 +56,7 @@ public class OrderController {
 		return "product_management/order/orderDetail";
 	}
 	
-		//주문 검색
+		//주문관리 > 주문 검색 (정도혜)
 		@PostMapping("/orderList")
 		public String getSearchOrderList(
 				@RequestParam(value="searchKey", required = false) String searchKey,
@@ -85,7 +86,4 @@ public class OrderController {
 				
 			return "product_management/order/orderList";
 			}
-		
-
-	
-}
+	}

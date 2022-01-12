@@ -3,36 +3,20 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.OrderMapper">
-	<resultMap type="Order" id="OrderResultMap">
-		<id column="businessCode" 				property="businessCode"/>
-		<result column="orderCode" 				property="orderCode"/>
+	<resultMap type="Order" id="OrderResultMap">	
+		<id column="orderCode" 					property="orderCode"/>
+		<result column="businessCode" 			property="businessCode"/>
 		<result column="orderNum" 				property="orderNum"/>
 		<result column="deliveryDate" 			property="deliveryDate"/>
 		<result column="state" 					property="state"/>
 		<result column="purchaseDate" 			property="purchaseDate"/>
 		<result column="martCode" 				property="martCode"/>
-		<result column="ID" 					property="ID"/>
+		<result column="ID" 					property="id"/>
 		<result column="regDate" 				property="regDate"/>
 		
 		<association javaType="Business" property="business">
 			<id column="businessCode" 	property="businessCode"/>
 			<result column="businessName" 			property="businessName"/>
-			<result column="partnerName" 			property="partnerName"/>
-			<result column="partnerPhone" 			property="partnerPhone"/>
-			<result column="registerNum" 			property="registerNum"/>
-			<result column="businessType" 			property="businessType"/>
-			<result column="sectors" 				property="sectors"/>
-			<result column="status" 				property="status"/>
-			<result column="callNum" 				property="callNum"/>
-			<result column="address" 				property="address"/>
-			<result column="FAX" 					property="FAX"/>
-			<result column="businessStaff" 			property="businessStaff"/>
-			<result column="businessStaffPhone" 	property="businessStaffPhone"/>
-			<result column="businessStaffEmail" 	property="businessStaffEmail"/>
-			<result column="note" 					property="note"/>
-			<result column="martCode" 				property="martCode"/>
-			<result column="ID" 					property="ID"/>
-			<result column="regDate"				property="regDate"/>
 		</association>		
 	</resultMap>
 	
@@ -46,7 +30,7 @@
 		o.state, 
 		o.purchaseDate,
 		o.martCode, 
-		o.ID, 
+		o.id, 
 		o.regDate,
 		b.businessName
 	FROM  
@@ -66,10 +50,15 @@
 		o.state, 
 		o.purchaseDate, 
 		o.martCode, 
-		o.ID, 
-		o.regDate
+		o.id, 
+		o.regDate,
+		b.businessName
 	FROM 
 		tb_order AS o
+		INNER JOIN 
+		tb_business AS b
+		ON
+		o.businessCode = b.businessCode
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="searchValue != null and searchValue != ''.toString()">
 				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');

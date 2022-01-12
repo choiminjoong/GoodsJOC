@@ -21,6 +21,7 @@ public class SalesController {
 		this.salesService = salesService;
 	}
 	
+	//매출관리 > 매출등록
 	@GetMapping("/salesInsert")
 	public String salesInsert() {
 		System.out.println("페이지: 매출 등록");
@@ -29,6 +30,7 @@ public class SalesController {
 		return "trade_management/sales/salesInsert";
   }
 	
+	//매출관리 > 매출조회
 	@GetMapping("/salesList")
 	public String salesList(HttpServletRequest request, Model model) {
 		System.out.println("페이지: 매출 조회");
