@@ -188,8 +188,9 @@
 					<div class="card-header">
 						<h3 class="card-title">창고 목록</h3>
 						<div class="card-tools">
+								<form th:action="@{/basic_management/facility/searchWarehouse}" method="post">
 							<div class="input-group input-group-sm" style="width: 150px;">
-								<input type="text" name="table_search"
+								<input type="text" name="searchWarehouse"
 									class="form-control float-right" placeholder="창고 검색">
 								<div class="input-group-append">
 									<button type="submit" class="btn btn-default">
@@ -197,6 +198,7 @@
 									</button>
 								</div>
 							</div>
+							</form>
 						</div>
 					</div>
 					<!-- /.card-header -->
@@ -246,10 +248,10 @@
 				<div class="card card-warning">
 					<div class="card-header">
 						<h3 class="card-title">판매진열대 목록</h3>
-	
 						<div class="card-tools">
+							<form th:action="@{/basic_management/facility/searchShowcase}" method="post">
 							<div class="input-group input-group-sm" style="width: 150px;">
-								<input type="text" name="table_search"
+								<input type="text" name="searchShowcase"
 									class="form-control float-right" placeholder="판매진열대 찾기">
 								<div class="input-group-append">
 									<button type="submit" class="btn btn-default">
@@ -257,6 +259,7 @@
 									</button>
 								</div>
 							</div>
+							</form>
 						</div>
 					</div>
 					<!-- /.card-header -->

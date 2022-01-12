@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import k5.goodsjoc.dto.Shelf;
 import k5.goodsjoc.dto.Showcase;
@@ -62,8 +63,51 @@ public class FacilityController {
 		
 	}
 	
+	//창고 및 창고진열대, 구분 검색(오대성)
+	@PostMapping("/searchWarehouse")
+	public String searchWarehouse(HttpServletRequest request, Model model, 
+			@RequestParam(value="searchWarehouse", required=false)String searchWarehouse) {
+		
+		System.out.println("화면에서 받은 창고 조건 입력값 : " + searchWarehouse);
+		
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<Warehouse> warehouseList = facilityService.getSearchWarehouseList(searchWarehouse, sessionMartCode);
+		model.addAttribute("warehouseList", warehouseList);
+		System.out.println("model에 담긴 warehouseList: " + warehouseList);
+		
+		List<Warehouse> warehouseNameList= facilityService.getWarehouseListByMartCode(sessionMartCode);
+		model.addAttribute("warehouseNameList", warehouseNameList);
+		System.out.println("model에 담긴 warehouseNameList: " + warehouseNameList);
+		
+		List<Showcase> showcaseList = facilityService.getShowcaseList(sessionMartCode);
+		model.addAttribute("showcaseList",showcaseList);
+		System.out.println("model에 담긴 showcaseList: " + showcaseList);
+		
+		return "basic_management/facility/facilityList";
+	}
 	
-	
+	//판매진열대 검색(오대성)
+	@PostMapping("/searchShowcase")
+	public String searchShowcase(HttpServletRequest request, Model model,
+			@RequestParam(value="searchShowcase", required=false)String searchShowcase) {
+		System.out.println("화면에서 받은 판매진열대 조건 입력값 : " + searchShowcase);
+		
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<Showcase> showcaseList = facilityService.getSearchShowcaseList(searchShowcase, sessionMartCode);
+		model.addAttribute("showcaseList", showcaseList);
+		System.out.println("model에 담긴 showcaseList: " + showcaseList);
+		
+		List<Warehouse> warehouseList = facilityService.getWarehouseList(sessionMartCode);
+		model.addAttribute("warehouseList", warehouseList);
+		System.out.println("model에 담긴 warehouseList: " + warehouseList);
+		
+		return "basic_management/facility/facilityList";
+	}
+
 	
 
 	@GetMapping("/facilityList")

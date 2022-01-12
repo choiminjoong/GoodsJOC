@@ -14,7 +14,14 @@ public class User {
 	private String regDate;
 
 	private Level level;
+	private Mart mart;
 
+	public Mart getMart() {
+		return mart;
+	}
+	public void setMart(Mart mart) {
+		this.mart = mart;
+	}
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", pw=" + pw + ", name=" + name + ", birthday=" + birthday + ", phone=" + phone
