@@ -11,15 +11,24 @@ public class Business {
 	private String status;
 	private String callNum;
 	private String address;
-	private String FAX;
+	private String fax;
 	private String businessStaff;
 	private String businessStaffPhone;
 	private String businessStaffEmail;
 	private String note;
 	private String martCode;
-	private String ID;
+	private String id;
 	private String regDate;
-	
+
+	@Override
+	public String toString() {
+		return "Business [businessCode=" + businessCode + ", businessName=" + businessName + ", partnerName="
+				+ partnerName + ", partnerPhone=" + partnerPhone + ", registerNum=" + registerNum + ", businessType="
+				+ businessType + ", sectors=" + sectors + ", status=" + status + ", callNum=" + callNum + ", address="
+				+ address + ", fax=" + fax + ", businessStaff=" + businessStaff + ", businessStaffPhone="
+				+ businessStaffPhone + ", businessStaffEmail=" + businessStaffEmail + ", note=" + note + ", martCode="
+				+ martCode + ", id=" + id + ", regDate=" + regDate + "]";
+	}
 	public String getBusinessCode() {
 		return businessCode;
 	}
@@ -80,11 +89,11 @@ public class Business {
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	public String getFAX() {
-		return FAX;
+	public String getFax() {
+		return fax;
 	}
-	public void setFAX(String fAX) {
-		FAX = fAX;
+	public void setFax(String fax) {
+		fax = fax;
 	}
 	public String getBusinessStaff() {
 		return businessStaff;
@@ -116,11 +125,11 @@ public class Business {
 	public void setMartCode(String martCode) {
 		this.martCode = martCode;
 	}
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -128,14 +137,4 @@ public class Business {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	@Override
-	public String toString() {
-		return "business [businessCode=" + businessCode + ", businessName=" + businessName + ", partnerName="
-				+ partnerName + ", partnerPhone=" + partnerPhone + ", registerNum=" + registerNum + ", businessType="
-				+ businessType + ", sectors=" + sectors + ", status=" + status + ", callNum=" + callNum + ", address="
-				+ address + ", FAX=" + FAX + ", businessStaff=" + businessStaff + ", businessStaffPhone="
-				+ businessStaffPhone + ", businessStaffEmail=" + businessStaffEmail + ", note=" + note + ", martCode="
-				+ martCode + ", ID=" + ID + ", regDate=" + regDate + "]";
-	}
-
 }

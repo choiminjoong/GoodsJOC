@@ -6,13 +6,16 @@ public class Shelf {
 	private String shelfName;
 	private String totalStock;
 	private String martCode;
-	private String ID;
+	private String id;
 	private String regDate;
 	
+	private Warehouse warehouse;
+
 	@Override
 	public String toString() {
 		return "Shelf [shelfCode=" + shelfCode + ", warehouseCode=" + warehouseCode + ", shelfName=" + shelfName
-				+ ", totalStock=" + totalStock + ", martCode=" + martCode + ", ID=" + ID + ", regDate=" + regDate + "]";
+				+ ", totalStock=" + totalStock + ", martCode=" + martCode + ", id=" + id + ", regDate=" + regDate
+				+ ", warehouse=" + warehouse + "]";
 	}
 	public String getShelfCode() {
 		return shelfCode;
@@ -44,11 +47,11 @@ public class Shelf {
 	public void setMartCode(String martCode) {
 		this.martCode = martCode;
 	}
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -56,5 +59,10 @@ public class Shelf {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-
+	public Warehouse getWarehouse() {
+		return warehouse;
+	}
+	public void setWarehouse(Warehouse warehouse) {
+		this.warehouse = warehouse;
+	}
 }

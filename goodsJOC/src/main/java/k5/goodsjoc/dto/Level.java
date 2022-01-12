@@ -13,7 +13,7 @@ public class Level {
 	public String getLevelNum() {
 		return levelNum;
 	}
-	public void setLevelNum(String levelNum) {
+	public void setLevelNum2(String levelNum) {
 		this.levelNum = levelNum;
 	}
 	public String getLevelName() {

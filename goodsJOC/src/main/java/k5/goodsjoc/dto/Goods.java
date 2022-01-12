@@ -1,7 +1,6 @@
 package k5.goodsjoc.dto;
 
 public class Goods {
-
 	private String barcode;
 	private String businessCode;
 	private String categoryCode;
@@ -18,36 +17,22 @@ public class Goods {
 	private String showcaseStock;
 	private String goodsTotalStock;
 	private String martCode;
-	private String ID;
+	private String id;
 	private String regDate;
 	
 	private Business business;
 	private GoodsCate goodsCate;
 	private User user;
 
-	public String getMargin() {
-		return margin;
-	}
-	public void setMargin(String margin) {
-		this.margin = margin;
-	}
-	public Business getBusiness() {
-		return business;
-	}
-	public void setBusiness(Business business) {
-		this.business = business;
-	}
-	public GoodsCate getGoodsCate() {
-		return goodsCate;
-	}
-	public void setGoodsCate(GoodsCate goodsCate) {
-		this.goodsCate = goodsCate;
-	}
-	public User getUser() {
-		return user;
-	}
-	public void setUser(User user) {
-		this.user = user;
+	@Override
+	public String toString() {
+		return "Goods [barcode=" + barcode + ", businessCode=" + businessCode + ", categoryCode=" + categoryCode
+				+ ", goodsName=" + goodsName + ", weight=" + weight + ", unit=" + unit + ", maker=" + maker
+				+ ", taxType=" + taxType + ", purchasePrice=" + purchasePrice + ", salesPrice=" + salesPrice
+				+ ", margin=" + margin + ", uncheckedQTY=" + uncheckedQTY + ", warehouseStock=" + warehouseStock
+				+ ", showcaseStock=" + showcaseStock + ", goodsTotalStock=" + goodsTotalStock + ", martCode=" + martCode
+				+ ", id=" + id + ", regDate=" + regDate + ", business=" + business + ", goodsCate=" + goodsCate
+				+ ", user=" + user + "]";
 	}
 	public String getBarcode() {
 		return barcode;
@@ -109,6 +94,12 @@ public class Goods {
 	public void setSalesPrice(String salesPrice) {
 		this.salesPrice = salesPrice;
 	}
+	public String getMargin() {
+		return margin;
+	}
+	public void setMargin(String margin) {
+		this.margin = margin;
+	}
 	public String getUncheckedQTY() {
 		return uncheckedQTY;
 	}
@@ -139,11 +130,11 @@ public class Goods {
 	public void setMartCode(String martCode) {
 		this.martCode = martCode;
 	}
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -151,5 +142,22 @@ public class Goods {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	
+	public Business getBusiness() {
+		return business;
+	}
+	public void setBusiness(Business business) {
+		this.business = business;
+	}
+	public GoodsCate getGoodsCate() {
+		return goodsCate;
+	}
+	public void setGoodsCate(GoodsCate goodsCate) {
+		this.goodsCate = goodsCate;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
 }

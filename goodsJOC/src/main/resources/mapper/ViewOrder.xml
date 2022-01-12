@@ -4,48 +4,40 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.OrderMapper">
 	<resultMap type="ViewOrder" id="ViewOrderResultMap">
-		<result column="martCode" 		property="martCode"/>
+		<result column="martCode" 				property="martCode"/>
 		<result column="martName" 				property="martName"/>
-		<result column="businessName" 				property="businessName"/>
-		<result column="regDate" 			property="regDate"/>
-		<result column="partnerPhone" 					property="partnerPhone"/>
-		<result column="businessStaffEmail" 			property="businessStaffEmail"/>
-		<result column="orderNum" 			property="orderNum"/>
-		<result column="barcode" 					property="barcode"/>
-		<result column="goodsName" 					property="goodsName"/>
-		<result column="purchasePrice" 					property="purchasePrice"/>
+		<result column="businessName" 			property="businessName"/>
+		<result column="regDate" 				property="regDate"/>
+		<result column="partnerPhone" 			property="partnerPhone"/>
+		<result column="businessStaffEmail" 	property="businessStaffEmail"/>
+		<result column="orderNum" 				property="orderNum"/>
+		<result column="barcode" 				property="barcode"/>
+		<result column="goodsName" 				property="goodsName"/>
+		<result column="purchasePrice" 			property="purchasePrice"/>
 		<result column="QTY" 					property="QTY"/>
-		<result column="totalPrice" 					property="totalPrice"/>
-		<result column="supplyPrice" 					property="supplyPrice"/>
+		<result column="totalPrice" 			property="totalPrice"/>
+		<result column="supplyPrice" 			property="supplyPrice"/>
 		<result column="VAT" 					property="VAT"/>
-		
 	</resultMap>
 	
 
 	<select id="getViewOrder" parameterType="String" resultMap="ViewOrderResultMap">
-	SELECT
-		martCode,
-		martName,
-		businessName,
-		regDate,
-		partnerPhone,
-		businessStaffEmail,
-		orderNum,
-		barcode,
-		goodsName,
-		purchasePrice,
-		QTY,
-		totalPrice,
-		supplyPrice,
-		VAT
-	FROM
-		view_orderReceipt
-	
+		SELECT
+			martCode,
+			martName,
+			businessName,
+			regDate,
+			partnerPhone,
+			businessStaffEmail,
+			orderNum,
+			barcode,
+			goodsName,
+			purchasePrice,
+			QTY,
+			totalPrice,
+			supplyPrice,
+			VAT
+		FROM
+			view_orderReceipt
 	</select>
-	
-	
-
-	
-	
-	
 </mapper>

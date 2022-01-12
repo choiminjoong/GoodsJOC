@@ -43,9 +43,7 @@ public class FacilityController {
 		System.out.println("페이지: 창고진열대 등록 처리");
 		System.out.println("경로: basic_management/facility/shelfInsert(Post방식 성공) ");
 		System.out.println("화면에서 받은 창고 진열대 정보 : "+ shelf);
-		
 		facilityService.shelfInsert(shelf);
-		
 		
 		return "redirect:/basic_management/facility/facilityList";
 		
@@ -76,7 +74,7 @@ public class FacilityController {
 		HttpSession session = request.getSession();
 		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
 		
-		List<Showcase> showcaseList = facilityService.getShowcaseList();
+		List<Showcase> showcaseList = facilityService.getShowcaseList(sessionMartCode);
 		model.addAttribute("showcaseList",showcaseList);
 		System.out.println("model에 담긴 showcaseList: " + showcaseList);
 		
@@ -84,7 +82,7 @@ public class FacilityController {
 		model.addAttribute("warehouseList", warehouseList);
 		System.out.println("model에 담긴 warehouseList: " + warehouseList);
 		
-		List<Warehouse> warehouseNameList	= facilityService.getWarehouseListByMartCode(sessionMartCode);
+		List<Warehouse> warehouseNameList= facilityService.getWarehouseListByMartCode(sessionMartCode);
 		model.addAttribute("warehouseNameList", warehouseNameList);
 		System.out.println("model에 담긴 warehouseNameList: " + warehouseNameList);
 		

@@ -13,26 +13,27 @@ import k5.goodsjoc.mapper.FacilityMapper;
 @Service
 @Transactional
 public class FacilityService {
-
 		private final FacilityMapper facilityMapper;
 		public FacilityService(FacilityMapper facilityMapper) {
 			this.facilityMapper = facilityMapper;
 		}
 		
+		
 		public List<Warehouse> getWarehouseList(String martCode){
 			return facilityMapper.getWarehouseList(martCode);
 		}
 		
-		public List<Showcase> getShowcaseList(){
-			return facilityMapper.getShowcaseList();
-		}
-
-		public int warehouseInsert(Warehouse warehouse) {
-			return facilityMapper.warehouseInsert(warehouse);
+		public List<Showcase> getShowcaseList(String martCode){
+			return facilityMapper.getShowcaseList(martCode);
 		}
 		
 		public List<Warehouse> getWarehouseListByMartCode(String martCode) {
 			return facilityMapper.getWarehouseListByMartCode(martCode);
+		}
+
+		
+		public int warehouseInsert(Warehouse warehouse) {
+			return facilityMapper.warehouseInsert(warehouse);
 		}
 
 		public int shelfInsert(Shelf shelf) {
@@ -41,6 +42,5 @@ public class FacilityService {
 
 		public int showcaseInsert(Showcase showcase) {
 			return facilityMapper.showcaseInsert(showcase);
-			
 		}
 }

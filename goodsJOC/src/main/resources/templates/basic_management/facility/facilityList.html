@@ -216,9 +216,9 @@
 							<tbody>
 								<tr th:if="${not #lists.isEmpty(warehouseList)}" th:each="l, i : ${warehouseList}">
 									<td th:text="${i.index + 1}"></td>
-									<td th:text="${l.warehouseName}"> </td>
-									<td th:text=${l.shelf.getShelfName()}></td>
-									<td th:text="${l.warehouseType}"></td>
+									<td th:text="${l.warehouse.getWarehouseName()}"> </td>
+									<td th:text=${l.shelfName}></td>
+									<td th:text="${l.warehouse.getWarehouseType()}"></td>
 									<td>
 										<button type="button" class="btn btn-outline-primary btn-xs">수정하기</button>
 									</td>

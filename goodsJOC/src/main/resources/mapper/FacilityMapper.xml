@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k5.goodsjoc.mapper.FacilityMapper">
+	<resultMap type="Shelf" id="shelfResultMap">
+		<id column="shelfCode"  		property="shelfCode"/>
+		<result column="warehouseCode"  property="warehouseCode"/>
+		<result column="shelfName" 		property="shelfName"/>
+		<result column="totalStock" 	property="totalStock"/>
+		<result column="martCode" 		property="martCode"/>
+		<result column="ID"				property="id"/>
+		<result column="regDate" 		property="regDate"/>
+		
+		<association javaType="Warehouse" property="warehouse">
+			<id column="warehouseCode"  	property="warehouseCode"/>
+			<result column="warehouseName"  property="warehouseName"/>
+			<result column="warehouseType"  property="warehouseType"/>
+		</association>
+	</resultMap>
+	
+	<resultMap type="Warehouse" id="warehouseResultMap">
+		<id column="warehouseCode"  	property="warehouseCode"/>
+		<result column="warehouseName"  property="warehouseName"/>
+		<result column="warehouseType"  property="warehouseType"/>
+		<result column="totalStock" 	property="totalStock"/>
+		<result column="martCode" 		property="martCode"/>
+		<result column="ID"				property="id"/>
+		<result column="regDate" 		property="regDate"/>
+	</resultMap>	
+
+	<resultMap type="Showcase" id="showcaseResultMap">
+		<result column="showcaseCode" 			property="showcaseCode"/>
+		<result column="showcasePlace" 			property="showcasePlace"/>
+		<result column="stock" 					property="stock"/>
+		<result column="martCode" 				property="martCode"/>
+		<result column="ID" 					property="id"/>
+		<result column="regDate" 				property="regDate"/>
+	</resultMap>
+		
+	<select id="getShowcaseList" parameterType="String" resultMap="showcaseResultMap">
+		SELECT 
+			showcaseCode, showcasePlace, stock, martCode, ID, regDate
+		FROM 
+			tb_showcase
+		WHERE
+			martCode = #{martCode}
+	</select>
+		
+	<select id="getWarehouseList" resultMap="shelfResultMap">
+		SELECT 
+			s.shelfCode, s.warehouseCode, s.shelfName, s.martCode, s.ID, s.regDate
+			, w.warehouseName, w.warehouseType
+		FROM
+			tb_shelf AS s
+			inner join
+			tb_warehouse AS w
+			on
+			s.warehouseCode = w.warehouseCode
+		WHERE 
+			s.martCode = #{martCode} 
+	</select>
+	
+	<select id="getWarehouseListByMartCode" resultType="Warehouse">
+		SELECT 
+			warehouseCode, warehouseName, martCode
+		FROM
+			tb_warehouse
+		WHERE
+			martCode = #{martCode}
+	</select>
+	
+	<insert id="warehouseInsert" parameterType="Warehouse">
+		INSERT INTO tb_warehouse(
+			warehouseName 
+			,warehouseType 
+			,martCode
+			,ID
+			,regDate
+		)VALUES (
+			#{warehouseName}
+			,#{warehouseType}
+			,#{martCode}
+			,#{ID}
+			,NOW()
+		)
+	</insert>
+	
+	<insert id="shelfInsert" parameterType="Shelf">
+		INSERT INTO tb_shelf(
+			warehouseCode
+			,shelfName
+			,martCode
+			,ID
+			,regDate
+		)VALUES (
+			#{warehouseCode}
+			,#{shelfName}
+			,#{martCode}
+			,#{ID}
+			,NOW()
+		)
+	</insert>
+	
+	<insert id="showcaseInsert" parameterType="Showcase">
+		INSERT INTO tb_showcase(
+			showcasePlace
+			,martCode
+			,ID
+			,regDate
+		)VALUES (
+			#{showcasePlace}
+			,#{martCode}
+			,#{ID}
+			,NOW()
+		);
+	</insert>
+</mapper>

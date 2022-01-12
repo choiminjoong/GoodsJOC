@@ -15,6 +15,7 @@ public class ViewOrder {
 	private String totalPrice;
 	private String supplyPrice;
 	private String VAT;
+
 	public String getMartCode() {
 		return martCode;
 	}

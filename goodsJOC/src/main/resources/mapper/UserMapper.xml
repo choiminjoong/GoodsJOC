@@ -3,40 +3,31 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.UserMapper">
+	<!-- user innerjoin level resultMap(최민중)-->
 	<resultMap type="User" id="userResultMap">
-		<id column="levelNum" property="levelNum" />
-		<result column="ID" property="ID" />
-		<result column="PW" property="PW" />
-		<result column="name" property="name" />
-		<result column="birthday" property="birthday" />
-		<result column="phone" property="phone" />
-		<result column="email" property="email" />
-		<result column="address" property="address" />
-		<result column="martCode" property="martCode" />
-		<result column="regDate" property="regDate" />
+		<id column="ID"				property="id"/>
+		<result column="PW"			property="pw"/>
+		<result column="name"		property="name"/>
+		<result column="birthday"	property="birthday"/>
+		<result column="phone"		property="phone"/>
+		<result column="email"		property="email"/>
+		<result column="address"	property="address"/>
+		<result column="martCode"	property="martCode"/>
+		<result column="levelNum"	property="levelNum"/>
+		<result column="regDate"	property="regDate"/>
 		
-		<association javaType="Level" property="level">
-			<id column="levelNum" property="levelNum" />
-			<result column="levelName" property="levelName"/>
-			<result column="note" property="note"/>
-		</association>
-	</resultMap>	
+		<collection resultMap="levelResultMap" 	property="level"/>
+	</resultMap>
+	<resultMap type="level" id="levelResultMap">
+		<result column="levelNum"	property="levelNum" />
+		<result column="levelName"	property="levelName" />
+		<result column="note"		property="note"/>
+	</resultMap>
 
-
-
+	<!-- 매장별 직원 조회 레벨순서(최민중) -->
 	<select id="getUserList" parameterType="String" resultMap="userResultMap">
 		SELECT 
-			u.ID				as id
-			,u.PW				as pw
-			,u.name
-			,u.birthday
-			,u.phone
-			,u.email
-			,u.address
-			,u.martCode
-			,u.levelNum
-			,u.regDate
-			,u.levelNum
+			u.ID, u.PW, u.name, u.birthday, u.phone, u.email, u.address, u.martCode, u.levelNum, u.regDate
 			,l.levelName
 		FROM 
 			tb_user AS u
@@ -50,24 +41,17 @@
 			u.levelNum ASC;
 	</select>
 
+	<!-- ID로 유저정보 조회(최민중) => 로그인, 개인정보수정, 등록자이름 -->
 	<select id="getUserInfoByID" parameterType="String" resultMap="userResultMap">
 		SELECT 
-			ID
-			,PW
-			,name
-			,birthday
-			,phone
-			,email
-			,address
-			,martCode
-			,levelNum
-			,regDate
+			ID, PW, name, birthday, phone, email, address, martCode, levelNum, regDate
 		FROM 
 			tb_user
 		WHERE 
 			ID = #{ID};
 	</select>
 	
+
 	<select id="getUserListBySearchKey" resultMap="userResultMap">		 
 		SELECT 
 			u.name, 
@@ -87,7 +71,8 @@
 	</select>
 	
 	<update id="userUpdateInfo" parameterType="User">
-      UPDATE tb_user      
+      UPDATE 
+      	tb_user      
       <trim prefix="SET" prefixOverrides=",">
          <if test="name != null and name != ''.toString()">
             ,name = #{name}
@@ -114,6 +99,7 @@
       WHERE 
          ID=#{ID};
    </update>
+<<<<<<< HEAD
 	
 	<update id="updateUser" parameterType="User">
       UPDATE tb_user      
@@ -154,5 +140,7 @@
 
 
 
+=======
+>>>>>>> refs/remotes/origin/develop
 
 </mapper>
