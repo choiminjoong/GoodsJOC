@@ -10,7 +10,7 @@
 </th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-   <a th:href="@{/main}">MAIN</a>
+	<a th:href="@{/main}">MAIN</a>
       > 거래관리 > 매입조회
    </th:block>
 
@@ -41,20 +41,19 @@
 									<input type="text" name="table_search" style="margin-left: 3%"
 										class="form-control float-right" placeholder="검색">
 								</div>
-								<div style="margin: -1% 0 0 15%">
-									<button type="button" class="btn-lg btn-warning"
-										style="height: 90px;">
+								<div style="margin-left: 3%">
+									<button type="button" class="btn-lg btn-info">
 										<b>검색</b>
-									</button> <a href="#">
-										<button type="button" class="btn-lg btn-warning"
-											style="height: 90px">
+									</button>
+									<a href="#">
+										<button type="button" class="btn-lg btn-info">
 											<b>등록</b>
 										</button>
-								</a>
+									</a>
 								</div>
 							</div>
 							<!-----------------거래일검색------------------>
-							<div class="row" style="margin-top: -2%">
+							<div class="row" style="margin-top: 1%">
 								<label class="col-sm-1 col-form-label">거래일</label>
 								<div class="col-sm-3">
 									<input type="date" id="date" class="form-control">
@@ -65,7 +64,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<!-------------------매입출 조회 폼--------------------->
 			<div class="col-12">
 				<div class="card card-warning card-tabs">
@@ -88,100 +87,115 @@
 								<tbody>
 									<tr>
 										<td><div class="custom-control custom-checkbox">
-						<input type="checkbox" id="jb-checkbox1" class="custom-control-input">
-						<label class="custom-control-label" for="jb-checkbox1"></label>
-					</div></td>
+												<input type="checkbox" id="jb-checkbox1"
+													class="custom-control-input"> <label
+													class="custom-control-label" for="jb-checkbox1"></label>
+											</div></td>
 										<td>1</td>
 										<td>흙당근</td>
 										<td>JB</td>
 										<td>5EA</td>
 										<td>2021-11-11</td>
-										<td></td>
+										<td><button type="button"
+												class="btn btn-outline-warning btn-xs" data-toggle="modal"
+												data-target="#exampleModalStatement">거래명세서</button></td>
 										<td class="text-right py-0 align-middle">
 											<div class="btn-group btn-group-sm">
-												<a href="#" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
+												<a href="#" class="btn btn-info"><i class="fas fa-highlighter"></i></a>
+												<a href="#" class="btn btn-danger" data-toggle="modal"
+													data-target="#exampleModalCenter"><i
 													class="fas fa-trash"></i></a>
 											</div>
 										</td>
 									</tr>
 									<tr>
 										<td><div class="custom-control custom-checkbox">
-						<input type="checkbox" id="jb-checkbox2" class="custom-control-input">
-						<label class="custom-control-label" for="jb-checkbox2"></label>
-					</div></td>
+												<input type="checkbox" id="jb-checkbox2"
+													class="custom-control-input"> <label
+													class="custom-control-label" for="jb-checkbox2"></label>
+											</div></td>
 										<td>2</td>
 										<td>흙당근</td>
 										<td>JB</td>
 										<td>5EA</td>
 										<td>2021-11-11</td>
-										<td></td>
+										<td><button type="button"
+												class="btn btn-outline-warning btn-xs" data-toggle="modal"
+												data-target="#exampleModalStatement">거래명세서</button></td>
 										<td class="text-right py-0 align-middle">
 											<div class="btn-group btn-group-sm">
-												<a href="#" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
+												<a href="#" class="btn btn-info"><i class="fas fa-highlighter"></i></a>
+												<a href="#" class="btn btn-danger" data-toggle="modal"
+													data-target="#exampleModalCenter"><i
 													class="fas fa-trash"></i></a>
 											</div>
 										</td>
 									</tr>
 									<tr>
 										<td><div class="custom-control custom-checkbox">
-						<input type="checkbox" id="jb-checkbox3" class="custom-control-input">
-						<label class="custom-control-label" for="jb-checkbox3"></label>
-					</div></td>
+												<input type="checkbox" id="jb-checkbox3"
+													class="custom-control-input"> <label
+													class="custom-control-label" for="jb-checkbox3"></label>
+											</div></td>
 										<td>3</td>
 										<td>흙당근</td>
 										<td>JB</td>
 										<td>5EA</td>
 										<td>2021-11-11</td>
-										<td></td>
+										<td><button type="button"
+												class="btn btn-outline-warning btn-xs" data-toggle="modal"
+												data-target="#exampleModalStatement">거래명세서</button></td>
 										<td class="text-right py-0 align-middle">
 											<div class="btn-group btn-group-sm">
-												<a href="#" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
+												<a href="#" class="btn btn-info"><i class="fas fa-highlighter"></i></a>
+												<a href="#" class="btn btn-danger" data-toggle="modal"
+													data-target="#exampleModalCenter"><i
 													class="fas fa-trash"></i></a>
 											</div>
 										</td>
 									</tr>
 									<tr>
 										<td><div class="custom-control custom-checkbox">
-						<input type="checkbox" id="jb-checkbox4" class="custom-control-input">
-						<label class="custom-control-label" for="jb-checkbox4"></label>
-					</div></td>
+												<input type="checkbox" id="jb-checkbox4"
+													class="custom-control-input"> <label
+													class="custom-control-label" for="jb-checkbox4"></label>
+											</div></td>
 										<td>4</td>
 										<td>흙당근</td>
 										<td>JB</td>
 										<td>5EA</td>
 										<td>2021-11-11</td>
-										<td></td>
+										<td><button type="button"
+												class="btn btn-outline-warning btn-xs" data-toggle="modal"
+												data-target="#exampleModalStatement">거래명세서</button></td>
 										<td class="text-right py-0 align-middle">
 											<div class="btn-group btn-group-sm">
-												<a href="#" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
+												<a href="#" class="btn btn-info"><i class="fas fa-highlighter"></i></a>
+												<a href="#" class="btn btn-danger" data-toggle="modal"
+													data-target="#exampleModalCenter"><i
 													class="fas fa-trash"></i></a>
 											</div>
 										</td>
 									</tr>
 									<tr>
 										<td><div class="custom-control custom-checkbox">
-						<input type="checkbox" id="jb-checkbox5" class="custom-control-input">
-						<label class="custom-control-label" for="jb-checkbox5"></label>
-					</div></td>
+												<input type="checkbox" id="jb-checkbox5"
+													class="custom-control-input"> <label
+													class="custom-control-label" for="jb-checkbox5"></label>
+											</div></td>
 										<td>5</td>
 										<td>흙당근</td>
 										<td>JB</td>
 										<td>5EA</td>
 										<td>2021-11-11</td>
-										<td><button type="button" class="btn btn-outline-warning btn-xs" data-toggle="modal" data-target="#exampleModalStatement">거래명세서</button></td>
+										<td><button type="button"
+												class="btn btn-outline-warning btn-xs" data-toggle="modal"
+												data-target="#exampleModalStatement">거래명세서</button></td>
 										<td class="text-right py-0 align-middle">
 											<div class="btn-group btn-group-sm">
-												<a href="#" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
+												<a href="#" class="btn btn-info"><i class="fas fa-highlighter"></i></a>
+												<a href="#" class="btn btn-danger" data-toggle="modal"
+													data-target="#exampleModalCenter"><i
 													class="fas fa-trash"></i></a>
 											</div>
 										</td>
@@ -189,62 +203,223 @@
 								</tbody>
 							</table>
 						</div>
-						</div>
 					</div>
-					<!----------------버튼---------------->
-					<!--------------Modal-------------->
-					<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalCenterTitle"
-						aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLongTitle">알림</h5>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">정말 삭제 하시겠습니까?</div>
-								<div class="modal-footer">
-									<a href="purchaseList"><button type="button"
-											class="btn btn-secondary">예</button></a>
-									<button type="button" class="btn btn-warning"
-										data-dismiss="modal">아니오</button>
-								</div>
+				</div>
+
+				<!--------------Modal-------------->
+				<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalCenterTitle"
+					aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalLongTitle">알림</h5>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
 							</div>
-						</div>
-					</div>
-					<!--Modal 거래명세서  -->
-					<div class="modal fade" id="exampleModalStatement" tabindex="-1"
-						role="dialog" aria-labelledby="exampleModalStatementTitle"
-						aria-hidden="true">
-						<div class="modal-dialog modal-dialog-centered" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalStatementTitle">거래명세서</h5><b class="text-danger">[공급받는자 보관용]</b>
-									<button type="button" class="close" data-dismiss="modal"
-										aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									<table>
-										<tr>1</tr>
-									</table>
-								</div>
-								<div class="modal-footer">
-									<a href="purchaseList"><button type="button"
-											class="btn btn-secondary">예</button></a>
-									<button type="button" class="btn btn-warning"
-										data-dismiss="modal">아니오</button>
-								</div>
+							<div class="modal-body">정말 삭제 하시겠습니까?</div>
+							<div class="modal-footer">
+								<a href="purchaseList"><button type="button"
+										class="btn btn-secondary">예</button></a>
+								<button type="button" class="btn btn-warning"
+									data-dismiss="modal">아니오</button>
 							</div>
 						</div>
 					</div>
 				</div>
-				<!-- /.card -->
+
+				<!--------------Modal 거래명세서-------------->
+				<div class="modal fade" id="exampleModalStatement" tabindex="-1"
+					role="dialog" aria-labelledby="exampleModalStatementTitle"
+					aria-hidden="true">
+					<div class="modal-dialog"
+						style="max-width: 100%; width: auto; display: table;">
+						<div class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title" id="exampleModalStatementTitle">거래명세서</h5>
+								<b class="text-danger">[공급받는자 보관용]</b>
+								<button type="button" class="close" data-dismiss="modal"
+									aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body">
+								<div class="invoice p-3 mb-3">
+									<!-- 거래명세서 내용 -->
+									<div class="row">
+										<div class="col-12">
+											<h4>
+												<i class="fab fa-uncharted"></i> 거래명세서 <small
+													class="float-right">거래일: 2021/01/01</small>
+											</h4>
+										</div>
+										<!-- /.col -->
+									</div>
+									<!-----------거래명세서 상세------------->
+									<div class="row invoice-info">
+										<div class="col-sm-4 invoice-col">
+											<table>
+												<thead>
+													<th>공급처</th>
+												</thead>
+												<thead>
+													<th>매입처</th>
+												</thead>
+											</table>
+											공급처
+											<address>
+												<strong>JB</strong><br> 김대표<br> 전북 전주시 덕진구<br>
+												축산업<br> 채소<br> 010-1234-1234<br>
+											</address>
+										</div>
+										<!-- /.col -->
+										<div class="col-sm-4 invoice-col">
+											매입처
+											<address>
+												<strong>엄가네마트</strong><br> 엄대표<br> 전북 전주시 완산구<br>
+												도소매업<br> 마트<br> 010-5678-5678<br>
+											</address>
+										</div>
+										<!-- /.col -->
+										<div class="col-sm-4 invoice-col">
+											<b>거래번호:</b> 5<br> <b>거래담당자:</b> 오대성<br>
+										</div>
+										<!-- /.col -->
+									</div>
+									<!-- /.row -->
+
+									<!--------------본문 row------------->
+									<div class="row">
+										<div class="col-12 table-responsive">
+											<table class="table table-striped">
+												<thead>
+													<tr>
+														<th>번호</th>
+														<th>상품명</th>
+														<th>규격</th>
+														<th>수량</th>
+														<th>단가</th>
+														<th>공급가액</th>
+														<th>부가세</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>1</td>
+														<td>흙당근</td>
+														<td>10kg</td>
+														<td>30</td>
+														<td>100,000</td>
+														<td>94,900</td>
+														<td>5,100</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>주황당근</td>
+														<td>5kg</td>
+														<td>20</td>
+														<td>50,000</td>
+														<td>41,000</td>
+														<td>9,000</td>
+													</tr>
+													<tr>
+														<td>3</td>
+														<td>알감자</td>
+														<td>3kg</td>
+														<td>15</td>
+														<td>30,000</td>
+														<td>24,900</td>
+														<td>5,100</td>
+													</tr>
+													<tr>
+														<td>4</td>
+														<td>고당도딸기</td>
+														<td>1kg</td>
+														<td>10</td>
+														<td>10,000</td>
+														<td>9,490</td>
+														<td>510</td>
+													</tr>
+												</tbody>
+											</table>
+										</div>
+										<!-- /.col -->
+									</div>
+									<!-- /.row -->
+
+									<!------------하단-------------->
+									<div class="row">
+										<!-- accepted payments column -->
+										<div class="col-6">
+											<p class="lead">결제 방법</p>
+											<img src="../../dist/img/credit/visa.png" alt="Visa"> <img
+												src="../../dist/img/credit/mastercard.png" alt="Mastercard">
+											<img src="../../dist/img/credit/american-express.png"
+												alt="American Express"> <img
+												src="../../dist/img/credit/paypal2.png" alt="Paypal">
+
+											<p class="text-muted well well-sm shadow-none"
+												style="margin-top: 10px;">
+												<textarea class="form-control" rows="3" placeholder="참고사항"></textarea>
+											</p>
+										</div>
+										<!-- /.col -->
+										<div class="col-6">
+											<p class="lead">결제일:</p>
+											<p>2022-01-02</p>
+
+											<div class="table-responsive">
+												<table class="table">
+													<tbody>
+														<tr>
+															<th style="width: 50%">공급가액:</th>
+															<td>170,290원</td>
+														</tr>
+														<tr>
+															<th>부가세:</th>
+															<td>19,710원</td>
+														</tr>
+														<tr>
+															<th>합계:</th>
+															<td>190,000원</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>
+										</div>
+										<!-- /.col -->
+									</div>
+									<!-- /.row -->
+
+									<!-------------클릭 이벤트------------->
+									<div class="row no-print">
+										<div class="col-12">
+											<a href="#" rel="noopener" target="_blank"
+												class="btn btn-default"><i class="fas fa-print"></i>
+												Print</a>
+											<button type="button" class="btn btn-primary float-right"
+												style="margin-right: 5px;">
+												<i class="fas fa-download"></i> PDF
+											</button>
+										</div>
+									</div>
+								</div>
+							</div>
+							<!---------------버튼-------------->
+							<div class="modal-footer">
+								<a href="purchaseList"><button type="button"
+										class="btn btn-secondary">예</button></a>
+								<button type="button" class="btn btn-warning"
+									data-dismiss="modal">아니오</button>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			</section>
-	</th:block>
-	</html>
+			<!-- /.card -->
+		</div>
+	</section>
+</th:block>
+</html>
