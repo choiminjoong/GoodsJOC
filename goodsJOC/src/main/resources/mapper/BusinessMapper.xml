@@ -25,7 +25,6 @@
 		<result column="regDate"				property="regDate"/>
 	</resultMap>
 	
-	
 	<!--매장별 거래처리스트 조회 (최민중) => 거래처조회, 거래처선택모달Ajax  -->
 	<select id="getBusinessList" parameterType="String" resultMap="businessResultMap">
 		SELECT 
@@ -98,6 +97,34 @@
 			businessCode=#{businessCode}
 	</update>
 
+	
+	<!-- 거래처 조건검색(정도혜) -->
+	<select id="getBusinessListBySearchKey" resultType="Business">
+		SELECT 
+			b.businessCode,
+			b.businessName, 
+			b.partnerName, 
+			b.partnerPhone, 
+			b.registerNum, 
+			b.businessType, 
+			b.sectors, 
+			b.`status`, 
+			b.callNum, 
+			b.address, 
+			b.FAX, 
+			b.businessStaff, 
+			b.businessStaffPhone, 
+			b.businessStaffEmail, 
+			b.note
+		FROM 
+			tb_business AS b
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchValue != null and searchValue != ''.toString()">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			</if>
+		</trim>
+	</select>
+	
 	<!-- 거래처 등록(정도혜) -->	
 	<insert id="businessInsert" parameterType="Business">
 		INSERT INTO tb_business(
@@ -138,6 +165,4 @@
 			NOW()
 		);
 	</insert>
-	
-	
 </mapper>
