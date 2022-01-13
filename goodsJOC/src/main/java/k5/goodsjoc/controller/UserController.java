@@ -126,13 +126,15 @@ public class UserController {
    
    //사용자 검색
    @PostMapping("/userList")
-   public String getSearchUserList(
+   public String getSearchUserList(HttpServletRequest request,
           @RequestParam(value="searchKey", required = false) String searchKey,
          @RequestParam(value="searchValue", required = false) String searchValue,
          Model model){
       System.out.println(searchKey);
       System.out.println(searchValue);
-               
+      HttpSession session = request.getSession();
+      String sessionMartCode = (String) session.getAttribute("SMARTCODE");  
+      
       if(searchKey != null && "name".equals(searchKey)) {
          searchKey = "name";
       }else if(searchKey != null && "phone".equals(searchKey)) {
@@ -146,7 +148,7 @@ public class UserController {
       }
       // 검색키 검색어를 통해서 사용자목록 조회
          
-      List<User> userList = userService.getUserListBySearchKey(searchKey, searchValue);
+      List<User> userList = userService.getUserListBySearchKey(searchKey, searchValue, sessionMartCode);
       
       // 조회된 회원목록 model에 값을 저장
       model.addAttribute("title", "사원목록조회");

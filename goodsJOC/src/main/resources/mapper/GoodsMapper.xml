@@ -23,6 +23,7 @@
 		<result column="martCode" 			property="martCode" />
 		<result column="ID" 				property="id" />
 		<result column="regDate" 			property="regDate" />
+		<result column="deleteStatus" 		property="deleteStatus" />
 		
 		<association javaType="Business" 	property="business">
 			<id column="businessCode" 		property="businessCode"/>
@@ -37,6 +38,23 @@
 			<result column="name" 	property="name"/>
 		</association>
 	</resultMap> 
+	
+	<!-- 상품삭제 -->
+	<update id="deleteGoods">
+		UPDATE 
+			tb_goods AS a
+			,(SELECT
+					CONCAT('DEL', MAX(SUBSTRING(barcode,4))+1) AS delcode
+				FROM
+					tb_goods
+				WHERE
+					LEFT(barcode,3) = 'DEL') AS b
+		SET 
+			a.barcode = b.delcode
+			,a.deleteStatus ='Y'
+			,a.categoryCode = 0
+		WHERE a.barcode=#{barcode}
+	</update>
 	
 	<!-- 상품 등록 -->
 	<insert id="addGoodsAction" parameterType="Goods">
@@ -108,7 +126,7 @@
 			g.barcode, g.businessCode, g.categoryCode, g.goodsName, g.weight, g.unit
 			, g.maker, g.taxType, g.purchasePrice, g.salesPrice, g.margin, g.uncheckedQTY
 			, g.warehouseStock, g.showcaseStock, g.goodsTotalStock, g.martCode, g.ID,g.regDate
-			, c.categoryName, b.businessName, u.name	
+			, c.categoryName, b.businessName, u.name, g.deleteStatus	
 		FROM
 			tb_category AS c
 			INNER JOIN 
@@ -148,6 +166,7 @@
 			<if test="martCode != null and martCode != ''.toString()">
 				AND g.martCode = #{martCode}
 			</if>
+				AND g.deleteStatus = 'N'
 		</trim>	
 	</select>
 
@@ -156,7 +175,7 @@
 		SELECT
 			g.barcode, g.businessCode, g.categoryCode, g.goodsName, g.weight, g.unit, g.maker
 			, g.taxType, g.purchasePrice, g.salesPrice, g.margin, g.uncheckedQTY, g.warehouseStock
-			, g.showcaseStock, g.goodsTotalStock, g.martCode, g.ID, g.regDate
+			, g.showcaseStock, g.goodsTotalStock, g.martCode, g.ID, g.regDate, g.deleteStatus
 			, u.name, c.categoryName, b.businessName
 		FROM
 			tb_category AS c
@@ -173,7 +192,7 @@
 			ON 
 			g.ID = u.ID
 		WHERE
-			g.martCode = #{martCode}
+			g.martCode = #{martCode} AND g.deleteStatus = 'N'
 		ORDER BY
 			g.regDate ASC
 	</select> 

@@ -15,10 +15,11 @@
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 				<div class="float-right d-none d-sm-block">
-					<div >
+					<div style="word-spacing: 10px;">
 						<a class="joc-a1" th:href="@{/main}"><i class="fas fa-home"></i></a>
 						<th:block th:if="${session.SID != null}">
-							<a class="joc-a1" th:href="@{/system_management/user/logout}"><b>로그아웃</b></a>
+							<a class="joc-a1" th:href="@{/system_management/user/userInfo}"><b>마이페이지</b></a>
+							<a style="padding-right: 10px;" class="joc-a1" th:href="@{/system_management/user/logout}"><b>로그아웃</b></a>
 						</th:block>
 					</div>
 				</div>

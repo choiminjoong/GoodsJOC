@@ -72,6 +72,12 @@ public class GoodsController {
 		return checkResult;
 	}
 	
+	@GetMapping("/goodsDeleteAction")
+	public String goodsDeleteAction(@RequestParam(value="sendBarcode", required= false) String barcode) {
+		goodsService.deleteGoods(barcode);
+		
+		return "redirect:/product_management/goods/goodsList";
+	}
 	
 	//상품관리 내 상품카테고리 선택 모달 Ajax (최민중)
 	@PostMapping("/searchCategoryModal")
