@@ -39,10 +39,12 @@
 									<option value="sectors">업종</option>
 								</select>
 							</div>
-							<div class="input-group input-group-m" style="width: 550px;">
-								<input type="text" name="searchValue"
-									class="form-control float-right" placeholder="검색어를 입력해주세요.">
-							</div>
+							<form th:action="@{/basic_management/business/searchBusiness}" method="post">
+								<div class="input-group input-group-m" style="width: 550px;">
+									<input type="text" name="searchBusiness"
+										class="form-control float-right" placeholder="검색어를 입력해주세요.">
+								</div>
+							</form>
 						</div>
 
 					<!-- 주문일자검색 -->

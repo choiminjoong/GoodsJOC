@@ -24,6 +24,9 @@ public interface BusinessMapper {
 	//거래처 등록
 	public int businessInsert(Business business);
 	
+	//거래처 전체 검색(정도혜)
+	public List<Business> getsearchBusinessList(String searchBusiness, String martCode);
+	
 
 }
 

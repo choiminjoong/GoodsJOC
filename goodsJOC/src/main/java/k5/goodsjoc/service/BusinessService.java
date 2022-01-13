@@ -42,5 +42,12 @@ public class BusinessService {
 	public int businessInsert(Business business) {
 		return businessMapper.businessInsert(business);
 		}
+
+
+	//거래처 목록 검색
+	public List<Business> getsearchBusinessList(String searchBusiness, String MartCode) {
+		return businessMapper.getsearchBusinessList(searchBusiness, MartCode);
+	}
+
 	
 }
