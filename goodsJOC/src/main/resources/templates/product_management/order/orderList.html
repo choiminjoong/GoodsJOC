@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -55,19 +54,19 @@
 								<button type="button" class="btn btn-info">
 									<b>등록</b>
 								</button>
+								</div>
 							</div>
 						</div>
-					</div>
 
 						<!-- 주문상태검색 -->
 						<div class="form-group row">
 							<label class="col-sm-1 col-form-label">주문상태</label>
 							<div class="col-sm-2">
-								<select id="orderCode" class="form-control custom-select" name="searchState">
-									<option>:: 선택  ::</option>
-									<option value="state">승인</option>
-									<option value="">반려</option>
-									<option value="">진행중</option>
+								<select name="searchState" class="form-control custom-select" >
+									<option value="">:: 선택  ::</option>
+									<option value="승인">승인</option>
+									<option value="반려">반려</option>
+									<option value="진행중">진행중</option>
 								</select>
 							</div>
 
@@ -82,8 +81,8 @@
 							<div class="col-sm-2">
 								<input type="date" id="date" class="form-control">
 							</div>
-					</form>
-						</div>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

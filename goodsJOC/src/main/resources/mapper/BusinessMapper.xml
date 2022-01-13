@@ -77,8 +77,8 @@
 			<if test="address != null and address != ''.toString()">
 				,address = #{address}
 			</if>
-			<if test="FAX != null and FAX != ''.toString()">
-				,FAX = #{FAX}
+			<if test="fax != null and fax != ''.toString()">
+				,fax = #{FAX}
 			</if>
 			<if test="businessStaff != null and businessStaff != ''.toString()">
 				,businessStaff = #{businessStaff}

@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.SalesMapper">
+	<!-- Sales ResultMap (정도혜) -->
 	<resultMap type="Sales" id="salesResultMap">
 		<result column="salesCode" 				property="salesCode"/>
 		<result column="receiptNum" 			property="receiptNum"/>
@@ -15,6 +16,7 @@
 		<result column="canselDate" 			property="canselDate"/>
 	</resultMap>		
 	
+	<!-- Sales 전체조회 (정도혜) -->
 	<select id="getSalesList" parameterType="String" resultMap="salesResultMap">
 		SELECT 
 			salesCode, 

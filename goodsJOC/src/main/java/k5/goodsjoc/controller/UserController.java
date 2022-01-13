@@ -166,7 +166,7 @@ public class UserController {
        return "redirect:/system_management/user/userInfo";
     }
     
-     //직원관리 > 사원권한 수정화면 (정도혜)     
+     //직원관리 > 직원권한 수정화면 (정도혜)     
      @GetMapping("/userUpdate") 
      public String userUpdate(@RequestParam(value="id", required = false) String id, Model model) {
      System.out.println("페이지: 사원권한수정 ");
@@ -179,7 +179,7 @@ public class UserController {
      
      return "system_management/user/userUpdate";}
      
-     //직원관리 > 사원권한 수정 작업 (정도혜)
+     //직원관리 > 직원권한 수정 작업 (정도혜)
      @PostMapping("/userLevelUpdate") 
      public String userLevelUpdate(User user) 
      { System.out.println("페이지: 사원권한 수정 ");

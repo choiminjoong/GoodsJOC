@@ -31,14 +31,25 @@
 						<label class="col-sm-1 col-form-label">키워드검색</label>
 						<div class="col-sm-2">
 							<select id="orderCode" class="form-control custom-select">
-								<option>:: 선택  ::</option>
+								<option>:: 선택 ::</option>
 								<option value="receiptNum">영수증번호</option>
 								<option value="salesTotalPrice">매출액</option>
 							</select>
 						</div>
 						<div class="input-group input-group-m" style="width: 500px;">
-							<input type="text" name="table_search" style="margin-left: 3%" class="form-control float-right" placeholder="검색어를 입력해주세요.">
+							<input type="text" name="table_search" style="margin-left: 3%"
+								class="form-control float-right" placeholder="검색어를 입력해주세요.">
 							<div class="input-group-append"></div>
+						</div>
+						<div class="d-flex justify-content-center"style="margin: 0 10px 0 10px">
+							<button type="submit" class="btn btn-info">
+								<b>검색</b>
+							</button>
+						</div>
+						<div class="d-flex justify-content-center">
+							<button type="button" class="btn btn-info">
+								<b>등록</b>
+							</button>
 						</div>
 					</div>
 				</div>
@@ -55,28 +66,18 @@
 					<div class="col-sm-2">
 						<input type="date" id="date" class="form-control">
 					</div>
-				<!-- 취소여부 검색 -->
+					<!-- 취소여부 검색 -->
 					<label class="col-sm-1 col-form-label">취소 여부</label>
 					<div class="col-sm-2">
 						<select id="salesCode" class="form-control custom-select" name="searchState">
-							<option value="">취소</option>
-							<option value="">미취소</option>
+							<option value="canselCheck">취소</option>
+							<option value="canselCheck">미취소</option>
 						</select>
-					</div>	
-						<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">						
-								<button type="button" class="btn btn-info" >
-									<b>검색</b>
-								</button>
-						</div>	
-						<div class="d-flex justify-content-center">						
-							<button type="button" th:href="#{salesInsert}" class="btn btn-info">
-								<b>등록</b>
-							</button>
-						</div>	
-					</div>	
+					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 
 
 	<!-------------------매출 조회 폼--------------------->
@@ -99,8 +100,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr th:if="${not #lists.isEmpty(salesList)}"
-								th:each="l, i : ${salesList}">
+							<tr th:if="${not #lists.isEmpty(salesList)}" th:each="l, i : ${salesList}">
 								<td th:text="${i.index+1}"></td>
 								<td th:text="${l.receiptNum}"></td>
 								<td th:text="${l.salesTotalPrice}"></td>
@@ -109,10 +109,11 @@
 									<button type="button" class="btn btn-outline-primary btn-xs"
 										data-toggle="modal" data-target="#exampleModalCenter">영수증</button>
 								</td>
-								<td>
+								<td th:text="${l.canselCheck}"></td>
+								<!-- <td>
 									<button type="button" class="btn btn-outline-danger btn-xs"
 										data-toggle="modal" data-target="#exampleModalCenter1">취소</button>
-								</td>
+								</td> -->
 								<td th:text="${l.canselDate}"></td>
 							</tr>
 						</tbody>
@@ -134,6 +135,7 @@
 							<span aria-hidden="true">&times;</span>
 						</button>
 					</div>
+					
 					<!-- 영수증 기본상세내역  -->
 					<div class="modal-body">
 						<div class="invoice p-3 mb-3">
@@ -151,7 +153,8 @@
 									<i>영수증 : </i><a> 00001</a><br> <small>[ 발행일시: 2021-12-12 오전 8:41:09 ]</small>
 								</h4>
 							</div>
-							<!-- Table row -->
+							
+							<!-- 영수증 테이블-->
 							<div class="row">
 								<div class="col-12 table-responsive">
 									<table class="table table-striped" style="text-align: center;">
@@ -191,11 +194,9 @@
 										</tbody>
 									</table>
 								</div>
-								<!-- /.col -->
 							</div>
-							<!-- /.row -->
+							<!-- 영수증 하단  -->
 							<div class="row">
-								<!-- /.col -->
 								<div class="col-8">
 									<div class="table-responsive">
 										<table class="table">
@@ -217,7 +218,6 @@
 									</div>
 								</div>
 							</div>
-							<!-- /.col -->
 							<!-- 저장 & 프린트 버튼  -->
 							<div class="row no-print">
 								<div class="col-12">
@@ -243,18 +243,21 @@
 
 	<!-- 취소 Modal  -->
 	<div class="modal fade" id="exampleModalCenter1" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
 		<div class="modal-dialog modal-dialog-centered" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLongTitle">알림</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
 				<div class="modal-body">취소 하시겠습니까 ?</div>
 				<div class="modal-footer">
-					<a href="goodsCheck"><button type="button" class="btn btn-secondary">예</button></a>
+					<a href="goodsCheck"><button type="button"
+							class="btn btn-secondary">예</button></a>
 					<button type="button" class="btn btn-info" data-dismiss="modal">아니오</button>
 				</div>
 			</div>

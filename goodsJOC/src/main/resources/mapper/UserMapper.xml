@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.UserMapper">
+	<!-- user ResultMap (정도혜) -->
 	<!-- user innerjoin level resultMap(최민중)-->
 	<resultMap type="User" id="userResultMap">
 		<id column="ID"				property="id"/>
@@ -69,7 +70,7 @@
 			ID = #{ID};
 	</select>
 	
-
+	<!-- 거래처 조건 검색 (정도혜) -->
 	<select id="getUserListBySearchKey" resultMap="userResultMap">		 
 		SELECT 
 			u.name, 
@@ -88,6 +89,7 @@
 		</trim>
 	</select>
 	
+	<!-- 거래처 정보수정(정도혜) -->
 	<update id="userUpdateInfo" parameterType="User">
       UPDATE 
       	tb_user      
@@ -117,7 +119,8 @@
       WHERE 
          ID=#{id};
    </update>
-
+	
+	<!-- 거래처 권한수정 (정도혜) -->
 	<update id="updateUserLevel" parameterType="User">
 		UPDATE 
 			tb_user      

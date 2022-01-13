@@ -12,6 +12,7 @@ public class Sales {
 	private String canselDate;
 	private Goods goods;
 	
+	
 	public Goods getGoods() {
 		return goods;
 	}

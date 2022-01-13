@@ -1,7 +1,6 @@
 package k5.goodsjoc.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -40,7 +39,8 @@ public class BusinessController {
 		
 		return businessModal;
 	}
-
+	
+	//거래처관리 > 전체조회(정도혜)
 	@GetMapping("/businessList")
 	public String businessList(Model model, HttpServletRequest request) {
 		System.out.println("페이지: 거래처 관리 ");
@@ -107,7 +107,8 @@ public class BusinessController {
 			
 			return "redirect:/basic_management/business/businessList";
 		}
-		
+	
+	//거래처관리 > 거래처 수정화면(정도혜)
 	@GetMapping("/businessUpdate")
 	public String businessUpdate(@RequestParam(value="businessCode", required = false) String businessCode, Model model) {		
 		System.out.println("페이지: 거래처 수정 ");
