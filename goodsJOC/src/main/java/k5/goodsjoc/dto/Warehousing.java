@@ -8,9 +8,21 @@ public class Warehousing {
 	private String warehousingType;
 	private String note;
 	private String martCode;
-	private String ID;
+	private String id;
 	private String regDate;
 	
+	private Goods goods;
+	private Warehouse warehouse;
+	private Shelf shelf;
+	private User user;
+	
+	@Override
+	public String toString() {
+		return "Warehousing [warehousingCode=" + warehousingCode + ", barcode=" + barcode + ", shelfCode=" + shelfCode
+				+ ", warehousingQTY=" + warehousingQTY + ", warehousingType=" + warehousingType + ", note=" + note
+				+ ", martCode=" + martCode + ", id=" + id + ", regDate=" + regDate + ", goods=" + goods + ", warehouse="
+				+ warehouse + ", shelf=" + shelf + ", user=" + user + "]";
+	}
 	public String getWarehousingCode() {
 		return warehousingCode;
 	}
@@ -53,11 +65,11 @@ public class Warehousing {
 	public void setMartCode(String martCode) {
 		this.martCode = martCode;
 	}
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -65,12 +77,32 @@ public class Warehousing {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	@Override
-	public String toString() {
-		return "Warehousing [warehousingCode=" + warehousingCode + ", barcode=" + barcode + ", shelfCode=" + shelfCode
-				+ ", warehousingQTY=" + warehousingQTY + ", warehousingType=" + warehousingType + ", note=" + note
-				+ ", martCode=" + martCode + ", ID=" + ID + ", regDate=" + regDate + "]";
+	public Goods getGoods() {
+		return goods;
 	}
+	public void setGoods(Goods goods) {
+		this.goods = goods;
+	}
+	public Warehouse getWarehouse() {
+		return warehouse;
+	}
+	public void setWarehouse(Warehouse warehouse) {
+		this.warehouse = warehouse;
+	}
+	public Shelf getShelf() {
+		return shelf;
+	}
+	public void setShelf(Shelf shelf) {
+		this.shelf = shelf;
+	}
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
+	
 	
 	
 	
