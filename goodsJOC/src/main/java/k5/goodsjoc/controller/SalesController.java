@@ -41,6 +41,14 @@ public class SalesController {
 		
 		return "trade_management/sales/salesList";
 	}
+	
+	@GetMapping("/purchaseList1")
+	public String purchaseList1() {
+		System.out.println("페이지: 매출 조회");
+		System.out.println("경로: trade_management/sales/purchaseList1(GET방식 성공) ");
+		
+		return "trade_management/sales/purchaseList1";
+	}
 }
 
 	

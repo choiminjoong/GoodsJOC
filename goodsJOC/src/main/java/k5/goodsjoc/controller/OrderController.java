@@ -23,6 +23,15 @@ public class OrderController {
 		this.orderService = orderService;
 	}
 	
+	// 주문관리 > 주문등록 (정도혜)
+		@GetMapping("/orderInsert")
+		public String orderInsert() {
+			System.out.println("페이지: 주문 등록");
+			System.out.println("경로: product_management/order/orderInsert(GET방식 성공) ");
+			
+			return "product_management/order/orderInsert";
+		}
+		
 	// 주문관리 > 주문목록 (정도혜)
 	@GetMapping("/orderList")
 	public String orderList(Model model) {
