@@ -78,10 +78,14 @@
 						<!--   <input type="button" onclick="kakaopost" class="form-control" value="우편번호찾기" style="text-align: left;"> -->
 
 						<!-- 등록버튼  -->
-						<a th:href="@{/system_management/user/loginForm}" class="btn btn-m bg-warning btn-block"><b>등록</b></a>
-						<a th:href="@{/system_management/user/userList}" style="margin-left: 5px" class="btn btn-danger">
-							<b>닫기</b>
-						</a>
+						<div class="d-flex justify-content-center" style="margin: 0cm 0cm 1cm 16cm">
+							<button type="submit" class="btn btn-m bg-warning btn-block">
+								<b>등록</b>
+							</button>
+							<a th:href="@{/system_management/user/loginForm}" style="margin-left: 5px" class="btn btn-danger">
+								<b>닫기</b>
+							</a>
+						</div>
 					</div>
 				</div>
 			</div>

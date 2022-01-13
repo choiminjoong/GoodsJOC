@@ -25,7 +25,6 @@
 		<result column="regDate"				property="regDate"/>
 	</resultMap>
 	
-	
 	<!--매장별 거래처리스트 조회 (최민중) => 거래처조회, 거래처선택모달Ajax  -->
 	<select id="getBusinessList" parameterType="String" resultMap="businessResultMap">
 		SELECT 
@@ -118,15 +117,9 @@
 			b.note
 		FROM 
 			tb_business AS b
-		<trim prefix="WHERE" prefixOverrides="AND |OR">
-			<if test="searchKey != 'all'.toString() AND searchBusiness != null and searchBusiness != ''.toString()">
-				AND ${searchKey} LIKE CONCAT('%', #{searchBusiness}, '%')
-			</if>
-			<if test="searchKey == 'all'.toString()" >
-				AND b.businessType LIKE CONCAT('%', #{searchBusiness}, '%')
-				OR b.businessNmae LIKE CONCAT('%', #{searchBusiness}, '%')
-				OR b.partnerName LIKE CONCAT('%', #{searchBusiness}, '%')
-				OR b.sectors LIKE CONCAT('%', #{searchBusiness}, '%')				
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchValue != null and searchValue != ''.toString()">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
 			</if>
 		</trim>
 	</select>
@@ -171,6 +164,4 @@
 		NOW()
 	);
 	</insert>
-	
-	
 </mapper>
