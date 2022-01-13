@@ -131,7 +131,7 @@ public class BusinessController {
 		
 		businessService.updateBusinessInfo(business);
 		
-		return "redirect:/basic_management/business/business";
+		return "redirect:/basic_management/business/businessList";
 	}	
 	
 }
