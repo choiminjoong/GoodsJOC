@@ -39,6 +39,8 @@ public interface GoodsMapper {
 	public int goodsCheckByBarcode(String barcode);
 	//상품카테고리 조건검색
 	public List<GoodsCate> getSearchGoodsCateList(String searchCate, String martCode);
+	//상품 등록
 	public int addGoodsAction(Goods goods);
-
+	//상품삭제
+	public int deleteGoods(String barcode);
 }
