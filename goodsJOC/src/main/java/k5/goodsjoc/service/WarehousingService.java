@@ -18,12 +18,18 @@ public class WarehousingService {
 		this.warehousingMapper = warehousingMapper;
 	}
 	
+	
 	public int warehousingInsert(Warehousing warehousing) {
 		return warehousingMapper.warehousingInsert(warehousing);
 	}
 	
-	public List<Warehousing> getWarehousingList(){
-	      return warehousingMapper.getWarehousingList();
+	//입고 조회 (오대성)
+	public List<Warehousing> getWarehousingList(String martCode){
+	      return warehousingMapper.getWarehousingList(martCode);
 
 	}
+	//입고 검색(오대성)
+	  public List<Warehousing> getWarehousingBySearchKey(String searchKey, String searchValue, String martCode) {
+			return warehousingMapper.getWarehousingBySearchKey(searchKey, searchValue, martCode);
+		}
 }
