@@ -128,6 +128,16 @@ public class Business {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+	@Override
+	public String toString() {
+		return "Business [businessCode=" + businessCode + ", businessName=" + businessName + ", partnerName="
+				+ partnerName + ", partnerPhone=" + partnerPhone + ", registerNum=" + registerNum + ", businessType="
+				+ businessType + ", sectors=" + sectors + ", status=" + status + ", callNum=" + callNum + ", address="
+				+ address + ", fax=" + fax + ", businessStaff=" + businessStaff + ", businessStaffPhone="
+				+ businessStaffPhone + ", businessStaffEmail=" + businessStaffEmail + ", note=" + note + ", martCode="
+				+ martCode + ", id=" + id + ", regDate=" + regDate + "]";
+	}
+	
 
 
 }
