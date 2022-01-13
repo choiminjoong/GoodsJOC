@@ -39,43 +39,38 @@
 									<option value="sectors">업종</option>
 								</select>
 							</div>
-								<div class="input-group input-group-m" style="width: 550px;">
-									<input type="text" name="searchBusiness"
-										class="form-control float-right" placeholder="검색어를 입력해주세요.">
-								</div>
+							<div class="input-group input-group-m" style="width: 550px;">
+								<input type="text" name="searchBusiness"
+									class="form-control float-right" placeholder="검색어를 입력해주세요.">
 							</div>
-						</form>
-					</div>
+						</div>
 
-					<!-- 주문일자검색 -->
-					<div class="form-group row">
-						<label class="col-sm-1 col-form-label">일자검색</label>
-						<div class="col-sm-3">
-							<input type="date" id="date" class="form-control">	
-						</div>
-							<th:block> <b>~</b> </th:block>
-						<div class="col-sm-3">
-							<input type="date" id="date" class="form-control">
-						</div>
-						
+						<!-- 주문일자검색 -->
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">일자검색</label>
+							<div class="col-sm-3">
+								<input type="date" id="date" class="form-control">	
+							</div>
+								<th:block> <b>~</b> </th:block>
+							<div class="col-sm-3">
+								<input type="date" id="date" class="form-control">
+							</div>
 							<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">
 								<button type="submit" class="btn btn-info">
 									<b>검색</b>
 								</button>
 							</div>	
 							<a th:href="@{/basic_management/business/businessInsert}">
-							<button type="button" class="btn btn-info">
-								<b>등록</b>
-							</button>
+								<button type="button" class="btn btn-info">
+									<b>등록</b>
+								</button>
 							</a>
-						</div>	
-					</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
-	
-
-
+	</div>
 
 	<!-- 거래처 리스트 화면 -->
 	<div class="col-md-13" style="margin-top: 1%">

@@ -134,24 +134,5 @@ public class BusinessController {
 		return "redirect:/basic_management/business/business";
 	}	
 	
-	// 거래처관리 거래처 통합검색(정도혜)
-		@PostMapping("/searchBusiness")
-		public String searchBusiness(HttpServletRequest request, Model model,
-				@RequestParam(value="searchBusiness", required=false)String searchBusiness,
-				@RequestParam(value="searchKey", required=false)String searchKey) {
-			System.out.println("화면에서 받은 판매진열대 조건 입력값 : " + searchBusiness);
-			System.out.println("화면에서 받은 판매진열대 조건 입력값 : " + searchKey);
-			
-			HttpSession session = request.getSession();
-			String sessionMartCode = (String) session.getAttribute("SMARTCODE");
-			
-			List<Business> businessList = businessService.getsearchBusinessList(searchBusiness, searchKey, sessionMartCode);
-			model.addAttribute("businessList", businessList);
-			System.out.println("model에 담긴 businessList: " + businessList);
-			
-			
-			return "basic_management/business/business";
-		}
-	
 }
 
