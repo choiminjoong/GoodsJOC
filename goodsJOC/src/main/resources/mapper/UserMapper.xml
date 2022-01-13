@@ -92,7 +92,7 @@
 			</if>
 		</trim>
 		WHERE u.martCode = #{martCode} AND u.deleteStatus = 'N' AND 5 > u.levelNum
-		ORDER BY u.levelNum;
+		ORDER BY u.levelNum
 	</select>
 	
 	<update id="userUpdateInfo" parameterType="User">
