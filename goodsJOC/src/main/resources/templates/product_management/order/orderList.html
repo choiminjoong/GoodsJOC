@@ -56,7 +56,6 @@
 								</button>
 								</div>
 							</div>
-						</div>
 
 						<!-- 주문상태검색 -->
 						<div class="form-group row">
@@ -81,8 +80,8 @@
 							<div class="col-sm-2">
 								<input type="date" id="date" class="form-control">
 							</div>
-						</form>
-					</div>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -115,13 +114,15 @@
 							<td th:text="${l.business.getBusinessName()}"></td>
 							<td th:text="${l.orderNum}"></td>
 							<td th:text="${l.deliveryDate}"></td>
-							<td th:text="${l.state}"></td>
+							<td class="state-color" th:text="${l.state}"></td>
 							<td th:text="${l.purchaseDate}"></td>
 							<td th:text="${l.martCode}"></td>
 							<td>
-								<button type="button" class="btn btn-outline-secondary btn-xs">
-										<a th:href="@{/product_management/order/orderDetail}">주문서 상세보기</a>
-								</button>
+								<a th:href="@{/product_management/order/orderDetail}">
+									<button type="button" class="btn btn-outline-secondary btn-xs">
+										주문서 상세보기
+									</button>
+								</a>
 							</td>
 						</tr>
 					</tbody>
@@ -131,6 +132,22 @@
 		</div>
 	</div>
 </th:block>
+<th:block layout:fragment="customJs">
+	
+	<script type="text/javascript">
+		$(function(){
+			var stateGroup = $('.state-color');
+			for(var i=0; i<stateGroup.length; i++){
+				if($(stateGroup[i]).text() == '반려'){
+					$(stateGroup[i]).css('color','red');
+				}else if($(stateGroup[i]).text() == '승인'){
+					$(stateGroup[i]).css('color','blue');
+				}else{
+					$(stateGroup[i]).css('color','green');
+				}
+			}
+		});
+	</script>
+
+</th:block>
 </html>
-
-

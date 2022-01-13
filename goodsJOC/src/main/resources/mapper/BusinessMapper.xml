@@ -25,23 +25,6 @@
 		<result column="regDate"				property="regDate"/>
 	</resultMap>
 	
-	<resultMap type="Business" id="businessResultMap">
-		<result column="businessCode" 		property="businessCode"/>
-		<result column="businessName" 		property="businessName"/>
-		<result column="partnerName" 		property="partnerName"/>
-		<result column="partnerPhone" 		property="partnerPhone"/>
-		<result column="registerNum" 		property="registerNum"/>
-		<result column="businessType" 		property="businessType"/>
-		<result column="sectors" 			property="sectors"/>
-		<result column="status" 			property="status"/>
-		<result column="callNum" 			property="callNum"/>
-		<result column="address" 			property="address"/>
-		<result column="FAX" 				property="FAX"/>
-		<result column="businessStaff" 		property="businessStaff"/>
-		<result column="businessStaffPhone" property="businessStaffPhone"/>
-	
-	
-	</resultMap>
 	
 	<!--매장별 거래처리스트 조회 (최민중) => 거래처조회, 거래처선택모달Ajax  -->
 	<select id="getBusinessList" parameterType="String" resultMap="businessResultMap">
@@ -135,9 +118,15 @@
 			b.note
 		FROM 
 			tb_business AS b
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="searchValue != null and searchValue != ''.toString()">
-				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+		<trim prefix="WHERE" prefixOverrides="AND |OR">
+			<if test="searchKey != 'all'.toString() AND searchBusiness != null and searchBusiness != ''.toString()">
+				AND ${searchKey} LIKE CONCAT('%', #{searchBusiness}, '%')
+			</if>
+			<if test="searchKey == 'all'.toString()" >
+				AND b.businessType LIKE CONCAT('%', #{searchBusiness}, '%')
+				OR b.businessNmae LIKE CONCAT('%', #{searchBusiness}, '%')
+				OR b.partnerName LIKE CONCAT('%', #{searchBusiness}, '%')
+				OR b.sectors LIKE CONCAT('%', #{searchBusiness}, '%')				
 			</if>
 		</trim>
 	</select>
@@ -182,5 +171,6 @@
 		NOW()
 	);
 	</insert>
+	
 	
 </mapper>

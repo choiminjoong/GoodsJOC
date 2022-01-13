@@ -45,8 +45,8 @@ public class BusinessService {
 
 
 	//거래처 목록 검색
-	public List<Business> getsearchBusinessList(String searchBusiness, String MartCode) {
-		return businessMapper.getsearchBusinessList(searchBusiness, MartCode);
+	public List<Business> getsearchBusinessList(String searchBusiness,String searchKey, String MartCode) {
+		return businessMapper.getsearchBusinessList(searchBusiness,searchKey, MartCode);
 	}
 
 	

@@ -25,27 +25,27 @@
 				</h3>
 			</div>
 			<div class="card-body">
-			<form th:action="@{/basic_management/business/businessList}" method="post">
 				<div class="tab-content" id="custom-tabs-two-tabContent">
 					<!-- 주문검색 -->
-					<div class="form-group row">
-						<label class="col-sm-1 col-form-label">키워드검색</label>
+					<form th:action="@{/basic_management/business/searchBusiness}" method="post">
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">키워드검색</label>
 							<div class="col-sm-2">
 								<select name="searchKey" class="form-control custom-select">
-									<option>:: 선택  ::</option>
+									<option value="all">:: 선택  ::</option>
 									<option value="businessType">구분</option>
 									<option value="businessName">거래처명</option>
 									<option value="partnerName">대표자</option>
 									<option value="sectors">업종</option>
 								</select>
 							</div>
-							<form th:action="@{/basic_management/business/searchBusiness}" method="post">
 								<div class="input-group input-group-m" style="width: 550px;">
 									<input type="text" name="searchBusiness"
 										class="form-control float-right" placeholder="검색어를 입력해주세요.">
 								</div>
-							</form>
-						</div>
+							</div>
+						</form>
+					</div>
 
 					<!-- 주문일자검색 -->
 					<div class="form-group row">
@@ -70,11 +70,10 @@
 							</a>
 						</div>	
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
-	</div>
-
+	
 
 
 
