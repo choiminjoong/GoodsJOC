@@ -109,7 +109,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${not #lists.isEmpty(orderList)}" th:each="l : ${orderList}">
+						<tr th:if="${not #lists.isEmpty(orderList)}" th:each="l, i: ${orderList}">
 							<td th:text="${l.orderCode}"></td>
 							<td th:text="${l.business.getBusinessName()}"></td>
 							<td th:text="${l.orderNum}"></td>

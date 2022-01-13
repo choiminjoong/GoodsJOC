@@ -42,18 +42,12 @@
 	<!-- 상품삭제 -->
 	<update id="deleteGoods">
 		UPDATE 
-			tb_goods AS a
-			,(SELECT
-					CONCAT('DEL', MAX(SUBSTRING(barcode,4))+1) AS delcode
-				FROM
-					tb_goods
-				WHERE
-					LEFT(barcode,3) = 'DEL') AS b
+			tb_goods
 		SET 
-			a.barcode = b.delcode
-			,a.deleteStatus ='Y'
-			,a.categoryCode = 0
-		WHERE a.barcode=#{barcode}
+			deleteStatus ='Y'
+			,categoryCode = 0
+		WHERE 
+			barcode = #{barcode}
 	</update>
 	
 	<!-- 상품 등록 -->
@@ -318,7 +312,7 @@
 		FROM
 			tb_category
 		WHERE
-			martCode = #{martCode}
+			martCode = #{martCode} AND categoryCode > 0
 			<if test="searchCate != null and searchCate != ''.toString()">
 				AND categoryName LIKE CONCAT('%', #{searchCate}, '%')
 			</if>
@@ -331,7 +325,7 @@
 		FROM
 			tb_category
 		WHERE
-			martCode = #{martCode}
+			martCode = #{martCode} AND categoryCode > 0
 	</select>
 
 	<!-- 상품카테고리 조회화면(최민중) -->
@@ -341,6 +335,6 @@
 		FROM 
 			tb_category
 		WHERE
-			martCode = #{martCode}
+			martCode = #{martCode} AND categoryCode >0
 	</select>
 </mapper>

@@ -97,79 +97,46 @@
 		WHERE 
 			businessCode=#{businessCode}
 	</update>
-	
-	<!-- 거래처 조건검색(정도혜) -->
-	<select id="getBusinessListBySearchKey" resultType="Business">
-		SELECT 
-			b.businessCode,
-			b.businessName, 
-			b.partnerName, 
-			b.partnerPhone, 
-			b.registerNum, 
-			b.businessType, 
-			b.sectors, 
-			b.`status`, 
-			b.callNum, 
-			b.address, 
-			b.FAX, 
-			b.businessStaff, 
-			b.businessStaffPhone, 
-			b.businessStaffEmail, 
-			b.note
-		FROM 
-			tb_business AS b
-		<trim prefix="WHERE" prefixOverrides="AND |OR">
-			<if test="searchKey != 'all'.toString() AND searchBusiness != null and searchBusiness != ''.toString()">
-				AND ${searchKey} LIKE CONCAT('%', #{searchBusiness}, '%')
-			</if>
-			<if test="searchKey == 'all'.toString()" >
-				AND b.businessType LIKE CONCAT('%', #{searchBusiness}, '%')
-				OR b.businessNmae LIKE CONCAT('%', #{searchBusiness}, '%')
-				OR b.partnerName LIKE CONCAT('%', #{searchBusiness}, '%')
-				OR b.sectors LIKE CONCAT('%', #{searchBusiness}, '%')				
-			</if>
-		</trim>
-	</select>
-	
+
 	<!-- 거래처 등록(정도혜) -->	
 	<insert id="businessInsert" parameterType="Business">
-	INSERT INTO tb_business(
-		businessName,
-		partnerName,
-		partnerPhone, 
-		registerNum,
-		businessType,
-		sectors,
-		`status`,
-		callNum,
-		address,
-		FAX,
-		businessStaff,
-		businessStaffPhone,
-		businessStaffEmail,
-		note,
-		martCode,
-		ID,
-		regDate
-	)VALUES (
-		#{businessName},
-		#{partnerName},
-		#{partnerPhone},
-		#{registerNum},
-		#{businessType},
-		#{sectors},
-		#{status},
-		#{callNum},
-		#{address},
-		#{fax},
-		#{businessStaff},
-		#{businessStaffPhone},
-		#{businessStaffEmail},
-		#{note},
-		#{martCode},
-		#{id},
-		NOW()
-	);
+		INSERT INTO tb_business(
+			businessName,
+			partnerName,
+			partnerPhone, 
+			registerNum,
+			businessType,
+			sectors,
+			`status`,
+			callNum,
+			address,
+			FAX,
+			businessStaff,
+			businessStaffPhone,
+			businessStaffEmail,
+			note,
+			martCode,
+			ID,
+			regDate
+		)VALUES (
+			#{businessName},
+			#{partnerName},
+			#{partnerPhone},
+			#{registerNum},
+			#{businessType},
+			#{sectors},
+			#{status},
+			#{callNum},
+			#{address},
+			#{fax},
+			#{businessStaff},
+			#{businessStaffPhone},
+			#{businessStaffEmail},
+			#{note},
+			#{martCode},
+			#{id},
+			NOW()
+		);
 	</insert>
 	
 	

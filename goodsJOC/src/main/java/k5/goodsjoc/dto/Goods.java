@@ -21,16 +21,16 @@ public class Goods {
 	private String regDate;
 	private String deleteStatus;
 
+	private Business business;
+	private GoodsCate goodsCate;
+	private User user;
+
 	public String getDeleteStatus() {
 		return deleteStatus;
 	}
 	public void setDeleteStatus(String deleteStatus) {
 		this.deleteStatus = deleteStatus;
 	}
-	private Business business;
-	private GoodsCate goodsCate;
-	private User user;
-
 	@Override
 	public String toString() {
 		return "Goods [barcode=" + barcode + ", businessCode=" + businessCode + ", categoryCode=" + categoryCode
