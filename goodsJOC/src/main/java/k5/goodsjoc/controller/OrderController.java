@@ -23,15 +23,6 @@ public class OrderController {
 		this.orderService = orderService;
 	}
 	
-	// 주문관리 > 주문등록 (정도혜)
-	@GetMapping("/orderInsert")
-	public String orderInsert() {
-		System.out.println("페이지: 주문 등록");
-		System.out.println("경로: product_management/order/orderInsert(GET방식 성공) ");
-		
-		return "product_management/order/orderInsert";
-	}
-	
 	// 주문관리 > 주문목록 (정도혜)
 	@GetMapping("/orderList")
 	public String orderList(Model model) {
@@ -55,35 +46,35 @@ public class OrderController {
 		
 		return "product_management/order/orderDetail";
 	}
-	
-		//주문관리 > 주문 검색 (정도혜)
-		@PostMapping("/orderList")
-		public String getSearchOrderList(
-				@RequestParam(value="searchKey", required = false) String searchKey,
-				@RequestParam(value="searchValue", required = false) String searchValue,
-				@RequestParam(value="searchState", required=false) String searchState,
-				Model model){
-			System.out.println(searchKey);
-			System.out.println(searchValue);
-			System.out.println(searchState);
-						
-			if(searchKey != null && "orderNum".equals(searchKey)) {
-				searchKey = "orderNum";
-			}else if(searchKey != null && "businessName".equals(searchKey)) {
-				searchKey = "businessName";	
-			}else if(searchState != null && "state".equals(searchState)) {
-				searchState = "state";	
-			}else  {
-				searchKey = "deliveryDate";
-			}
-			// 검색키 검색어를 통해서 사용자목록 조회
-				
-			List<Order> orderList = orderService.getOrderListBySearchKey(searchKey, searchValue);
+
+	//주문관리 > 주문 검색 (정도혜)
+	@PostMapping("/orderList")
+	public String getSearchOrderList(
+			@RequestParam(value="searchKey", required = false) String searchKey,
+			@RequestParam(value="searchValue", required = false) String searchValue,
+			@RequestParam(value="State", required=false) String State,
+			Model model){
+		System.out.println(searchKey);
+		System.out.println(searchValue);
+		System.out.println(State);
+					
+		if(searchKey != null && "orderNum".equals(searchKey)) {
+			searchKey = "orderNum";
+		}else if(searchKey != null && "businessName".equals(searchKey)) {
+			searchKey = "businessName";	
+		}else  {
+			searchKey = "deliveryDate";
+		}
+		// 검색키 검색어를 통해서 사용자목록 조회
 			
-			// 조회된 회원목록 model에 값을 저장
-			model.addAttribute("title", "주문목록조회");
-			model.addAttribute("orderList", orderList);
-				
-			return "product_management/order/orderList";
-			}
+		List<Order> orderList = orderService.getOrderListBySearchKey(searchKey, searchValue);
+		
+		// 조회된 회원목록 model에 값을 저장
+		model.addAttribute("title", "주문목록조회");
+		model.addAttribute("orderList", orderList);
+			
+		return "product_management/order/orderList";
+		}
+	
+	
 	}

@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.OrderMapper">
+	<!-- Order ResultMap (정도혜) -->
 	<resultMap type="Order" id="OrderResultMap">	
 		<id column="orderCode" 					property="orderCode"/>
 		<result column="businessCode" 			property="businessCode"/>
@@ -20,7 +21,7 @@
 		</association>		
 	</resultMap>
 	
-
+	<!-- 주문 전체조회(정도혜) -->
 	<select id="getOrderList" parameterType="String" resultMap="OrderResultMap">
 	SELECT 
 		o.orderCode, 
@@ -40,7 +41,7 @@
 	
 	</select>
 	
-	
+	<!-- 주문 조건검색(정도혜) -->
 	<select id="getOrderListBySearchKey" resultMap="OrderResultMap">		 
 	SELECT 
 		o.orderCode, 
@@ -66,5 +67,5 @@
 		</trim>
 	</select>
 	
-
-</mapper>
+	
+	</mapper>
