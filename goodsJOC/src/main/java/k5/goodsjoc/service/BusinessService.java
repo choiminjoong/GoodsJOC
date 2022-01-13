@@ -42,6 +42,4 @@ public class BusinessService {
 	public int businessInsert(Business business) {
 		return businessMapper.businessInsert(business);
 		}
-
-	
 }
