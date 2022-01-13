@@ -70,6 +70,39 @@
 			martCode = #{martCode}
 	</select>
 	
+	<!-- 창고 검색 목록(오대성) -->
+	<select id="getSearchWarehouseList" resultMap="shelfResultMap" resultType="Warehouse">
+		SELECT 
+			w.warehouseName,
+			w.warehouseType,
+			s.shelfName
+		FROM 
+			tb_shelf AS s
+		INNER JOIN 
+			tb_warehouse AS w
+		ON 
+			s.warehouseCode = w.warehouseCode
+		WHERE
+			s.martCode = #{martCode}
+			<if test="searchWarehouse != null and searchWarehouse != ''.toString()">
+				AND(s.shelfName LIKE CONCAT('%', #{searchWarehouse}, '%') 
+				OR w.warehouseName LIKE CONCAT('%', #{searchWarehouse}, '%') 
+				OR w.warehouseType LIKE CONCAT('%', #{searchWarehouse}, '%'))
+			</if>
+	</select>
+	<!-- 판매진열대 검색(오대성) -->
+	<select id="getSearchShowcaseList" resultMap="showcaseResultMap" resultType="Showcase">
+		SELECT  
+			s.showcasePlace
+		FROM 
+			tb_showcase AS s
+		WHERE
+			s.martCode = #{martCode}
+			<if test="searchShowcase != null and searchShowcase != ''.toString()">
+				AND(s.showcasePlace LIKE CONCAT('%', #{searchShowcase}, '%'))
+			</if>
+	</select>
+	
 	<insert id="warehouseInsert" parameterType="Warehouse">
 		INSERT INTO tb_warehouse(
 			warehouseName 

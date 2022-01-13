@@ -1,6 +1,8 @@
 package k5.goodsjoc.service;
 
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +20,10 @@ public class WarehousingService {
 	
 	public int warehousingInsert(Warehousing warehousing) {
 		return warehousingMapper.warehousingInsert(warehousing);
-		
 	}
-
 	
+	public List<Warehousing> getWarehousingList(){
+	      return warehousingMapper.getWarehousingList();
+
+	}
 }

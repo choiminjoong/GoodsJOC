@@ -28,8 +28,8 @@ public class UserService {
 	}
 
 	// 사용자 조건 검색
-	public List<User> getUserListBySearchKey(String searchKey, String searchValue) {
-		return userMapper.getUserListBySearchKey(searchKey, searchValue);
+	public List<User> getUserListBySearchKey(String searchKey, String searchValue, String martCode) {
+		return userMapper.getUserListBySearchKey(searchKey, searchValue, martCode);
 
 	}
 

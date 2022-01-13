@@ -86,5 +86,11 @@ public class GoodsService {
 	public int addGoodsAction(Goods goods) {
 		return goodsMapper.addGoodsAction(goods);
 	}
+
+
+
+	public int deleteGoods(String barcode) {
+		return goodsMapper.deleteGoods(barcode);
+	}
 }
 

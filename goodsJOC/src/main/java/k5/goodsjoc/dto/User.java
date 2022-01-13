@@ -12,7 +12,14 @@ public class User {
 	private String martCode;
 	private String levelNum;
 	private String regDate;
+	private String deleteStatus;
 
+	public String getDeleteStatus() {
+		return deleteStatus;
+	}
+	public void setDeleteStatus(String deleteStatus) {
+		this.deleteStatus = deleteStatus;
+	}
 	private Level level;
 	private Mart mart;
 

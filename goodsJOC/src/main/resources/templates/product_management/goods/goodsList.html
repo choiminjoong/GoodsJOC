@@ -127,7 +127,7 @@
 						<td th:text="${i.index+1}"></td>
 						<td th:text="${l.goodsCate.getCategoryName()}">카테고리</td>
 						<td th:text="${l.goodsName}">상품명</td>
-						<td th:text="${l.barcode}">바코드</td>
+						<td class="codePick" th:text="${l.barcode}"></td>
 						<td th:text="${l.business.getBusinessName()}">매입처</td>
 						<td th:text="${l.taxType}"></td>
 						<td th:text="${l.goodsTotalStock}">재고량</td>
@@ -142,9 +142,9 @@
 								<a th:href="@{/product_management/goods/goodsPriceList(barcode=${l.barcode})}" class="btn btn-info">
 									<i class="fas fa-won-sign"></i>
 								</a>
-								<a href="#" class="btn btn-danger">
+								<button type="button" id="goodsDeleteBtn" class="btn btn-danger" data-barcode="${l.barcode}" data-toggle="modal" data-target="#del-modal">
 									<i class="fas fa-trash"></i>
-								</a>
+								</button>
 							</div>
 						</td>
 					</tr>
@@ -152,6 +152,47 @@
 			</table>
 		</div>
 		<!-- /.card-body -->
+	</div>
+
+	<!-- 삭제확인 모달  -->
+	<div class="modal fade" id="del-modal" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-danger">
+					<h4 class="modal-title">경고</h4>
+				</div>
+				<div class="modal-body">
+					<form id="deleteForm" th:action="@{/product_management/goods/goodsDeleteAction}" method="get">
+						<div style="height:100px;">
+							<div>
+								<span>삭제시 데이터를 다시 되돌릴 수 없습니다.</span>
+							</div>
+							<div>
+								<span>정말 삭제하시겠습니까?</span>
+							</div>
+						</div>
+						<div style="display:none">
+							<input type="text" id="sendBarcode" name="sendBarcode">
+						</div>
+						<div class="row">
+							<div class="col-2"></div>
+							<div class="col-3">
+								<button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">취소</span>
+								</button>
+							</div>
+							<div class="col-2"></div>
+							<div class="col-3">
+								<button type="button" id="realDelete" class="btn btn-danger btn-block">
+									삭제하기
+								</button>
+							</div>
+							<div class="col-2"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
 	</div>
 
 	<!-- 카테고리 검색 모달  -->
@@ -194,6 +235,19 @@
 	
 	<script type="text/javascript">
 		$(function(){
+			//삭제버튼 클릭시 모달에 바코드 보내기
+			$(document).on('click', '#goodsDeleteBtn', function(){
+				var codePick = $(this).parent().parent().parent().children('.codePick').text();
+				$('#sendBarcode').val(codePick);
+			});
+			
+			//삭제하기
+			$(document).on('click', '#realDelete', function(){
+				alert('선택한 상품이 삭제되었습니다.');
+				$('#deleteForm').submit();
+			});
+			
+			//카테고리선택하기
 			$(document).on('click', '.catePickBtn', function(){
 				var cateCodePick = $(this).attr('data-categoryCode');
 				var cateNamePick = $(this).attr('data-categoryName');
@@ -202,7 +256,7 @@
 				$('#cateCodeInput').val(cateCodePick);
 				$('#cateNameInput').val(cateNamePick);
 			});
-			
+			//카테고리리스트 가져오기Ajax
 			$(document).on('click', '#searchCategoryBtn', function(){
 				var aLengthMenuArray = [];
 				aLengthMenuArray.push([5,10]);

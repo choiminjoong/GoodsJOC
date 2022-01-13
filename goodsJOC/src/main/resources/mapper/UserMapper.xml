@@ -6,24 +6,24 @@
 	<!-- user ResultMap (정도혜) -->
 	<!-- user innerjoin level resultMap(최민중)-->
 	<resultMap type="User" id="userResultMap">
-		<id column="ID"				property="id"/>
-		<result column="PW"			property="pw"/>
-		<result column="name"		property="name"/>
-		<result column="birthday"	property="birthday"/>
-		<result column="phone"		property="phone"/>
-		<result column="email"		property="email"/>
-		<result column="address"	property="address"/>
-		<result column="martCode"	property="martCode"/>
-		<result column="levelNum"	property="levelNum"/>
-		<result column="regDate"	property="regDate"/>		
+		<id column="ID"					property="id"/>
+		<result column="PW"				property="pw"/>
+		<result column="name"			property="name"/>
+		<result column="birthday"		property="birthday"/>
+		<result column="phone"			property="phone"/>
+		<result column="email"			property="email"/>
+		<result column="address"		property="address"/>
+		<result column="martCode"		property="martCode"/>
+		<result column="levelNum"		property="levelNum"/>
+		<result column="regDate"		property="regDate"/>		
+		<result column="deleteStatus"	property="deleteStatus"/>		
 		
-		<association javaType="Level" property="level">
-			<id column="levelNum"	property="levelNum"/>
+		<association javaType="Level" 	property="level">
+			<id column="levelNum"		property="levelNum"/>
 			<result column="levelName"	property="levelName" />
 		</association>
-
-		<association javaType="Mart" property="mart">
-			<id column="martCode"	property="martCode"/>
+		<association javaType="Mart" 	property="mart">
+			<id column="martCode"		property="martCode"/>
 			<result column="martName"	property="martName" />		
 		</association>
 	</resultMap>
@@ -46,7 +46,7 @@
 			ON
 			u.levelNum = l.levelNum
 		WHERE
-			martCode= #{martCode}
+			martCode= #{martCode} AND u.deleteStatus = 'N'
 		ORDER BY
 			u.levelNum ASC;
 	</select>
@@ -79,14 +79,21 @@
 			u.email,
 			u.address,
 			u.martCode, 
-			u.levelNum
+			u.levelNum,
+			l.levelName
 		FROM 
 			tb_user AS u
+			INNER JOIN
+			tb_systemLevel AS l
+			ON
+			u.levelNum = l.levelNum
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="searchValue != null and searchValue != ''.toString()">
 				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
 			</if>
 		</trim>
+		WHERE u.martCode = #{martCode} AND u.deleteStatus = 'N' AND 5 > u.levelNum
+		ORDER BY u.levelNum
 	</select>
 	
 	<!-- 거래처 정보수정(정도혜) -->

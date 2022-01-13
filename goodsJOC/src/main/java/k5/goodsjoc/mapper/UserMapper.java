@@ -16,7 +16,7 @@ public interface UserMapper {
 	public List<User> getUserList(String martCode);
 	
 	// 사용자 단일정보 검색
-	public List<User> getUserListBySearchKey(String searchKey, String searchValue);
+	public List<User> getUserListBySearchKey(String searchKey, String searchValue, String martCode);
 	
 	//사용자 정보 수정
 	public int userUpdateInfo(User user);
