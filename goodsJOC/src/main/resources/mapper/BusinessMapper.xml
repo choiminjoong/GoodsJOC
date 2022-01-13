@@ -96,7 +96,6 @@
 		WHERE 
 			businessCode=#{businessCode}
 	</update>
-
 	
 	<!-- 거래처 조건검색(정도혜) -->
 	<select id="getBusinessListBySearchKey" resultType="Business">
@@ -127,42 +126,43 @@
 	
 	<!-- 거래처 등록(정도혜) -->	
 	<insert id="businessInsert" parameterType="Business">
-		INSERT INTO tb_business(
-			businessName,
-			partnerName,
-			partnerPhone, 
-			registerNum,
-			businessType,
-			sectors,
-			`status`,
-			callNum,
-			address,
-			FAX,
-			businessStaff,
-			businessStaffPhone,
-			businessStaffEmail,
-			note,
-			martCode,
-			ID,
-			regDate
-		)VALUES (
-			#{businessName},
-			#{partnerName},
-			#{partnerPhone},
-			#{registerNum},
-			#{businessType},
-			#{sectors},
-			#{status},
-			#{callNum},
-			#{address},
-			#{fax},
-			#{businessStaff},
-			#{businessStaffPhone},
-			#{businessStaffEmail},
-			#{note},
-			#{martCode},
-			#{id},
-			NOW()
-		);
+	INSERT INTO tb_business(
+		businessName,
+		partnerName,
+		partnerPhone, 
+		registerNum,
+		businessType,
+		sectors,
+		`status`,
+		callNum,
+		address,
+		FAX,
+		businessStaff,
+		businessStaffPhone,
+		businessStaffEmail,
+		note,
+		martCode,
+		ID,
+		regDate
+	)VALUES (
+		#{businessName},
+		#{partnerName},
+		#{partnerPhone},
+		#{registerNum},
+		#{businessType},
+		#{sectors},
+		#{status},
+		#{callNum},
+		#{address},
+		#{fax},
+		#{businessStaff},
+		#{businessStaffPhone},
+		#{businessStaffEmail},
+		#{note},
+		#{martCode},
+		#{id},
+		NOW()
+	);
 	</insert>
+	
 </mapper>
