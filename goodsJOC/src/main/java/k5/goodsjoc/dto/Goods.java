@@ -19,7 +19,14 @@ public class Goods {
 	private String martCode;
 	private String id;
 	private String regDate;
-	
+	private String deleteStatus;
+
+	public String getDeleteStatus() {
+		return deleteStatus;
+	}
+	public void setDeleteStatus(String deleteStatus) {
+		this.deleteStatus = deleteStatus;
+	}
 	private Business business;
 	private GoodsCate goodsCate;
 	private User user;
