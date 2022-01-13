@@ -40,8 +40,7 @@ public class BusinessController {
 		
 		return businessModal;
 	}
-	
-	//거래처 리스트 조회
+
 	@GetMapping("/businessList")
 	public String businessList(Model model, HttpServletRequest request) {
 		System.out.println("페이지: 거래처 관리 ");
@@ -56,7 +55,7 @@ public class BusinessController {
 		return "basic_management/business/businessList";
 	}
 	
-	//거래처 검색
+	//거래처관리 > 조건검색 (정도혜)
 	@PostMapping("/businessList")
 	public String getSearchBusinessList(
 			 @RequestParam(value="searchKey", required = false) String searchKey
@@ -89,7 +88,7 @@ public class BusinessController {
 	}
 
 	
-	//거래처 등록
+	//거래처관리 > 거래처 등록 (정도혜)
 	@GetMapping("/businessInsert")
 	public String businessInsert() {
 		System.out.println("페이지: 거래처 등록 ");
@@ -98,7 +97,6 @@ public class BusinessController {
 		return "basic_management/business/businessInsert";
 	}
 	
-	//거래처 등록
 		@PostMapping("/businessInsert")
 		public String businessInsert(Business business) {
 			System.out.println("페이지: 거래처 등록 ");
@@ -110,7 +108,6 @@ public class BusinessController {
 			return "redirect:/basic_management/business/businessList";
 		}
 		
-	//거래처 수정화면
 	@GetMapping("/businessUpdate")
 	public String businessUpdate(@RequestParam(value="businessCode", required = false) String businessCode, Model model) {		
 		System.out.println("페이지: 거래처 수정 ");
@@ -124,7 +121,7 @@ public class BusinessController {
 		return "basic_management/business/businessUpdate";
 		}	
 
-	//거래처 수정 작업
+	//거래처 관리 거래처 수정 작업 (정도혜)
 	@PostMapping("/businessUpdate")
 	public String businessUpdate(Business business) {		
 		System.out.println("페이지: 거래처 수정 ");
@@ -135,9 +132,6 @@ public class BusinessController {
 		
 		return "redirect:/basic_management/business/businessList";
 	}	
-	
-	
-	
 	
 }
 

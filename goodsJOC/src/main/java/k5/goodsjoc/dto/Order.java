@@ -8,17 +8,11 @@ public class Order {
 	private String state;
 	private String purchaseDate;
 	private String martCode;
-	private String ID;
+	private String id;
 	private String regDate;
-
+	
 	private Business business;
-		
-	public Business getBusiness() {
-		return business;
-	}
-	public void setBusiness(Business business) {
-		this.business = business;
-	}
+	
 	public String getOrderCode() {
 		return orderCode;
 	}
@@ -61,11 +55,11 @@ public class Order {
 	public void setMartCode(String martCode) {
 		this.martCode = martCode;
 	}
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -73,12 +67,20 @@ public class Order {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
+	public Business getBusiness() {
+		return business;
+	}
+	public void setBusiness(Business business) {
+		this.business = business;
+	}
 	@Override
 	public String toString() {
 		return "Order [orderCode=" + orderCode + ", businessCode=" + businessCode + ", orderNum=" + orderNum
 				+ ", deliveryDate=" + deliveryDate + ", state=" + state + ", purchaseDate=" + purchaseDate
-				+ ", martCode=" + martCode + ", ID=" + ID + ", regDate=" + regDate + "]";
+				+ ", martCode=" + martCode + ", id=" + id + ", regDate=" + regDate + ", business=" + business + "]";
 	}
+		
+	
 	
 
 }

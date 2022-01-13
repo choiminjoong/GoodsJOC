@@ -43,4 +43,12 @@ public class FacilityService {
 		public int showcaseInsert(Showcase showcase) {
 			return facilityMapper.showcaseInsert(showcase);
 		}
+
+		//창고 목록 검색
+		public List<Warehouse> getSearchWarehouseList(String searchWarehouse, String martCode) {
+			return facilityMapper.getSearchWarehouseList(searchWarehouse, martCode);
+		}
+		public List<Showcase> getSearchShowcaseList(String searchShowcase, String martCode) {
+			return facilityMapper.getSearchShowcaseList(searchShowcase, martCode);
+		}
 }

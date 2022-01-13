@@ -24,5 +24,10 @@ public interface FacilityMapper {
 	public int shelfInsert(Shelf shelf);
 	//판매 진열대 등록
 	public int showcaseInsert(Showcase showcase);
+	
+	//창고,창고진열대,창고구분 검색(오대성)
+	public List<Warehouse> getSearchWarehouseList(String searchWarehouse, String martCode);
+	//판매 진열대 검색(오대성)
+	public List<Showcase> getSearchShowcaseList(String searchShowcase, String martCode);
 
 }
