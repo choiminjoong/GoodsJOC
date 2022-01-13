@@ -32,7 +32,6 @@
 								<option value="phone">전화번호</option>
 								<option value="email">이메일</option>
 								<option value="birthday">생년월일</option>
-								<option value="levelNum">권한 번호</option>
 							</select>
 						</div>
 						<div class="input-group input-group-m" style="width: 550px;">
@@ -68,6 +67,10 @@
 										</p>
 										<ul class="ml-4 mb-0 fa-ul text-muted">
 											<li class="small"><span class="fa-li"> 
+											<i class="fas fa-user-tie"></i>
+											</span><span th:text="${l.id}"></span></li>
+											
+											<li class="small"><span class="fa-li"> 
 											<i class="fas fa-lg fa-birthday-cake"></i>
 											</span><span th:text="${l.birthday}"></span></li>
 											
@@ -75,8 +78,9 @@
 											</span><span th:text="${l.phone}">전화번호</span></li>
 											
 											<li class="small"><span class="fa-li"> 
-											<i class="fas fa-lg fa-building"></i>
-											</span><span th:text=${l.address}></span></li>
+											<i class="fas fa-envelope"></i>
+											</span><span th:text=${l.email}></span></li>
+
 										</ul>
 									</div>
 									<div class="col-5 text-center">
