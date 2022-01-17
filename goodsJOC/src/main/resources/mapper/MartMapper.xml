@@ -22,6 +22,16 @@
 		<result column="editDate" 			property="editDate" />
 	</resultMap>	
 
+   <!-- 마트고유번호 사용유무 체크 -->
+	<select id="martCodeCheck" parameterType="String" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			tb_mart
+		WHERE
+			martCode = #{martCode};
+	</select>
+
 	<update id="updateMartInfo" parameterType="Mart">
 		UPDATE
 			tb_mart	

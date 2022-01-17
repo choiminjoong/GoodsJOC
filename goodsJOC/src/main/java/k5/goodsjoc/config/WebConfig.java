@@ -19,16 +19,12 @@ public class WebConfig implements WebMvcConfigurer{
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-
-		registry.addInterceptor(commonInterceptor)
-				.addPathPatterns("/**")
-				.excludePathPatterns("/css/**")
-				.excludePathPatterns("/js/**")
-				.excludePathPatterns("/image/**")
-				.excludePathPatterns("/dist/**")
-				.excludePathPatterns("/plugins/**")
-				.excludePathPatterns("/favicon.ico");
-		
+		/*
+		 * registry.addInterceptor(commonInterceptor) .addPathPatterns("/**")
+		 * .excludePathPatterns("/css/**") .excludePathPatterns("/js/**")
+		 * .excludePathPatterns("/image/**") .excludePathPatterns("/dist/**")
+		 * .excludePathPatterns("/plugins/**") .excludePathPatterns("/favicon.ico");
+		 */
 		registry.addInterceptor(loginInterceptor)
 				.addPathPatterns("/**")
 				.excludePathPatterns("/css/**")
@@ -40,7 +36,10 @@ public class WebConfig implements WebMvcConfigurer{
 				.excludePathPatterns("/system_management/user/userInsert")
 				.excludePathPatterns("/system_management/user/loginForm")
 				.excludePathPatterns("/system_management/user/login")
-				.excludePathPatterns("/system_management/user/logout");
+				.excludePathPatterns("/system_management/user/logout")
+				.excludePathPatterns("/system_management/user/userIdCheck")
+				.excludePathPatterns("/system_management/user/userInsertAction")
+				.excludePathPatterns("/system_management/mart/martCodeCheck");
 		
 		WebMvcConfigurer.super.addInterceptors(registry);
 	}

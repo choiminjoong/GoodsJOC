@@ -31,6 +31,16 @@ public class UserController {
 		this.martService = martService;
 	}
 	
+	@PostMapping("/userInsertAction")
+	public String userInsertAction(User user) {
+		System.out.println("페이지: 회원가입처리 ");
+		System.out.println("경로: system_management/user/userInsertAction(POST방식) ");		
+		System.out.println("입력받은 정보: " + user);
+		int result = userService.userInsertAction(user);
+		
+		return "system_management/user/loginForm";
+	}
+	
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
