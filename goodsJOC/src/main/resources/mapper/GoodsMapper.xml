@@ -39,6 +39,22 @@
 		</association>
 	</resultMap> 
 	
+	<!-- 상품정보 수정 -->
+	<update id="goodsUpdateAction">
+		UPDATE
+			tb_goods
+		SET
+			goodsName= #{goodsName}
+			,categoryCode = #{categoryCode}
+			,businessCode = #{businessCode}
+			,taxType = #{taxType}
+			,weight = #{weight}
+			,unit = #{unit}
+			,maker = #{maker}
+		WHERE
+			barcode=#{barcode}
+	</update>
+	
 	<!-- 상품삭제 -->
 	<update id="deleteGoods">
 		UPDATE 
@@ -301,9 +317,68 @@
 		<result column="categoryCode" property="categoryCode"/>
 		<result column="categoryName" 			property="categoryName"/>
 		<result column="martCode" 				property="martCode"/>
-		<result column="ID" 					property="ID"/>
+		<result column="ID" 					property="id"/>
 		<result column="regDate" 				property="regDate"/>
+		
+		<association javaType="User"	property="user">
+			<id column="ID"			property="id"/>
+			<result column="name"			property="name"/>
+		</association>
 	</resultMap>
+
+	<!-- 카테고리 수정하기 -->
+	<update id="goodsCateUpdate">
+		UPDATE
+			tb_category
+		SET
+			categoryName = #{categoryName}
+			,regDate = NOW()
+			,ID = #{id}
+		WHERE
+			categoryCode=#{categoryCode}
+	</update>
+
+	<!-- 카테고리 삭제하기 -->
+	<delete id="goodsCateDeleteAction">
+		DELETE FROM 
+			tb_category 
+		WHERE
+			categoryCode=#{categoryCode}
+	</delete>
+
+	<!-- 카테고리삭제전 상품들 초기화하기 -->
+	<update id="updateGoodsCategoryCode">
+		UPDATE 
+			tb_goods
+		SET
+			categoryCode=0
+		WHERE 
+			categoryCode=#{categoryCode}
+	</update>
+
+	<!-- 상품카테고리 등록(최민중) -->
+	<insert id="goodsCateInsertAction">
+		INSERT INTO tb_category(
+			categoryName, martCode, ID, regDate
+		)VALUES (
+			#{categoryName}
+			,#{martCode}
+			,#{id}
+			,NOW()
+		)
+			</insert>
+	
+	<!-- 상품카테고리 선택용 모달(최민중) -->
+	<select id="getCategoryList" parameterType="String" resultType="Map">
+		SELECT
+			categoryCode, categoryName
+		FROM
+			tb_category
+		WHERE
+			martCode = #{martCode} AND categoryCode > 0
+		ORDER BY 
+			categoryName
+	</select>
 	
 	<!-- 상품카테고리 조건검색(최민중) -->
 	<select id="getSearchGoodsCateList" resultType="GoodsCate">
@@ -316,25 +391,23 @@
 			<if test="searchCate != null and searchCate != ''.toString()">
 				AND categoryName LIKE CONCAT('%', #{searchCate}, '%')
 			</if>
+		ORDER BY 
+			regDate DESC
 	</select>
 	
-	<!-- 상품카테고리 선택용 모달(최민중) -->
-	<select id="getCategoryList" parameterType="String" resultType="Map">
-		SELECT
-			categoryCode, categoryName
-		FROM
-			tb_category
-		WHERE
-			martCode = #{martCode} AND categoryCode > 0
-	</select>
-
 	<!-- 상품카테고리 조회화면(최민중) -->
 	<select id="getGoodsCateList" parameterType="String" resultMap="goodsCateResultMap">
 		SELECT 
-			categoryCode, categoryName, martCode, ID, DATE(regDate) AS regDate
+			c.categoryCode, c.categoryName, c.martCode, c.ID, DATE(c.regDate) AS regDate
+			,u.name
 		FROM 
-			tb_category
+			tb_category AS c
+			INNER JOIN
+			tb_user AS u
+			ON
+			c.ID = u.ID
 		WHERE
-			martCode = #{martCode} AND categoryCode >0
+			c.martCode = #{martCode} AND categoryCode >0
+		ORDER BY c.regDate DESC
 	</select>
 </mapper>
