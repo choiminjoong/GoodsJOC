@@ -114,7 +114,7 @@
 			#{warehouseName}
 			,#{warehouseType}
 			,#{martCode}
-			,#{ID}
+			,#{id}
 			,NOW()
 		)
 	</insert>
@@ -130,7 +130,7 @@
 			#{warehouseCode}
 			,#{shelfName}
 			,#{martCode}
-			,#{ID}
+			,#{id}
 			,NOW()
 		)
 	</insert>
@@ -144,7 +144,7 @@
 		)VALUES (
 			#{showcasePlace}
 			,#{martCode}
-			,#{ID}
+			,#{id}
 			,NOW()
 		);
 	</insert>

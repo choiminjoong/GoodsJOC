@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k5.goodsjoc.mapper.PurchaseMapper">
+	<!-- Purchase ResultMap (오대성) -->
+	<resultMap type="Purchase" id="purchaseResultMap">
+		<result column="martCode" 				property="martCode"/>
+		<result column="martName" 			property="martName"/>
+		<result column="businessName" 		property="businessName"/>
+		<result column="purchaseDate" 				property="purchaseDate"/>		
+		<result column="orderNum" 					property="orderNum"/>
+		<result column="goodsName"				property="goodsName"/>
+		<result column="purchasePrice" 			property="purchasePrice"/>
+		<result column="QTY" 			property="QTY"/>
+		<result column="totalPrice" 			property="totalPrice"/>
+		<result column="supplyPrice" 			property="supplyPrice"/>
+		<result column="VAT" 			property="VAT"/>
+	</resultMap>		
+	
+	<!-- Purchase 전체조회 (오대성) -->
+	<select id="getPurchaseList" resultType="Purchase" resultMap="purchaseResultMap">
+		SELECT 
+			martCode, 
+			martName, 
+			businessName, 
+			date_format(purchaseDate, '%Y-%m-%d') AS purchaseDate, 
+			orderNum, 
+			goodsName, 
+			purchasePrice, 
+			QTY, 
+			totalPrice, 
+			supplyPrice, 
+			VAT
+		FROM 
+			view_purchase
+	</select>
+	<!-- Purchase 검색(오대성)  -->
+	<select id="getPurchaseBySearchKey" resultType="Purchase" resultMap="purchaseResultMap">
+		SELECT 
+			p.businessName, 
+			date_format(p.purchaseDate, '%Y-%m-%d') AS purchaseDate, 
+			p.goodsName, 
+			p.QTY
+		FROM 
+			view_purchase AS p
+		WHERE
+			p.martCode = #{martCode}
+			<if test="searchValue != null and searchValue != ''.toString()">
+				AND ${searchKey} LIKE CONCAT ('%', #{searchValue}, '%')
+			</if>
+			<if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
+				AND date_format(p.purchaseDate, '%Y-%m-%d') BETWEEN #{startDt} AND #{endDt}
+			</if>
+			
+	</select>
+</mapper>
