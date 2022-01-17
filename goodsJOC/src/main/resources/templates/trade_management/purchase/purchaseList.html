@@ -26,24 +26,25 @@
 						</h3>
 					</div>
 					<div class="card-body">
+					<form th:action="@{/trade_management/purchase/PurchaseList}" method="post">
 						<div class="tab-content" id="custom-tabs-two-tabContent">
 							<!-- 매입검색 -->
 							<div class="row">
 								<label class="col-sm-1 col-form-label">매입검색</label>
 								<div class="col-sm-2">
-									<select id="orderCode" class="form-control custom-select">
-										<option value="상품명">상품명</option>
-										<option value="거래처명">거래처명</option>
-										<option value="거래일">거래일</option>
+									<select name="searchKey" class="form-control custom-select">
+										<option value="goodsName">상품명</option>
+										<option value="businessName">거래처명</option>
+										<option value="purchaseDate">거래일</option>
 									</select>
 								</div>
 								<div class="input-group input-group-m" style="width: 500px;">
-									<input type="text" name="table_search" style="margin-left: 3%"
+									<input type="text" name="searchValue" style="margin-left: 3%"
 										class="form-control float-right" placeholder="검색">
 								</div>
 								<div style="margin-left: 3%">
-									<button type="button" class="btn-lg btn-info">
-										<b>검색</b>
+									<button type="submit" class="btn-lg btn-info">
+									<b>검색</b>
 									</button>
 									<a href="#">
 										<button type="button" class="btn-lg btn-info">
@@ -55,12 +56,16 @@
 							<!-----------------거래일검색------------------>
 							<div class="row" style="margin-top: 1%">
 								<label class="col-sm-1 col-form-label">거래일</label>
-								<div class="col-sm-3">
-									<input type="date" id="date" class="form-control">
+								<div class="col-sm-2">
+									<input type="date" name="startDt" id="date" class="form-control">
+								</div>
+								<span style="font-weight: bold;">~</span>
+								<div class="col-sm-2">
+									<input type="date" name="endDt" id="date" class="form-control">
 								</div>
 							</div>
 						</div>
-
+					</form>
 					</div>
 				</div>
 			</div>
@@ -71,138 +76,43 @@
 					<div class="card-header p-0 pt-1"></div>
 					<!-- /.card-header -->
 					<div class="card-body table-responsive p-0" style="height: 300px;">
-						<div class="col-12">
-							<table class="table table-hover text-nowrap">
-								<thead>
-									<tr>
-										<th></th>
-										<th>번호</th>
-										<th>상품명</th>
-										<th>거래처명</th>
-										<th>수량</th>
-										<th>거래일</th>
-										<th>거래명세서</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox1"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox1"></label>
-											</div></td>
-										<td>1</td>
-										<td>흙당근</td>
-										<td>JB</td>
-										<td>5EA</td>
-										<td>2021-11-11</td>
-										<td><button type="button"
-												class="btn btn-outline-warning btn-xs" data-toggle="modal"
-												data-target="#exampleModalStatement">거래명세서</button></td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="#" class="btn btn-info"><i class="fas fa-highlighter"></i></a>
-												<a href="#" class="btn btn-danger" data-toggle="modal"
-													data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox2"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox2"></label>
-											</div></td>
-										<td>2</td>
-										<td>흙당근</td>
-										<td>JB</td>
-										<td>5EA</td>
-										<td>2021-11-11</td>
-										<td><button type="button"
-												class="btn btn-outline-warning btn-xs" data-toggle="modal"
-												data-target="#exampleModalStatement">거래명세서</button></td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="#" class="btn btn-info"><i class="fas fa-highlighter"></i></a>
-												<a href="#" class="btn btn-danger" data-toggle="modal"
-													data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox3"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox3"></label>
-											</div></td>
-										<td>3</td>
-										<td>흙당근</td>
-										<td>JB</td>
-										<td>5EA</td>
-										<td>2021-11-11</td>
-										<td><button type="button"
-												class="btn btn-outline-warning btn-xs" data-toggle="modal"
-												data-target="#exampleModalStatement">거래명세서</button></td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="#" class="btn btn-info"><i class="fas fa-highlighter"></i></a>
-												<a href="#" class="btn btn-danger" data-toggle="modal"
-													data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox4"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox4"></label>
-											</div></td>
-										<td>4</td>
-										<td>흙당근</td>
-										<td>JB</td>
-										<td>5EA</td>
-										<td>2021-11-11</td>
-										<td><button type="button"
-												class="btn btn-outline-warning btn-xs" data-toggle="modal"
-												data-target="#exampleModalStatement">거래명세서</button></td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="#" class="btn btn-info"><i class="fas fa-highlighter"></i></a>
-												<a href="#" class="btn btn-danger" data-toggle="modal"
-													data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox5"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox5"></label>
-											</div></td>
-										<td>5</td>
-										<td>흙당근</td>
-										<td>JB</td>
-										<td>5EA</td>
-										<td>2021-11-11</td>
-										<td><button type="button"
-												class="btn btn-outline-warning btn-xs" data-toggle="modal"
-												data-target="#exampleModalStatement">거래명세서</button></td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="#" class="btn btn-info"><i class="fas fa-highlighter"></i></a>
-												<a href="#" class="btn btn-danger" data-toggle="modal"
-													data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
+						
+							<div class="col-12">
+								<table class="table table-hover text-nowrap">
+									<thead>
+										<tr>
+											<th>번호</th>
+											<th>상품명</th>
+											<th>거래처명</th>
+											<th>수량</th>
+											<th>거래일</th>
+											<th>거래명세서</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty(purchaseList)}" th:each="p, i : ${purchaseList}">
+											<td th:text="${i.index+1}"></td>
+											<td th:text="${p.goodsName}"></td>
+											<td th:text="${p.businessName}"></td>
+											<td th:text="${p.QTY}"></td>
+											<td th:text="${p.purchaseDate}"></td>
+											<td><button type="button"
+													class="btn btn-outline-warning btn-xs" data-toggle="modal"
+													data-target="#exampleModalStatement">거래명세서</button></td>
+											<td class="text-right py-0 align-middle">
+												<div class="btn-group btn-group-sm">
+													<a href="#" class="btn btn-info"><i
+														class="fas fa-highlighter"></i></a> <a href="#"
+														class="btn btn-danger" data-toggle="modal"
+														data-target="#exampleModalCenter"><i
+														class="fas fa-trash"></i></a>
+												</div>
+											</td>
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
 					</div>
 				</div>
 
@@ -422,4 +332,10 @@
 		</div>
 	</section>
 </th:block>
+<script type="text/javascript">
+		function onSearch() {
+			var startDt = $("name=startDt").val();
+			alert(startDt);
+		}
+</script>
 </html>
