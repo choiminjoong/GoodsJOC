@@ -16,13 +16,16 @@ public interface BusinessMapper {
 	public Business getBusinessInfoByCode(String businessCode);
 	
 	// 거래처 목록 검색
-	public List<Business> getBusinessListBySearchKey(String searchKey, String searchValue);
+	public List<Business> getBusinessListBySearchKey(String searchKey, String searchValue, String startDt, String endDt);
 	
 	// 거래처 정보 수정`
 	public int updateBusinessInfo(Business business);
 	
 	//거래처 등록
 	public int businessInsert(Business business);
+	
+	//거래처 삭제
+	public int deleteBusiness(String businessCode);
 
 }
 

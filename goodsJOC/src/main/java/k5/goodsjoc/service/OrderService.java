@@ -28,8 +28,8 @@ public class OrderService {
    }
    
    // 거래처 조건 검색
-   public List<Order> getOrderListBySearchKey(String searchKey, String searchValue) {
-	return orderMapper.getOrderListBySearchKey(searchKey, searchValue);
+   public List<Order> getOrderListBySearchKey(String searchKey, String searchValue, String startDt, String endDt) {
+	return orderMapper.getOrderListBySearchKey(searchKey, searchValue, startDt, endDt);
    }
   }
 

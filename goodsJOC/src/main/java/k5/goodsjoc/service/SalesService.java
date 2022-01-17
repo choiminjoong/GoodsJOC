@@ -19,4 +19,9 @@ public class SalesService {
 	public List<Sales> getSalesList(){
 		return salesMapper.getSalesList();
 	}
+	
+	//매출 조건 검색
+	public List<Sales> getSalesListBySearchKey(String searchKey, String searchValue, String startDt, String endDt) {
+		return salesMapper.getSalesListBySearchKey(searchKey, searchValue, startDt, endDt);
+	}
 }

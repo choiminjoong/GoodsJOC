@@ -11,6 +11,9 @@ public interface SalesMapper {
 	
 	//매출 전체 조회
 	public List<Sales> getSalesList();
+	
+	//매출 조건검색
+	public List<Sales> getSalesListBySearchKey(String searchKey, String searchValue, String startDt, String endDt);
 	}
 
 

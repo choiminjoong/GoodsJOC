@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k5.goodsjoc.service.MartService;
 import k5.goodsjoc.service.UserService;
@@ -180,7 +181,8 @@ public class UserController {
      model.addAttribute("userUpdate", userUpdate);
      System.out.println("모델에 담긴 비즈니스정보: " + model);
      
-     return "system_management/user/userUpdate";}
+     return "system_management/user/userUpdate";
+     }
      
      //직원관리 > 직원권한 수정 작업 (정도혜)
      @PostMapping("/userLevelUpdate") 
@@ -191,6 +193,24 @@ public class UserController {
      
      userService.updateUserLevel(user);
      
-     return "redirect:/system_management/user/userList";}
-    
+     return "redirect:/system_management/user/userList";
+     }   
+     
+   // 사용자 아이디 중복확인 (정도혜)
+ 	@PostMapping("/userIdCheck")
+ 	@ResponseBody
+ 	public boolean useridCheck(@RequestParam(value="userId", required=false) String userId) {
+ 		System.out.println("아이디 사용여부 확인 버튼Ajax");
+ 		System.out.println("등록폼에서 확인할 아이디: " + userId);
+ 		
+ 		boolean checkResult = false;
+ 		int check = userService.getUserByUserId(userId);
+ 		if(check > 0) checkResult = true;
+ 		
+ 		return checkResult;
+ 	} 
 }
+
+
+
+
