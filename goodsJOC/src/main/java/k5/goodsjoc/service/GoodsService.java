@@ -86,10 +86,33 @@ public class GoodsService {
 	public int addGoodsAction(Goods goods) {
 		return goodsMapper.addGoodsAction(goods);
 	}
-
-
+	//상품삭제
 	public int deleteGoods(String barcode) {
 		return goodsMapper.deleteGoods(barcode);
+	}
+	//상품카테고리 등록
+	public int goodsCateInsertAction(GoodsCate goodsCate) {
+		return goodsMapper.goodsCateInsertAction(goodsCate);
+	}
+
+	public int goodsCateDeleteAction(String categoryCode) {
+		return goodsMapper.goodsCateDeleteAction(categoryCode);
+	}
+
+	public int updateGoodsCategoryCode(String categoryCode) {
+		int result = 0;
+		result += goodsMapper.updateGoodsCategoryCode(categoryCode);
+		return result;
+	}
+
+	//카테고리 업데이트
+	public int goodsCateUpdate(GoodsCate goodsCate) {
+		return goodsMapper.goodsCateUpdate(goodsCate);
+	}
+
+	//상품 정보 수정
+	public int goodsUpdateAction(Goods goods) {
+		return goodsMapper.goodsUpdateAction(goods);
 	}
 }
 

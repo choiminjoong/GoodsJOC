@@ -5,12 +5,12 @@
 	
 <!-- 페이지 제목 공간 -->
 <th:block layout:fragment="customTitle">
-	<title>상품 정보 수정</title>
+	<title>상품 등록</title>
 </th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
 	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
-	> 상품관리 > 조회 > 수정
+	> 상품관리 > 조회 > 상품정보수정
 </th:block>
 
 <!-- 메인 컨텐츠 영역 -->		
@@ -20,85 +20,305 @@
 		<div class="col-9 mx-auto">
 			<div class="card card-warning">
 				<div class="card-header">
-					<h3 class="card-title">상품 정보 수정</h3>
+					<h3 class="card-title">상품 정보수정</h3>
 				</div>
 				<!-- /.card-header -->
 				<!-- form start -->
-				<form class="form-horizontal">
+				<form th:action="@{/product_management/goods/goodsUpdateAction}" method="POST" id="goodsUpdateForm" class="form-horizontal">
 					<div class="card-body">
-						<div class="form-group row">
-							<label for="barcode" class="col-sm-2 col-form-label">바코드</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="barcode">
+						<th:block th:if="${not #lists.isEmpty(goodsInfo)}" th:each="l : ${goodsInfo}">
+							<div class="form-group row">
+								<label for="barcodeInput" class="col-sm-2 col-form-label"><code>*</code>바코드</label>
+								<div class="input-group mb-2 col-sm-10">
+									<input type="text" id="barcodeInput" name="barcode" th:value="${l.barcode}" class="form-control text-center updateCheck" readonly>
+								</div>
 							</div>
-						</div>
-						<div class="form-group row">
-							<label for="goodsCate" class="col-sm-2 col-form-label">카테고리</label>
-							<div class="col-sm-10">
-								<select id="goodsCate" class="form-control">
-									<option>1</option>
-									<option>option 2</option>
-									<option>option 3</option>
-									<option>option 4</option>
-									<option>option 5</option>
-								</select>
+							<div style="display:none">
+								<label>상품카테고리코드</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" th:value="${l.goodsCate.getCategoryCode()}" name="categoryCode" id="cateCodeInput">
+								</div>
 							</div>
-						</div>
-						<div class="form-group row">
-							<label for="martRegNum" class="col-sm-2 col-form-label">상품명</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martRegNum">
+							<div class="form-group row">
+								<label for="cateNameInput" class="col-sm-2 col-form-label"><code>*</code>카테고리</label>
+								<div class="input-group mb-2 col-sm-10">
+									<input type="text" id="cateNameInput" th:value="${l.goodsCate.getCategoryName()}" class="form-control text-center updateCheck" readonly>
+									<div class="input-group-append">
+										<button type="button" id="searchCategoryBtn" class="btn btn-info" data-toggle="modal" data-target="#modal-default">
+											카테고리 변경
+										</button>
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="form-group row">
-							<label for="goodsCate" class="col-sm-2 col-form-label">매입처</label>
-							<div class="col-sm-10">
-								<select id="goodsCate" class="form-control">
-									<option>1</option>
-									<option>option 2</option>
-									<option>option 3</option>
-									<option>option 4</option>
-									<option>option 5</option>
-								</select>
+							<div class="form-group row">
+								<label for="goodsName" class="col-sm-2 col-form-label"><code>*</code>상품명</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control updateCheck" th:value="${l.goodsName}" id="goodsName" name="goodsName">
+								</div>
 							</div>
-						</div>
-						<div class="form-group row">
-							<label for="martPartnerName" class="col-sm-2 col-form-label">세금유형</label>
-							<div class="col-sm-10">
-								<select id="goodsCate" class="form-control">
-									<option>과세</option>
-									<option>면세</option>
-									<option>영세</option>
-								</select>
+							<div style="display:none">
+								<label>거래처코드</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" th:value="${l.business.getBusinessCode()}" name="businessCode" id="businessCodeInput">
+								</div>
 							</div>
-						</div>
-						<div class="form-group row">
-							<label for="martRegNum" class="col-sm-2 col-form-label">규격</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martRegNum">
+							<div class="form-group row">
+								<label for="businessNameInput" class="col-sm-2 col-form-label"><code>*</code>매입처</label>
+								<div class="input-group mb-2 col-sm-10">
+									<input type="text" id="businessNameInput" th:value="${l.business.getBusinessName()}" class="form-control text-center updateCheck" readonly>
+									<div class="input-group-append">
+										<button type="button" id="searchBusinessBtn" class="btn btn-info" data-toggle="modal" data-target="#modal-default2">
+											매입처 변경
+										</button>
+									</div>
+								</div>
 							</div>
-						</div>
-						<div class="form-group row">
-							<label for="martRegNum" class="col-sm-2 col-form-label">단위</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martRegNum">
+							<div class="form-group row">
+								<label for="taxType" class="col-sm-2 col-form-label"><code>*</code>세금유형</label>
+								<div class="col-sm-10">
+									<select class="form-control updateCheck" id="taxType" name="taxType">
+										<th:block th:if="${l.taxType.equals('과세')}">
+											<option value="과세" selected>과세</option>
+											<option value="비과세">비과세</option>
+										</th:block>
+										<th:block th:unless="${l.taxType.equals('과세')}">
+											<option value="과세">과세</option>
+											<option value="비과세" selected>비과세</option>
+										</th:block>
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="form-group row">
-							<label for="martRegNum" class="col-sm-2 col-form-label">제조사</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martRegNum">
+							<div class="form-group row">
+								<label for="weight" class="col-sm-2 col-form-label">규격</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" th:value="${l.weight}" id="weight" name="weight">
+								</div>
 							</div>
-						</div>
+							<div class="form-group row">
+								<label for="unit" class="col-sm-2 col-form-label">단위</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" id="unit" th:value="${l.unit}"name="unit">
+								</div>
+							</div>
+							<div class="form-group row">
+								<label for="maker" class="col-sm-2 col-form-label"><code>*</code>제조사</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control updateCheck" th:value="${l.maker}" id="maker" name="maker">
+								</div>
+							</div>
+							<div style="display:none">
+								<input type="text" name="id" th:value="${session.SID}" readonly>
+								<input type="text" name="martCode" th:value="${session.SMARTCODE}" readonly>
+							</div>
+						</th:block>
 					</div>
 					<div class="card-footer">
-						<a th:href="@{/product_management/goods/goodsList}">
-							<button type="button" class="btn btn-warning float-right" >수정하기</button>
-						</a>
+						<button type="button" id="goodsUpdateBtn" class="btn btn-warning float-right">수정하기</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
+	
+	<!-- 카테고리 검색 모달  -->
+	<div class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title">상품 카테고리 검색</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+						<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+							<div class="row">
+								<div class="col-sm-12">
+									<table style="width:100%" id="dataTableAjax" class="text-center table table-bordered table-hover dataTable dtr-inline"
+										role="grid" aria-describedby="example2_info">
+										<thead>
+											<tr style="width:540px;" role="row">
+												<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+													aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+													카테고리명</th>
+												<th tabindex="0" rowspan="1" colspan="1">
+													선택하기
+												</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- 거래처 검색 모달  -->
+	<div class="modal fade" id="modal-default2" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title">거래처 검색</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+						<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+							<div class="row">
+								<div class="col-sm-12">
+									<table style="width:100%" id="dataTableAjax2" class="text-center table table-bordered table-hover dataTable dtr-inline"
+										role="grid" aria-describedby="example2_info">
+										<thead>
+											<tr style="width:540px;" role="row">
+												<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+													aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+													구분</th>
+												<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+													aria-label="Browser: activate to sort column descending"aria-sort="ascending">
+													거래처명
+												</th>
+												<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+													aria-label="Browser: activate to sort column descending"aria-sort="ascending">
+													대표자
+												</th>
+												<th tabindex="0" rowspan="1" colspan="1">
+														선택하기
+												</th>
+											</tr>
+										</thead>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+
+<th:block layout:fragment="customJs">			
+	<script type="text/javascript">
+		$(function(){			
+			//필수항목 입력확인
+			$(document).on('click', '#goodsUpdateBtn', function(){
+				var checkList = $('.updateCheck')
+				var nullCnt = 0;
+				for(var i=0; i<checkList.length; i++){
+					if($(checkList[i]).val().trim() == ''){
+						nullCnt +=1
+					}
+				}
+				if(nullCnt == 0){
+					$('#goodsUpdateForm').submit();
+					alert('상품정보가 변경되었습니다.');
+					return false;
+				}else{
+					alert("필수표시( * )가 체크된 입력칸을 채워주세요");
+					return false;
+				}
+			
+			});
+			
+			
+			
+			//카테고리 선택
+			$(document).on('click', '.catePickBtn', function(){
+				var cateCodePick = $(this).attr('data-categoryCode');
+				var cateNamePick = $(this).attr('data-categoryName');
+				console.log(cateCodePick);
+				console.log(cateNamePick);
+				$('#cateCodeInput').val(cateCodePick);
+				$('#cateNameInput').val(cateNamePick);
+			});
+			
+			//카테고리 리스트 조회 AJax
+			$(document).on('click', '#searchCategoryBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#dataTableAjax').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/product_management/goods/searchCategoryModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "categoryName"},
+						{ data: "categoryCode"}								
+					],
+					columnDefs: [
+						{
+							targets: [1],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn = '<button type="button" data-dismiss="modal" class="btn btn-info catePickBtn" data-categoryCode="'+ row.categoryCode +'" data-categoryName="'+ row.categoryName +'">선택</button>';
+								return htmlbtn;
+							}
+						}
+					]
+				});
+			});
+
+			//거래처리스트 조회 AJax
+			$(document).on('click', '#searchBusinessBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#dataTableAjax2').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/basic_management/business/searchBusinessModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "businessType"},
+						{ data: "businessName"},
+						{ data: "partnerName"},
+						{ data: "businessCode"}								
+					],
+					columnDefs: [
+						{
+							targets: [3],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn2 = '<button type="button" data-dismiss="modal" class="btn btn-info businessPickBtn" data-businessCode="'+ row.businessCode +'" data-businessName="'+ row.businessName +'">선택</button>';
+								return htmlbtn2;
+							}
+						}
+					]
+				});
+			});
+			
+			//거래처 선택
+			$(document).on('click', '.businessPickBtn', function(){
+				var businessCodePick = $(this).attr('data-businessCode');
+				var businessNamePick = $(this).attr('data-businessName');
+				console.log(businessCodePick);
+				console.log(businessNamePick);
+				$('#businessCodeInput').val(businessCodePick);
+				$('#businessNameInput').val(businessNamePick);
+			});
+		});
+	</script>
 </th:block>
 </html>
