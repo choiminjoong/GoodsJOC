@@ -31,7 +31,56 @@ public class GoodsController {
 	public GoodsController(GoodsService goodsService) {
 		this.goodsService = goodsService;
 	}
+	
+	@PostMapping("/goodsUpdateAction")
+	public String goodsUpdateAction(Goods goods) {
+		System.out.println("상품 정보수정 POST방식");
+		System.out.println("화면에서 받은 데이터: " + goods);
+		
+		int result = goodsService.goodsUpdateAction(goods);
+		
+		return "redirect:/product_management/goods/goodsList";
+	}
+	
+	//상품카테고리정보 수정
+	@PostMapping("goodsCateUpdate")
+	public String goodsCateUpdateAction(GoodsCate goodsCate) {
+		System.out.println("카테고리 정보수정 POST방식");
+		System.out.println("화면에서 받은 데이터: " + goodsCate);
 
+		goodsService.goodsCateUpdate(goodsCate);
+		
+		return "redirect:/product_management/goods/goodsCate";
+	}
+	
+	//카테고리 삭제처리
+	@GetMapping("/goodsCateDelete")
+	public String goodsCateDeleteAction(@RequestParam(value="categoryCode", required=false)String categoryCode){
+		System.out.println("카테고리 삭제처리 GET방식");
+		System.out.println("화면에서 받은 데이터: " + categoryCode);
+		//카테고리에 들어있는 상품들먼저 카테고리 미지정으로 바꿔주기
+		int result = goodsService.updateGoodsCategoryCode(categoryCode);
+		if(result >= 0) {
+			//상품 초기화 후 카테고리 삭제
+			goodsService.goodsCateDeleteAction(categoryCode);
+			//삭제 완료시 리스트 리다이렉트
+			return "redirect:/product_management/goods/goodsCate";
+		}
+		
+		return "system_management/error/error500";
+	}
+	
+	//카테고리 등록처리
+	@PostMapping("/goodsCateInsert")
+	public String goodsCateInsertAction(GoodsCate goodsCate) {
+		System.out.println("카테고리 등록처리 POST방식");
+		System.out.println("입력받은 데이터: " + goodsCate);
+		
+		int result = goodsService.goodsCateInsertAction(goodsCate);
+		
+		return "redirect:/product_management/goods/goodsCate";
+	}
+	
 	//상품등록후 상품리스트로 전환
 	@PostMapping("/goodsInsertAction")
 	public String goodsInsertAction(Goods goods) {
@@ -151,9 +200,9 @@ public class GoodsController {
 	@GetMapping("/goodsUpdate")
 	public String goodsUpdate(@RequestParam(value="barcode", required= false) String barcode, Model model) {
 		System.out.println("barcode: " + barcode);
-		
-		/* Goods goodsInfo = goodsService.getGoodsInfoByBarcode(); */
-		/* model.addAttribute("goodsInfo", goodsInfo); */
+
+		Goods goodsInfo = goodsService.getGoodsInfoByBarcode(barcode);
+		model.addAttribute("goodsInfo", goodsInfo);
 		
 		return "product_management/goods/goodsUpdate";
 	}
