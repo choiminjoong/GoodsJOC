@@ -34,6 +34,31 @@
 		<result column="note"		property="note"/>
 	</resultMap>
 
+	<!-- 회원가입 -->
+	<insert id="userInsertAction">
+		INSERT INTO tb_user(
+			ID
+			,PW
+			,name
+			,birthday
+			,phone
+			,email
+			,address
+			,martCode
+			,regDate
+		)VALUES(
+			#{id}
+			,#{pw}
+			,#{name}
+			,#{birthday}
+			,#{phone}
+			,#{email}
+			,#{address}
+			,#{martCode}
+			,NOW()
+		)
+	</insert>
+
 	<!-- 매장별 직원 조회 레벨순서(최민중) -->
 	<select id="getUserList" parameterType="String" resultMap="userResultMap">
 		SELECT 
