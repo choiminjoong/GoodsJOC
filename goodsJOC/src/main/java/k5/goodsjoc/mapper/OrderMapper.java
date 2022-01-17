@@ -17,7 +17,7 @@ public interface OrderMapper {
 	public List<ViewOrder> getViewOrder();
 	
 	//주문 단일정보 검색
-	public List<Order> getOrderListBySearchKey(String searchKey, String searchValue);
+	public List<Order> getOrderListBySearchKey(String searchKey, String searchValue, String startDt, String endDt);
 
 	
 }

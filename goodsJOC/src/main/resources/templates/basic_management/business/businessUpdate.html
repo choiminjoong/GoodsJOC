@@ -148,12 +148,21 @@
 						</div>
 					</div>
 					<!-- 수정버튼  -->
-						<button type="submit" class="btn btn-m bg-warning  color-palette btn-block"><b>수정 완료</b></button>
+					<button type="submit" id="bsupdateBtn" class="btn btn-m bg-warning  color-palette btn-block">
+					<b>수정 완료</b></button>
 				</form>
 			</div>
 		</div>
 	</div>
-
-
+	<th:block layout:fragment="customJs">
+		<script>
+			$(function(){
+				$(document).on('click', '#bsupdateBtn', function(){
+					alert('수정이 완료되었습니다.');
+					$('#updateForm').submit();
+				});
+			});
+		</script>
+	</th:block>
 </th:block>
 </html>

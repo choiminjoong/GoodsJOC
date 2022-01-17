@@ -29,43 +29,41 @@
 				<div class="tab-content" id="custom-tabs-two-tabContent">
 					<!-- 주문검색 -->
 					<div class="form-group row">
-						<label class="col-sm-1 col-form-label">키워드검색</label>
+						<label class="col-sm-1 col-form-label" style="text-align: center;">검 색</label>
 							<div class="col-sm-2">
 								<select name="searchKey" class="form-control custom-select">
-									<option>:: 선택  ::</option>
+									<option value="">:: 선택  ::</option>
 									<option value="businessType">구분</option>
 									<option value="businessName">거래처명</option>
 									<option value="partnerName">대표자</option>
 									<option value="sectors">업종</option>
 								</select>
 							</div>
-							<div class="input-group input-group-m" style="width: 550px;">
+							<div class="input-group input-group-m" style="width: 450px;">
 								<input type="text" name="searchValue"
 									class="form-control float-right" placeholder="검색어를 입력해주세요.">
 							</div>
-						</div>
-
-					<!-- 주문일자검색 -->
-					<div class="form-group row">
-						<label class="col-sm-1 col-form-label">일자검색</label>
-						<div class="col-sm-3">
-							<input type="date" id="date" class="form-control">	
-						</div>
-							<th:block> <b>~</b> </th:block>
-						<div class="col-sm-3">
-							<input type="date" id="date" class="form-control">
-						</div>
-						
-							<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">
-								<button type="submit" class="btn btn-info">
-									<b>검색</b>
-								</button>
+							<div class="d-flex justify-content-center" style="margin-left: 10px">
+							<button type="submit" class="btn btn-info">
+								<b>검색</b>
+							</button>
 							</div>	
 							<a th:href="@{/basic_management/business/businessInsert}">
-							<button type="button" class="btn btn-info">
+							<button type="button" class="btn btn-info" style="margin-left: 5px">
 								<b>등록</b>
 							</button>
 							</a>
+						</div>
+						<!-- 주문일자검색 -->
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">일자 검색</label>
+							<div class="col-sm-2">
+								<input type="date" name="startDt" id="date" class="form-control">	
+							</div>
+								<th:block> <b>~</b> </th:block>
+							<div class="col-sm-2">
+								<input type="date" name="endDt" id="date" class="form-control">
+							</div>						
 						</div>	
 					</div>
 				</form>
@@ -108,14 +106,13 @@
 							<!-- 수정버튼  -->
 							<td class="text-right py-0 align-middle">
 								<div class="btn-group btn-group-sm">
-									<a
-										th:href="@{/basic_management/business/businessUpdate(businessCode=${l.businessCode})}"
-										class="btn btn-info"> <i class="fas fa-highlighter"></i>
+									<a th:href="@{/basic_management/business/businessUpdate(businessCode=${l.businessCode})}" class="btn btn-info"> 
+										<i class="fas fa-highlighter"></i>
 									</a>
-
 									<!--삭제 버튼  -->
-									<a href="#" class="btn btn-danger"> <i class="fas fa-trash"></i>
-									</a>
+									<button type="button" id="bsdelectBtn" class="btn btn-danger"> <i class="fas fa-trash"></i>
+									</button>									
+
 								</div>
 							</td>
 						</tr>
@@ -125,5 +122,15 @@
 			<div class="card-footer"></div>
 		</div>
 	</div>
+</th:block>
+<th:block layout:fragment="customJs">
+	<script>
+		$(function(){
+			$(document).on('click', '#bsdelectBtn', function(){
+				alert('정말 삭제하시겠습니까?');
+				$('#updateForm').submit();
+			});
+		});
+	</script>
 </th:block>
 </html>

@@ -29,8 +29,8 @@ public class BusinessService {
 	
 	
 	// 거래처 조건 검색
-	public List<Business> getBusinessListBySearchKey(String searchKey, String searchValue) {
-		return businessMapper.getBusinessListBySearchKey(searchKey, searchValue);
+	public List<Business> getBusinessListBySearchKey(String searchKey, String searchValue, String startDt, String endDt) {
+		return businessMapper.getBusinessListBySearchKey(searchKey, searchValue, startDt, endDt);
 	}
 	
 	// 거래처 정보 수정
@@ -42,4 +42,5 @@ public class BusinessService {
 	public int businessInsert(Business business) {
 		return businessMapper.businessInsert(business);
 		}
+	
 }

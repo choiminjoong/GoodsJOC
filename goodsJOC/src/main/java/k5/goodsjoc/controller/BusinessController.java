@@ -60,6 +60,8 @@ public class BusinessController {
    public String getSearchBusinessList(
           @RequestParam(value="searchKey", required = false) String searchKey
          ,@RequestParam(value="searchValue", required = false) String searchValue
+         ,@RequestParam(value="startDt", required = false) String startDt
+         ,@RequestParam(value="endDt", required = false) String endDt
          ,Model model) {
       System.out.println(searchKey);
       System.out.println(searchValue);
@@ -75,9 +77,9 @@ public class BusinessController {
       }else  {
          searchKey = "sectors";
       }
-      // 검색키 검색어를 통해서 회원목록 조회
       
-      List<Business> businessList = businessService.getBusinessListBySearchKey(searchKey, searchValue);
+      // 검색키 검색어를 통해서 회원목록 조회
+      List<Business> businessList = businessService.getBusinessListBySearchKey(searchKey, searchValue, startDt, endDt);
       
       // 조회된 회원목록 model에 값을 저장
       model.addAttribute("title", "거래처목록조회");

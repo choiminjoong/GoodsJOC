@@ -4,9 +4,22 @@ public class GoodsCate {
 	private String categoryCode;
 	private String categoryName;
 	private String martCode;
-	private String ID;
+	private String id;
 	private String regDate;
+	
+	private User user;
 
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	@Override
+	public String toString() {
+		return "GoodsCate [categoryCode=" + categoryCode + ", categoryName=" + categoryName + ", martCode=" + martCode
+				+ ", id=" + id + ", regDate=" + regDate + "]";
+	}
 	public String getCategoryCode() {
 		return categoryCode;
 	}
@@ -25,11 +38,11 @@ public class GoodsCate {
 	public void setMartCode(String martCode) {
 		this.martCode = martCode;
 	}
-	public String getID() {
-		return ID;
+	public String getId() {
+		return id;
 	}
-	public void setID(String iD) {
-		ID = iD;
+	public void setId(String id) {
+		this.id = id;
 	}
 	public String getRegDate() {
 		return regDate;
@@ -37,11 +50,4 @@ public class GoodsCate {
 	public void setRegDate(String regDate) {
 		this.regDate = regDate;
 	}
-	@Override
-	public String toString() {
-		return "GoodsCate [categoryCode=" + categoryCode + ", categoryName=" + categoryName + ", martCode=" + martCode
-				+ ", ID=" + ID + ", regDate=" + regDate + "]";
-	}
-	
-	
 }

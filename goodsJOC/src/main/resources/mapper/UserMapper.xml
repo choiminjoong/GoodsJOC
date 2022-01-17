@@ -70,9 +70,10 @@
 			ID = #{ID};
 	</select>
 	
-	<!-- 거래처 조건 검색 (정도혜) -->
-	<select id="getUserListBySearchKey" resultMap="userResultMap">		 
+	<!-- 매장별 사용자 조건 검색 (정도혜) -->
+	<select id="getUserListBySearchKey" resultMap="userResultMap" resultType="User">		 
 		SELECT 
+			u.ID,
 			u.name, 
 			u.birthday, 
 			u.phone,
@@ -87,12 +88,11 @@
 			tb_systemLevel AS l
 			ON
 			u.levelNum = l.levelNum
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
+		WHERE 
+			u.martCode = #{martCode} AND u.deleteStatus = 'N'
 			<if test="searchValue != null and searchValue != ''.toString()">
-				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
 			</if>
-		</trim>
-		WHERE u.martCode = #{martCode} AND u.deleteStatus = 'N' AND 5 > u.levelNum
 		ORDER BY u.levelNum
 	</select>
 	
@@ -136,5 +136,16 @@
 		WHERE 
 			ID=#{id};
    </update>
-
+   
+   <!-- 사용자 아이디 중복 확인(정도혜) -->
+	<select id="getUserByUserId" parameterType="String" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			tb_user
+		WHERE
+			ID = #{userId};
+	</select>
+	
+	
 </mapper>

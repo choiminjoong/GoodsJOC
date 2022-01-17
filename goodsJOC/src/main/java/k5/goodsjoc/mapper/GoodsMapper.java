@@ -43,4 +43,14 @@ public interface GoodsMapper {
 	public int addGoodsAction(Goods goods);
 	//상품삭제
 	public int deleteGoods(String barcode);
+	//카테고리등록
+	public int goodsCateInsertAction(GoodsCate goodsCate);
+	//카테고리 삭제
+	public int goodsCateDeleteAction(String categoryCode);
+	//카테고리 삭제전 카테고리에 들어있는 상품의 카테고리 바꿔주기
+	public int updateGoodsCategoryCode(String categoryCode);
+	//카테고리 업데이트
+	public int goodsCateUpdate(GoodsCate goodsCate);
+	//상품정보 수정
+	public int goodsUpdateAction(Goods goods);
 }

@@ -10,7 +10,7 @@
 </th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-	<a th:href="@{/main}">MAIN</a>
+	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
       > 거래관리 > 매출관리
    </th:block>
 
@@ -25,31 +25,35 @@
 				</h3>
 			</div>
 			<div class="card-body">
+			<form th:action="@{/trade_management/sales/salesList}" method="post">
 				<div class="tab-content" id="custom-tabs-two-tabContent">
 					<!-- 매출검색 -->
 					<div class="form-group row">
 						<label class="col-sm-1 col-form-label">키워드검색</label>
 						<div class="col-sm-2">
-							<select id="orderCode" class="form-control custom-select">
-								<option>:: 선택 ::</option>
+							<select name="searchKey" class="form-control custom-select">
+								<option value="">:: 선택  ::</option>
 								<option value="receiptNum">영수증번호</option>
 								<option value="salesTotalPrice">매출액</option>
+								<option value="casnselStaff">취소담당자</option>
 							</select>
 						</div>
 						<div class="input-group input-group-m" style="width: 500px;">
-							<input type="text" name="table_search" style="margin-left: 3%"
+							<input type="text" name="searchValue" style="margin-left: 3%"
 								class="form-control float-right" placeholder="검색어를 입력해주세요.">
 							<div class="input-group-append"></div>
 						</div>
-						<div class="d-flex justify-content-center"style="margin: 0 10px 0 10px">
+						<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">
 							<button type="submit" class="btn btn-info">
 								<b>검색</b>
 							</button>
 						</div>
 						<div class="d-flex justify-content-center">
-							<button type="button" class="btn btn-info">
-								<b>등록</b>
-							</button>
+							<a th:href="@{/trade_management/sales/salesInsert}">
+								<button type="button" class="btn btn-info">
+									<b>등록</b>
+								</button>
+							</a>	
 						</div>
 					</div>
 				</div>
@@ -58,27 +62,27 @@
 				<div class="form-group row">
 					<label class="col-sm-1 col-form-label">일자검색</label>
 					<div class="col-sm-2">
-						<input type="date" id="date" class="form-control">
+						<input type="date" name="startDt" id="date" class="form-control">
 					</div>
 					<th:block>
 						<b>~</b>
 					</th:block>
 					<div class="col-sm-2">
-						<input type="date" id="date" class="form-control">
+						<input type="date"  name="endDt" id="date" class="form-control">
 					</div>
 					<!-- 취소여부 검색 -->
 					<label class="col-sm-1 col-form-label">취소 여부</label>
 					<div class="col-sm-2">
-						<select id="salesCode" class="form-control custom-select" name="searchState">
-							<option value="canselCheck">취소</option>
-							<option value="canselCheck">미취소</option>
+						<select id="searchCancell" class="form-control custom-select">
+							<option value="취소">취소</option>
+							<option value="미취소">미취소</option>
 						</select>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	</div>
-
+</div>
 
 	<!-------------------매출 조회 폼--------------------->
 	<div class="col-12">
@@ -121,7 +125,7 @@
 				</div>
 			</div>
 		</div>
-		<!--------------Modal-------------->
+		<!--------------영수증 Modal-------------->
 		<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 			role="dialog" aria-labelledby="exampleModalCenterTitle"
 			aria-hidden="true">
@@ -135,24 +139,37 @@
 						</button>
 					</div>
 					
-					<!-- 영수증 기본상세내역  -->
-					<div class="modal-body">
-						<div class="invoice p-3 mb-3">
-							<!-- info row -->
-							<div class="row invoice-info">
-								<div class="col">
-									<b>매장명 : </b> <a>다모아 마트 </a><br> <b>사업자번호 : </b> <a>000-0000-000
-									</a><br> <b>대표자 : </b> <a> 정도혜 </a><br> <b>전화번호 : </b> <a>010-000-000
-									</a><br> <b>주소 : </b> <a>전라북도 전주시 덕진구 인후동 </a> <br>
+			<!-- 영수증 기본상세내역  -->
+			<div class="modal-body">
+				<form id="saleForm" th:action="@{/trade_management/sales/salesList}" method="post">	
+					<div class="invoice p-3 mb-3">
+						<!-- info row -->
+						<div class="row invoice-info">
+							<div class="col">
+								<b>매장명 : </b> <a>다모아 마트 </a><br> <b>사업자번호 : </b> <a>000-0000-000
+								</a><br> <b>대표자 : </b> <a> 정도혜 </a><br> <b>전화번호 : </b> <a>010-000-000
+								</a><br> <b>주소 : </b> <a>전라북도 전주시 덕진구 인후동 </a> <br>
+							</div>
+							<!-- 저장 & 프린트 버튼  -->
+							<div class="row no-print">
+								<div class="col-12">
+									<button type="button" class="btn btn-info float-right"
+										style="margin-right: 5px;">
+										<i class="fas fa-download"></i>저장
+									</button>
+									<button type="button" id="salesBtn" class="btn btn-danger float-right"
+										style="margin-right: 5px;">
+										<i class="fas fa-times-circle">영수증 취소</i>
+									</button>									
 								</div>
+							</div>
 							</div>
 							<!-- 영수증 발행시각 -->
 							<div class="col-15" style="text-align: center;">
 								<h4 style="margin-top: 10%">
 									<i>영수증 : </i><a> 00001</a><br> <small>[ 발행일시: 2021-12-12 오전 8:41:09 ]</small>
 								</h4>
-							</div>
-							
+							</div>							
 							<!-- 영수증 테이블-->
 							<div class="row">
 								<div class="col-15 table-responsive">
@@ -217,48 +234,25 @@
 									</div>
 								</div>
 							</div>
-							<!-- 저장 & 프린트 버튼  -->
-							<div class="row no-print">
-								<div class="col-12">
-									<button type="button" class="btn btn-info float-right"
-										style="margin-right: 5px;">
-										<i class="fas fa-download"></i>저장
-									</button>
-									<a href="invoice-print.html" rel="noopener" target="_blank"
-										class="btn btn-default float-right" style="margin-right: 5px"><i
-										class="fas fa-print"></i> Print</a>
-								</div>
-							</div>
 						</div>
-						<button type="button" class="btn btn-warning float-right"
-							data-dismiss="modal">
-							<b>닫기</b>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- 취소 Modal  -->
-	<div class="modal fade" id="exampleModalCenter1" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">알림</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+					</form>
+					<th:block layout:fragment="customJs">
+						<script>
+							$(function(){
+								$(document).on('click', '#salesBtn', function(){
+									alert('정말 취소하시겠습니까?');
+									$('#saleForm').submit();
+								});
+							});
+						</script>
+					</th:block>
+					<button type="button" class="btn btn-warning float-right"
+						data-dismiss="modal">
+						<b>닫기</b>
 					</button>
 				</div>
-				<div class="modal-body">취소 하시겠습니까 ?</div>
-				<div class="modal-footer">
-					<a href="goodsCheck"><button type="button"
-							class="btn btn-secondary">예</button></a>
-					<button type="button" class="btn btn-info" data-dismiss="modal">아니오</button>
-				</div>
 			</div>
 		</div>
 	</div>
+</div>
+

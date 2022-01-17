@@ -23,7 +23,16 @@ public class OrderController {
 		this.orderService = orderService;
 	}
 	
-	// 주문관리 > 주문목록 (정도혜)
+	//주문관리 > 주문등록 (정도혜)
+		@GetMapping("/orderInsert")
+		public String orderInsert() {
+			System.out.println("페이지: 주문 등록");
+			System.out.println("경로: product_management/order/orderInsert(GET방식 성공) ");
+			
+			return "product_management/order/orderInsert";
+		}
+		
+	//주문관리 > 주문목록 (정도혜)
 	@GetMapping("/orderList")
 	public String orderList(Model model) {
 		System.out.println("페이지: 주문 관리");
@@ -35,7 +44,7 @@ public class OrderController {
 		return "product_management/order/orderList";
 	}
 	
-	// 주문관리 > 주문상세 (정도혜)
+	//주문관리 > 주문상세 (정도혜)
 	@GetMapping("/orderDetail")
 	public String orderDetail(Model model) {
 		System.out.println("페이지: 주문 상세");
@@ -50,10 +59,12 @@ public class OrderController {
 	//주문관리 > 주문 검색 (정도혜)
 	@PostMapping("/orderList")
 	public String getSearchOrderList(
-			@RequestParam(value="searchKey", required = false) String searchKey,
-			@RequestParam(value="searchValue", required = false) String searchValue,
-			@RequestParam(value="State", required=false) String State,
-			Model model){
+			@RequestParam(value="searchKey", required = false) String searchKey
+			,@RequestParam(value="searchValue", required = false) String searchValue
+			,@RequestParam(value="startDt", required = false) String startDt
+			,@RequestParam(value="endDt", required = false) String endDt
+			,@RequestParam(value="State", required=false) String State
+			,Model model){
 		System.out.println(searchKey);
 		System.out.println(searchValue);
 		System.out.println(State);
@@ -67,7 +78,7 @@ public class OrderController {
 		}
 		// 검색키 검색어를 통해서 사용자목록 조회
 			
-		List<Order> orderList = orderService.getOrderListBySearchKey(searchKey, searchValue);
+		List<Order> orderList = orderService.getOrderListBySearchKey(searchKey, searchValue, startDt, endDt);
 		
 		// 조회된 회원목록 model에 값을 저장
 		model.addAttribute("title", "주문목록조회");
