@@ -17,17 +17,15 @@ public class LoginInterceptor implements HandlerInterceptor{
 		HttpSession session = request.getSession();
 		String requestUri = request.getRequestURI();
 		
-		String sessionID = (String) session.getAttribute("SID");
+		String sessionId = (String) session.getAttribute("SID");
 		String sessionLevel = (String) session.getAttribute("SLEVEL");
 		
-		if(sessionID == null) {
-			response.sendRedirect("/login");
+		if(sessionId == null) {
+			response.sendRedirect("/system_management/user/loginForm");
 			
 			return false;
-		}else {
-			
 		}
-		
-		return HandlerInterceptor.super.preHandle(request, response, handler);
+
+		return true;
 	}
 }
