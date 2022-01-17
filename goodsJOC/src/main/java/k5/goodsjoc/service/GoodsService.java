@@ -88,7 +88,6 @@ public class GoodsService {
 	}
 
 
-
 	public int deleteGoods(String barcode) {
 		return goodsMapper.deleteGoods(barcode);
 	}
