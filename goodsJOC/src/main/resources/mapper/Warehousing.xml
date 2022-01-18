@@ -38,7 +38,7 @@
 		i.barcode,
 		i.warehousingQTY,
 		u.name,
-		i.regDate,
+		date_format(i.regDate, '%Y-%m-%d') AS regDate,
 		g.goodsName,
 		s.shelfName,
 		w.warehouseName
@@ -69,7 +69,7 @@
 		g.goodsName,
 		s.shelfName,
 		w.warehouseName,
-		i.regDate
+		date_format(i.regDate, '%Y-%m-%d') AS regDate
 	FROM 
 		tb_warehousing AS i
 	INNER JOIN 
@@ -92,6 +92,9 @@
 		i.martCode = #{martCode}
 			<if test="searchValue != null and searchValue != ''.toString()">
 				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
+				AND date_format(i.regDate, '%Y-%m-%d') BETWEEN #{startDt} AND #{endDt}
 			</if>
 	</select>
 
