@@ -110,7 +110,7 @@
 							<td th:text="${l.salesTotalPrice}"></td>
 							<td th:text="${l.regDate}"></td>
 							<td>
-								<button type="button" class="btn btn-outline-primary btn-xs"
+								<button type="submit" class="btn btn-outline-primary btn-xs"
 									data-toggle="modal" data-target="#exampleModalCenter">영수증</button>
 							</td>
 							<td th:text="${l.canselCheck}"></td>
@@ -125,7 +125,8 @@
 			</div>
 		</div>
 	</div>
-	<!--------------영수증 Modal-------------->
+<!--------------영수증 Modal-------------->
+<form th:action="@{/trade_management/sales/salesList}" method="post">
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
 		aria-hidden="true">
@@ -139,9 +140,8 @@
 					</button>
 				</div>
 				
-		<!-- 영수증 기본상세내역  -->
-		<div class="modal-body">
-			<form id="saleForm" th:action="@{/trade_management/sales/salesList}" method="post">	
+			<!-- 영수증 기본상세내역  -->
+			<div class="modal-body">
 				<div class="invoice p-3 mb-3">
 					<!-- info row -->
 					<div class="row invoice-info">
@@ -185,29 +185,11 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>고당고 딸기</td>
-											<td>10,000원</td>
-											<td>1</td>
-											<td>10,000원</td>
-										</tr>
-										<tr>
-											<td>고당고 수박</td>
-											<td>10,000원</td>
-											<td>1</td>
-											<td>10,000원</td>
-										</tr>
-										<tr>
-											<td>고당고 포도</td>
-											<td>10,000원</td>
-											<td>1</td>
-											<td>10,000원</td>
-										</tr>
-										<tr>
-											<td>고당고 곶감</td>
-											<td>10,000원</td>
-											<td>1</td>
-											<td>10,000원</td>
+										<tr th:if="${not #lists.isEmpty(salesDetail)}" th:each="l : ${salesDetail}">
+											<td th:text="${l.goods.getGoodsName()}"></td>
+											<td th:text="${l.goods.getSalesPrice()}"></td>
+											<td th:text="${l.QTY}"></td>
+											<td th:text="${l.totalPrice}"></td>
 										</tr>
 									</tbody>
 								</table>
@@ -215,12 +197,12 @@
 						</div>
 						<!-- 영수증 하단  -->
 						<div class="row">
-							<div class="col-5">
+							<div class="col-4">
 								<div class="table-responsive">
 									<table class="table">
 										<tbody>
 											<tr>
-												<th>VAT (1.5%) :</th>
+												<th>VAT (1.5%)</th>
 												<td>3,636원</td>
 											</tr>
 											<tr>
@@ -233,7 +215,8 @@
 							</div>
 						</div>
 					</div>
-				</form>
+				
+				
 				<th:block layout:fragment="customJs">
 					<script>
 						$(function(){
@@ -243,7 +226,7 @@
 							});
 						});
 					</script>
-					</th:block>
+				</th:block>
 					<button type="button" class="btn btn-warning float-right"
 						data-dismiss="modal">
 						<b>닫기</b>
@@ -252,5 +235,6 @@
 			</div>
 		</div>
 	</div>
+</form>		
 </div>
 

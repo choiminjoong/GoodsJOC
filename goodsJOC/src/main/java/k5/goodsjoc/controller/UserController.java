@@ -129,6 +129,7 @@ public class UserController {
       
       HttpSession session = request.getSession();
       String sessionID = (String) session.getAttribute("SID");
+      
       User userInfo = userService.getUserInfoByID(sessionID);
       model.addAttribute("userInfo", userInfo);
       
@@ -143,6 +144,7 @@ public class UserController {
          Model model){
       System.out.println(searchKey);
       System.out.println(searchValue);
+      
       HttpSession session = request.getSession();
       String sessionMartCode = (String) session.getAttribute("SMARTCODE");  
       
