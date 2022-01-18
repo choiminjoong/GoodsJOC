@@ -24,5 +24,8 @@ public class PurchaseService {
 	public List<Purchase> getPurchaseBySearchKey(String searchKey, String searchValue, String martCode, String startDt, String endDt) {
 		return purchaseMapper.getPurchaseBySearchKey(searchKey, searchValue, martCode, startDt, endDt);
 	}
-
+	//modal 거래명세서 조회
+	public List<Purchase> getPurchaseDetailList(String martCode){
+		return purchaseMapper.getPurchaseDetailList(martCode);
+	}
 }

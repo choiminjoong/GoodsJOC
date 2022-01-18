@@ -15,6 +15,7 @@ public interface PurchaseMapper {
 	//매입 검색
 	public List<Purchase> getPurchaseBySearchKey(String searchKey, String searchValue, String martCode, String startDt, String endDt);
 
+	//modal 거래명세서 조회
+	public List<Purchase> getPurchaseDetailList(String martCode);
+
 	}
-
-
