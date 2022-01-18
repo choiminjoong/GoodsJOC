@@ -24,13 +24,13 @@ public class OrderController {
 	}
 	
 	//주문관리 > 주문등록 (정도혜)
-		@GetMapping("/orderInsert")
-		public String orderInsert() {
-			System.out.println("페이지: 주문 등록");
-			System.out.println("경로: product_management/order/orderInsert(GET방식 성공) ");
-			
-			return "product_management/order/orderInsert";
-		}
+	@GetMapping("/orderInsert")
+	public String orderInsert() {
+		System.out.println("페이지: 주문 등록");
+		System.out.println("경로: product_management/order/orderInsert(GET방식 성공) ");
+		
+		return "product_management/order/orderInsert";
+	}
 		
 	//주문관리 > 주문목록 (정도혜)
 	@GetMapping("/orderList")
@@ -51,8 +51,7 @@ public class OrderController {
 		System.out.println("경로: product_management/order/orderDetail(GET방식 성공) ");
 		List<ViewOrder> viewOrder = orderService.getViewOrder();
 		model.addAttribute("viewOrder",viewOrder);		
-		
-		
+				
 		return "product_management/order/orderDetail";
 	}
 
@@ -67,7 +66,6 @@ public class OrderController {
 			,Model model){
 		System.out.println(searchKey);
 		System.out.println(searchValue);
-		System.out.println(State);
 					
 		if(searchKey != null && "orderNum".equals(searchKey)) {
 			searchKey = "orderNum";
@@ -76,8 +74,8 @@ public class OrderController {
 		}else  {
 			searchKey = "deliveryDate";
 		}
-		// 검색키 검색어를 통해서 사용자목록 조회
-			
+
+		// 검색키 검색어를 통해서 사용자목록 조회	
 		List<Order> orderList = orderService.getOrderListBySearchKey(searchKey, searchValue, startDt, endDt);
 		
 		// 조회된 회원목록 model에 값을 저장

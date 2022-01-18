@@ -1,6 +1,7 @@
 package k5.goodsjoc.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -14,6 +15,8 @@ public interface SalesMapper {
 	
 	//매출 조건검색
 	public List<Sales> getSalesListBySearchKey(String searchKey, String searchValue, String startDt, String endDt);
-	}
+	
+	//영수증 모달
+	public List<Map<String, Object>> salesmadalList(Map<String, Object> paramMap);
 
-
+}

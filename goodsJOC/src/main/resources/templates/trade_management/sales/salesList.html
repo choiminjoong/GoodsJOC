@@ -84,167 +84,165 @@
 	</div>
 </div>
 
-	<!-------------------매출 조회 폼--------------------->
-	<div class="col-12">
-		<div class="card card-warning card-tabs">
-			<div class="card-header p-0 pt-1"></div>
-			<!-- /.card-header -->
-			<div class="card-body table-responsive p-0" style="height: 400px;">
-				<div class="col-12">
-					<table class="table table-hover text-center">
-						<thead>
-							<tr>
-								<th>순번</th>
-								<th>영수증번호</th>
-								<th>매출액</th>
-								<th>거래일시</th>
-								<th>상세보기</th>
-								<th>취소 여부</th>
-								<th>취소 일시</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:if="${not #lists.isEmpty(salesList)}" th:each="l, i : ${salesList}">
-								<td th:text="${i.index+1}"></td>
-								<td th:text="${l.receiptNum}"></td>
-								<td th:text="${l.salesTotalPrice}"></td>
-								<td th:text="${l.regDate}"></td>
-								<td>
-									<button type="button" class="btn btn-outline-primary btn-xs"
-										data-toggle="modal" data-target="#exampleModalCenter">영수증</button>
-								</td>
-								<td th:text="${l.canselCheck}"></td>
-								<!-- <td>
-									<button type="button" class="btn btn-outline-danger btn-xs"
-										data-toggle="modal" data-target="#exampleModalCenter1">취소</button>
-								</td> -->
-								<td th:text="${l.canselDate}"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
+<!-------------------매출 조회 폼--------------------->
+<div class="col-12">
+	<div class="card card-warning card-tabs">
+		<div class="card-header p-0 pt-1"></div>
+		<!-- /.card-header -->
+		<div class="card-body table-responsive p-0" style="height: 400px;">
+			<div class="col-12">
+				<table class="table table-hover text-center">
+					<thead>
+						<tr>
+							<th>순번</th>
+							<th>영수증번호</th>
+							<th>매출액</th>
+							<th>거래일시</th>
+							<th>상세보기</th>
+							<th>취소 여부</th>
+							<th>취소 일시</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${not #lists.isEmpty(salesList)}" th:each="l, i : ${salesList}">
+							<td th:text="${i.index+1}"></td>
+							<td th:text="${l.receiptNum}"></td>
+							<td th:text="${l.salesTotalPrice}"></td>
+							<td th:text="${l.regDate}"></td>
+							<td>
+								<button type="button" class="btn btn-outline-primary btn-xs"
+									data-toggle="modal" data-target="#exampleModalCenter">영수증</button>
+							</td>
+							<td th:text="${l.canselCheck}"></td>
+							<!-- <td>
+								<button type="button" class="btn btn-outline-danger btn-xs"
+									data-toggle="modal" data-target="#exampleModalCenter1">취소</button>
+							</td> -->
+							<td th:text="${l.canselDate}"></td>
+						</tr>
+					</tbody>
+				</table>
 			</div>
 		</div>
-		<!--------------영수증 Modal-------------->
-		<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-			role="dialog" aria-labelledby="exampleModalCenterTitle"
-			aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div class="modal-header bg-info">
-						<h5 class="modal-title" id="SalesDetall">영수증</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-					</div>
-					
-			<!-- 영수증 기본상세내역  -->
-			<div class="modal-body">
-				<form id="saleForm" th:action="@{/trade_management/sales/salesList}" method="post">	
-					<div class="invoice p-3 mb-3">
-						<!-- info row -->
-						<div class="row invoice-info">
-							<div class="col">
-								<b>매장명 : </b> <a>다모아 마트 </a><br> <b>사업자번호 : </b> <a>000-0000-000
-								</a><br> <b>대표자 : </b> <a> 정도혜 </a><br> <b>전화번호 : </b> <a>010-000-000
-								</a><br> <b>주소 : </b> <a>전라북도 전주시 덕진구 인후동 </a> <br>
+	</div>
+	<!--------------영수증 Modal-------------->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<h5 class="modal-title" id="SalesDetall">영수증</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				
+		<!-- 영수증 기본상세내역  -->
+		<div class="modal-body">
+			<form id="saleForm" th:action="@{/trade_management/sales/salesList}" method="post">	
+				<div class="invoice p-3 mb-3">
+					<!-- info row -->
+					<div class="row invoice-info">
+						<div class="col">
+							<b>매장명</b> : 다모아 마트 <br> 
+							<b>사업자번호</b> :  000-0000-000<br>
+							<b>대표자</b> : 정도혜 <br> 
+							<b>전화번호 :</b> 010-000-000<br> 
+							<b>주소 :전라북도 전주시 덕진구 인후동</b> <br>
+						</div>
+						<!-- 저장 & 프린트 버튼  -->
+						<div class="row no-print">
+							<div class="col-12">
+								<button type="button" class="btn btn-info float-right"
+									style="margin-right: 5px;">
+									<i class="fas fa-download"></i>저장
+								</button>
+								<button type="button" id="salesBtn" class="btn btn-danger float-right"
+									style="margin-right: 5px;">
+									<i class="fas fa-times-circle">영수증 취소</i>
+								</button>									
 							</div>
-							<!-- 저장 & 프린트 버튼  -->
-							<div class="row no-print">
-								<div class="col-12">
-									<button type="button" class="btn btn-info float-right"
-										style="margin-right: 5px;">
-										<i class="fas fa-download"></i>저장
-									</button>
-									<button type="button" id="salesBtn" class="btn btn-danger float-right"
-										style="margin-right: 5px;">
-										<i class="fas fa-times-circle">영수증 취소</i>
-									</button>									
-								</div>
+						</div>
+						</div>
+						<!-- 영수증 발행시각 -->
+						<div class="col-15" style="text-align: center;">
+							<h4 style="margin-top: 10%">
+								<i>영수증 : </i><a> 00001</a><br> <small>[ 발행일시: 2021-12-12 오전 8:41:09 ]</small>
+							</h4>
+						</div>							
+						<!-- 영수증 테이블-->
+						<div class="row">
+							<div class="col-15 table-responsive">
+								<table class="table table-striped" style="text-align: center;">
+									<thead style="text-align: center;">
+										<tr>
+											<th>상품명</th>
+											<th>단가</th>
+											<th>수량</th>
+											<th>금액</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>고당고 딸기</td>
+											<td>10,000원</td>
+											<td>1</td>
+											<td>10,000원</td>
+										</tr>
+										<tr>
+											<td>고당고 수박</td>
+											<td>10,000원</td>
+											<td>1</td>
+											<td>10,000원</td>
+										</tr>
+										<tr>
+											<td>고당고 포도</td>
+											<td>10,000원</td>
+											<td>1</td>
+											<td>10,000원</td>
+										</tr>
+										<tr>
+											<td>고당고 곶감</td>
+											<td>10,000원</td>
+											<td>1</td>
+											<td>10,000원</td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
-							</div>
-							<!-- 영수증 발행시각 -->
-							<div class="col-15" style="text-align: center;">
-								<h4 style="margin-top: 10%">
-									<i>영수증 : </i><a> 00001</a><br> <small>[ 발행일시: 2021-12-12 오전 8:41:09 ]</small>
-								</h4>
-							</div>							
-							<!-- 영수증 테이블-->
-							<div class="row">
-								<div class="col-15 table-responsive">
-									<table class="table table-striped" style="text-align: center;">
-										<thead style="text-align: center;">
-											<tr>
-												<th>상품명</th>
-												<th>단가</th>
-												<th>수량</th>
-												<th>금액</th>
-											</tr>
-										</thead>
+						</div>
+						<!-- 영수증 하단  -->
+						<div class="row">
+							<div class="col-5">
+								<div class="table-responsive">
+									<table class="table">
 										<tbody>
 											<tr>
-												<td>고당고 딸기</td>
-												<td>10,000원</td>
-												<td>1</td>
-												<td>10,000원</td>
+												<th>VAT (1.5%) :</th>
+												<td>3,636원</td>
 											</tr>
 											<tr>
-												<td>고당고 수박</td>
-												<td>10,000원</td>
-												<td>1</td>
-												<td>10,000원</td>
-											</tr>
-											<tr>
-												<td>고당고 포도</td>
-												<td>10,000원</td>
-												<td>1</td>
-												<td>10,000원</td>
-											</tr>
-											<tr>
-												<td>고당고 곶감</td>
-												<td>10,000원</td>
-												<td>1</td>
-												<td>10,000원</td>
+												<th>합계 :</th>
+												<td>40,000원</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
 							</div>
-							<!-- 영수증 하단  -->
-							<div class="row">
-								<div class="col-8">
-									<div class="table-responsive">
-										<table class="table">
-											<tbody>
-												<tr>
-													<th>총수량</th>
-													<td>4 개</td>
-												</tr>
-												<tr>
-													<th>VAT (1.5%)</th>
-													<td>0000 원</td>
-												</tr>
-												<tr>
-													<th>합계 :</th>
-													<td>0000 원</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
 						</div>
-					</form>
-					<th:block layout:fragment="customJs">
-						<script>
-							$(function(){
-								$(document).on('click', '#salesBtn', function(){
-									alert('정말 취소하시겠습니까?');
-									$('#saleForm').submit();
-								});
+					</div>
+				</form>
+				<th:block layout:fragment="customJs">
+					<script>
+						$(function(){
+							$(document).on('click', '#salesBtn', function(){
+								alert('정말 취소하시겠습니까?');
+								$('#saleForm').submit();
 							});
-						</script>
+						});
+					</script>
 					</th:block>
 					<button type="button" class="btn btn-warning float-right"
 						data-dismiss="modal">

@@ -1,6 +1,7 @@
 package k5.goodsjoc.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k5.goodsjoc.dto.Sales;
 import k5.goodsjoc.service.SalesService;
@@ -81,6 +83,15 @@ public class SalesController {
 			model.addAttribute("salesList", salesList);
 			
 			return "trade_management/sales/salesList";
+		}
+
+		//영수증 모달
+		@PostMapping("/salesmodalList")
+		@ResponseBody
+		public List<Map<String, Object>> getSalesModalList(){
+			System.out.println("01 20220117 salesmodalList");
+			List<Map<String, Object>> modalList = salesService.getSalesModalList();
+			return modalList;
 		}
 }
 
