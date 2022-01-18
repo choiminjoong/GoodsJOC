@@ -29,7 +29,7 @@ public class WarehousingService {
 
 	}
 	//입고 검색(오대성)
-	  public List<Warehousing> getWarehousingBySearchKey(String searchKey, String searchValue, String martCode) {
-			return warehousingMapper.getWarehousingBySearchKey(searchKey, searchValue, martCode);
+	  public List<Warehousing> getWarehousingBySearchKey(String searchKey, String searchValue, String martCode, String startDt, String endDt) {
+			return warehousingMapper.getWarehousingBySearchKey(searchKey, searchValue, martCode, startDt, endDt);
 		}
 }

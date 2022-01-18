@@ -68,10 +68,10 @@ public class UserController {
 				session.setAttribute("SNAME", userInfo.getName());
 				session.setAttribute("SMARTCODE", martInfo.getMartCode());
 				session.setAttribute("SMARTNAME", martInfo.getMartName());
-				session.setAttribute("SLEVLEL", userInfo.getLevelNum());
+				session.setAttribute("SLEVEL", userInfo.getLevelNum());
 				session.setAttribute("SPHONE", userInfo.getPhone());
 				if(userInfo.getLevelNum().equals("1")) {
-					session.setAttribute("SLEVELNAME", "SW개발사");
+					session.setAttribute("SLEVELNAME", "SW관리자");
 				}else if(userInfo.getLevelNum().equals("2")) {
 					session.setAttribute("SLEVELNAME", "관리자");
 				}else if(userInfo.getLevelNum().equals("3")) {
@@ -221,6 +221,7 @@ public class UserController {
  		
  		return checkResult;
  	} 
+ 	
 }
 
 
