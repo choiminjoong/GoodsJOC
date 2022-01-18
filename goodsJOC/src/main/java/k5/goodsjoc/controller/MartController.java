@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k5.goodsjoc.dto.Mart;
 import k5.goodsjoc.service.MartService;
@@ -25,6 +27,19 @@ public class MartController {
 		this.martService = martService;
 	}	
 
+	@PostMapping("/martCodeCheck")
+	@ResponseBody
+	public boolean martCodeCheckAjax(@RequestParam(value="martCode", required=false) String martCode) {
+		System.out.println("페이지: 매장코드유무 체크 Ajax ");
+		System.out.println("경로: system_management/mart/martCodeCheck(POST방식 성공) ");
+		boolean result = false;
+		int num = martService.martCodeCheck(martCode);
+		if(num > 0) {
+			result = true;
+		}
+		
+		return result;
+	}
 
 	@GetMapping("/martInfo")
 	public String martInfo(HttpServletRequest request, Model model){

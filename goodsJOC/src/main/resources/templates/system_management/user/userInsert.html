@@ -5,118 +5,234 @@
 <th:block th:replace="fragments/head :: headFragment"></th:block>
 
 <body style="background-color: #001F3F;">
-   <div class="row justify-content-center" style="margin-top: 5%">
-      <div class="col-md-7">
-         <div class="card card-primary">
-            <div class="btn-sm bg-warning btn-block card-header ">
-               <h4><i class="fas fa-tags"></i>회원가입</h4>
-            </div>
-            <div class="card-body">
-               <div class="form-group">
-                  <label><code>*</code>아이디</label> 
-                  <div class="input-group input-group">
-                     <input type="text" class="form-control" id="idInput">
-                     <span class="input-group-append">
-                        <button type="button" id="idCheckBtn" class="btn btn-info btn-flat">ID 중복 확인</button>
-                     </span>
-                  </div>
-               </div>
-               <div class="form-group">
-                  <label><code>*</code>비밀번호</label> 
-                  <input type="password" class="form-control">
-               </div>
-               <div class="form-group">
-                  <label><code>*</code>비밀번호 확인</label> 
-                  <input type="password" class="form-control">
-               </div>
-               <div class="form-group">
-                  <label><code>*</code>이름</label> 
-                  <input type="text" class="form-control">
-               </div>
-               <div class="form-group">
-                  <label><code>*</code>생년월일</label> 
-                  <input type="date" id="userBirth" class="form-control">
-               </div>
-               <div class="form-group">
-                  <label><code>*</code>연락처</label> 
-                  <input type="text" id="userBirth" class="form-control">
-               </div>
-               <div class="form-group">
-                  <label><code>*</code>Email</label> 
-                  <input type="text" id="Email" class="form-control">
-               </div>
-               <div class="form-group">
-                  <label for="inputProjectLeader"><code>*</code>주소</label>
-                  <div class="form-group">
-                     <input class="form-control"
-                        style="width: 40%; display: inline;" placeholder="우편번호"
-                        name="addr1" id="addr1" type="text" readonly="readonly">
-                     <button type="button" class="btn btn-default"
-                        onclick="execPostCode();">
-                        <i class="fa fa-search"></i> 우편번호 찾기
-                     </button>
-                  </div>
-                  <div class="form-group">
-                     <input class="form-control" style="top: 5px;"
-                        placeholder="도로명 주소" name="addr2" id="addr2" type="text"
-                        readonly="readonly">
-                  </div>
-                  <div class="form-group">
-                     <input class="form-control" placeholder="상세주소" name="addr3"
-                        id="addr3" type="text">
-                  </div>
-                  <div class="form-group">
-                     <label><code>*</code>마트고유번호</label>
-                     <input type="text" id="martCode" class="form-control" placeholder="매장관리자와 상의하시오">
-                  </div>
+	<div class="row justify-content-center" style="margin-top: 5%">
+		<div class="col-md-7">
+			<div class="card card-primary">
+				<div class="btn-sm bg-warning btn-block card-header">
+					<h4>
+						<i class="fas fa-tags"></i>회원가입
+					</h4>
+				</div>
+				<div class="card-body">
+					<form id="userInsertForm" th:action="@{/system_management/user/userInsertAction}" method="post">
+						<div class="form-group">
+							<label for="idInput"><code>*</code>아이디</label>
+							<div class="input-group input-group">
+								<input type="text" name="id" class="form-control userInsert" id="idInput">
+								<span class="input-group-append">
+									<button type="button" id="idCheckBtn" class="btn btn-info btn-flat">ID 중복 확인</button>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label for="pw"><code>*</code>비밀번호</label> 
+							<input type="password" name="pw" id="pwInput" class="form-control userInsert">
+						</div>
+						<div class="form-group">
+							<label for="pwCheck"><code>*</code>비밀번호 확인</label>
+							<code id="pwOK" style="color: blue">비밀번호가 일치합니다.</code>
+							<code id="pwNO">비밀번호가 일치하지 않습니다.</code>
+							<input type="password" id="pwCheck" class="form-control userInsert">
+						</div>
+						<div class="form-group">
+							<label for="nameInput"><code>*</code>이름</label> 
+							<input type="text" name="name" class="form-control userInsert" id="nameInput">
+						</div>
+						<div class="form-group">
+							<label for="birthInput"><code>*</code>생년월일</label> 
+							<input type="date" name="birthday" id="birthInput" class="form-control userInsert">
+						</div>
+						<div class="form-group">
+							<label for="phoneInput"><code>*</code>연락처</label>
+							<input type="text" name="phone" id="phoneInput" class="form-control userInsert">
+						</div>
+						<div class="form-group">
+							<label for="emailInput"><code>*</code>Email</label>
+							<input type="email" name="email" id="emailInput" class="form-control userInsert">
+						</div>
+						<div class="form-group">
+							<label for="addrDetail"><code>*</code>주소</label>
+							<div class="form-group">
+								<input type="text" class="form-control addrInput" style="width: 40%; display: inline;" 
+										id="sample6_postcode" placeholder="우편번호" readonly>
+								<button type="button" id="addrSearchBtn" class="btn btn-default" onclick="sample6_execDaumPostcode()">
+									<i class="fa fa-search"></i> 우편번호 찾기
+								</button>
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control addrInput userInsert" id="sample6_address" readonly="readonly">
+							</div>
+							<div class="form-group">
+								<input type="text" class="form-control addrInput userInsert" id="sample6_detailAddress" placeholder="상세주소" >
+							</div>
+							
+							<div class="form-group" style="display:none">
+								<input type="text" class="form-control userInsert" name="address" id="address" placeholder="합친주소" >
+							</div>
+							<div class="form-group">
+								<label><code>*</code>마트고유번호</label> <code>※마트고유번호는 매장관리자와 상의하시오</code>
+								<input type="text" class="form-control userInsert" name="martCode" id="martCode">
+								
+							</div>
+						</div>
+					</form>
+				</div>
+				<div class="card-footer">
+					<div class="d-flex row">
+						<div class="col-3 align-left">
+							<a th:href="@{/system_management/user/loginForm}"> 
+								<button type="button" class="btn btn-outline-danger btn-block btn-sm">
+									<i class="fas fa-sign-out-alt"></i> <b>로그인 화면으로 돌아가기</b>
+								</button>
+							</a>
+						</div>
+						<div class="col-6"></div>
+						<div class="col-3">
+							<button id="insertBtn" type="button" class="btn btn-block bg-info" disabled>
+								<b>가입하기</b>
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+<th:block th:replace="fragments/script :: scriptFragment"></th:block>
+	<script>
+		//제이쿼리 시작!
+		$(function(){
+			//등록전 빈칸체크
+			var idCheckCnt = 0;
+			$(document).on('click', '#insertBtn', function(){
+				//1.빈칸체크
+				var checkList = $('.userInsert');
+				var nullCheckCnt = 0;
+				for(var i=0; i<checkList.length; i++){
+					if($(checkList[i]).val().trim() == ''){
+						nullCheckCnt += 1;
+					} 
+				}
+				//2.아이디 중복체크 확인
+				if(nullCheckCnt == 0){
+					if(idCheckCnt == 0){
+						alert('아이디 중복체크를 해주세요');
+						return false;
+					}else{
+						//3.매장고유번호가 일치한다면 일치하는 매장으로 회원가입
+						var martCode = $('#martCode').val();
+						if(typeof martCode != 'undefined' && martCode != null && martCode != ''){
+							var request = $.ajax({
+								url: '/system_management/mart/martCodeCheck',
+								method: 'POST',
+								data: {'martCode' : martCode},
+								dataType: 'json'
+							});
+							request.done(function(data){
+								console.log("받은 값: " + data)
+								if(data){
+									$('#userInsertForm').submit();
+									alert('Goods JOC 가입을 환영합니다.');
+								}else{
+									alert("입력된 마트고유코드와 일치하는 정보가 없습니다.");
+									return false;
+								}
+							});
+							request.fail(function(jqXHR, textStatus){
+								alert("Request failed: " + textStatus)
+							});
+						}
+					}
+				}else{
+					alert('놓치신 항목이 있습니다. 빈칸을 모두 입력해주세요.')
+				}
+			});
+			
+			//아이디 중복체크
+			$(document).on('click', '#idCheckBtn', function(){
+				var idInput = $('#idInput').val();
+				console.log(idInput);
 
-                  <!--   <input type="button" onclick="kakaopost" class="form-control" value="우편번호찾기" style="text-align: left;"> -->
+				if(typeof idInput != 'undefined' && idInput != null && idInput != ''){
+					var request = $.ajax({
+						url: '/system_management/user/userIdCheck',
+						method: 'POST',
+						data: {'userId' : idInput},
+						dataType: 'json'
+					});
+					request.done(function(data){
+						console.log(data);
+						if(data){
+							alert("이미 사용하고 있는 아이디입니다.");
+						}else{
+							alert("사용 가능한 아이디입니다.");
+							idCheckCnt += 1;
+						}
+					});
+				}else{
+					alert("아이디를 입력해주세요.")
+					return false;
+				}
+			});
 
-                  <!-- 등록버튼  -->
-                  <div class="d-flex justify-content-center" >
-                     <button type="submit" class="btn btn-md bg-warning">
-                        <b>등록</b>
-                     </button>
-                     <a th:href="@{/system_management/user/loginForm}" class="btn btn-md btn-danger" style="margin-left: 5px">
-                        <b>닫기</b>
-                     </a>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-   </div>
-   <th:block th:replace="fragments/script :: scriptFragment"></th:block>
-   <script>
-	   	$(function(){
-	   	
-	   		$(document).on('click', '#idCheckBtn', function(){
-	   			var idInput = $('#idInput').val();
-	   			console.log(idInput);
-	   			
-	   			if(typeof idInput != 'undefined' && idInput != null && idInput != ''){
-	   				var request = $.ajax({
-	   					url: '/system_management/user/userIdCheck',
-	   					method: 'POST',
-	   					data:{'userId' : idInput},
-	   					dataType:'json'
-	   				});
-	   				request.done(function(data){
-	   					console.log(data);
-	   					if(data){
-	   						alert("이미 사용하고 있는 아이디입니다.");	   						
-	   					}else{
-	   						alert("사용 가능한 아이디입니다.");
+			//비밀번호 확인
+			$('#pwOK').hide();
+			$('#pwNO').hide();
+			$('input').keyup(function(){
+				var pw = $('#pwInput').val();
+				var pwCheck = $('#pwCheck').val();
+				if(pw != "" || pwCheck != ""){
+					if(pw == pwCheck){
+						$('#pwOK').show();
+						$('#pwNO').hide();
+						$('#insertBtn').removeAttr('disabled');
+					}else{
+						$('#pwOK').hide();
+						$('#pwNO').show();
+						$('#insertBtn').attr('disabled');
+					}
+				}
+			});
+			
+			//주소 합치기
+			$('.addrInput').keyup(function(){
+				addr1 = $('#sample6_postcode').val();
+				addr2 = $('#sample6_address').val();
+				addr3 = $('#sample6_detailAddress').val();
+				$('#address').val("("+addr1+")"+" "+addr2+" "+addr3);
+			});
+		//제이쿼리 끝!	
+		});
+	</script>
 
-	   					}
-	   				});
-	   			}else{
-	   				alert("아이디를 입력해주세요.")
-	   				return false;
-	   			}
-	   		});		   
-	   });
-   </script>
-   
+	<!-- 주소검색  다음api-->
+	<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script>
+		function sample6_execDaumPostcode(){
+	        new daum.Postcode({
+	            oncomplete: function(data){
+	                // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	
+	                // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+	                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	                var addr = ''; // 주소 변수
+	                var extraAddr = ''; // 참고항목 변수
+	
+	                //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+	                if(data.userSelectedType === 'R'){ // 사용자가 도로명 주소를 선택했을 경우
+	                    addr = data.roadAddress;
+	                }else{ // 사용자가 지번 주소를 선택했을 경우(J)
+	                    addr = data.jibunAddress;
+	                }
+
+	                // 우편번호와 주소 정보를 해당 필드에 넣는다.
+	                document.getElementById('sample6_postcode').value = data.zonecode;
+	                document.getElementById("sample6_address").value = addr;
+	                // 커서를 상세주소 필드로 이동한다.
+	                document.getElementById("sample6_detailAddress").focus();
+	            }
+	        }).open();
+	    }
+	</script>
 </body>
 </html>
