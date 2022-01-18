@@ -13,15 +13,32 @@ public class Purchase {
 	private String supplyPrice;
 	private String VAT;
 	
+	private Business business;
+	private Mart mart;
+	
+	
+	
 	
 	@Override
 	public String toString() {
 		return "Purchase [martCode=" + martCode + ", martName=" + martName + ", businessName=" + businessName
 				+ ", purchaseDate=" + purchaseDate + ", orderNum=" + orderNum + ", goodsName=" + goodsName
 				+ ", purchasePrice=" + purchasePrice + ", QTY=" + QTY + ", totalPrice=" + totalPrice + ", supplyPrice="
-				+ supplyPrice + ", VAT=" + VAT + "]";
+				+ supplyPrice + ", VAT=" + VAT + ", business=" + business + ", mart=" + mart + "]";
 	}
 	
+	public Business getBusiness() {
+		return business;
+	}
+	public void setBusiness(Business business) {
+		this.business = business;
+	}
+	public Mart getMart() {
+		return mart;
+	}
+	public void setMart(Mart mart) {
+		this.mart = mart;
+	}
 	public String getMartCode() {
 		return martCode;
 	}
