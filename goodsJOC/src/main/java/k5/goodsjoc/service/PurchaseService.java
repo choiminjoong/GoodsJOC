@@ -28,4 +28,8 @@ public class PurchaseService {
 	public List<Purchase> getPurchaseDetailList(String martCode){
 		return purchaseMapper.getPurchaseDetailList(martCode);
 	}
+	//거래명세서 가져오기
+	public List<Purchase> getPurchaseListByOrderCode(String orderCode) {
+		return purchaseMapper.getPurchaseListByOrderCode(orderCode);
+	}
 }
