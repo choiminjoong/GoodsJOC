@@ -61,7 +61,7 @@ public class PurchaseController {
 	@GetMapping("/purchaseList")
 	public String purchaseList(HttpServletRequest request, Model model) {
 		System.out.println("페이지: 매입 조회");
-		System.out.println("경로: trade_management/sales/salesList(GET방식 성공) ");
+		System.out.println("경로: trade_management/purchase/purchaseList(GET방식 성공) ");
 		
 		HttpSession session = request.getSession();
 		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
@@ -69,6 +69,25 @@ public class PurchaseController {
 		List<Purchase> purchaseList = purchaseService.getPurchaseList(sessionMartCode);
 		model.addAttribute("purchaseList", purchaseList);
 		
+		//거래명세서 조회
+		List<Purchase> purchaseDetailList = purchaseService.getPurchaseDetailList(sessionMartCode);
+		model.addAttribute("purchaseDetailList", purchaseDetailList);
+		
 		return "trade_management/purchase/purchaseList";
 	}
+	//거래명세서 조회
+	/*
+	 * @GetMapping("/	") public String purchaseDetailList(HttpServletRequest
+	 * request, Model model) { System.out.println("페이지: 매입 거래명세서 조회"); System.out.
+	 * println("경로: trade_management/purchase/purchaseDetailList(GET방식 성공) ");
+	 * 
+	 * HttpSession session = request.getSession(); String sessionMartCode = (String)
+	 * session.getAttribute("SMARTCODE");
+	 * 
+	 * List<Purchase> purchaseDetailList =
+	 * purchaseService.getPurchaseDetailList(sessionMartCode);
+	 * model.addAttribute("purchaseDetailList", purchaseDetailList);
+	 * 
+	 * return "trade_management/purchase/purchaseList"; }
+	 */
 }
