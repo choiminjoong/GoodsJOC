@@ -10,9 +10,23 @@ public class Order {
 	private String martCode;
 	private String id;
 	private String regDate;
+	private String totalOrderPrice;
 	
 	private Business business;
-	
+	private User user;
+
+	public User getUser() {
+		return user;
+	}
+	public void setUser(User user) {
+		this.user = user;
+	}
+	public String getTotalOrderPrice() {
+		return totalOrderPrice;
+	}
+	public void setTotalOrderPrice(String totalOrderPrice) {
+		this.totalOrderPrice = totalOrderPrice;
+	}
 	public String getOrderCode() {
 		return orderCode;
 	}

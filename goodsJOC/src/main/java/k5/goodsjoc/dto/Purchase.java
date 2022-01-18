@@ -1,8 +1,10 @@
 package k5.goodsjoc.dto;
 
 public class Purchase {
+	private String orderCode;
 	private String martCode;
 	private String martName;
+	private String businessCode;
 	private String businessName;
 	private String purchaseDate;
 	private String orderNum;
@@ -13,12 +15,21 @@ public class Purchase {
 	private String supplyPrice;
 	private String VAT;
 	
+	public String getBusinessCode() {
+		return businessCode;
+	}
+	public void setBusinessCode(String businessCode) {
+		this.businessCode = businessCode;
+	}
 	private Business business;
 	private Mart mart;
 	
-	
-	
-	
+	public String getOrderCode() {
+		return orderCode;
+	}
+	public void setOrderCode(String orderCode) {
+		this.orderCode = orderCode;
+	}
 	@Override
 	public String toString() {
 		return "Purchase [martCode=" + martCode + ", martName=" + martName + ", businessName=" + businessName

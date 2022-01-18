@@ -16,12 +16,17 @@ import k5.goodsjoc.service.OrderService;
 @Controller
 @RequestMapping(value="/product_management/order")
 public class OrderController {
-
 	private OrderService orderService;
-	
 	public OrderController(OrderService orderService) {
 		this.orderService = orderService;
 	}
+	
+	
+	
+	
+	
+	
+	
 	
 	//주문관리 > 주문등록 (정도혜)
 	@GetMapping("/orderInsert")
@@ -84,6 +89,4 @@ public class OrderController {
 			
 		return "product_management/order/orderList";
 		}
-	
-	
 	}

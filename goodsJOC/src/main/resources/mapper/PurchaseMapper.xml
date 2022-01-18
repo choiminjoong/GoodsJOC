@@ -5,32 +5,34 @@
 <mapper namespace="k5.goodsjoc.mapper.PurchaseMapper">
 	<!-- Purchase ResultMap (오대성) -->
 	<resultMap type="Purchase" id="purchaseResultMap">
-		<result column="martCode" 				property="martCode"/>
+		<id column="orderCode" 				property="martCode"/>
+		<result column="martCode" 			property="martCode"/>
 		<result column="martName" 			property="martName"/>
+		<result column="businessCode" 		property="businessCode"/>
 		<result column="businessName" 		property="businessName"/>
-		<result column="purchaseDate" 				property="purchaseDate"/>		
-		<result column="orderNum" 					property="orderNum"/>
-		<result column="goodsName"				property="goodsName"/>
-		<result column="purchasePrice" 			property="purchasePrice"/>
-		<result column="QTY" 			property="QTY"/>
-		<result column="totalPrice" 			property="totalPrice"/>
-		<result column="supplyPrice" 			property="supplyPrice"/>
-		<result column="VAT" 			property="VAT"/>
+		<result column="purchaseDate" 		property="purchaseDate"/>		
+		<result column="orderNum" 			property="orderNum"/>
+		<result column="goodsName"			property="goodsName"/>
+		<result column="purchasePrice" 		property="purchasePrice"/>
+		<result column="QTY" 				property="QTY"/>
+		<result column="totalPrice" 		property="totalPrice"/>
+		<result column="supplyPrice" 		property="supplyPrice"/>
+		<result column="VAT" 				property="VAT"/>
 		
-		<association javaType="Business" property="business">
-			<id column="businessCode" 	property="businessCode"/>
-			<result column="partnerName" 			property="partnerName"/>
-			<result column="address" 			property="address"/>
-			<result column="businessType" 			property="businessType"/>
-			<result column="sectors" 			property="sectors"/>
-			<result column="partnerPhone" 			property="partnerPhone"/>
+		<association javaType="Business" 	property="business">
+			<id column="businessCode" 		property="businessCode"/>
+			<result column="partnerName" 	property="partnerName"/>
+			<result column="address" 		property="address"/>
+			<result column="businessType" 	property="businessType"/>
+			<result column="sectors" 		property="sectors"/>
+			<result column="partnerPhone" 	property="partnerPhone"/>
 		</association>
 		<association javaType="Mart" property="mart">
 			<id column="martCode" 	property="martCode"/>
-			<result column="partnerName" 			property="partnerName"/>
-			<result column="address" 			property="address"/>
-			<result column="sectors" 			property="sectors"/>
-			<result column="partnerPhone" 			property="partnerPhone"/>
+			<result column="partnerName" 	property="partnerName"/>
+			<result column="address" 		property="address"/>
+			<result column="sectors" 		property="sectors"/>
+			<result column="partnerPhone" 	property="partnerPhone"/>
 		</association>
 	</resultMap>		
 	
@@ -99,4 +101,24 @@
 	</select>
 	
 	
+	<select id="getPurchaseListByOrderCode" resultType="Purchase" resultMap="purchaseResultMap">
+		SELECT 
+			p.orderCode, p.martCode, p.martName, p.businessName, DATE(p.purchaseDate) AS purchaseDate, p.orderNum,
+			p.goodsName, p.purchasePrice, p.QTY, p.totalPrice, p.supplyPrice, p.VAT,
+			b.partnerName, b.address, b.businessType, b.sectors, b.partnerPhone,
+			m.partnerName, m.partnerPhone, m.sectors, m.address
+		FROM
+			view_purchase AS p
+			INNER JOIN
+			tb_business AS b
+			ON
+			p.businessCode = b.businessCode
+			INNER JOIN
+			tb_mart AS m
+			ON
+			p.martCode = m.martCode
+			
+		WHERE
+			p.orderCode = #{orderCode};
+	</select>
 </mapper>
