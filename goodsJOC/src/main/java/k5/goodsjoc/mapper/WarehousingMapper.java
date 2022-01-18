@@ -18,6 +18,6 @@ public interface WarehousingMapper {
 	public List<Warehousing> getWarehousingList(String martCode);
 	
 	//입고 검색(오대성)
-	public List<Warehousing> getWarehousingBySearchKey(String searchKey, String searchValue, String martCode);
+	public List<Warehousing> getWarehousingBySearchKey(String searchKey, String searchValue, String martCode, String startDt, String endDt);
 }
 

@@ -37,6 +37,8 @@ public class WarehousingController {
 	public String getSearchOrderList(HttpServletRequest request,
 			@RequestParam(value="searchKey", required = false) String searchKey,
 			@RequestParam(value="searchValue", required = false) String searchValue,
+			@RequestParam(value="startDt", required = false) String startDt,
+			@RequestParam(value="endDt", required = false) String endDt,
 			Model model){
 		System.out.println(searchKey);
 		System.out.println(searchValue);
@@ -55,7 +57,7 @@ public class WarehousingController {
 		}
 		// 검색키 검색어를 통해서 입고목록 조회
 			
-		List<Warehousing> warehousingList = warehousingService.getWarehousingBySearchKey(searchKey, searchValue, sessionMartCode);
+		List<Warehousing> warehousingList = warehousingService.getWarehousingBySearchKey(searchKey, searchValue, sessionMartCode, startDt, endDt);
 		
 		// 조회된 입고 목록 model에 값을 저장
 		model.addAttribute("title", "입고조회");
