@@ -49,5 +49,9 @@ public class UserService {
 		result += userMapper.getUserByUserId(userId);	
 		return result;
 	}
+
+	public int userInsertAction(User user) {
+		return userMapper.userInsertAction(user);
+	}
 	
 }

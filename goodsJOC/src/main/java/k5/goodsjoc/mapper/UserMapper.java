@@ -26,6 +26,8 @@ public interface UserMapper {
 	
 	//사용자 아이디 중복확인 
 	public int getUserByUserId(String userId);
+
+	public int userInsertAction(User user);
 	
 	
 }
