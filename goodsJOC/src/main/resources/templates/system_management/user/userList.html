@@ -91,17 +91,19 @@
 							</div>
 							<div class="card-footer">
 								<div class="text-right">
-									<a th:href="@{/system_management/user/userUpdate(id=${l.id})}"
-									 class="btn-sm bg-gray disabled color-palette" 
-										style="margin-right: 5px;"> 
-										<i class="fas fa-user"></i> 권한 수정</a>
-									</div>
+									<th:block th:if="${session.SLEVEL == '1' || session.SLEVEL == '2'}">
+										<a th:href="@{/system_management/user/userUpdate(id=${l.id})}"
+											class="btn-sm bg-gray disabled color-palette" style="margin-right: 5px;"> 
+											<i class="fas fa-user"></i> 권한 수정
+										</a>
+									</th:block>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</section>
-	</th:block>
+		</div>
+	</section>
+</th:block>
 </html>
