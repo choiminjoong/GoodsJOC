@@ -22,8 +22,6 @@ public class GoodsService {
 		this.goodsMapper = goodsMapper;
 	}
 	
-
-	
 	public List<Goods> getGoodsList(String martCode){ 
 		
 		return goodsMapper.getGoodsList(martCode); 

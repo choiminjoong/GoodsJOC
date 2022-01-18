@@ -14,7 +14,14 @@
 		<result column="canselCheck" 			property="canselCheck"/>
 		<result column="casnselStaff" 			property="casnselStaff"/>
 		<result column="canselDate" 			property="canselDate"/>
+	
+		<association javaType="Goods" property="goods">
+			<id column="barcode" 		property="barcode"/>
+			<result column="goodsName"	property="goodsName" />
+			<result column="salesPrice"	property="salesPrice" />
+		</association>
 	</resultMap>		
+
 	
 	<!-- Sales 전체조회 (정도혜) -->
 	<select id="getSalesList" parameterType="String" resultMap="salesResultMap">
@@ -55,4 +62,20 @@
 			</if>
 		</trim>	
 	</select>
+	
+	<select id="getsalesDetailList" resultType="Sales">
+	SELECT 
+	   g.goodsName,
+	   g.salesPrice,
+	   s.QTY,
+	   s.totalPrice   
+	FROM 
+	   tb_salesDetail AS s
+	INNER JOIN 
+	   tb_goods AS g
+	ON 
+	s.barcode = g.barcode
+	
+	</select>
+	
 </mapper>

@@ -30,5 +30,13 @@ public class MartService {
 
 		return martMapper.getMartInfoByMartCode(martCode);
 	}
+
+	//마트코드 사용여부체크
+	public int martCodeCheck(String martCode) {
+		int result = 0;
+		result += martMapper.martCodeCheck(martCode);	
+		
+		return result;
+	}
 	
 }

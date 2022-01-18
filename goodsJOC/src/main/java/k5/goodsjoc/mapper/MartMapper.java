@@ -12,4 +12,7 @@ public interface MartMapper {
 	
 	//자신의 마트정보 수정하기(martUpdate)
 	public int updateMartInfo(Mart mart);
+
+	//마트코드 사용유무 체크
+	public int martCodeCheck(String martCode);
 }
