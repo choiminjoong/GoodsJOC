@@ -74,8 +74,28 @@
 	INNER JOIN 
 	   tb_goods AS g
 	ON 
-	s.barcode = g.barcode
+	s.barcode = g.barcode	
+	</select>
 	
+		
+	<!-- 상품 선택용 모달(정도혜) -->
+	<select id="getGoodsList" parameterType="String" resultType="Map">
+	SELECT 
+		g.barcode AS barcode,
+		g.goodsName AS goodsName,
+		g.salesPrice AS salesPrice,
+		b.businessName AS businessName,
+		b.businessCode AS businessCode,
+		g.taxType as taxType
+		
+	FROM 
+		tb_goods AS g
+		INNER JOIN 
+		tb_business AS b
+		ON 
+		b.businessCode = g.businessCode
+	WHERE 
+		g.martCode = #{martCode}			
 	</select>
 	
 </mapper>

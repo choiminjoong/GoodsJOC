@@ -27,10 +27,16 @@ public class OrderService {
 	      
    }
    
-   // 거래처 조건 검색
+   // 주문 조건 검색
    public List<Order> getOrderListBySearchKey(String searchKey, String searchValue, String startDt, String endDt) {
 	return orderMapper.getOrderListBySearchKey(searchKey, searchValue, startDt, endDt);
    }
+   
+	/*
+	 * //주문 등록 public int orderInsert(Order order) { return
+	 * orderMapper.orderInsert(order); }
+	 */
+   
   }
 
 

@@ -19,5 +19,8 @@ public interface OrderMapper {
 	//주문 단일정보 검색
 	public List<Order> getOrderListBySearchKey(String searchKey, String searchValue, String startDt, String endDt);
 
+	/*
+	 * //주문 등록 public int orderInsert(Order order);
+	 */
 	
 }
