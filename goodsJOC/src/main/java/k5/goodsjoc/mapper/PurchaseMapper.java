@@ -18,4 +18,6 @@ public interface PurchaseMapper {
 	//modal 거래명세서 조회
 	public List<Purchase> getPurchaseDetailList(String martCode);
 
+	public List<Purchase> getPurchaseListByOrderCode(String orderCode);
+
 	}
