@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k5.goodsjoc.mapper.DisplayMapper">
+	<!-- Purchase ResultMap (오대성) -->
+	<resultMap type="Display" id="displayResultMap">
+		<result column="displayCode" 				property="displayCode"/>
+		<result column="barcode" 			property="barcode"/>
+		<result column="shelfCode" 		property="shelfCode"/>
+		<result column="showcaseCode" 				property="showcaseCode"/>		
+		<result column="displayQTY" 					property="displayQTY"/>
+		<result column="martCode"				property="martCode"/>
+		<result column="ID" 			property="ID"/>
+		<result column="regDate" 			property="regDate"/>
+		
+		<association javaType="Goods" property="goods">
+			<id column="barcode" 	property="barcode"/>
+			<result column="goodsName" 			property="goodsName"/>
+		</association>
+		<association javaType="Warehouse" property="warehouse">
+			<id column="warehouseCode" 	property="warehouseCode"/>
+			<result column="warehouseName" 			property="warehouseName"/>
+		</association>
+		<association javaType="Shelf" property="shelf">
+			<id column="shelfCode" 	property="shelfCode"/>
+			<result column="shelfName" 			property="shelfName"/>
+		</association>
+		<association javaType="User" property="user">
+			<id column="ID" 	property="ID"/>
+			<result column="name" 			property="name"/>
+		</association>
+		<association javaType="Showcase" property="showcase">
+			<id column="showcaseCode" 	property="showcaseCode"/>
+			<result column="showcasePlace" 			property="showcasePlace"/>
+		</association>
+	</resultMap>		
+	
+	<!-- Display 전체조회 (오대성) -->
+	<select id="getDisplayList" resultType="Map">
+			SELECT 
+			   w.displayCode AS displayCode
+			   , w.displayQTY AS displayQTY
+			   , w.regDate      AS regDate
+			   , g.goodsName AS goodsName
+			   , s.shelfName AS shelfName
+			   , h.warehouseName AS warehouseName
+			   , c.showcasePlace AS showcasePlace
+			   , u.NAME AS userName
+			FROM 
+			   tb_display AS w
+			   INNER JOIN
+			   tb_goods AS g
+			   ON
+			   w.barcode = g.barcode
+			   INNER join
+			   tb_shelf AS s
+			   ON
+			   w.shelfCode = s.shelfCode
+			   INNER join
+			   tb_warehouse AS h
+			   on
+			   s.warehouseCode = h.warehouseCode
+			   INNER join
+			   tb_showcase AS c
+			   on
+			   w.showcaseCode = c.showcaseCode
+			   INNER join
+			   tb_user AS u
+			   on
+			   w.ID = u.ID
+			WHERE
+			   w.martCode = #{martCode}
+		
+	</select>
+	
+	
+	
+</mapper>
