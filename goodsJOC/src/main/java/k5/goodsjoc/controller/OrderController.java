@@ -21,13 +21,7 @@ public class OrderController {
 		this.orderService = orderService;
 	}
 	
-	
-	
-	
-	
-	
-	
-	
+
 	//주문관리 > 주문등록 (정도혜)
 	@GetMapping("/orderInsert")
 	public String orderInsert() {

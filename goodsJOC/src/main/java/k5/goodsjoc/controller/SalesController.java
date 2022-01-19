@@ -1,8 +1,10 @@
 package k5.goodsjoc.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,9 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k5.goodsjoc.dto.Sales;
-import k5.goodsjoc.dto.SalesDetail;
 import k5.goodsjoc.service.SalesService;
 
 @Controller
@@ -84,17 +86,20 @@ public class SalesController {
 			return "trade_management/sales/salesList";
 		}
 		
-		//매출관리 > 모달영수증(정도혜)
-		@GetMapping("/salesDetailList")
-		public String salesDetailList(HttpServletRequest request, Model model) {
-			System.out.println("페이지: 영수증 조회");
-			System.out.println("경로: trade_management/sales/salesList(GET방식 성공) ");
+		//상품선택 모달 Ajax (정도혜)
+		@PostMapping("/searchGoodsModal")
+		@ResponseBody
+		public List<Map<String, Object>> searchGoodsModal(HttpServletRequest request) {
 			
-			List<SalesDetail> salesDetailList = salesService.getsalesDetailList();
-			model.addAttribute("salesDetailList", salesDetailList);
+			HttpSession session = request.getSession();
+			String sessionMartCode = (String) session.getAttribute("SMARTCODE");
 			
-			return "trade_management/sales/salesList";
+			List<Map<String, Object>> goodsModal = salesService.getGoodsList(sessionMartCode);
+			
+			return goodsModal;
 		}
+		
+		
 	
 }
 

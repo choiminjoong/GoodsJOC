@@ -26,5 +26,8 @@ public interface OrderMapper {
 
 	public List<OrderDetail> getPurchaseDetailList(String orderCode);
 
+	/*
+	 * //주문 등록 public int orderInsert(Order order);
+	 */
 	
 }
