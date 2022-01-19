@@ -15,8 +15,9 @@ public interface SalesMapper {
 	
 	//매출 조건검색
 	public List<Sales> getSalesListBySearchKey(String searchKey, String searchValue, String startDt, String endDt);
-	
-	//영수증 모달
-	public List<Map<String, Object>> salesmadalList(Map<String, Object> paramMap);
 
+	//상품 모달
+	public List<Map<String, Object>> getGoodsList(String martCode);
+	
+	
 }

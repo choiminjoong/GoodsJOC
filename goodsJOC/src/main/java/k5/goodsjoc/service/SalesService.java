@@ -17,6 +17,7 @@ public class SalesService {
 	public SalesService(SalesMapper salesMapper) {
 		this.salesMapper = salesMapper;
 	}
+	//매출 전체조회
 	public List<Sales> getSalesList(){
 		return salesMapper.getSalesList();
 	}
@@ -26,9 +27,9 @@ public class SalesService {
 		return salesMapper.getSalesListBySearchKey(searchKey, searchValue, startDt, endDt);
 	}
 	
-	// 영수증 모달
-	public List<Map<String, Object>> getSalesModalList(){
-		List<Map<String, Object>> modalList = salesMapper.salesmadalList(null);
-		return modalList;
+	//상품모달
+	public List<Map<String, Object>> getGoodsList(String martCode) {
+		return salesMapper.getGoodsList(martCode);
 	}
+
 }

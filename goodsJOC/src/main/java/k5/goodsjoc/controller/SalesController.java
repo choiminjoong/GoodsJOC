@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -84,15 +85,22 @@ public class SalesController {
 			
 			return "trade_management/sales/salesList";
 		}
-
-		//영수증 모달
-		@PostMapping("/salesmodalList")
+		
+		//상품선택 모달 Ajax (정도혜)
+		@PostMapping("/searchGoodsModal")
 		@ResponseBody
-		public List<Map<String, Object>> getSalesModalList(){
-			System.out.println("01 20220117 salesmodalList");
-			List<Map<String, Object>> modalList = salesService.getSalesModalList();
-			return modalList;
+		public List<Map<String, Object>> searchGoodsModal(HttpServletRequest request) {
+			
+			HttpSession session = request.getSession();
+			String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+			
+			List<Map<String, Object>> goodsModal = salesService.getGoodsList(sessionMartCode);
+			
+			return goodsModal;
 		}
+		
+		
+	
 }
 
 	

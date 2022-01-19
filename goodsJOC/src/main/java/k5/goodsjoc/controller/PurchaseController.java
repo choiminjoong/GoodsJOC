@@ -11,19 +11,42 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import k5.goodsjoc.dto.Order;
+import k5.goodsjoc.dto.OrderDetail;
 import k5.goodsjoc.dto.Purchase;
+import k5.goodsjoc.service.OrderService;
 import k5.goodsjoc.service.PurchaseService;
 
 @Controller
 @RequestMapping(value="/trade_management/purchase")
 public class PurchaseController {
-	
 	private PurchaseService purchaseService;
-	public PurchaseController(PurchaseService purchaseService) {
+	private OrderService orderService;
+	public PurchaseController(PurchaseService purchaseService, OrderService orderService) {
 		this.purchaseService = purchaseService;
+		this.orderService = orderService;
 	}
 	
+	@PostMapping("/purchaseDetailList")
+	@ResponseBody
+	public List<OrderDetail> purchaseDetailList(@RequestParam(value="orderCode", required = false) String orderCode) {
+		System.out.println("거래명세서 상세정보 Ajax");
+		List<OrderDetail> result = orderService.getPurchaseDetailList(orderCode);
+		
+		return result;
+	}
+	
+	@PostMapping("/purchaseInfo")
+	@ResponseBody
+	public Order purchaseInfo(@RequestParam(value="orderCode", required = false) String orderCode){
+		System.out.println("거래명세서 정보 Ajax");
+		Order result = orderService.getPurchaseInfoByOrderCode(orderCode);
+		
+		return result;
+	}
+
 	@PostMapping("/PurchaseList")
 	public String PurchaseList(HttpServletRequest request,
 								@RequestParam(value="searchKey", required = false) String searchKey,
@@ -56,7 +79,6 @@ public class PurchaseController {
 	return "trade_management/purchase/purchaseList";	
 	}
 	
-	
 	//매입관리 > 매입조회 (오대성)
 	@GetMapping("/purchaseList")
 	public String purchaseList(HttpServletRequest request, Model model) {
@@ -66,8 +88,8 @@ public class PurchaseController {
 		HttpSession session = request.getSession();
 		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
 		
-		List<Purchase> purchaseList = purchaseService.getPurchaseList(sessionMartCode);
-		model.addAttribute("purchaseList", purchaseList);
+		List<Order> purchaseList = orderService.getOrderPurchaseList();
+		model.addAttribute("purchaseList", purchaseList);	
 		
 		//거래명세서 조회
 		List<Purchase> purchaseDetailList = purchaseService.getPurchaseDetailList(sessionMartCode);
@@ -75,19 +97,5 @@ public class PurchaseController {
 		
 		return "trade_management/purchase/purchaseList";
 	}
-	//거래명세서 조회
-	/*
-	 * @GetMapping("/	") public String purchaseDetailList(HttpServletRequest
-	 * request, Model model) { System.out.println("페이지: 매입 거래명세서 조회"); System.out.
-	 * println("경로: trade_management/purchase/purchaseDetailList(GET방식 성공) ");
-	 * 
-	 * HttpSession session = request.getSession(); String sessionMartCode = (String)
-	 * session.getAttribute("SMARTCODE");
-	 * 
-	 * List<Purchase> purchaseDetailList =
-	 * purchaseService.getPurchaseDetailList(sessionMartCode);
-	 * model.addAttribute("purchaseDetailList", purchaseDetailList);
-	 * 
-	 * return "trade_management/purchase/purchaseList"; }
-	 */
+
 }
