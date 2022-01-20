@@ -1,32 +1,65 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <th:block th:fragment="headerFragment">
-	<div id="header">
-		<nav class="main-header navbar navbar-expand joc-dark2">
-			<!-- Left navbar links -->
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a id="main" class="nav-link" data-widget="pushmenu" href="#" role="button">
-						<i class="fas fa-bars"></i>
-					</a>
-				</li>
-			</ul>
-
-			<!-- Right navbar links -->
-			<ul class="navbar-nav ml-auto">
-				<div class="float-right d-none d-sm-block">
-					<div style="word-spacing: 10px;">
-						<a class="joc-a1" th:href="@{/main}"><i class="fas fa-home"></i></a>
-						<th:block th:if="${session.SID != null}">
-							<a class="joc-a1" th:href="@{/system_management/user/userInfo}"><b>마이페이지</b></a>
-							<a style="padding-right: 10px;" class="joc-a1" th:href="@{/system_management/user/logout}"><b>로그아웃</b></a>
-						</th:block>
+	<!-- 매장용 -->
+	<th:block th:if="${session.SLEVEL != '1' && session.SLEVEL != '6' && session.SLEVEL != '7'}">
+		<div id="header">
+			<nav class="main-header navbar navbar-expand joc-dark2">
+				<!-- Left navbar links -->
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a id="main" class="nav-link" data-widget="pushmenu" href="#" role="button">
+							<i class="fas fa-bars"></i>
+						</a>
+					</li>
+				</ul>
+	
+				<!-- Right navbar links -->
+				<ul class="navbar-nav ml-auto">
+					<div class="float-right d-none d-sm-block">
+						<div style="word-spacing: 10px;">
+							<a class="joc-a1" th:href="@{/main}"><i class="fas fa-home"></i></a>
+							<th:block th:if="${session.SID != null}">
+								<a class="joc-a1" th:href="@{/system_management/user/userInfo}"><b>마이페이지</b></a>
+								<a style="padding-right: 10px;" class="joc-a1" th:href="@{/system_management/user/logout}"><b>로그아웃</b></a>
+							</th:block>
+						</div>
 					</div>
-				</div>
+	
+				</ul>
+			</nav>
+		</div>
+	</th:block>
 
-			</ul>
-		</nav>
-	</div>	
+	<!-- 개발사용 -->
+	<th:block th:unless="${session.SLEVEL != '1' && session.SLEVEL != '6' && session.SLEVEL != '7'}">
+		<div id="header">
+			<nav class="main-header navbar navbar-expand joc-3">
+				<!-- Left navbar links -->
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a id="main" class="nav-link" data-widget="pushmenu" href="#" role="button">
+							<i class="fas fa-bars"></i>
+						</a>
+					</li>
+				</ul>
+	
+				<!-- Right navbar links -->
+				<ul class="navbar-nav ml-auto">
+					<div class="float-right d-none d-sm-block">
+						<div style="word-spacing: 10px;">
+							<a class="joc-a1" th:href="@{/main}"><i class="fas fa-home"></i></a>
+							<th:block th:if="${session.SID != null}">
+								<a class="joc-a1" th:href="@{/system_management/user/userInfo}"><b>마이페이지</b></a>
+								<a style="padding-right: 10px;" class="joc-a1" th:href="@{/system_management/user/logout}"><b>로그아웃</b></a>
+							</th:block>
+						</div>
+					</div>
+	
+				</ul>
+			</nav>
+		</div>
+	</th:block>
 	
 </th:block>
 </html>

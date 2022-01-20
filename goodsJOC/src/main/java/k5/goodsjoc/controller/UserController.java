@@ -225,6 +225,11 @@ public class UserController {
  		return checkResult;
  	} 
  	
+ 	@GetMapping("/sw_userList")
+ 	public String totalUserList(Model model) {
+ 		return "system_management/user/sw_userList";
+ 	}
+ 	
 }
 
 
