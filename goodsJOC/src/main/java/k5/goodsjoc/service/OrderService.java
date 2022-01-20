@@ -47,6 +47,11 @@ public class OrderService {
 	public List<OrderDetail> getPurchaseDetailList(String orderCode) {
 		return orderMapper.getPurchaseDetailList(orderCode);
 	}
+	
+	//매출등록
+	public int orderInsert(Order order) {
+		return orderMapper.orderInsert(order);
+	}
 }
 
 

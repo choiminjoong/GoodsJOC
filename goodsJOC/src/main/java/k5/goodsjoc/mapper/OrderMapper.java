@@ -24,10 +24,11 @@ public interface OrderMapper {
 	//매입(주문상태=승인)
 	public Order getPurchaseInfoByOrderCode(String orderCode);
 
+	//주문상세
 	public List<OrderDetail> getPurchaseDetailList(String orderCode);
+	
+	//주문등록
+	public int orderInsert(Order order);
 
-	/*
-	 * //주문 등록 public int orderInsert(Order order);
-	 */
 	
 }

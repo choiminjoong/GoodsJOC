@@ -165,6 +165,22 @@
 		</trim>
 	</select>
 	
+	<insert id="">
+	INSERT INTO tb_order(
+		orderCode, 
+		businessCode, 
+		orderNum, 
+		deliveryDate, 
+		state, 
+		purchaseDate, 
+		martCode, 
+		ID, 
+		regDate, 
+		totalOrderPrice
+	)VALUES (
+		NULL, 0, 0, NOW(), '진행중', NOW(), '', '', NOW(), 0)
+	</insert>
+	
 	
 	
 	

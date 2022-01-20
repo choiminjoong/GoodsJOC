@@ -30,6 +30,16 @@ public class OrderController {
 		
 		return "product_management/order/orderInsert";
 	}
+	 @PostMapping("/orderInsert")
+     public String orderInsert(Order order) {
+        System.out.println("페이지: 거래처 등록 ");
+        System.out.println("경로: basic_management/order/orderInsert(POST방식 성공) ");   
+        System.out.println("화면에서 받은 거래처 정보 : "+  order);
+        
+        orderService.orderInsert(order);
+        
+        return "redirect:/product_management/order/orderInsert";
+     }
 		
 	//주문관리 > 주문목록 (정도혜)
 	@GetMapping("/orderList")

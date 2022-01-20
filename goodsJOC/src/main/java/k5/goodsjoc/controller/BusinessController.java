@@ -124,7 +124,7 @@ public class BusinessController {
       return "basic_management/business/businessUpdate";
       }   
 
-   //거래처 관리 거래처 수정 작업 (정도혜)
+   //거래처 관리 > 거래처 수정 작업 (정도혜)
    @PostMapping("/businessUpdate")
    public String businessUpdate(Business business) {      
       System.out.println("페이지: 거래처 수정 ");
