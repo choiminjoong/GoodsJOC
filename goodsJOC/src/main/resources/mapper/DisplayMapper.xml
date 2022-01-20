@@ -41,7 +41,7 @@
 			SELECT 
 			   w.displayCode AS displayCode
 			   , w.displayQTY AS displayQTY
-			   , w.regDate      AS regDate
+			   , date_format(w.regDate, '%Y-%m-%d% %h:%m:%s') AS regDate
 			   , g.goodsName AS goodsName
 			   , s.shelfName AS shelfName
 			   , h.warehouseName AS warehouseName
@@ -72,6 +72,46 @@
 			WHERE
 			   w.martCode = #{martCode}
 		
+	</select>
+	<select id="getDisplayBySearchKey" resultType="Map">
+			SELECT 
+				   w.displayQTY AS displayQTY
+				   , date_format(w.regDate, '%Y-%m-%d% %h:%m:%s') AS regDate
+				   , g.goodsName AS goodsName
+				   , s.shelfName AS shelfName
+				   , h.warehouseName AS warehouseName
+				   , c.showcasePlace AS showcasePlace
+				   , u.NAME AS userName
+				FROM 
+					tb_display AS w
+				INNER JOIN
+					tb_goods AS g
+				ON
+					w.barcode = g.barcode
+				INNER join
+					tb_shelf AS s
+				ON
+					w.shelfCode = s.shelfCode
+				INNER join
+					tb_warehouse AS h
+				on
+					s.warehouseCode = h.warehouseCode
+				INNER join
+					tb_showcase AS c
+				on
+					w.showcaseCode = c.showcaseCode
+				INNER join
+					tb_user AS u
+				on
+					w.ID = u.ID
+				WHERE
+				   w.martCode = #{martCode}
+				<if test="searchValue != null and searchValue != ''.toString()">
+					AND ${searchKey} LIKE CONCAT ('%', #{searchValue}, '%')
+				</if>
+				<if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
+					AND DATE_FORMAT(w.regDate, '%Y-%m-%d% %h:%m:%s') BETWEEN #{startDt} AND #{endDt}
+				</if>
 	</select>
 	
 	
