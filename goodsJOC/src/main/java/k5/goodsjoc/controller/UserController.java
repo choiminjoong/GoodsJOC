@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k5.goodsjoc.service.MartService;
 import k5.goodsjoc.service.UserService;
@@ -28,6 +29,16 @@ public class UserController {
 	public UserController(UserService userService, MartService martService) {
 		this.userService = userService;
 		this.martService = martService;
+	}
+	
+	@PostMapping("/userInsertAction")
+	public String userInsertAction(User user) {
+		System.out.println("페이지: 회원가입처리 ");
+		System.out.println("경로: system_management/user/userInsertAction(POST방식) ");		
+		System.out.println("입력받은 정보: " + user);
+		int result = userService.userInsertAction(user);
+		
+		return "system_management/user/loginForm";
 	}
 	
 	@GetMapping("/logout")
@@ -57,10 +68,11 @@ public class UserController {
 				session.setAttribute("SNAME", userInfo.getName());
 				session.setAttribute("SMARTCODE", martInfo.getMartCode());
 				session.setAttribute("SMARTNAME", martInfo.getMartName());
-				session.setAttribute("SLEVLEL", userInfo.getLevelNum());
+				session.setAttribute("SMARTINFO", martInfo);
+				session.setAttribute("SLEVEL", userInfo.getLevelNum());
 				session.setAttribute("SPHONE", userInfo.getPhone());
 				if(userInfo.getLevelNum().equals("1")) {
-					session.setAttribute("SLEVELNAME", "SW개발사");
+					session.setAttribute("SLEVELNAME", "SW관리자");
 				}else if(userInfo.getLevelNum().equals("2")) {
 					session.setAttribute("SLEVELNAME", "관리자");
 				}else if(userInfo.getLevelNum().equals("3")) {
@@ -118,6 +130,7 @@ public class UserController {
       
       HttpSession session = request.getSession();
       String sessionID = (String) session.getAttribute("SID");
+      
       User userInfo = userService.getUserInfoByID(sessionID);
       model.addAttribute("userInfo", userInfo);
       
@@ -126,13 +139,16 @@ public class UserController {
    
    //직원관리 > 직원검색(정도혜)
    @PostMapping("/userList")
-   public String getSearchUserList(
+   public String getSearchUserList(HttpServletRequest request,
           @RequestParam(value="searchKey", required = false) String searchKey,
          @RequestParam(value="searchValue", required = false) String searchValue,
          Model model){
       System.out.println(searchKey);
       System.out.println(searchValue);
-               
+      
+      HttpSession session = request.getSession();
+      String sessionMartCode = (String) session.getAttribute("SMARTCODE");  
+      
       if(searchKey != null && "name".equals(searchKey)) {
          searchKey = "name";
       }else if(searchKey != null && "phone".equals(searchKey)) {
@@ -144,9 +160,10 @@ public class UserController {
       }else  {
          searchKey = "levelNum";
       }
-     
-      // 검색키 검색어를 통해서 직원목록 조회         
-      List<User> userList = userService.getUserListBySearchKey(searchKey, searchValue);
+
+      List<User> userList = userService.getUserListBySearchKey(searchKey, searchValue, sessionMartCode);
+
+
       
       // 조회된 회원목록 model에 값을 저장
       model.addAttribute("title", "사원목록조회");
@@ -166,7 +183,7 @@ public class UserController {
        return "redirect:/system_management/user/userInfo";
     }
     
-     //직원관리 > 사원권한 수정화면 (정도혜)     
+     //직원관리 > 직원권한 수정화면 (정도혜)     
      @GetMapping("/userUpdate") 
      public String userUpdate(@RequestParam(value="id", required = false) String id, Model model) {
      System.out.println("페이지: 사원권한수정 ");
@@ -177,9 +194,10 @@ public class UserController {
      model.addAttribute("userUpdate", userUpdate);
      System.out.println("모델에 담긴 비즈니스정보: " + model);
      
-     return "system_management/user/userUpdate";}
+     return "system_management/user/userUpdate";
+     }
      
-     //직원관리 > 사원권한 수정 작업 (정도혜)
+     //직원관리 > 직원권한 수정 작업 (정도혜)
      @PostMapping("/userLevelUpdate") 
      public String userLevelUpdate(User user) 
      { System.out.println("페이지: 사원권한 수정 ");
@@ -188,6 +206,25 @@ public class UserController {
      
      userService.updateUserLevel(user);
      
-     return "redirect:/system_management/user/userList";}
-    
+     return "redirect:/system_management/user/userList";
+     }   
+     
+   // 사용자 아이디 중복확인 (정도혜)
+ 	@PostMapping("/userIdCheck")
+ 	@ResponseBody
+ 	public boolean useridCheck(@RequestParam(value="userId", required=false) String userId) {
+ 		System.out.println("아이디 사용여부 확인 버튼Ajax");
+ 		System.out.println("등록폼에서 확인할 아이디: " + userId);
+ 		
+ 		boolean checkResult = false;
+ 		int check = userService.getUserByUserId(userId);
+ 		if(check > 0) checkResult = true;
+ 		
+ 		return checkResult;
+ 	} 
+ 	
 }
+
+
+
+

@@ -5,73 +5,133 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GoodsJOCㅣLogin</title>
 <!-- Google Font: Source Sans Pro -->
-<link rel="stylesheet"
-	th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback}">
+<link rel="stylesheet" th:href="@{https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback}">
 <!-- Font Awesome -->
-<link rel="stylesheet"
-	th:href="@{/plugins/fontawesome-free/css/all.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/fontawesome-free/css/all.min.css}">
 <!-- icheck bootstrap -->
-<link rel="stylesheet"
-	th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
+<link rel="stylesheet" th:href="@{/plugins/icheck-bootstrap/icheck-bootstrap.min.css}">
 <!-- Theme style -->
 <link rel="stylesheet" th:href="@{/dist/css/adminlte.min.css}">
+<link rel="stylesheet" th:href="@{/css/team5color.css}">	  
 </head>
-<body class="hold-transition login-page" style="background-color: #001F3F;">
-	<div class="login-box">
-		<div class="text-center">
-			<h1 style="color: #fff;"> Goods <b style="color: #ffff00;">JOC</b> </h1>
-		</div>
-		<!-- /.login-logo -->
-		<div class="card">
-			<div class="card-body login-card-body">
-				<p class="login-box-msg">Sign in to start your session</p>
-
-				<form th:action="@{/system_management/user/login}" method="post">
-					<div class="input-group mb-3">
-						<input type="text" name="id" class="form-control" value="martAdmin" placeholder="아이디">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<i class="fas fa-user-circle"></i>
-							</div>
-						</div>
-					</div>
-					<div class="input-group mb-3">
-						<input type="password" name="pw" class="form-control" value="0000" placeholder="비밀번호">
-						<div class="input-group-append">
-							<div class="input-group-text">
-								<span class="fas fa-lock"></span>
-							</div>
-						</div>
-					</div>
-					<div class="row">
-						<div class="col-8">
-							<div class="icheck-warning">
-								<input type="checkbox" id="remember"> <label
-									for="remember"> Remember Me </label>
-							</div>
-						</div>
-						<!-- /.col -->
-						<div class="col-4">
-							<button type="submit" class="btn btn-warning btn-block">Sign In</button>
-						</div>
-						<!-- /.col -->
-					</div>
-				</form>
-				<div class="social-auth-links text-center">
-					<p>- OR -</p>
-					<a th:href="@{/system_management/user/userInsert}" class="btn btn-block btn-primary"> 
-						<i class="fas fa-user-plus"></i> 회원가입
-					</a>
-					<a href="#" class="btn btn-block btn-danger"> 
-						<i class="fab fa-sistrix"></i> 비밀번호 찾기
-					</a>
-				</div>
-
-				<div class="social-auth-links text-center mb-3">
-				</div>
+<body class="container login-page" style="background-color: #001F3F;">
+	<div class="row main-login">
+		<div class="col-md-5">
+			<div class="text-center">
+				<h1 style="color: #fff;"> Goods <b style="color: #ffff00;">JOC</b> </h1>
 			</div>
-			<!-- /.login-card-body -->
+			<!-- /.login-logo -->
+			<div class="card">
+				<div class="card-body login-card-body">
+					<p class="login-box-msg"><span style="color:green;"><b>매장</b> </span> 입장으로 로그인하기</p>
+					<form th:action="@{/system_management/user/login}" method="post">
+						<div class="input-group mb-3">
+							<input type="text" name="id" id="loginId" class="form-control" value="martAdmin" placeholder="아이디">
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<i class="fas fa-user-circle"></i>
+								</div>
+							</div>
+						</div>
+						<div class="input-group mb-3">
+							<input type="password" name="pw" class="form-control" value="0000" placeholder="비밀번호">
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<span class="fas fa-lock"></span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-8">
+								<div class="icheck-warning">
+									<input type="checkbox" id="remember"> <label
+										for="remember"> 저장하기 </label>
+								</div>
+							</div>
+							<!-- /.col -->
+							<div class="col-4">
+								<button type="submit" class="btn btn-warning btn-block">로그인</button>
+	
+							</div>
+							<!-- /.col -->
+						</div>
+					</form>
+					<div class="social-auth-links text-center">
+						<p>- OR -</p>
+						<a th:href="@{/system_management/user/userInsert}" class="btn btn-block btn-primary"> 
+							<i class="fas fa-user-plus"></i> 회원가입
+						</a>
+						<a href="#" class="btn btn-block btn-danger"> 
+							<i class="fab fa-sistrix"></i> 비밀번호 찾기
+						</a>
+					</div>
+	
+					<div class="social-auth-links text-center mb-3">
+					</div>
+				</div>
+				<!-- /.login-card-body -->
+			</div>
+		</div>	
+			
+		<div class="col-2"></div>
+		
+		<div class="col-md-5">
+			<div class="text-center">
+				<h1 style="color: #fff;"> Goods <b style="color: #ffff00;">JOC</b> </h1>
+			</div>
+			<!-- /.login-logo -->
+			<div class="card">
+				<div class="card-body login-card-body">
+					<p class="login-box-msg"><span style="color:maroon;"><b>개발사</b> </span> 입장으로 로그인하기</p>
+					<form th:action="@{/system_management/user/login}" method="post">
+						<div class="input-group mb-3">
+							<input type="text" name="id" id="loginId" class="form-control" value="swAdmin" placeholder="아이디">
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<i class="fas fa-user-circle"></i>
+								</div>
+							</div>
+						</div>
+						<div class="input-group mb-3">
+							<input type="password" name="pw" class="form-control" value="0000" placeholder="비밀번호">
+							<div class="input-group-append">
+								<div class="input-group-text">
+									<span class="fas fa-lock"></span>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-8">
+								<div class="icheck-warning">
+									<input type="checkbox" id="remember2"> 
+									<label for="remember2"> 저장하기 </label>
+								</div>
+							</div>
+							<!-- /.col -->
+							<div class="col-4">
+								<button type="submit" class="btn btn-warning btn-block">로그인</button>
+	
+							</div>
+							<!-- /.col -->
+						</div>
+					</form>
+					<div class="social-auth-links text-center">
+						<p>- OR -</p>
+						<a th:href="@{/system_management/user/userInsert}" class="btn btn-block btn-primary"> 
+							<i class="fas fa-user-plus"></i> 회원가입
+						</a>
+						<a href="#" class="btn btn-block btn-danger"> 
+							<i class="fab fa-sistrix"></i> 비밀번호 찾기
+						</a>
+					</div>
+	
+					<div class="social-auth-links text-center mb-3">
+					</div>
+				</div>
+				<!-- /.login-card-body -->
+			</div>
 		</div>
+		<div class="col-2"></div>
 	</div>
 	<!-- /.login-box -->
 

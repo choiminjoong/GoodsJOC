@@ -10,7 +10,7 @@
 </th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-	<a th:href="@{/main}">MAIN</a>
+	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
       > 거래관리 > 매출관리
    </th:block>
 
@@ -25,20 +25,35 @@
 				</h3>
 			</div>
 			<div class="card-body">
+			<form th:action="@{/trade_management/sales/salesList}" method="post">
 				<div class="tab-content" id="custom-tabs-two-tabContent">
 					<!-- 매출검색 -->
 					<div class="form-group row">
 						<label class="col-sm-1 col-form-label">키워드검색</label>
 						<div class="col-sm-2">
-							<select id="orderCode" class="form-control custom-select">
-								<option>:: 선택  ::</option>
+							<select name="searchKey" class="form-control custom-select">
+								<option value="">:: 선택  ::</option>
 								<option value="receiptNum">영수증번호</option>
 								<option value="salesTotalPrice">매출액</option>
+								<option value="casnselStaff">취소담당자</option>
 							</select>
 						</div>
 						<div class="input-group input-group-m" style="width: 500px;">
-							<input type="text" name="table_search" style="margin-left: 3%" class="form-control float-right" placeholder="검색어를 입력해주세요.">
+							<input type="text" name="searchValue" style="margin-left: 3%"
+								class="form-control float-right" placeholder="검색어를 입력해주세요.">
 							<div class="input-group-append"></div>
+						</div>
+						<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">
+							<button type="submit" class="btn btn-info">
+								<b>검색</b>
+							</button>
+						</div>
+						<div class="d-flex justify-content-center">
+							<a th:href="@{/trade_management/sales/salesInsert}">
+								<button type="button" class="btn btn-warning">
+									<b>매출 등록</b>
+								</button>
+							</a>	
 						</div>
 					</div>
 				</div>
@@ -47,216 +62,180 @@
 				<div class="form-group row">
 					<label class="col-sm-1 col-form-label">일자검색</label>
 					<div class="col-sm-2">
-						<input type="date" id="date" class="form-control">
+						<input type="date" name="startDt" id="date" class="form-control">
 					</div>
 					<th:block>
 						<b>~</b>
 					</th:block>
 					<div class="col-sm-2">
-						<input type="date" id="date" class="form-control">
+						<input type="date"  name="endDt" id="date" class="form-control">
 					</div>
-				<!-- 취소여부 검색 -->
+					<!-- 취소여부 검색 -->
 					<label class="col-sm-1 col-form-label">취소 여부</label>
 					<div class="col-sm-2">
-						<select id="salesCode" class="form-control custom-select" name="searchState">
-							<option value="">취소</option>
-							<option value="">미취소</option>
+						<select id="searchCancell" class="form-control custom-select">
+							<option value="취소">취소</option>
+							<option value="미취소">미취소</option>
 						</select>
-					</div>	
-						<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">						
-								<button type="button" class="btn btn-info" >
-									<b>검색</b>
-								</button>
-						</div>	
-						<div class="d-flex justify-content-center">						
-							<button type="button" th:href="#{salesInsert}" class="btn btn-info">
-								<b>등록</b>
-							</button>
-						</div>	
-					</div>	
-				</div>
-			</div>
-		</div>
-
-
-	<!-------------------매출 조회 폼--------------------->
-	<div class="col-12">
-		<div class="card card-warning card-tabs">
-			<div class="card-header p-0 pt-1"></div>
-			<!-- /.card-header -->
-			<div class="card-body table-responsive p-0" style="height: 400px;">
-				<div class="col-12">
-					<table class="table table-hover text-center">
-						<thead>
-							<tr>
-								<th>순번</th>
-								<th>영수증번호</th>
-								<th>매출액</th>
-								<th>거래일시</th>
-								<th>상세보기</th>
-								<th>취소 여부</th>
-								<th>취소 일시</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr th:if="${not #lists.isEmpty(salesList)}"
-								th:each="l, i : ${salesList}">
-								<td th:text="${i.index+1}"></td>
-								<td th:text="${l.receiptNum}"></td>
-								<td th:text="${l.salesTotalPrice}"></td>
-								<td th:text="${l.regDate}"></td>
-								<td>
-									<button type="button" class="btn btn-outline-primary btn-xs"
-										data-toggle="modal" data-target="#exampleModalCenter">영수증</button>
-								</td>
-								<td>
-									<button type="button" class="btn btn-outline-danger btn-xs"
-										data-toggle="modal" data-target="#exampleModalCenter1">취소</button>
-								</td>
-								<td th:text="${l.canselDate}"></td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-		<!--------------Modal-------------->
-		<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-			role="dialog" aria-labelledby="exampleModalCenterTitle"
-			aria-hidden="true">
-			<div class="modal-dialog"
-				style="max-width: 100%; width: auto; display: table;">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="SalesDetall">영수증</h5>
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
 					</div>
-					<!-- 영수증 기본상세내역  -->
-					<div class="modal-body">
-						<div class="invoice p-3 mb-3">
-							<!-- info row -->
-							<div class="row invoice-info">
-								<div class="col">
-									<b>매장명 : </b> <a>다모아 마트 </a><br> <b>사업자번호 : </b> <a>000-0000-000
-									</a><br> <b>대표자 : </b> <a> 정도혜 </a><br> <b>전화번호 : </b> <a>010-000-000
-									</a><br> <b>주소 : </b> <a>전라북도 전주시 덕진구 인후동 </a> <br>
-								</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
+<!-------------------매출 조회 폼--------------------->
+<div class="col-12">
+	<div class="card card-warning card-tabs">
+		<div class="card-header p-0 pt-1"></div>
+		<!-- /.card-header -->
+		<div class="card-body table-responsive p-0" style="height: 400px;">
+			<div class="col-12">
+				<table class="table table-hover text-center">
+					<thead>
+						<tr>
+							<th>순번</th>
+							<th>영수증번호</th>
+							<th>매출액</th>
+							<th>거래일시</th>
+							<th>상세보기</th>
+							<th>취소 여부</th>
+							<th>취소 일시</th>
+							<th>수 정</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${not #lists.isEmpty(salesList)}" th:each="l, i : ${salesList}">
+							<td th:text="${i.index+1}"></td>
+							<td th:text="${l.receiptNum}"></td>
+							<td th:text="${l.salesTotalPrice}"></td>
+							<td th:text="${l.regDate}"></td>
+							<td>
+								<button type="submit" class="btn btn-outline-primary btn-xs"
+									data-toggle="modal" data-target="#exampleModalCenter">영수증</button>
+							</td>
+							<td th:text="${l.canselCheck}"></td>
+							<td th:text="${l.canselDate}"></td>
+							<td>
+								<!-- 수정버튼 -->
+								<button th:href="@{/trade_management/sales/salesUpdate}" class="btn-sm btn-info"> 
+									<i class="fas fa-highlighter"></i>
+								</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+<!--------------영수증 Modal-------------->
+<form th:action="@{/trade_management/sales/salesList}" method="post">
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalCenterTitle"
+		aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+				<div class="modal-header bg-info">
+					<h5 class="modal-title" id="SalesDetall">영수증</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				
+			<!-- 영수증 기본상세내역  -->
+			<div class="modal-body">
+				<div class="invoice p-3 mb-3">
+					<!-- info row -->
+					<div class="row invoice-info">
+						<div class="col">
+							<b>매장명</b> : 다모아 마트 <br> 
+							<b>사업자번호</b> :  000-0000-000<br>
+							<b>대표자</b> : 정도혜 <br> 
+							<b>전화번호 :</b> 010-000-000<br> 
+							<b>주소 :전라북도 전주시 덕진구 인후동</b> <br>
+						</div>
+						<!-- 저장 & 프린트 버튼  -->
+						<div class="row no-print">
+							<div class="col-12">
+								<button type="button" class="btn btn-info float-right"
+									style="margin-right: 5px;">
+									<i class="fas fa-download"></i>저장
+								</button>
+								<button type="button" id="salesBtn" class="btn btn-danger float-right"
+									style="margin-right: 5px;">
+									<i class="fas fa-times-circle">영수증 취소</i>
+								</button>									
 							</div>
-							<!-- 영수증 발행시각 -->
-							<div class="col-15" style="text-align: center;">
-								<h4 style="margin-top: 10%">
-									<i>영수증 : </i><a> 00001</a><br> <small>[ 발행일시: 2021-12-12 오전 8:41:09 ]</small>
-								</h4>
+						</div>
+						</div>
+						<!-- 영수증 발행시각 -->
+						<div class="col-15" style="text-align: center;">
+							<h4 style="margin-top: 10%">
+								<i>영수증 : </i><a> 00001</a><br> <small>[ 발행일시: 2021-12-12 오전 8:41:09 ]</small>
+							</h4>
+						</div>							
+						<!-- 영수증 테이블-->
+						<div class="row">
+							<div class="col-15 table-responsive">
+								<table class="table table-striped" style="text-align: center;">
+									<thead style="text-align: center;">
+										<tr>
+											<th>상품명</th>
+											<th>단가</th>
+											<th>수량</th>
+											<th>금액</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:if="${not #lists.isEmpty(salesDetail)}" th:each="l : ${salesDetail}">
+											<td th:text="${l.goods.getGoodsName()}"></td>
+											<td th:text="${l.goods.getSalesPrice()}"></td>
+											<td th:text="${l.QTY}"></td>
+											<td th:text="${l.totalPrice}"></td>
+										</tr>
+									</tbody>
+								</table>
 							</div>
-							<!-- Table row -->
-							<div class="row">
-								<div class="col-12 table-responsive">
-									<table class="table table-striped" style="text-align: center;">
-										<thead style="text-align: center;">
-											<tr>
-												<th>상품명</th>
-												<th>단가</th>
-												<th>수량</th>
-												<th>금액</th>
-											</tr>
-										</thead>
+						</div>
+						<!-- 영수증 하단  -->
+						<div class="row">
+							<div class="col-4">
+								<div class="table-responsive">
+									<table class="table">
 										<tbody>
 											<tr>
-												<td>고당고 딸기</td>
-												<td>10,000원</td>
-												<td>1</td>
-												<td>10,000원</td>
+												<th>VAT (1.5%)</th>
+												<td>3,636원</td>
 											</tr>
 											<tr>
-												<td>고당고 수박</td>
-												<td>10,000원</td>
-												<td>1</td>
-												<td>10,000원</td>
-											</tr>
-											<tr>
-												<td>고당고 포도</td>
-												<td>10,000원</td>
-												<td>1</td>
-												<td>10,000원</td>
-											</tr>
-											<tr>
-												<td>고당고 곶감</td>
-												<td>10,000원</td>
-												<td>1</td>
-												<td>10,000원</td>
+												<th>합계 :</th>
+												<td>40,000원</td>
 											</tr>
 										</tbody>
 									</table>
 								</div>
-								<!-- /.col -->
-							</div>
-							<!-- /.row -->
-							<div class="row">
-								<!-- /.col -->
-								<div class="col-8">
-									<div class="table-responsive">
-										<table class="table">
-											<tbody>
-												<tr>
-													<th>총수량</th>
-													<td>4 개</td>
-												</tr>
-												<tr>
-													<th>VAT (1.5%)</th>
-													<td>0000 원</td>
-												</tr>
-												<tr>
-													<th>합계 :</th>
-													<td>0000 원</td>
-												</tr>
-											</tbody>
-										</table>
-									</div>
-								</div>
-							</div>
-							<!-- /.col -->
-							<!-- 저장 & 프린트 버튼  -->
-							<div class="row no-print">
-								<div class="col-12">
-									<button type="button" class="btn btn-info float-right"
-										style="margin-right: 5px;">
-										<i class="fas fa-download"></i>저장
-									</button>
-									<a href="invoice-print.html" rel="noopener" target="_blank"
-										class="btn btn-default float-right" style="margin-right: 5px"><i
-										class="fas fa-print"></i> Print</a>
-								</div>
 							</div>
 						</div>
-						<button type="button" class="btn btn-warning float-right"
-							data-dismiss="modal">
-							<b>닫기</b>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<!-- 취소 Modal  -->
-	<div class="modal fade" id="exampleModalCenter1" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">알림</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span>
+					</div>				
+					<th:block layout:fragment="customJs">
+						<script>
+							$(function(){
+								$(document).on('click', '#salesBtn', function(){
+									alert('정말 취소하시겠습니까?');
+									$('#saleForm').submit();
+								});
+							});
+						</script>
+					</th:block>
+					<button type="button" class="btn btn-warning float-right"
+						data-dismiss="modal">
+						<b>닫기</b>
 					</button>
 				</div>
-				<div class="modal-body">취소 하시겠습니까 ?</div>
-				<div class="modal-footer">
-					<a href="goodsCheck"><button type="button" class="btn btn-secondary">예</button></a>
-					<button type="button" class="btn btn-info" data-dismiss="modal">아니오</button>
-				</div>
 			</div>
 		</div>
 	</div>
+</form>		
+</div>
+

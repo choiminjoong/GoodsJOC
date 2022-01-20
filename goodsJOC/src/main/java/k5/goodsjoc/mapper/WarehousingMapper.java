@@ -15,6 +15,9 @@ public interface WarehousingMapper {
 	public int warehousingInsert(Warehousing warehousing);
 	
 	//입고 조회
-	public List<Warehousing> getWarehousingList();
+	public List<Warehousing> getWarehousingList(String martCode);
+	
+	//입고 검색(오대성)
+	public List<Warehousing> getWarehousingBySearchKey(String searchKey, String searchValue, String martCode, String startDt, String endDt);
 }
 

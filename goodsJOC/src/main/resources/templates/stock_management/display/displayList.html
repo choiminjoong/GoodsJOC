@@ -21,7 +21,7 @@
 				<div class="card card-warning card-tabs">
 					<div class="card-header">
 						<h3 class="card-title">
-							<b>재고이동 관리</b>
+							<b>재고이동 조회</b>
 						</h3>
 					</div>
 					<div class="card-body">
@@ -42,23 +42,33 @@
 										class="form-control float-right"
 										placeholder="검색">
 								</div>
-								<div style="margin-left: 15%">
-									<button type="button" class="btn-lg btn-info">
-										<b>검색</b>
-									</button> <a href="displayInsert">
-										<button type="button" class="btn-lg btn-info">
-											<b>등록</b>
-										</button>
-								</a>
-								</div>
+									
 							</div>
 							<!-----------------이동일검색------------------>
 							<div class="row" style="margin-top: 1%">
 								<!-- 주문일자검색 -->
 								<label class="col-sm-1 col-form-label">이동일</label>
-								<div class="col-sm-3">
+								<div class="col-sm-2">
 									<input type="date" id="date" class="form-control">
 								</div>
+								<span style="font-weight: bolder;">~</span>
+								<div class="col-sm-2">
+									<input type="date" id="date" class="form-control">
+								</div>
+								<div class="col-sm-2">
+									<button type="button" class="btn btn-block bg-gradient-warning btn-lg" style="width: 225px">
+										<b>검색</b>
+									</button> 
+								</div>
+								<div class="col-sm-1">
+								<a th:href="@{/stock_management/display/displayList}" type="button" class="btn btn-block bg-gradient-warning btn-lg">
+									<i class="fas fa-redo-alt"></i>
+								</a>
+							</div>
+						<div class="col-2" style="margin: -4% 0 0 10%">
+							<a th:href="@{/stock_management/goodsReturn/returnList}" class="btn btn-block bg-gradient-info btn-lg">반품</a>
+							<a th:href="@{/stock_management/disposal/disposalList}" class="btn btn-block bg-gradient-info btn-lg">폐기</a>
+						</div>
 							</div>
 						</div>
 
@@ -75,7 +85,7 @@
 							<table class="table table-hover text-nowrap">
 								<thead>
 									<tr>
-										<th></th>
+										<th>번호</th>
 										<th>상품명</th>
 										<th>출고 창고</th>
 										<th>출고 진열대</th>
@@ -86,19 +96,15 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox1"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox1"></label>
-											</div></td>
-										<td>흙당근</td>
-										<td>창고101</td>
-										<td><span class="tag tag-success">1-1-1</span></td>
-										<td>A01</td>
-										<td>10EA</td>
-										<td>오대성</td>
-										<td>2021-10-11</td>
+									<tr th:if="${not #lists.isEmpty(displayList)}" th:each="d, i : ${displayList}">
+										<td th:text="${i.index+1}"></td>
+										<td th:text="${d.goodsName}"></td>
+										<td th:text="${d.warehouseName}"></td>
+										<td th:text="${d.shelfName}"></td>
+										<td th:text="${d.showcasePlace}"></td>
+										<td th:text="${d.displayQTY}"></td>
+										<td th:text="${d.userName}"></td>
+										<td th:text="${d.regDate}"></td>
 										<td class="text-right py-0 align-middle">
 											<div class="btn-group btn-group-sm">
 												<a href="displayUpdate" class="btn btn-info"><i
@@ -108,72 +114,7 @@
 											</div>
 										</td>
 									</tr>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox2"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox2"></label>
-											</div></td>
-										<td>고당도사과</td>
-										<td>창고102</td>
-										<td><span class="tag tag-warning">1-2-1</span></td>
-										<td>B01</td>
-										<td>15EA</td>
-										<td>정도혜</td>
-										<td>2021-11-11</td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="displayUpdate" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox3"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox3"></label>
-											</div></td>
-										<td>꿀배</td>
-										<td>창고103</td>
-										<td><span class="tag tag-warning">1-3-1</span></td>
-										<td>C01</td>
-										<td>20EA</td>
-										<td>최민중</td>
-										<td>2021-09-11</td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="displayUpdate" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox4"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox4"></label>
-											</div></td>
-										<td>고당도딸기</td>
-										<td>창고104</td>
-										<td><span class="tag tag-warning">1-4-1</span></td>
-										<td>D01</td>
-										<td>20EA</td>
-										<td>김지원</td>
-										<td>2021-11-21</td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="displayUpdate" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
+									
 								</tbody>
 							</table>
 						</div>

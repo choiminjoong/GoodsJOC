@@ -26,24 +26,27 @@
 					<div class="card-body">
 						<div class="tab-content" id="custom-tabs-two-tabContent">
 							<!-- 반품검색 -->
+							<form th:action="@{/stock_management/warehousing/warehousingList}" method="post">
 							<div class="row">
 								<label class="col-sm-1 col-form-label">입고검색</label>
 								<div class="col-sm-2">
-									<select id="orderCode" class="form-control custom-select">
-										<option value="상품명">상품명</option>
-										<option value="담당자">담당자</option>
-										<option value="창고">창고</option>
-										<option value="창고진열대">창고진열대</option>
+									<select name="searchKey" class="form-control custom-select">
+										<option>::선택::</option>
+										<option value="goodsName">상품명</option>
+										<option value="name">담당자</option>
+										<option value="warehouseName">창고</option>
+										<option value="shelfName">창고진열대</option>
 									</select>
 								</div>
 								<div class="input-group input-group-m" style="width: 500px;">
-									<input type="text" name="table_search" style="margin-left: 3%"
-										class="form-control float-right" placeholder="검색">
+									<input type="text" name="searchValue" style="margin-left: 3%"
+										class="form-control float-right" placeholder="입고검색">
 								</div>
 								<div style="margin-left: 15%">
-									<button type="button" class="btn-lg btn-info">
+									<button type="submit" class="btn-lg btn-info">
 										<b>검색</b>
-									</button> <a href="warehousingInsert">
+									</button> 
+									<a href="warehousingInsert">
 										<button type="button" class="btn-lg btn-info">
 											<b>등록</b>
 										</button>
@@ -53,17 +56,18 @@
 							<!-----------------반품일검색------------------>
 							<div class="row" style="margin-top: 1%">
 								<!-- 주문일자검색 -->
-								<label class="col-sm-1 col-form-label">등록일자</label>
+								<label class="col-sm-1 col-form-label">등록일</label>
 								<div class="col-sm-2">
-									<input type="date" id="date" class="form-control">
+									<input type="date" name="startDt" id="date" class="form-control">
 								</div>
 								<span style="font-weight: bold;"> ~ </span>
 								<div class="col-sm-2">
-									<input type="date" id="date" class="form-control">
+									<input type="date" name="endDt" id="date" class="form-control">
 								</div>
 							</div>
+							</form>
 						</div>
-
+						
 					</div>
 				</div>
 			</div>
@@ -77,7 +81,7 @@
 							<table class="table table-hover text-nowrap">
 								<thead>
 									<tr>
-										<th></th>
+										<th>순번</th>
 										<th>상품명</th>
 										<th>창고</th>
 										<th>창고 진열대</th>
@@ -87,48 +91,14 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><input type="checkbox"></td>
-										<td>흙당근</td>
-										<td>창고101</td>
-										<td><span class="tag tag-success">1-1-1</span></td>
-										<td>10EA</td>
-										<td>오대성</td>
-										<td>2021-10-11</td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="warehousingUpdate" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox"></td>
-										<td>고당도사과</td>
-										<td>창고102</td>
-										<td><span class="tag tag-warning">1-2-1</span></td>
-										<td>15EA</td>
-										<td>정도혜</td>
-										<td>2021-11-11</td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="warehousingUpdate" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><input type="checkbox"></td>
-										<td>꿀배</td>
-										<td>창고103</td>
-										<td><span class="tag tag-warning">1-3-1</span></td>
-										<td>20EA</td>
-										<td>최민중</td>
-										<td>2021-09-11</td>
+									<tr th:if="${not #lists.isEmpty(warehousingList)}" th:each="l, i : ${warehousingList}">
+										<td th:text="${i.index+1}"></td>
+										<td th:text="${l.goods.getGoodsName()}"></td>
+										<td th:text="${l.warehouse.getWarehouseName()}"></td>
+										<td th:text="${l.shelf.getShelfName()}"><span class="tag tag-success"></span></td>
+										<td th:text="${l.warehousingQTY}"></td>
+										<td th:text="${l.user.getName()}"></td>
+										<td th:text="${l.regDate}"></td>
 										<td class="text-right py-0 align-middle">
 											<div class="btn-group btn-group-sm">
 												<a href="warehousingUpdate" class="btn btn-info"><i

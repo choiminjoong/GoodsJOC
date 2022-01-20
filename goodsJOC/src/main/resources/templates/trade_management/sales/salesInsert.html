@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -6,7 +5,7 @@
 
 <!-- 페이지 제목 공간 -->
 <th:block layout:fragment="customTitle">
-   <title>주문관리</title>
+   <title>매출관리</title>
 </th:block>
 <!-- 로케이션 제목 -->
 <th:block layout:fragment="locationTitle">
@@ -19,103 +18,218 @@
 
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
-   <!-- 거래처 리스트 화면 -->
-   <div class="col-md-14">
-      <div class="card card-warning card-tabs" style="margin-top: -1%">
-      <div class="card-header">
-         <h3 class="card-title">
-            <b>매출 등록</b>
-         </h3>
-      </div>
-      <div class="card-body">
-         <div class="tab-content" id="custom-tabs-two-tabContent">
-            <!-- 주문일자검색 -->
-            <div class="form-group row">
-               <label class="col-sm-1 col-form-label">일자 </label>
-               <div class="col-sm-2">
-                  <input type="date" id="date" class="form-control">
-               </div>
-               <th:block><b>~</b></th:block>
-               <div class="col-sm-2">
-                  <input type="date" id="date" class="form-control">
-               </div>
-               <div align="right" style="margin-left: 3%">
-                  <a href="salesList">
-                  <button type="button" class="btn btn-info">
-                     <b>등록</b>
-                  </button></a>
-               </div>
+      <!-- 폼 헤더 -->
+	    <div class="col-md-7 mx-auto">      
+          <div class="card card-warning card-tabs">
+         	 <div class="card-header">  
+          		<h3 class="card-title">
+              		<b><i class="fas fa-coins"></i>ㅤ매출 등록</b>
+               </h3>        
             </div>
-         </div>
-      </div>
-   </div>
-  </div>
+             <div class="card-body">          
+               <!-- 매출등록폼  -->                      
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ상품 ㅤ/ㅤ</label>
+                <button type="button" id="searchGoodsBtn" class="btn-sm bg-info disabled color-palette"
+					data-toggle="modal" data-target="#modal-default2">
+					상품 검색	
+				</button>
+                  <div class="input-group-append">
+                  <input type="text" class="form-control form-control-border border-warning" id="goodsNameInput"  readonly="readonly">
+                </div>
+               </div> 
+               
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ바코드</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="barcodeInput" readonly="readonly">
+                </div>
+                
+                 <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ유형 </label>
+                  <input type="text" class="form-control form-control-border border-warning" id="taxTypeInput" readonly="readonly">
+                </div>
+                
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ매입처명</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="businessNameInput" readonly="readonly">
+                </div>
 
-   <!-- 테이블시작  -->
-   <!-- /.card-header -->
-   <!-- 거래처 리스트 화면 -->
-   <div class="col-md-13" style="margin-top: 1%">
-      <div class="card card-warning color-pallete">
-         <div class="card-header p-0 pt-1">
-            <h3 class="card-title"></h3>
-         </div>
-         <!-- /.card-header -->
-         <div class="card-body table-responsive p-0"> 
-            <table class="table table-head-fixed text-nowrap text-center">
-               <thead>
-                  <tr>
-                     <th>바코드</th>
-                     <th>상품명</th>
-                     <th>판매가</th>
-                     <th>수량</th>
-                     <th>합계</th>
-                     <th>공급가액</th>
-                     <th>부가세</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>                
-                  </tr>
-                  <tr>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>            
-                  </tr>
-                  <tr>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    
-                  </tr>
-                  <tr>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>
-                    <td><input type="text" name="code" class="ccde" size="12"></td>           
-                  </tr>					                    
-               </tbody>
-            </table>
-         </div>
-         <div class="card-footer"></div>
-      </div>
+                <div class="form-group" style="display: none;">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ매입처코드</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="businessCodeInput" readonly="readonly">
+                </div>
+                
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ판매가</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="salesPriceInput" readonly="readonly">
+                </div>
+               
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ수량</label>
+                  <input type="number" class="form-control form-control-border border-warning" id="qtyInput" >
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ공급가액</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="supplyPriceInput">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ부가세</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="vatInput">
+                </div>
+                            
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ합계</label>
+                  <input type="text" class="form-control form-control-border border-warning" name="salesTotalPrice" id="totalpricesInput">
+                </div>
+             </div>
+         <!--수정 버튼 -->   
+         <div class="d-flex justify-content-center" style="margin: 0cm 0cm 1cm 12cm">
+            <button type="submit" style="margin-left: 5px" class="btn btn-warning">
+               <b>등록</b>
+            </button>
+            <a th:href="@{/trade_management/sales/salesList}" style="margin-left: 5px" class="btn btn-danger">
+               <b>닫기</b>
+            </a>
+        </div>      
+     </div>
    </div>
+
+<!-- 상품 검색 모달  -->
+<form th:action="@{/product_management/sales/salesInsertAction}" method="POST" id="salesInsertForm" class="form-horizontal">
+<div class="modal fade" id="modal-default2" style="display: none;" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header bg-warning">
+				<h4 class="modal-title">상품 검색</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body mx-auto">
+				<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+						<div class="col-sm-15">
+							<table style="width:100%" id="dataTableAjax2" class="text-center table table-bordered dataTable dtr-inline"
+								role="grid" aria-describedby="example2_info">
+								<thead>
+									<tr style="width:100%" role="row">
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" style="t" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending" aria-sort="ascending">
+												바코드
+											</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+												상품명
+											</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending" aria-sort="ascending">
+												매입처명
+											</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending" aria-sort="ascending">
+												상품가격
+											</th>
+											<th tabindex="0" rowspan="1" colspan="1">
+												선택하기
+											</th>											
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+</form>
 </th:block>
+<th:block layout:fragment="customJs">			
+	<script>							
+		//상품리스트 조회 AJax
+		$(function(){
+		
+			//상품가격 자동등록
+			$('#qtyInput').keyup(function(){
+				var salesPriceInput = Number($('#salesPriceInput').val());
+				var qtyInput = Number($('#qtyInput').val());	
+				var totalpricesInput = $('#totalpricesInput');
+				var supplyPriceInput = $('#supplyPriceInput')	
+				var vatInput = $('#vatInput')	
+				var taxTypeInput = $('#taxTypeInput').val();
+				
+				//총가격
+				totalpricesInput.val(salesPriceInput*qtyInput);
+				
+				//부가세구하기
+				if(taxTypeInput == '과세'){
+					var supplyPrice = Math.round(Number(totalpricesInput.val()) / 11 * 10);
+					var vat = Math.round(Number(totalpricesInput.val()) / 11);
+					supplyPriceInput.val(supplyPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원");	
+					vatInput.val(vat.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원");	
+				}else {
+					supplyPriceInput.val(Number(totalpricesInput.val()).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원");		
+				}
+				
+			});
+				
+			// 상품목록 ajax
+			$(document).on('click', '#searchGoodsBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#dataTableAjax2').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/trade_management/sales/searchGoodsModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "barcode"},
+						{ data: "goodsName"},
+						{ data: "businessName"},
+						{ data: "salesPrice"},
+					],
+					columnDefs: [
+						{
+							targets: [4],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn2 = '<button type="button" data-dismiss="modal" class="btn btn-info goodsPickBtn" data-barcode="'+ row.barcode +'" data-goodsName="'+ row.goodsName +'" data-salesPrice="'+ row.salesPrice+'" data-businessCode="'+ row.businessCode+'" data-businessName="'+ row.businessName+ '" data-taxType="'+row.taxType+'">선택</button>';
+								return htmlbtn2;
+							}
+						}
+					]
+				});
+			});
+			
+			//상품 선택
+			$(document).on('click', '.goodsPickBtn', function(){
+				console.log($(this));
+				var barcodePick = $(this).attr('data-barcode');
+				var goodsNamePick = $(this).attr('data-goodsName');
+				var salesPricePick = $(this).attr('data-salesPrice');
+				var businessCodePick = $(this).attr('data-businessCode');
+				var businessNamePick = $(this).attr('data-businessName');
+				var taxTypePick = $(this).attr('data-taxType');
+						
+				$('#barcodeInput').val(barcodePick);
+				$('#goodsNameInput').val(goodsNamePick);
+				$('#salesPriceInput').val(salesPricePick);
+				$('#businessCodeInput').val(businessCodePick);
+				$('#businessNameInput').val(businessNamePick);
+				$('#taxTypeInput').val(taxTypePick);
+			});
+			
+		});						
+		</script>	
+	</th:block>
 </html>

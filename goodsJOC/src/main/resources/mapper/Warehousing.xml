@@ -11,28 +11,91 @@
 		<result column="warehousingType" 			property="warehousingType"/>
 		<result column="note" 				property="note"/>
 		<result column="martCode" 					property="martCode"/>
-		<result column="ID" 				property="ID"/>
+		<result column="ID" 				property="id"/>
 		<result column="regDate" 				property="regDate"/>
+		
+		<association javaType="Goods" property="goods">
+			<id column="barcode" 	property="barcode"/>
+			<result column="goodsName" 			property="goodsName"/>
+		</association>
+		<association javaType="Warehouse" property="warehouse">
+			<id column="warehouseCode" 	property="warehouseCode"/>
+			<result column="warehouseName" 			property="warehouseName"/>
+		</association>
+		<association javaType="Shelf" property="shelf">
+			<id column="shelfCode" 	property="shelfCode"/>
+			<result column="shelfName" 			property="shelfName"/>
+		</association>
+		<association javaType="User" property="user">
+			<id column="ID" 	property="id"/>
+			<result column="name" 			property="name"/>
+		</association>
 	</resultMap>
 	
 
 	<select id="getWarehousingList" resultMap="WarehousingResultMap">
 	SELECT 
-		warehousingCode, 
-		barcode, 
-		shelfCode, 
-		warehousingQTY, 
-		warehousingType, 
-		note, 
-		martCode, 
-		ID, 
-		regDate
+		i.barcode,
+		i.warehousingQTY,
+		u.name,
+		date_format(i.regDate, '%Y-%m-%d') AS regDate,
+		g.goodsName,
+		s.shelfName,
+		w.warehouseName
 	FROM 
-		tb_warehousing
-	
+		tb_warehousing AS i
+	INNER JOIN 
+		tb_goods AS g
+	ON 
+		i.barcode = g.barcode
+	INNER JOIN 
+		tb_shelf AS s
+	ON
+		i.shelfCode = s.shelfCode
+	INNER JOIN 
+		tb_warehouse AS w
+	ON 
+		s.warehouseCode = w.warehouseCode
+	INNER JOIN
+		tb_user AS u
+	on
+		i.ID = u.ID
 	</select>
 	
-
-	
+	<select id="getWarehousingBySearchKey" resultType="Warehousing" resultMap="WarehousingResultMap">
+	SELECT 
+		i.warehousingQTY,
+		u.name,
+		g.goodsName,
+		s.shelfName,
+		w.warehouseName,
+		date_format(i.regDate, '%Y-%m-%d') AS regDate
+	FROM 
+		tb_warehousing AS i
+	INNER JOIN 
+		tb_goods AS g
+	ON 
+		i.barcode = g.barcode
+	INNER JOIN 
+		tb_shelf AS s
+	ON
+		i.shelfCode = s.shelfCode
+	INNER JOIN 
+		tb_warehouse AS w
+	ON 
+		s.warehouseCode = w.warehouseCode
+	INNER JOIN
+		tb_user AS u
+	on
+		i.ID = u.ID
+	WHERE
+		i.martCode = #{martCode}
+			<if test="searchValue != null and searchValue != ''.toString()">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
+				AND date_format(i.regDate, '%Y-%m-%d') BETWEEN #{startDt} AND #{endDt}
+			</if>
+	</select>
 
 </mapper>

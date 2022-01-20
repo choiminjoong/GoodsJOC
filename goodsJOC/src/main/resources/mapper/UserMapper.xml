@@ -3,26 +3,27 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.UserMapper">
+	<!-- user ResultMap (정도혜) -->
 	<!-- user innerjoin level resultMap(최민중)-->
 	<resultMap type="User" id="userResultMap">
-		<id column="ID"				property="id"/>
-		<result column="PW"			property="pw"/>
-		<result column="name"		property="name"/>
-		<result column="birthday"	property="birthday"/>
-		<result column="phone"		property="phone"/>
-		<result column="email"		property="email"/>
-		<result column="address"	property="address"/>
-		<result column="martCode"	property="martCode"/>
-		<result column="levelNum"	property="levelNum"/>
-		<result column="regDate"	property="regDate"/>		
+		<id column="ID"					property="id"/>
+		<result column="PW"				property="pw"/>
+		<result column="name"			property="name"/>
+		<result column="birthday"		property="birthday"/>
+		<result column="phone"			property="phone"/>
+		<result column="email"			property="email"/>
+		<result column="address"		property="address"/>
+		<result column="martCode"		property="martCode"/>
+		<result column="levelNum"		property="levelNum"/>
+		<result column="regDate"		property="regDate"/>		
+		<result column="deleteStatus"	property="deleteStatus"/>		
 		
-		<association javaType="Level" property="level">
-			<id column="levelNum"	property="levelNum"/>
+		<association javaType="Level" 	property="level">
+			<id column="levelNum"		property="levelNum"/>
 			<result column="levelName"	property="levelName" />
 		</association>
-
-		<association javaType="Mart" property="mart">
-			<id column="martCode"	property="martCode"/>
+		<association javaType="Mart" 	property="mart">
+			<id column="martCode"		property="martCode"/>
 			<result column="martName"	property="martName" />		
 		</association>
 	</resultMap>
@@ -32,6 +33,31 @@
 		<result column="levelName"	property="levelName" />
 		<result column="note"		property="note"/>
 	</resultMap>
+
+	<!-- 회원가입 -->
+	<insert id="userInsertAction">
+		INSERT INTO tb_user(
+			ID
+			,PW
+			,name
+			,birthday
+			,phone
+			,email
+			,address
+			,martCode
+			,regDate
+		)VALUES(
+			#{id}
+			,#{pw}
+			,#{name}
+			,#{birthday}
+			,#{phone}
+			,#{email}
+			,#{address}
+			,#{martCode}
+			,NOW()
+		)
+	</insert>
 
 	<!-- 매장별 직원 조회 레벨순서(최민중) -->
 	<select id="getUserList" parameterType="String" resultMap="userResultMap">
@@ -45,7 +71,7 @@
 			ON
 			u.levelNum = l.levelNum
 		WHERE
-			martCode= #{martCode}
+			martCode= #{martCode} AND u.deleteStatus = 'N'
 		ORDER BY
 			u.levelNum ASC;
 	</select>
@@ -69,25 +95,33 @@
 			ID = #{ID};
 	</select>
 	
-
-	<select id="getUserListBySearchKey" resultMap="userResultMap">		 
+	<!-- 매장별 사용자 조건 검색 (정도혜) -->
+	<select id="getUserListBySearchKey" resultMap="userResultMap" resultType="User">		 
 		SELECT 
+			u.ID,
 			u.name, 
 			u.birthday, 
 			u.phone,
 			u.email,
 			u.address,
 			u.martCode, 
-			u.levelNum
+			u.levelNum,
+			l.levelName
 		FROM 
 			tb_user AS u
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			INNER JOIN
+			tb_systemLevel AS l
+			ON
+			u.levelNum = l.levelNum
+		WHERE 
+			u.martCode = #{martCode} AND u.deleteStatus = 'N'
 			<if test="searchValue != null and searchValue != ''.toString()">
-				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
 			</if>
-		</trim>
+		ORDER BY u.levelNum
 	</select>
 	
+	<!-- 거래처 정보수정(정도혜) -->
 	<update id="userUpdateInfo" parameterType="User">
       UPDATE 
       	tb_user      
@@ -117,7 +151,8 @@
       WHERE 
          ID=#{id};
    </update>
-
+	
+	<!-- 거래처 권한수정 (정도혜) -->
 	<update id="updateUserLevel" parameterType="User">
 		UPDATE 
 			tb_user      
@@ -126,5 +161,16 @@
 		WHERE 
 			ID=#{id};
    </update>
-
+   
+   <!-- 사용자 아이디 중복 확인(정도혜) -->
+	<select id="getUserByUserId" parameterType="String" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			tb_user
+		WHERE
+			ID = #{userId};
+	</select>
+	
+	
 </mapper>

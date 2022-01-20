@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.BusinessMapper">
 	<!-- business ResultMap (최민중) -->
-	<resultMap type="Business" id="businessResultMap">
+	<resultMap type="Business" 	id="businessResultMap">
 		<id column="businessCode" 				property="businessCode"/>
 		<result column="businessName" 			property="businessName"/>
 		<result column="partnerName" 			property="partnerName"/>
@@ -77,8 +77,8 @@
 			<if test="address != null and address != ''.toString()">
 				,address = #{address}
 			</if>
-			<if test="FAX != null and FAX != ''.toString()">
-				,FAX = #{FAX}
+			<if test="fax != null and fax != ''.toString()">
+				,FAX = #{fax}
 			</if>
 			<if test="businessStaff != null and businessStaff != ''.toString()">
 				,businessStaff = #{businessStaff}
@@ -114,12 +114,16 @@
 			b.businessStaff, 
 			b.businessStaffPhone, 
 			b.businessStaffEmail, 
-			b.note
+			b.note,
+			date_format(b.regDate, '%Y-%m-%d') AS regDate
 		FROM 
 			tb_business AS b
 		<trim prefix="WHERE" prefixOverrides="AND|OR">
 			<if test="searchValue != null and searchValue != ''.toString()">
 				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			</if>
+			<if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
+				AND date_format(b.regDate, '%Y-%m-%d') BETWEEN #{startDt} AND #{endDt}
 			</if>
 		</trim>
 	</select>
@@ -164,5 +168,16 @@
 		NOW()
 	);
 	</insert>
+	
+	<!-- 거래처삭제 -->
+	<update id="deleteBusiness">
+		UPDATE 
+			tb_business
+		SET 
+			deleteStatus ='Y'
+			,martCode = 0
+		WHERE 
+			businessCode = #{businessCode}
+	</update>
 	
 </mapper>

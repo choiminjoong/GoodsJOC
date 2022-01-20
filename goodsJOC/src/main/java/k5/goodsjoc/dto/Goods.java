@@ -19,11 +19,18 @@ public class Goods {
 	private String martCode;
 	private String id;
 	private String regDate;
-	
+	private String deleteStatus;
+
 	private Business business;
 	private GoodsCate goodsCate;
 	private User user;
 
+	public String getDeleteStatus() {
+		return deleteStatus;
+	}
+	public void setDeleteStatus(String deleteStatus) {
+		this.deleteStatus = deleteStatus;
+	}
 	@Override
 	public String toString() {
 		return "Goods [barcode=" + barcode + ", businessCode=" + businessCode + ", categoryCode=" + categoryCode

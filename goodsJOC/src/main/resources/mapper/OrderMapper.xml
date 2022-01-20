@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.OrderMapper">
+	<!-- Order ResultMap (정도혜) -->
 	<resultMap type="Order" id="OrderResultMap">	
 		<id column="orderCode" 					property="orderCode"/>
 		<result column="businessCode" 			property="businessCode"/>
@@ -13,14 +14,110 @@
 		<result column="martCode" 				property="martCode"/>
 		<result column="ID" 					property="id"/>
 		<result column="regDate" 				property="regDate"/>
+		<result column="totalOrderPrice" 		property="totalOrderPrice"/>
 		
-		<association javaType="Business" property="business">
-			<id column="businessCode" 	property="businessCode"/>
-			<result column="businessName" 			property="businessName"/>
+		<association javaType="Business" 		property="business">
+			<id column="businessCode" 			property="businessCode"/>
+			<result column="businessName" 		property="businessName"/>
+			<result column="partnerName" 		property="partnerName"/>
+			<result column="partnerPhone" 		property="partnerPhone"/>
+			<result column="registerNum" 		property="registerNum"/>
+			<result column="businessType" 		property="businessType"/>
+			<result column="sectors" 			property="sectors"/>
+			<result column="status" 			property="status"/>
+			<result column="callNum" 			property="callNum"/>
+			<result column="address" 			property="address"/>
+			<result column="FAX" 				property="fax"/>
+		</association>		
+		<association javaType="User" 			property="user">
+			<id column="ID" 					property="id"/>
+			<result column="name" 				property="name"/>
 		</association>		
 	</resultMap>
-	
+	<resultMap type="OrderDetail" id="OrderDetailMap">
+		<id column="orderDetailCode" 		property="orderDetailCode"/>
+		<result column="orderCode" 			property="orderCode"/>
+		<result column="barcode" 			property="orderNum"/>
+		<result column="QTY" 				property="qty"/>
+		<result column="totalPrice" 		property="totalPrice"/>
+		<result column="supplyPrice" 		property="supplyPrice"/>
+		<result column="purchasePrice" 		property="purchasePrice"/>
+		<result column="VAT" 				property="vat"/>
+		
+		<association javaType="Goods" 			property="goods">
+			<id column="barcode" 				property="barcode" />
+			<result column="goodsName" 			property="goodsName" />
+			<result column="weight" 			property="weight" />
+			<result column="taxType" 			property="taxType" />
+			<result column="purchasePrice" 		property="purchasePrice" />
+		</association>	
+	</resultMap>
 
+	<select id="getPurchaseDetailList" resultType="OrderDetail" resultMap="OrderDetailMap">
+		SELECT
+			d.purchasePrice, d.QTY, d.totalPrice, d.supplyPrice, d.VAT
+			, g.goodsName, g.taxType, g.weight
+		FROM
+			tb_orderDetail AS d
+			INNER JOIN
+			tb_goods AS g
+			ON
+			d.barcode = g.barcode
+		WHERE 
+			d.orderCode = #{orderCode}
+	</select>
+	
+	<select id="getPurchaseInfoByOrderCode" resultType="Order" resultMap="OrderResultMap">
+		SELECT 
+			o.orderNum, DATE(o.purchaseDate) AS purchaseDate, o.totalOrderPrice
+			, o.ID, u.name
+			, o.businessCode, b.businessName, b.registerNum, b.partnerName, b.callNum, b.sectors, b.address
+		FROM 
+			tb_order AS o
+			INNER JOIN
+			tb_business AS b
+			ON
+			o.businessCode = b.businessCode
+			INNER JOIN
+			tb_user AS u
+			ON
+			o.ID = u.ID
+		WHERE
+			o.orderCode = #{orderCode}
+	</select>
+	
+	<!-- 매입(주문상태=승인) 리스트 조회 -->
+	<select id="getOrderPurchaseList" parameterType="String" resultMap="OrderResultMap">
+		SELECT 
+			o.orderCode, 
+			o.businessCode, 
+			o.orderNum, 
+			o.deliveryDate, 
+			o.state, 
+			o.purchaseDate,
+			o.martCode, 
+			o.id, 
+			o.regDate,
+			o.totalOrderPrice,
+			b.businessName,
+			o.ID,
+			u.name
+		FROM  
+			tb_order AS o
+			INNER JOIN 
+			tb_business AS b
+			ON o.businessCode = b.businessCode
+			INNER JOIN
+			tb_user AS u
+			ON
+			o.ID = u.ID
+		WHERE
+			o.state = "승인"
+		ORDER BY
+			o.orderNum ASC
+	</select>
+	
+	<!-- 주문 전체조회(정도혜) -->
 	<select id="getOrderList" parameterType="String" resultMap="OrderResultMap">
 	SELECT 
 		o.orderCode, 
@@ -40,7 +137,7 @@
 	
 	</select>
 	
-	
+	<!-- 주문 조건검색(정도혜) -->
 	<select id="getOrderListBySearchKey" resultMap="OrderResultMap">		 
 	SELECT 
 		o.orderCode, 
@@ -52,7 +149,8 @@
 		o.martCode, 
 		o.id, 
 		o.regDate,
-		b.businessName
+		b.businessName,
+		date_format(o.regDate, '%Y-%m-%d') AS regDate
 	FROM 
 		tb_order AS o
 		INNER JOIN 
@@ -63,8 +161,62 @@
 			<if test="searchValue != null and searchValue != ''.toString()">
 				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
 			</if>
+			<if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
+				AND date_format(o.regDate, '%Y-%m-%d') BETWEEN #{startDt} AND #{endDt}
+			</if>
 		</trim>
 	</select>
 	
-
+	<insert id="orderInsert" parameterType="Order">
+	INSERT INTO tb_order(
+		orderCode, 
+		businessCode, 
+		orderNum, 
+		deliveryDate, 
+		state, 
+		purchaseDate, 
+		martCode, 
+		ID, 
+		totalOrderPrice,
+		regDate
+	)VALUES (
+		#{orderCode},
+		#{businessCode},
+		#{orderNum},
+		#{deliveryDate},
+		#{state},
+		#{purchaseDate},
+		#{martCode},
+		#{ID},
+		#{totalOrderPrice},
+		NOW()
+		);
+	</insert>
+	
+	<!-- 주문서 상세내역  -->
+	<select id="getsalesDetailList" resultType="orderDetail" resultMap="OrderDetailMap">
+	SELECT   
+		s.QTY,s.totalPrice,s.supplyPrice,s.VAT,s.purchasePrice,
+		g.weight,g.goodsName,g.taxType,g.unit
+			
+	FROM 
+		tb_orderDetail AS s
+		INNER JOIN 
+			tb_goods AS g
+		ON 
+			s.barcode = g.barcode
+		WHERE s.orderCode = #{orderCode}
+	</select>
+	
+	<!-- <select id="getOrderList" resultType="orderDetail">
+	SELECT 
+		businessName, 
+		registerNum, 
+		businessStaff
+	FROM 
+		tb_business
+	</select>
+	 -->
+	
+	
 </mapper>

@@ -31,7 +31,7 @@
 							<div class="input-group mb-2 col-sm-10">
 								<input type="text" id="barcodeInput" name="barcode" class="form-control text-center insertCheck">
 								<div class="input-group-append">
-									<button type="button" id="barcodeCheclkBtn" class="btn btn-info">
+									<button type="button" id="barcodeCheckBtn" class="btn btn-info">
 										사용여부 확인
 									</button>
 								</div>
@@ -197,12 +197,11 @@
 	</div>
 </th:block>
 
-<th:block layout:fragment="customJs">		
-	
+<th:block layout:fragment="customJs">			
 	<script type="text/javascript">
 		$(function(){
 			//1이상시 사용여부확인 체크완료
-			var checkCnt= 0;
+			var checkCnt = 0;
 			
 			//등록시 체크 후 insertAction
 			$(document).on('click', '#goodsInsertBtn', function(){
@@ -229,7 +228,7 @@
 			});
 			
 			//바코드 사용여부 체크
-			$(document).on('click', '#barcodeCheclkBtn', function(){
+			$(document).on('click', '#barcodeCheckBtn', function(){
 				var barcodeCheck = $('#barcodeInput').val();
 				
 				if(typeof barcodeCheck != 'undefined' && barcodeCheck != null && barcodeCheck != ''){
@@ -257,8 +256,6 @@
 					return false;
 				}
 			});
-			
-			
 			
 			//카테고리 선택
 			$(document).on('click', '.catePickBtn', function(){

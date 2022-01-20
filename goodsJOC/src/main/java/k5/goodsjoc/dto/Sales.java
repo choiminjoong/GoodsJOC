@@ -10,7 +10,7 @@ public class Sales {
 	private String canselCheck;
 	private String casnselStaff;
 	private String canselDate;
-	private Goods goods;
+	private Goods goods;	
 	
 	public Goods getGoods() {
 		return goods;

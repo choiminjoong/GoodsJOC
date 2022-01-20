@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
@@ -39,58 +38,48 @@
 									<option value="orderNum">주문번호</option>
 									<option value="businessName">매입처</option>
 									<option value="deliveryDate">납품일</option>
+									<option value="state">상태</option>
 								</select>
 							</div>
-							<div class="input-group input-group-m" style="width: 600px;">
+							<div class="input-group input-group-m" style="width: 500px;">
 								<input type="text" name="searchValue" style="margin-left: 3%"
 									class="form-control float-right" placeholder="검색어를 입력해주세요.">
 								<div class="input-group-append"></div>
 							</div>
 								<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">
-									<button type="submit" class="btn btn-info">
+									<button type="submit" class="btn btn-warning">
 										<b>검색</b>
 									</button>
 								</div>		
 								<div class="d-flex justify-content-center">
-								<button type="button" class="btn btn-info">
-									<b>등록</b>
-								</button>
+								<a th:href="@{/product_management/order/orderInsert}">
+									<button type="button" class="btn btn-info">
+										<b>주문 등록</b>
+									</button>
+								</a>
 							</div>
 						</div>
-					</div>
 
-						<!-- 주문상태검색 -->
 						<div class="form-group row">
-							<label class="col-sm-1 col-form-label">주문상태</label>
-							<div class="col-sm-2">
-								<select id="orderCode" class="form-control custom-select" name="searchState">
-									<option>:: 선택  ::</option>
-									<option value="state">승인</option>
-									<option value="">반려</option>
-									<option value="">진행중</option>
-								</select>
-							</div>
-
 							<!-- 주문일자검색 -->
-							<label class="col-sm-1 col-form-label" style="margin-left: 2%">주문일자</label>
+							<label class="col-sm-1 col-form-label">주문일자</label>
 							<div class="col-sm-2">
-								<input type="date" id="date" class="form-control">
+								<input type="date" name="startDt"id="date" class="form-control">
 							</div>
 							<th:block>
 								<b>~</b>
 							</th:block>
 							<div class="col-sm-2">
-								<input type="date" id="date" class="form-control">
+								<input type="date" name="endDt" id="date" class="form-control">
 							</div>
-					</form>
 						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 
-
 	<!-- 주문테이블 -->
-	<div class="col-md-13" style="margin-top: -1%">
+	<div class="col-md-13" style="margin-top: 1%">
 		<div class="card card-warning color-pallete">
 			<div class="card-header p-0 pt-1">
 				<h3 class="card-title"></h3>
@@ -108,21 +97,31 @@
 							<th>매입일시</th>
 							<th>매장고유코드</th>
 							<th>주문서상세내역</th>
+							<th>주문취소</th>
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${not #lists.isEmpty(orderList)}" th:each="l : ${orderList}">
+						<tr th:if="${not #lists.isEmpty(orderList)}" th:each="l, i: ${orderList}">
 							<td th:text="${l.orderCode}"></td>
 							<td th:text="${l.business.getBusinessName()}"></td>
 							<td th:text="${l.orderNum}"></td>
 							<td th:text="${l.deliveryDate}"></td>
-							<td th:text="${l.state}"></td>
+							<td class="state-color" th:text="${l.state}"></td>
 							<td th:text="${l.purchaseDate}"></td>
 							<td th:text="${l.martCode}"></td>
 							<td>
-								<button type="button" class="btn btn-outline-secondary btn-xs">
-										<a th:href="@{/product_management/order/orderDetail}">주문서 상세보기</a>
-								</button>
+								<a th:href="@{/product_management/order/orderDetail(orderCode=${l.orderCode})}">
+									<button type="submit" class="btn btn-outline-primary btn-xs">
+										주문서 상세보기
+									</button>
+								</a>								
+							</td>
+							<td>
+								<a th:href="@{/product_management/order/orderList}">
+									<button type="button" id="salesBtn" class="btn btn-outline-danger btn-xs">
+										취소
+									</button>
+								</a>								
 							</td>
 						</tr>
 					</tbody>
@@ -132,6 +131,28 @@
 		</div>
 	</div>
 </th:block>
+<th:block layout:fragment="customJs">	
+	<script type="text/javascript">
+		$(function(){
+			var stateGroup = $('.state-color');
+			for(var i=0; i<stateGroup.length; i++){
+				if($(stateGroup[i]).text() == '반려'){
+					$(stateGroup[i]).css('color','red');
+				}else if($(stateGroup[i]).text() == '승인'){
+					$(stateGroup[i]).css('color','blue');
+				}else{
+					$(stateGroup[i]).css('color','green');
+				}
+			}
+		});
+		
+	//주문취소버튼 알림
+	$(function(){
+		$(document).on('click', '#salesBtn', function(){
+			alert('정말 취소하시겠습니까?');
+			$('#saleForm').submit();
+		});
+	});
+	</script>
+</th:block>
 </html>
-
-

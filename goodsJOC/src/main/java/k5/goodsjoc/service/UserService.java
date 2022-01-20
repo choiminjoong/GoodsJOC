@@ -28,8 +28,8 @@ public class UserService {
 	}
 
 	// 사용자 조건 검색
-	public List<User> getUserListBySearchKey(String searchKey, String searchValue) {
-		return userMapper.getUserListBySearchKey(searchKey, searchValue);
+	public List<User> getUserListBySearchKey(String searchKey, String searchValue, String martCode) {
+		return userMapper.getUserListBySearchKey(searchKey, searchValue, martCode);
 
 	}
 
@@ -38,10 +38,20 @@ public class UserService {
 		return userMapper.userUpdateInfo(user);
 	}
 	
-	//사원 권한정보 수정
+	//사용자 권한정보 수정
 	public int updateUserLevel(User user) {
 		return userMapper.updateUserLevel(user);
 	}
+	
+	//사용자 아이디 중복체크
+	public int getUserByUserId(String userId) {
+		int result = 0;
+		result += userMapper.getUserByUserId(userId);	
+		return result;
+	}
 
-
+	public int userInsertAction(User user) {
+		return userMapper.userInsertAction(user);
+	}
+	
 }

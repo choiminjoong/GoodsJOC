@@ -1,6 +1,10 @@
 package k5.goodsjoc.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,22 +12,22 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k5.goodsjoc.dto.Order;
-import k5.goodsjoc.dto.ViewOrder;
+import k5.goodsjoc.dto.OrderDetail;
+import k5.goodsjoc.service.BusinessService;
 import k5.goodsjoc.service.OrderService;
 
 @Controller
 @RequestMapping(value="/product_management/order")
 public class OrderController {
-
 	private OrderService orderService;
-	
 	public OrderController(OrderService orderService) {
 		this.orderService = orderService;
 	}
 	
-	// 주문관리 > 주문등록 (정도혜)
+	//주문관리 > 주문등록 (정도혜)
 	@GetMapping("/orderInsert")
 	public String orderInsert() {
 		System.out.println("페이지: 주문 등록");
@@ -31,8 +35,18 @@ public class OrderController {
 		
 		return "product_management/order/orderInsert";
 	}
-	
-	// 주문관리 > 주문목록 (정도혜)
+	 @PostMapping("/orderInsert")
+     public String orderInsert(Order order) {
+        System.out.println("페이지: 거래처 등록 ");
+        System.out.println("경로: basic_management/order/orderInsert(POST방식 성공) ");   
+        System.out.println("화면에서 받은 거래처 정보 : "+  order);
+        
+        orderService.orderInsert(order);
+        
+        return "redirect:/product_management/order/orderInsert";
+     }
+		
+	//주문관리 > 주문목록 (정도혜)
 	@GetMapping("/orderList")
 	public String orderList(Model model) {
 		System.out.println("페이지: 주문 관리");
@@ -44,46 +58,58 @@ public class OrderController {
 		return "product_management/order/orderList";
 	}
 	
-	// 주문관리 > 주문상세 (정도혜)
+	//주문관리 > 주문상세 (정도혜)	
 	@GetMapping("/orderDetail")
-	public String orderDetail(Model model) {
-		System.out.println("페이지: 주문 상세");
-		System.out.println("경로: product_management/order/orderDetail(GET방식 성공) ");
-		List<ViewOrder> viewOrder = orderService.getViewOrder();
-		model.addAttribute("viewOrder",viewOrder);		
-		
-		
-		return "product_management/order/orderDetail";
-	}
+	   public String returnList(@RequestParam(value="orderCode", required = false)String orderCode, Model model) {
+	      System.out.println("페이지: 주문상세 조회 ");
+	      System.out.println("경로:  product_management/order/orderDetail(GET방식 성공) ");	     
+	      System.out.println("orderCode:" + orderCode);	     
+	      
+	      List<OrderDetail> orderDetailList = orderService.getsalesDetailList(orderCode);
+	      model.addAttribute("orderDetailList", orderDetailList);      
+	      
+		/*
+		 * List<Order> orderList = orderService.getOrderList(orderCode);
+		 * model.addAttribute("orderList", orderList);
+		 */
+	      
+	      return "product_management/order/orderDetail";
+	   }
 	
-		//주문관리 > 주문 검색 (정도혜)
-		@PostMapping("/orderList")
-		public String getSearchOrderList(
-				@RequestParam(value="searchKey", required = false) String searchKey,
-				@RequestParam(value="searchValue", required = false) String searchValue,
-				@RequestParam(value="searchState", required=false) String searchState,
-				Model model){
-			System.out.println(searchKey);
-			System.out.println(searchValue);
-			System.out.println(searchState);
-						
-			if(searchKey != null && "orderNum".equals(searchKey)) {
-				searchKey = "orderNum";
-			}else if(searchKey != null && "businessName".equals(searchKey)) {
-				searchKey = "businessName";	
-			}else if(searchState != null && "state".equals(searchState)) {
-				searchState = "state";	
-			}else  {
-				searchKey = "deliveryDate";
-			}
-			// 검색키 검색어를 통해서 사용자목록 조회
-				
-			List<Order> orderList = orderService.getOrderListBySearchKey(searchKey, searchValue);
+	
+
+	//주문관리 > 주문 검색 (정도혜)
+	@PostMapping("/orderList")
+	public String getSearchOrderList(
+			@RequestParam(value="searchKey", required = false) String searchKey
+			,@RequestParam(value="searchValue", required = false) String searchValue
+			,@RequestParam(value="startDt", required = false) String startDt
+			,@RequestParam(value="endDt", required = false) String endDt
+			,Model model){
+		System.out.println(searchKey);
+		System.out.println(searchValue);
+					
+		if(searchKey != null && "orderNum".equals(searchKey)) {
+			searchKey = "orderNum";
+		}else if(searchKey != null && "businessName".equals(searchKey)) {
+			searchKey = "businessName";	
+		}else if(searchKey != null && "state".equals(searchKey)) {
+			searchKey = "state";	
+		}else  {
+			searchKey = "deliveryDate";
+		}
+
+		// 검색키 검색어를 통해서 사용자목록 조회	
+		List<Order> orderList = orderService.getOrderListBySearchKey(searchKey, searchValue, startDt, endDt);
+		
+		// 조회된 회원목록 model에 값을 저장
+		model.addAttribute("title", "주문목록조회");
+		model.addAttribute("orderList", orderList);
 			
-			// 조회된 회원목록 model에 값을 저장
-			model.addAttribute("title", "주문목록조회");
-			model.addAttribute("orderList", orderList);
-				
-			return "product_management/order/orderList";
-			}
+		return "product_management/order/orderList";
+		}
+	
+		
+		
+	
 	}

@@ -9,19 +9,25 @@ import k5.goodsjoc.dto.User;
 @Mapper
 public interface UserMapper {
 
-	//회원상세조회
+	//사용자 상세조회 (정도혜)
 	public User getUserInfoByID(String ID);
 	
-	//사용자 전체조회
+	//사용자 전체조회 (정도혜)
 	public List<User> getUserList(String martCode);
 	
-	// 사용자 단일정보 검색
-	public List<User> getUserListBySearchKey(String searchKey, String searchValue);
+	// 사용자 단일정보 검색 (정도혜)
+	public List<User> getUserListBySearchKey(String searchKey, String searchValue, String martCode);
 	
-	//사용자 정보 수정
+	//사용자 정보 수정 
 	public int userUpdateInfo(User user);
 	
-	//사용자 권한정보 수정
+	//사용자 권한정보 수정 (정도혜)
 	public int updateUserLevel(User user);
+	
+	//사용자 아이디 중복확인 
+	public int getUserByUserId(String userId);
 
+	public int userInsertAction(User user);
+	
+	
 }

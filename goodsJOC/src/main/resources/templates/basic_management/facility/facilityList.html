@@ -57,13 +57,13 @@
 								<div class="form-group row">
 									<label for="warehouseName" class="col-sm-2 col-form-label">창고명</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" name="warehouseName">
+										<input type="text" class="form-control insertWarehouse" name="warehouseName">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label for="warehouseType" class="col-sm-2 col-form-label">창고분류</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" name="warehouseType">
+										<input type="text" class="form-control insertWarehouse" name="warehouseType">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -75,7 +75,7 @@
 								<div class="form-group row" style="display:none">
 									<label for="warehouseType" class="col-sm-2 col-form-label">아이디</label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" name="ID" th:value="${session.SID}"  readonly="readonly">
+										<input type="text" class="form-control" name="id" th:value="${session.SID}"  readonly="readonly">
 									</div>
 								</div>
 								<div class="form-group row" style="display:none">
@@ -86,7 +86,7 @@
 								</div>
 							</div>
 							<div class="col-2">
-								<button type="submit" class="btn btn-info btn-lg">등록하기</button>
+								<button id="warehouseInsertBtn" type="button" class="btn btn-info btn-lg">등록하기</button>
 							</div>
 						</div>	
 					</form>
@@ -116,11 +116,11 @@
 								<div class="form-group row" style="display:none">
 									<label for="warehouseType" class="col-sm-2 col-form-label"></label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" name="ID" th:value="${session.SID}"  readonly="readonly">
+										<input type="text" class="form-control" name="id" th:value="${session.SID}"  readonly="readonly">
 									</div>
 								</div>
 								<div class="form-group row">
-									<label for="warehouseType" class="col-sm-2 col-form-label">등록자</label>
+									<label for="warehouseType" class="col-sm-2 col-form-label"></label>
 									<div class="col-sm-10">
 										<input type="text" class="form-control" th:value="${session.SNAME}"  readonly="readonly">
 									</div>
@@ -153,7 +153,7 @@
 								<div class="form-group row" style="display:none">
 									<label for="warehouseType" class="col-sm-2 col-form-label"></label>
 									<div class="col-sm-10">
-										<input type="text" class="form-control" name="ID" th:value="${session.SID}"  readonly="readonly">
+										<input type="text" class="form-control" name="id" th:value="${session.SID}"  readonly="readonly">
 									</div>
 								</div>
 								<div class="form-group row">
@@ -295,4 +295,24 @@
 	</div>
 </div>
 </th:block>
+<th:block layout:fragment="customJs">
+	<script>
+		$(function(){
+			//창고등록버튼 클릭시
+			$(document).on('click','#warehouseInsertBtn', function(){
+				var insertWarehouse = $('.insertWarehouse');
+				console.log(insertWarehouse);
+				for(var i=0; i<insertWarehouse.length; i++){
+					console.log(insertWarehouse.val());
+				}
+				alert('등록완료');
+			});
+			
+			
+			
+		});
+	</script>
+</th:block>
+
+
 </html>

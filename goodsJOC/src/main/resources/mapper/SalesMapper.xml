@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.SalesMapper">
+	<!-- Sales ResultMap (정도혜) -->
 	<resultMap type="Sales" id="salesResultMap">
 		<result column="salesCode" 				property="salesCode"/>
 		<result column="receiptNum" 			property="receiptNum"/>
@@ -13,8 +14,16 @@
 		<result column="canselCheck" 			property="canselCheck"/>
 		<result column="casnselStaff" 			property="casnselStaff"/>
 		<result column="canselDate" 			property="canselDate"/>
-	</resultMap>		
 	
+		<association javaType="Goods" property="goods">
+			<id column="barcode" 		property="barcode"/>
+			<result column="goodsName"	property="goodsName" />
+			<result column="salesPrice"	property="salesPrice" />
+		</association>
+	</resultMap>		
+
+	
+	<!-- Sales 전체조회 (정도혜) -->
 	<select id="getSalesList" parameterType="String" resultMap="salesResultMap">
 		SELECT 
 			salesCode, 
@@ -29,4 +38,98 @@
 		FROM 
 			tb_sales
 	</select>
+
+	<select id="getSalesListBySearchKey" resultType="Sales">
+		SELECT 
+			s.salesCode,
+			s.receiptNum,
+			s.salesTotalPrice,
+			s.martCode,
+			s.ID,
+			s.regDate,
+			s.canselCheck,
+			s.casnselStaff,
+			s.canselDate,
+			date_format(s.regDate, '%Y-%m-%d') AS regDate
+		FROM 
+			tb_sales AS s
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchValue != null and searchValue != ''.toString()">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			</if>
+			<if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
+				AND date_format(s.regDate, '%Y-%m-%d') BETWEEN #{startDt} AND #{endDt}
+			</if>
+		</trim>	
+	</select>
+	
+	<select id="getsalesDetailList" resultType="Sales">
+	SELECT 
+	   g.goodsName,
+	   g.salesPrice,
+	   s.QTY,
+	   s.totalPrice   
+	FROM 
+	   tb_salesDetail AS s
+	INNER JOIN 
+	   tb_goods AS g
+	ON 
+	s.barcode = g.barcode	
+	</select>
+			
+	<!-- 상품 선택용 모달(정도혜) -->
+	<select id="getGoodsList" parameterType="String" resultType="Map">
+	SELECT 
+		g.barcode AS barcode,
+		g.goodsName AS goodsName,
+		g.salesPrice AS salesPrice,
+		b.businessName AS businessName,
+		b.businessCode AS businessCode,
+		g.taxType as taxType
+		
+	FROM 
+		tb_goods AS g
+		INNER JOIN 
+		tb_business AS b
+		ON 
+		b.businessCode = g.businessCode
+	WHERE 
+		g.martCode = #{martCode}			
+	</select>
+	
+	<update id="updateBusinessInfo" parameterType="Sales">
+		UPDATE tb_sales
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="salesCode != null and salesCode != ''.toString()">
+				,salesCode = #{salesCode}
+			</if>
+			<if test="receiptNum != null and receiptNum != ''.toString()">
+				,receiptNum = #{receiptNum}
+			</if>
+			<if test="salesCode != null and salesCode != ''.toString()">
+				,salesCode = #{salesCode}
+			</if>
+			<if test="salesTotalPrice != null and salesTotalPrice != ''.toString()">
+				,salesTotalPrice = #{salesTotalPrice}
+			</if>
+			<if test="ID != null and ID != ''.toString()">
+				,ID = #{ID}
+			</if>
+			<if test="regDate != null and regDate != ''.toString()">
+				,regDate = #{regDate}
+			</if>
+			<if test="canselCheck != null and canselCheck != ''.toString()">
+				,canselCheck = #{canselCheck}
+			</if>
+			<if test="casnselStaff != null and casnselStaff != ''.toString()">
+				,casnselStaff = #{casnselStaff}
+			</if>
+			<if test="canselDate != null and canselDate != ''.toString()">
+				,canselDate = #{canselDate}
+			</if>
+		</trim>
+			WHERE 
+			salesCode=#{salesCode}
+	</update>
+	
 </mapper>
