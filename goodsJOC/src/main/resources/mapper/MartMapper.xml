@@ -20,6 +20,7 @@
 		<result column="note" 				property="note" />
 		<result column="regDate" 			property="regDate" />
 		<result column="editDate" 			property="editDate" />
+		<result column="serviceUse" 		property="serviceUse" />
 	</resultMap>	
 	
 	<!-- 매장 조건검색 -->
