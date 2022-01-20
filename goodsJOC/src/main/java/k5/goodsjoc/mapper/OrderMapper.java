@@ -23,12 +23,14 @@ public interface OrderMapper {
 	public List<Order> getOrderPurchaseList();
 	//매입(주문상태=승인)
 	public Order getPurchaseInfoByOrderCode(String orderCode);
-
-	//주문상세
-	public List<OrderDetail> getPurchaseDetailList(String orderCode);
 	
 	//주문등록
 	public int orderInsert(Order order);
 
+	//주문상세
+	public List<OrderDetail> getPurchaseDetailList(String orderCode);
+
+	//주문서 상세내역
+	public List<OrderDetail> getsalesDetailList(String orderCode);
 	
 }

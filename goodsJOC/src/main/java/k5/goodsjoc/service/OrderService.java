@@ -43,7 +43,8 @@ public class OrderService {
 	public Order getPurchaseInfoByOrderCode(String orderCode) {
 		return orderMapper.getPurchaseInfoByOrderCode(orderCode);
 	}
-
+	
+	//매입 주문상세
 	public List<OrderDetail> getPurchaseDetailList(String orderCode) {
 		return orderMapper.getPurchaseDetailList(orderCode);
 	}
@@ -52,6 +53,12 @@ public class OrderService {
 	public int orderInsert(Order order) {
 		return orderMapper.orderInsert(order);
 	}
+	
+	//주문서 상세 내역
+	public List<OrderDetail> getsalesDetailList(String orderCode) {
+		return orderMapper.getsalesDetailList(orderCode);
+	}
+		
 }
 
 

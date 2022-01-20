@@ -38,10 +38,10 @@
 		<id column="orderDetailCode" 		property="orderDetailCode"/>
 		<result column="orderCode" 			property="orderCode"/>
 		<result column="barcode" 			property="orderNum"/>
-		<result column="purchasePrice" 		property="purchasePrice"/>
 		<result column="QTY" 				property="qty"/>
 		<result column="totalPrice" 		property="totalPrice"/>
 		<result column="supplyPrice" 		property="supplyPrice"/>
+		<result column="purchasePrice" 		property="purchasePrice"/>
 		<result column="VAT" 				property="vat"/>
 		
 		<association javaType="Goods" 			property="goods">
@@ -49,9 +49,10 @@
 			<result column="goodsName" 			property="goodsName" />
 			<result column="weight" 			property="weight" />
 			<result column="taxType" 			property="taxType" />
+			<result column="purchasePrice" 		property="purchasePrice" />
 		</association>	
 	</resultMap>
-	
+
 	<select id="getPurchaseDetailList" resultType="OrderDetail" resultMap="OrderDetailMap">
 		SELECT
 			d.purchasePrice, d.QTY, d.totalPrice, d.supplyPrice, d.VAT
@@ -115,6 +116,7 @@
 		ORDER BY
 			o.orderNum ASC
 	</select>
+	
 	<!-- 주문 전체조회(정도혜) -->
 	<select id="getOrderList" parameterType="String" resultMap="OrderResultMap">
 	SELECT 
@@ -165,7 +167,7 @@
 		</trim>
 	</select>
 	
-	<insert id="">
+	<insert id="orderInsert" parameterType="Order">
 	INSERT INTO tb_order(
 		orderCode, 
 		businessCode, 
@@ -175,15 +177,62 @@
 		purchaseDate, 
 		martCode, 
 		ID, 
-		regDate, 
-		totalOrderPrice
+		totalOrderPrice,
+		regDate
 	)VALUES (
-		NULL, 0, 0, NOW(), '진행중', NOW(), '', '', NOW(), 0)
+		#{orderCode},
+		#{businessCode},
+		#{orderNum},
+		#{deliveryDate},
+		#{state},
+		#{purchaseDate},
+		#{martCode},
+		#{ID},
+		#{totalOrderPrice},
+		NOW()
+		);
 	</insert>
 	
+	<!-- 주문서 상세내역  -->
+	<select id="getsalesDetailList" resultType="orderDetail" resultMap="OrderDetailMap">
+	SELECT   
+		s.QTY,s.totalPrice,s.supplyPrice,s.VAT,s.purchasePrice,
+		g.weight,g.goodsName,g.taxType,g.unit
+			
+	FROM 
+			tb_orderDetail AS s
+		INNER JOIN 
+			tb_goods AS g
+		ON 
+			s.barcode = g.barcode
+		WHERE s.orderCode = #{orderCode}
+	</select>
 	
 	
-	
+	<!--
+	<select id="getsalesList" resultType="orderDetail" resultMap="OrderDetailMap">
+	SELECT 
+	   b.businessName,
+	   b.businessStaffPhone,
+	   b.businessStaff,
+	   b.businessStaffEmail,
+	   d.barcode,
+	   o.regDate
+	FROM 
+	   tb_business AS b
+	   INNER JOIN 
+	   tb_goods AS g
+	   ON 
+	   b.businessCode = g.businessCode
+	   INNER JOIN 
+	   tb_orderDetail AS d
+	   ON 
+	   g.barcode = d.barcode
+	   INNER JOIN 
+	   tb_order AS o
+	   ON 
+	   o.orderCode = d.orderCode
+	</select> -->
 	
 	
 	
