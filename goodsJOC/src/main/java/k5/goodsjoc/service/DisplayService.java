@@ -20,5 +20,8 @@ public class DisplayService {
 	public List<Map<String, Object>> getDisplayList(String martCode){
 		return displayMapper.getDisplayList(martCode);
 	}
-	
+	//매입 검색
+	public List<Map<String, Object>> getDisplayBySearchKey(String searchKey, String searchValue, String martCode, String startDt, String endDt) {
+		return displayMapper.getDisplayBySearchKey(searchKey, searchValue, martCode, startDt, endDt);
+	}
 }

@@ -46,7 +46,7 @@ public class PurchaseController {
 		
 		return result;
 	}
-
+	//매입 검색(오대성)
 	@PostMapping("/PurchaseList")
 	public String PurchaseList(HttpServletRequest request,
 								@RequestParam(value="searchKey", required = false) String searchKey,
