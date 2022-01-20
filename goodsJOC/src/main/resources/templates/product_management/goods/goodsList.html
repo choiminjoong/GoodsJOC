@@ -139,9 +139,11 @@
 								<a th:href="@{/product_management/goods/goodsUpdate(barcode=${l.barcode})}" class="btn btn-primary">
 									<i class="fas fa-highlighter"></i>
 								</a>
-								<a th:href="@{/product_management/goods/goodsPriceList(barcode=${l.barcode})}" class="btn btn-info">
-									<i class="fas fa-won-sign"></i>
-								</a>
+								<th:block th:if="${session.SLEVEL == '2'}">
+									<a th:href="@{/product_management/goods/goodsPriceList(barcode=${l.barcode})}" class="btn btn-info">
+										<i class="fas fa-won-sign"></i>
+									</a>
+								</th:block>
 								<button type="button" id="goodsDeleteBtn" class="btn btn-danger" th:data-barcode="${l.barcode}" data-toggle="modal" data-target="#del-modal">
 									<i class="fas fa-trash"></i>
 								</button>

@@ -32,7 +32,7 @@
 						<!-- 기초관리-매장,직원,거래처,시설 -->
 						<li class="nav-item">
 							<a href="#" class="nav-link"> 
-								<i class="nav-icon fas fa-circle"></i>
+								<i class="nav-icon fas fa-edit"></i>
 								<p> 기초관리 <i class="right fas fa-angle-left"></i></p>
 							</a>
 							<ul class="nav nav-treeview">
@@ -71,7 +71,7 @@
 						<li class="nav-item">
 							<th:block th:if="${session.SLEVEL != '5'}">
 								<a href="#" class="nav-link"> 
-									<i class="nav-icon fas fa-circle"></i>
+									<i class="nav-icon fas fa-gift"></i>
 									<p>
 										상품관리 <i class="right fas fa-angle-left"></i>
 									</p>
@@ -86,13 +86,13 @@
 									<li class="nav-item">
 										<a th:href="@{/product_management/goods/goodsInsert}" class="nav-link"> 
 											<i class="far fa-circle nav-icon"></i>
-											<p>등록</p>
+											<p>상품 등록</p>
 										</a>
 									</li>
 									<li class="nav-item">
 										<a th:href="@{/product_management/goods/goodsList}" class="nav-link"> 
 											<i class="far fa-circle nav-icon"></i>
-											<p>조회</p>
+											<p>상품 조회</p>
 										</a>
 									</li>
 								</ul>
@@ -103,7 +103,7 @@
 						<li class="nav-item">
 							<th:block th:if="${session.SLEVEL != '5'}">
 								<a href="#" class="nav-link"> 
-									<i class="nav-icon fas fa-circle"></i>
+									<i class="nav-icon fas fa-coins"></i>
 									<p> 거래관리 <i class="right fas fa-angle-left"></i> </p>
 								</a>
 								<ul class="nav nav-treeview">
@@ -139,20 +139,20 @@
 						<li class="nav-item">
 							<th:block th:if="${session.SLEVEL != '5'}">
 								<a href="#" class="nav-link"> 
-									<i class="nav-icon fas fa-circle"></i>
+									<i class="nav-icon fas fa-boxes"></i>
 									<p> 재고관리 <i class="right fas fa-angle-left"></i> </p>
 								</a>
 								<ul class="nav nav-treeview">
 									<li class="nav-item">
 										<a th:href="@{/stock_management/warehousing/warehousingInsert}" class="nav-link"> 
 											<i class="far fa-circle nav-icon"></i>
-											<p>입고</p>
+											<p>입고  등록</p>
 										</a>
 									</li>
 									<li class="nav-item">
 										<a th:href="@{/stock_management/display/displayList}" class="nav-link"> 
 											<i class="far fa-circle nav-icon"></i>
-											<p>조회</p>
+											<p>재고 이동</p>
 										</a>
 									</li>
 									<li class="nav-item">
@@ -169,7 +169,7 @@
 						<li class="nav-item">
 							<th:block th:if="${session.SLEVEL != '5'}">
 								<a href="#" class="nav-link"> 
-									<i class="nav-icon fas fa-circle"></i>
+									<i class="nav-icon fas fa-chart-bar"></i>
 										<p> 현황관리 <i class="right fas fa-angle-left"></i> </p>
 								</a>
 								<ul class="nav nav-treeview">
@@ -225,7 +225,7 @@
 						<!-- 기초관리-매장,직원,거래처,시설 -->
 						<li class="nav-item">
 							<a href="#" class="nav-link"> 
-								<i class="nav-icon fas fa-circle"></i>
+								<i class="nav-icon fas fa-edit"></i>
 								<p> 기초관리 <i class="right fas fa-angle-left"></i></p>
 							</a>
 							<ul class="nav nav-treeview">
@@ -249,7 +249,7 @@
 						<li class="nav-item">
 							<th:block th:if="${session.SLEVEL != '5'}">
 								<a href="#" class="nav-link"> 
-									<i class="nav-icon fas fa-circle"></i>
+									<i class="nav-icon fas fa-briefcase"></i>
 										<p> 사업장관리 <i class="right fas fa-angle-left"></i> </p>
 								</a>
 								<ul class="nav nav-treeview">
@@ -272,7 +272,7 @@
 						<li class="nav-item">
 							<th:block th:if="${session.SLEVEL != '5'}">
 								<a href="#" class="nav-link"> 
-									<i class="nav-icon fas fa-circle"></i>
+									<i class="nav-icon fas fa-user-friends"></i>
 										<p> 사용자관리 <i class="right fas fa-angle-left"></i> </p>
 								</a>
 								<ul class="nav nav-treeview">
