@@ -19,7 +19,7 @@
 	<!-- 메인 컨텐츠 영역 -->		
 	<th:block layout:fragment="customContents">	  
 			<!-- 주문상세내역  -->
-            <div class="invoice p-3" style="margin-top:-1%">
+            <div class="invoice p-2" style="margin-top:-1%">
               <!-- title row -->
               <div class="row">
                 <div class="col-12">
@@ -33,16 +33,16 @@
               <!-- info row -->
               <div class="row invoice-info">
               <!-- /.col -->
-                <div class="col-sm-4 invoice-col" style="margin-top: 1%" th:each="view : ${viewOrder}">
-                  <strong>barcode :</strong><span th:text="${view.barcode}"></span>
+                <div class="col-sm-4 invoice-col" style="margin-top: 1%">
+                  <strong>barcode :</strong><span></span>
                 </div>
                 <div class="col-sm-3 invoice-col" style="margin-left:-3cm">
-                  <address th:each="view : ${viewOrder}">
+                  <address>
                     <strong>거래처 :</strong><br>
-                   	 거래처명 : <span th:text="${view.businessName}"></span><br>
+                   	 거래처명 : <span ></span><br>
                  	 주문일자 : <br>
-                    Phone: <span th:text="${view.partnerPhone}"></span><br>
-                    Email: <span th:text="${view.businessStaffEmail}"></span>
+                    Phone: <span></span><br>
+                    Email: <span></span>
                   </address>
                 </div>
               </div>
@@ -50,12 +50,12 @@
 
               <!-- Table row -->
               <div class="row">
-                <div class="col-13 table-responsive">
+                <div class="col-12 table-responsive">
                   <table class="table table-striped">
                     <thead align="center">
                     <tr>
                       <th>번호</th>
-                      <th>제품명</th>
+                      <th>상품명</th>
                       <th>수량</th>
                       <th>매입단가</th>
                       <th>공급가액</th>
@@ -63,14 +63,30 @@
                     </tr>
                     </thead>
                     <tbody align="center">
-                    <tr th:each ="view : ${viewOrder}">
-                      <td th:text="${view.orderNum}"></td>
-                      <td th:text="${view.goodsName}"></td>
-                      <td th:text="${view.QTY}"></td>
-                      <td th:text="${view.purchasePrice}"></td>
-                      <td th:text="${view.supplyPrice}"></td>
-                      <td th:text="${view.regDate}"></td>
-                    </tr>
+	                    <tr>
+	                     <td>@@</td>
+	                     <td>@@</td>
+	                     <td>@@</td>
+	                     <td>@@</td>
+	                     <td>@@</td>                     
+	                     <td>@@</td>                     
+	                    </tr>
+	                    <tr>
+	                    <td>@@</td>
+	                     <td>@@</td>
+	                     <td>@@</td>
+	                     <td>@@</td>
+	                     <td>@@</td>                     
+	                     <td>@@</td>   
+	                    </tr>
+	                    <tr>
+	                     <td>@@</td>
+	                     <td>@@</td>
+	                     <td>@@</td>
+	                     <td>@@</td>
+	                     <td>@@</td>                     
+	                     <td>@@</td>   
+	                    </tr>
                     </tbody>
                   </table>
                 </div>
@@ -87,13 +103,13 @@
                   <div class="table-responsive">
                     <table class="table">
                     <tbody>
-                      <tr th:each="view : ${viewOrder}">
+                      <tr>
                         <th>VAT :</th>
-                        <td th:text="${view.VAT}"></td>
+                        <td></td>
                       </tr>
-                      <tr th:each="view : ${viewOrder}">
+                      <tr>
                        <th>합계 :</th>
-                        <td th:text="${view.totalPrice}"></td>
+                        <td></td>
                       </tr>
                       <tr>
                        
@@ -111,8 +127,7 @@
                   style="margin-right: 3%;"><b>ㅤ닫기ㅤ</b></a>
                 </div>
               </div>
-            </div>
-		
-</th:block>
+            </div>		
+	</th:block>
 </html>
 

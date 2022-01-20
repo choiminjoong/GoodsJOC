@@ -108,6 +108,7 @@
 							<th>매입일시</th>
 							<th>매장고유코드</th>
 							<th>주문서상세내역</th>
+							<th>주문취소</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -121,10 +122,17 @@
 							<td th:text="${l.martCode}"></td>
 							<td>
 								<a th:href="@{/product_management/order/orderDetail}">
-									<button type="button" class="btn btn-outline-secondary btn-xs">
+									<button type="button" class="btn btn-outline-primary btn-xs">
 										주문서 상세보기
 									</button>
-								</a>
+								</a>								
+							</td>
+							<td>
+								<a th:href="@{/product_management/order/orderList}">
+									<button type="button" id="salesBtn" class="btn btn-outline-danger btn-xs">
+										취소
+									</button>
+								</a>								
 							</td>
 						</tr>
 					</tbody>
@@ -134,8 +142,7 @@
 		</div>
 	</div>
 </th:block>
-<th:block layout:fragment="customJs">
-	
+<th:block layout:fragment="customJs">	
 	<script type="text/javascript">
 		$(function(){
 			var stateGroup = $('.state-color');
@@ -149,7 +156,14 @@
 				}
 			}
 		});
+		
+	//주문취소버튼 알림
+	$(function(){
+		$(document).on('click', '#salesBtn', function(){
+			alert('정말 취소하시겠습니까?');
+			$('#saleForm').submit();
+		});
+	});
 	</script>
-
 </th:block>
 </html>

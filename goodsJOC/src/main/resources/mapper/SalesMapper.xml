@@ -76,8 +76,7 @@
 	ON 
 	s.barcode = g.barcode	
 	</select>
-	
-		
+			
 	<!-- 상품 선택용 모달(정도혜) -->
 	<select id="getGoodsList" parameterType="String" resultType="Map">
 	SELECT 
@@ -97,5 +96,40 @@
 	WHERE 
 		g.martCode = #{martCode}			
 	</select>
+	
+	<update id="updateBusinessInfo" parameterType="Sales">
+		UPDATE tb_sales
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="salesCode != null and salesCode != ''.toString()">
+				,salesCode = #{salesCode}
+			</if>
+			<if test="receiptNum != null and receiptNum != ''.toString()">
+				,receiptNum = #{receiptNum}
+			</if>
+			<if test="salesCode != null and salesCode != ''.toString()">
+				,salesCode = #{salesCode}
+			</if>
+			<if test="salesTotalPrice != null and salesTotalPrice != ''.toString()">
+				,salesTotalPrice = #{salesTotalPrice}
+			</if>
+			<if test="ID != null and ID != ''.toString()">
+				,ID = #{ID}
+			</if>
+			<if test="regDate != null and regDate != ''.toString()">
+				,regDate = #{regDate}
+			</if>
+			<if test="canselCheck != null and canselCheck != ''.toString()">
+				,canselCheck = #{canselCheck}
+			</if>
+			<if test="casnselStaff != null and casnselStaff != ''.toString()">
+				,casnselStaff = #{casnselStaff}
+			</if>
+			<if test="canselDate != null and canselDate != ''.toString()">
+				,canselDate = #{canselDate}
+			</if>
+		</trim>
+			WHERE 
+			salesCode=#{salesCode}
+	</update>
 	
 </mapper>
