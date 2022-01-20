@@ -1,6 +1,7 @@
 package k5.goodsjoc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,21 @@ public class MartService {
 		result += martMapper.martCodeCheck(martCode);	
 		
 		return result;
+	}
+
+	//매장 등록처리
+	public int martInsertAction(Mart mart) {
+		return martMapper.martInsertAction(mart);
+	}
+
+
+	public List<Mart> getMartList() {
+		return martMapper.getMartList();
+	}
+
+
+	public List<Mart> getMartSearchList(Map<String, Object> paramMap) {
+		return martMapper.getMartSearchList(paramMap);
 	}
 	
 }

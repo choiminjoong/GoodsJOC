@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
+	
+<!-- 페이지 제목 공간 -->
+<th:block layout:fragment="customTitle">
+	<title>매장 조회</title>
+</th:block>
+<!-- 로케이션 위치 -->
+<th:block layout:fragment="locationPlace">
+<a id="main" th:href="@{/main}" class="joc-a2"><b>MAIN</b></a>
+	> 사업장관리 > 매장조회
+</th:block>
+
+<!-- 메인 컨텐츠 영역 -->		
+<th:block layout:fragment="customContents">	       	 
+
+	<div class="card card-indigo">
+		<div class="card-header">
+			<h3 class="card-title">
+				<b>매장정보 조회</b>
+			</h3>
+		</div>
+		<div class="card-body table-responsive">
+			<form th:action="@{/system_management/mart/martSearchList}" method="post">
+				<div class="tab-content row" id="custom-tabs-two-tabContent">
+					<div class="col-10">
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">등록기간</label>
+							<div class="col-sm-2">
+								<input name="startDate" type="date" class="form-control text-center">
+							</div>
+							<div class="col-sm-1 text-center">
+								<b>~</b>
+							</div>	
+							<div class="col-sm-2">
+								<input name="endDate" type="date" class="form-control text-center">
+							</div>
+							<div class="col-sm-1"></div>
+							<label class="col-sm-1 col-form-label">서비스 상태</label>
+							<div class="col-sm-3">
+								<select name="serviceUse" class="form-control custom-select text-center">
+									<option value="">전체보기</option>
+									<option value="이용중">서비스 이용</option>
+									<option value="종료">서비스 종료</option>
+								</select>
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">상호명</label>
+							<div class="col-sm-5">
+								<input name="martName" type="text" class="form-control float-right">
+							</div>
+							<div class="col-sm-2"></div>
+							<div class="col-sm-2">
+								<button type="submit" class="btn btn-block bg-indigo btn-lg"><b>검색</b></button>
+							</div>
+							<div class="col-sm-1">
+								<a th:href="@{/system_management/mart/sw_martList}" type="button" class="btn btn-block bg-indigo btn-lg">
+									<i class="fas fa-redo-alt"></i>
+								</a>
+							</div>
+						</div>
+					</div>				
+					<div class="col-2" align="center">
+						<a th:href="@{/system_management/mart/sw_martInsert}" class="btn btn-block bg-gradient-info btn-lg">매장등록</a>
+						<a href="#" class="btn btn-block bg-gradient-info btn-lg">매장별 사용자</a>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+	<div class="card card-indigo">
+		<div class="card-header p-0 pt-1"></div>
+		<div class="card-body table-responsive p-0">
+			<table class="table table-head-fixed text-nowrap text-center">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>서비스</th>
+						<th>상호명</th>
+						<th>마트고유번호</th>
+						<th>대표자</th>
+						<th>사업자 등록번호</th>
+						<th>업종</th>
+						<th>등록일시</th>
+						<th>상세보기</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${not #lists.isEmpty(martList)}" th:each="l, i : ${martList}">
+						<td th:text="${i.index+1}"></td>
+						<td class="serviceUse" th:text="${l.serviceUse}"></td>
+						<td th:text="${l.martName}"></td>
+						<td th:text="${l.martCode}"></td>
+						<td th:text="${l.partnerName}"></td>
+						<td th:text="${l.registerNum}"></td>
+						<td th:text="${l.sectors}"></td>
+						<td th:text="${l.regDate}"></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#modal-default">
+								<i class="fas fa-search"></i>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</th:block>
+
+<th:block layout:fragment="customJs">		
+	<script type="text/javascript">
+		$(function(){
+			var serviceGroup = $('.serviceUse');
+			for(var i=0; i<serviceGroup.length; i++){
+				if($(serviceGroup[i]).text() == '종료'){
+					$(serviceGroup[i]).css('color','red');
+				}else if($(serviceGroup[i]).text() == '이용중'){
+					$(serviceGroup[i]).css('color','blue');
+				}
+			}
+		});
+	</script>
+</th:block>
+</html>
