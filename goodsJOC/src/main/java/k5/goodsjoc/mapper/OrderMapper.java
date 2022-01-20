@@ -30,7 +30,8 @@ public interface OrderMapper {
 	//주문상세
 	public List<OrderDetail> getPurchaseDetailList(String orderCode);
 
-	//주문서 상세내역
+	//주문서 상세내역 테이블
 	public List<OrderDetail> getsalesDetailList(String orderCode);
+
 	
 }

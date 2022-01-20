@@ -200,7 +200,7 @@
 		g.weight,g.goodsName,g.taxType,g.unit
 			
 	FROM 
-			tb_orderDetail AS s
+		tb_orderDetail AS s
 		INNER JOIN 
 			tb_goods AS g
 		ON 
@@ -208,33 +208,15 @@
 		WHERE s.orderCode = #{orderCode}
 	</select>
 	
-	
-	<!--
-	<select id="getsalesList" resultType="orderDetail" resultMap="OrderDetailMap">
+	<!-- <select id="getOrderList" resultType="orderDetail">
 	SELECT 
-	   b.businessName,
-	   b.businessStaffPhone,
-	   b.businessStaff,
-	   b.businessStaffEmail,
-	   d.barcode,
-	   o.regDate
+		businessName, 
+		registerNum, 
+		businessStaff
 	FROM 
-	   tb_business AS b
-	   INNER JOIN 
-	   tb_goods AS g
-	   ON 
-	   b.businessCode = g.businessCode
-	   INNER JOIN 
-	   tb_orderDetail AS d
-	   ON 
-	   g.barcode = d.barcode
-	   INNER JOIN 
-	   tb_order AS o
-	   ON 
-	   o.orderCode = d.orderCode
-	</select> -->
-	
-	
+		tb_business
+	</select>
+	 -->
 	
 	
 </mapper>

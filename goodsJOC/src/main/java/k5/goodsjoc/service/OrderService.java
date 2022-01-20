@@ -54,7 +54,7 @@ public class OrderService {
 		return orderMapper.orderInsert(order);
 	}
 	
-	//주문서 상세 내역
+	//주문서 상세 내역 테이블
 	public List<OrderDetail> getsalesDetailList(String orderCode) {
 		return orderMapper.getsalesDetailList(orderCode);
 	}

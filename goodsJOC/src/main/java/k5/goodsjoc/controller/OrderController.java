@@ -1,6 +1,7 @@
 package k5.goodsjoc.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -11,9 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k5.goodsjoc.dto.Order;
 import k5.goodsjoc.dto.OrderDetail;
+import k5.goodsjoc.service.BusinessService;
 import k5.goodsjoc.service.OrderService;
 
 @Controller
@@ -61,15 +64,18 @@ public class OrderController {
 	      System.out.println("페이지: 주문상세 조회 ");
 	      System.out.println("경로:  product_management/order/orderDetail(GET방식 성공) ");	     
 	      System.out.println("orderCode:" + orderCode);	     
-	      /*
-	      Order orderList = 
-		  model.addAttribute("orderList", orderList);
-	      */
+	      
 	      List<OrderDetail> orderDetailList = orderService.getsalesDetailList(orderCode);
-	      model.addAttribute("orderDetailList", orderDetailList);
+	      model.addAttribute("orderDetailList", orderDetailList);      
+	      
+		/*
+		 * List<Order> orderList = orderService.getOrderList(orderCode);
+		 * model.addAttribute("orderList", orderList);
+		 */
 	      
 	      return "product_management/order/orderDetail";
 	   }
+	
 	
 
 	//주문관리 > 주문 검색 (정도혜)
