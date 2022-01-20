@@ -13,16 +13,90 @@
 		<result column="status" 			property="status" />
 		<result column="callNum" 			property="callNum" />
 		<result column="address" 			property="address" />
-		<result column="FAX" 				property="FAX" />
+		<result column="FAX" 				property="fax" />
 		<result column="martStaff" 			property="martStaff" />
 		<result column="martStaffPhone"		property="martStaffPhone" />
 		<result column="martStaffEmail"		property="martStaffEmail" />
 		<result column="note" 				property="note" />
 		<result column="regDate" 			property="regDate" />
 		<result column="editDate" 			property="editDate" />
+		<result column="serviceUse" 		property="serviceUse" />
 	</resultMap>	
+	
+	<!-- 매장 조건검색 -->
+	<select id="getMartSearchList" parameterType="Map" resultType="Mart">
+	SELECT 
+		martCode, martName, partnerName, registerNum, sectors, status, regDate, serviceUse
+	FROM
+		tb_mart
+	WHERE
+		martCode != 'GOODSJOC'
+		<if test="startDate != null and startDate != ''.toString()">
+				AND regDate >= #{startDate}
+		</if>
+		<if test="endDate != null and endDate != ''.toString()">
+				AND #{endDate} >= regDate
+		</if>
+		<if test="serviceUse != null and serviceUse != ''.toString()">
+				AND serviceUse = #{serviceUse}
+		</if>
+		<if test="martName != null and martName != ''.toString()">
+				AND martName IKE CONCAT('%', #{martName}, '%')
+		</if>
+	GROUP BY
+		regDate DESC
+	</select>
+	
+	<!-- 매장리스트 -->
+	<select id="getMartList" resultType="Mart">
+	SELECT 
+		martCode, martName, partnerName, registerNum, sectors, status, regDate, serviceUse
+	FROM
+		tb_mart
+	WHERE
+		martCode != 'GOODSJOC'
+	GROUP BY
+		regDate DESC
+	</select>
+	
+	<!-- 마트등록 -->
+	<insert id="martInsertAction">
+		INSERT INTO tb_mart(
+			martCode
+			,martName
+			,partnerName
+			,partnerPhone
+			,registerNum
+			,sectors
+			,status
+			,callNum
+			,address
+			,FAX
+			,martStaff
+			,martStaffPhone
+			,martStaffEmail
+			,note
+			,regDate
+		)VALUES (
+			#{martCode}
+			,#{martName}
+			,#{partnerName}
+			,#{partnerPhone}
+			,#{registerNum}
+			,#{sectors}
+			,#{status}
+			,#{callNum}
+			,#{address}
+			,#{fax}
+			,#{martStaff}
+			,#{martStaffPhone}
+			,#{martStaffEmail}
+			,#{note}
+			,NOW()
+		)
+	</insert>
 
-   <!-- 마트고유번호 사용유무 체크 -->
+    <!-- 마트고유번호 사용유무 체크 -->
 	<select id="martCodeCheck" parameterType="String" resultType="int">
 		SELECT
 			COUNT(1)
@@ -57,8 +131,8 @@
 			<if test="address != null and address != ''.toString()">
 				,address = #{address}
 			</if>
-			<if test="FAX != null and FAX != ''.toString()">
-				,FAX = #{FAX}
+			<if test="fax != null and fax != ''.toString()">
+				,FAX = #{fax}
 			</if>
 			<if test="martStaff != null and martStaff != ''.toString()">
 				,martStaff = #{martStaff}

@@ -3,9 +3,18 @@
 
 <!-- Footer -->
 <th:block th:fragment="footerFragment">
-<footer class="main-footer joc-dark2">
-    <strong>Copyright © <a id="main" th:href="@{/system_management/user/userList}">GoodsJOC</a>.</strong> All rights reserved.
-</footer>
+	<!-- 매장일때 -->
+	<th:block th:if="${session.SLEVEL != '1' && session.SLEVEL != '6' && session.SLEVEL != '7'}">
+		<footer class="main-footer joc-dark2">
+		    <strong>Copyright © <a id="main" th:href="@{/system_management/user/userList}">GoodsJOC</a>.</strong> All rights reserved.
+		</footer>
+	</th:block>
+	<!-- 개발사 일때 -->
+	<th:block th:unless="${session.SLEVEL != '1' && session.SLEVEL != '6' && session.SLEVEL != '7'}">
+		<footer class="main-footer joc-3">
+		    <strong>Copyright © <a id="main" th:href="@{/system_management/user/userList}">GoodsJOC</a>.</strong> All rights reserved.
+		</footer>
+	</th:block>
 </th:block>
 
 </html>

@@ -82,6 +82,8 @@ public class UserController {
 				}else if(userInfo.getLevelNum().equals("5")) {
 					session.setAttribute("SLEVELNAME", "비권한자");
 				}
+				//세션 시간 1시간
+				session.setMaxInactiveInterval(60*60);
 				System.out.println("로그인 성공");
 				return "redirect:/main";	
 			}
@@ -188,7 +190,7 @@ public class UserController {
      public String userUpdate(@RequestParam(value="id", required = false) String id, Model model) {
      System.out.println("페이지: 사원권한수정 ");
      System.out.println("경로: system_management/user/userUpdate(GET방식 성공) "); 
-     System.out.println("리트스에서 받은 거래처 코드: " + id);
+     System.out.println("리트스에서 받은 아이디: " + id);
      
      User userUpdate = userService.getUserInfoByID(id);
      model.addAttribute("userUpdate", userUpdate);
@@ -222,6 +224,11 @@ public class UserController {
  		
  		return checkResult;
  	} 
+ 	
+ 	@GetMapping("/sw_userList")
+ 	public String totalUserList(Model model) {
+ 		return "system_management/user/sw_userList";
+ 	}
  	
 }
 

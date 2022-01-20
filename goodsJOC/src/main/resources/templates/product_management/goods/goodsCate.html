@@ -62,9 +62,8 @@
 										th:data-categoryCode="${l.categoryCode}" th:data-categoryName="${l.categoryName}">수정하기</button>
 									</td>
 									<td>
-										<a th:href="@{/product_management/goods/goodsCateDelete(categoryCode=${l.categoryCode})}">
-											<button type="button" class="btn btn-outline-danger btn-xs">삭제하기</button>
-										</a>
+										<button type="button" class="btn btn-outline-danger btn-xs" th:data-cateCode="${l.categoryCode}" 
+												id="deleteBtn" data-toggle="modal" data-target="#categoryDeleteModal">삭제하기</button>
 									</td>
 								</tr>
 							</tbody>
@@ -123,6 +122,47 @@
 		</div>
 	</div>
 	
+	<!-- 카테고리삭제모달 -->
+	<div class="modal fade" id="categoryDeleteModal" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-danger">
+					<h4 class="modal-title">경고</h4>
+				</div>
+				<div class="modal-body">
+					<form id="deleteForm" th:action="@{/product_management/goods/goodsCateDelete}" method="get">
+						<div style="height:100px;">
+							<div>
+								<span>삭제시 데이터를 다시 되돌릴 수 없습니다.</span>
+							</div>
+							<div>
+								<span>정말 삭제하시겠습니까?</span>
+							</div>
+						</div>
+						<div style="display:none;">
+							<input type="text" id="categoryCode" name="categoryCode">
+						</div>
+						<div class="row">
+							<div class="col-2"></div>
+							<div class="col-3">
+								<button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">취소</span>
+								</button>
+							</div>
+							<div class="col-2"></div>
+							<div class="col-3">
+								<button type="button" id="realDelete" class="btn btn-danger btn-block">
+									삭제하기
+								</button>
+							</div>
+							<div class="col-2"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<!-- 카테고리 수정모달 -->
 	<div class="modal fade" id="categoryUpdateModal" style="display: none;" aria-hidden="true">
 		<div class="modal-dialog">
@@ -172,6 +212,15 @@
 <th:block layout:fragment="customJs">
 	<script>
 		$(function(){
+			//삭제할 카테고리 코드 넘기기
+			$(document).on('click', '#deleteBtn', function(){
+				$('#categoryCode').val($(this).attr('data-cateCode'));
+			});
+			$(document).on('click', '#realDelete', function(){
+				$('#deleteForm').submit();
+				alert('삭제가 완료되었습니다.')
+			});
+			
 			//모달에 값 전달하기
 			$(document).on('click', '.categoryModalBtn', function(){
 				var updateCode = $(this).attr('data-categoryCode');
