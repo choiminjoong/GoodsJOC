@@ -103,10 +103,27 @@
 	
 	<select id="getPurchaseListByOrderCode" resultType="Purchase" resultMap="purchaseResultMap">
 		SELECT 
-			p.orderCode, p.martCode, p.martName, p.businessName, DATE(p.purchaseDate) AS purchaseDate, p.orderNum,
-			p.goodsName, p.purchasePrice, p.QTY, p.totalPrice, p.supplyPrice, p.VAT,
-			b.partnerName, b.address, b.businessType, b.sectors, b.partnerPhone,
-			m.partnerName, m.partnerPhone, m.sectors, m.address
+			p.orderCode, 
+			p.martCode, 
+			p.martName, 
+			p.businessName, 
+			DATE(p.purchaseDate) AS purchaseDate, 
+			p.orderNum,
+			p.goodsName, 
+			p.purchasePrice, 
+			p.QTY,
+			p.totalPrice, 
+			p.supplyPrice, 
+			p.VAT,
+			b.partnerName, 
+			b.address,
+			b.businessType, 
+			b.sectors, 
+			b.partnerPhone,
+			m.partnerName, 
+			m.partnerPhone, 
+			m.sectors, 
+			m.address
 		FROM
 			view_purchase AS p
 			INNER JOIN

@@ -5,11 +5,12 @@
 	
 <!-- 페이지 제목 공간 -->
 <th:block layout:fragment="customTitle">
-	<title>매장 정보</title>
+	<title>매장 등록</title>
 </th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-
+<a id="main" th:href="@{/main}" class="joc-a2"><b>MAIN</b></a>
+	> 사업장관리 > 매장 등록
 </th:block>
 
 <!-- 메인 컨텐츠 영역 -->		
@@ -17,118 +18,171 @@
 		
 	<div class="row">
 		<div class="col-9 mx-auto">
-			<div class="card card-warning">
+			<div class="card card-indigo">
 				<div class="card-header">
 					<h3 class="card-title">매장 등록</h3>
 				</div>
 				<!-- /.card-header -->
 				<!-- form start -->
-				<form class="form-horizontal">
+				<form id="martInsertForm" th:action="@{/system_management/mart/martInsertAction}" method="POST" class="form-horizontal">
 					<div class="card-body">
 						<div class="form-group row">
-							<label for="martCode" class="col-sm-2 col-form-label">매장 고유코드</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martCode">
+							<label for="martCode" class="col-sm-2 col-form-label"><code>*</code>마트 고유번호</label>
+							<div class="input-group mb-2 col-sm-10">
+								<input type="text" class="form-control martInsert" id="martCode" name="martCode">
+								<div class="input-group-append">
+									<button type="button" id="codeCheckBtn" class="btn btn-info">
+										사용여부 확인
+									</button>
+								</div>
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martName" class="col-sm-2 col-form-label">사업장명</label>
+							<label for="martName" class="col-sm-2 col-form-label"><code>*</code>사업장명</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martName">
+								<input type="text" class="form-control martInsert" id="martName" name="martName">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martPartnerName" class="col-sm-2 col-form-label">대표자</label>
+							<label for="martPartnerName" class="col-sm-2 col-form-label"><code>*</code>대표자</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martPartnerName">
+								<input type="text" class="form-control martInsert" id="martPartnerName" name="partnerName">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martStatus" class="col-sm-2 col-form-label">구분</label>
+							<label for="martPartnerPhone" class="col-sm-2 col-form-label"><code>*</code>대표자 연락처</label>
 							<div class="col-sm-10">
-								<select class="custom-select rounded-0"
-									id="exampleSelectRounded0">
-									<option>기업</option>
-									<option>개인</option>
-								</select>
+								<input type="text" class="form-control martInsert" id="martPartnerPhone" name="partnerPhone">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martRegNum" class="col-sm-2 col-form-label">사업자 등록번호</label>
+							<label for="martRegNum" class="col-sm-2 col-form-label"><code>*</code>사업자 등록번호</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martRegNum">
+								<input type="text" class="form-control martInsert" id="martRegNum" name="registerNum">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martPhoneNum" class="col-sm-2 col-form-label">사업장 연락처</label>
+							<label for="martSectors" class="col-sm-2 col-form-label"><code>*</code>업종</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martPhoneNum">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="martAddress" class="col-sm-2 col-form-label">주소</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martAddress">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="martEmail" class="col-sm-2 col-form-label">이메일</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martEmail">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="martEmail" class="col-sm-2 col-form-label">FAX</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martEmail">
-							</div>
-						</div>
-						<div class="form-group row">
-							<label for="martSectors" class="col-sm-2 col-form-label">업종</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martSectors">
+								<input type="text" class="form-control martInsert" id="martSectors" name="sectors">
 							</div>
 						</div>
 						<div class="form-group row">
 							<label for="martStatus" class="col-sm-2 col-form-label">업태</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martStatus">
+								<input type="text" class="form-control" id="martStatus" name="status">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martStatus" class="col-sm-2 col-form-label">담당자</label>
+							<label for="callNum" class="col-sm-2 col-form-label"><code>*</code>연락처</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martStatus">
+								<input type="text" class="form-control martInsert" id="callNum" name="callNum">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martStatus" class="col-sm-2 col-form-label">담당자 연락처</label>
+							<label for="martAddress" class="col-sm-2 col-form-label"><code>*</code>주소</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martStatus">
+								<input type="text" class="form-control martInsert" id="martAddress" name="address">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martStatus" class="col-sm-2 col-form-label">담당자 이메일</label>
+							<label for="martFAX" class="col-sm-2 col-form-label">FAX</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martStatus">
+								<input type="text" class="form-control" id="martFAX" name="fax">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label for="martStatus" class="col-sm-2 col-form-label">비고</label>
+							<label for="martStaff" class="col-sm-2 col-form-label">담당자</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="martStatus">
+								<input type="text" class="form-control" id="martStaff" name="martStaff">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="martStaffPhone" class="col-sm-2 col-form-label">담당자 연락처</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="martStaffPhone" name="martStaffPhone">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="martStaffEmail" class="col-sm-2 col-form-label">담당자 이메일</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="martStaffEmail" name="martStaffEmail">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label for="note" class="col-sm-2 col-form-label">비고</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" id="note" name="note">
 							</div>
 						</div>
 					</div>	
 					<div class="card-footer">
-						<a th:href="@{/system_management/mart/martInfo}">
-							<button type="button" class="btn btn-warning float-right">등록하기</button>
-						</a>
+						<button id="addBtn" type="button" class="btn bg-indigo float-right" disabled>등록하기</button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
-		
+</th:block>
+<th:block layout:fragment="customJs">
+	<script>
+		$(function(){
+			var checkCnt = 0;
+			
+			//등록시 체크 후 insertAction
+			$(document).on('click', '#addBtn', function(){
+				if(checkCnt == 0){
+					alert('매장고유코드 사용여부를 확인해주세요')
+					return false;
+				}else{
+					var checkList = $('.martInsert')
+					var nullCnt = 0;
+					for(var i=0; i<checkList.length; i++){
+						if($(checkList[i]).val().trim() == ''){
+							nullCnt +=1
+						}
+					}
+					if(nullCnt == 0){
+						$('#martInsertForm').submit();
+						alert('상품이 등록되었습니다.');
+						return false;
+					}else{
+						alert("필수표시( * )가 체크된 입력칸을 채워주세요");
+						return false;
+					}
+				}
+			});
+			
+			//매장코드 사용여부 체크
+			$(document).on('click', '#codeCheckBtn', function(){
+				var martCode = $('#martCode').val();
+				
+				if(typeof martCode != 'undefined' && martCode != null && martCode != ''){
+					var request = $.ajax({
+						url: '/system_management/mart/martCodeCheck',
+						method: 'POST',
+						data: {'martCode' : martCode},
+						dataType: 'json'
+					});
+					request.done(function(data){
+						if(data){
+							alert("이미 사용중인 마트코드입니다.");
+						}else{
+							alert("사용 가능합니다.");
+							$('#addBtn').prop('disabled', false);
+							checkCnt = 1;
+						}
+						
+					});
+					request.fail(function(jqXHR, textStatus){
+						alert("Request failed: " + textStatus)
+					});
+				}else{
+					alert("바코드를 입력해주세요")
+					return false;
+				}
+			});
+		});
+	</script>
 </th:block>
 </html>

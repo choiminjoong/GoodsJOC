@@ -6,9 +6,7 @@
 .joc-1{
 	background-color: #fff;
 }
-.joc-2{
-	background-color: #001F3F;
-}
+
 
 .joc-a1{
 	color: #fff;
@@ -47,3 +45,10 @@
 	justify-content: center;
     align-items: center;
 }
+.joc-2{
+	background-color: #001F3F;
+}
+.joc-3{
+	background-color: #001f3f;
+}
+
