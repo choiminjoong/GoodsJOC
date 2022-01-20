@@ -1,6 +1,7 @@
 package k5.goodsjoc.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -28,6 +29,14 @@ public interface UserMapper {
 	public int getUserByUserId(String userId);
 
 	public int userInsertAction(User user);
+
+	public List<User> getTotalUserList();
+
+	public List<User> getTotalUserSearchList(Map<String, Object> paramMap);
+	//계정 활성화
+	public void userActive(String id);
+	//계정 비활성화
+	public void userNoActive(String id);
 	
 	
 }
