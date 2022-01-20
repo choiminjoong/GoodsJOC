@@ -187,6 +187,47 @@
 							</ul>
 						</th:block>
 					</li>
+					
+					<!-- SW개발사용 사업장관리메뉴 -->
+					<li class="nav-item">
+						<th:block th:if="${session.SLEVEL == '1' || session.SLEVEL == '5' || session.SLEVEL == '6' || session.SLEVEL != '7'}">
+							<a href="#" class="nav-link"> 
+								<i class="nav-icon fas fa-circle"></i>
+									<p> 사업장관리 <i class="right fas fa-angle-left"></i> </p>
+							</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a th:href="@{/system_management/mart/sw_martInsert}" class="nav-link"> 
+										<i class="far fa-circle nav-icon"></i>
+										<p>매장 등록</p>
+									</a>
+								</li>
+								<li class="nav-item">
+									<a th:href="@{/system_management/mart/sw_martList}" class="nav-link"> 
+										<i class="far fa-circle nav-icon"></i>
+										<p>매장 조회</p>
+									</a>
+								</li>
+							</ul>
+						</th:block>
+					</li>
+					<!-- SW개발사용 사업장관리메뉴 -->
+					<li class="nav-item">
+						<th:block th:if="${session.SLEVEL == '1' || session.SLEVEL == '5' || session.SLEVEL == '6' || session.SLEVEL != '7'}">
+							<a href="#" class="nav-link"> 
+								<i class="nav-icon fas fa-circle"></i>
+									<p> 사용자관리 <i class="right fas fa-angle-left"></i> </p>
+							</a>
+							<ul class="nav nav-treeview">
+								<li class="nav-item">
+									<a href="#" class="nav-link"> 
+										<i class="far fa-circle nav-icon"></i>
+										<p>유저 조회</p>
+									</a>
+								</li>
+							</ul>
+						</th:block>
+					</li>
 				</ul>
 			</nav>
 		</div>

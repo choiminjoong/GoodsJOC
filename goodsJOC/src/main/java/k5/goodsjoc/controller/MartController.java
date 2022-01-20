@@ -1,5 +1,9 @@
 package k5.goodsjoc.controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
@@ -20,13 +24,46 @@ import k5.goodsjoc.service.MartService;
 @Controller
 @RequestMapping(value = "/system_management/mart")
 public class MartController {
-
 	private static final Logger log = LoggerFactory.getLogger(MartController.class);
 	private final MartService martService;
 	public MartController(MartService martService) {
 		this.martService = martService;
 	}	
-
+	
+	@PostMapping("/martSearchList")
+	public String martSearchList(@RequestParam(value="startDate", required=false) String startDate,
+								 @RequestParam(value="endDate", required=false) String endDate,
+								 @RequestParam(value="serviceUse", required=false) String serviceUse,
+								 @RequestParam(value="martName", required=false) String martName, Model model) {
+		System.out.println("페이지: 매장 조건검색");
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("startDate", startDate);
+			paramMap.put("endDate", endDate);
+			paramMap.put("serviceUse", serviceUse);
+			paramMap.put("martName", martName);
+		List<Mart> martList = martService.getMartSearchList(paramMap);
+		model.addAttribute("martList", martList);
+		
+		return "system_management/mart/sw_martList";
+	}
+	
+	@GetMapping("/sw_martList")
+	public String martList(Model model) {
+		System.out.println("페이지: 매장리스트 ");
+		List<Mart> martList = martService.getMartList();
+		model.addAttribute("martList", martList);
+		
+		return "system_management/mart/sw_martList";
+	}
+	
+	@PostMapping("/martInsertAction")
+	public String martInsertAction(Mart mart) {
+		System.out.println("매장 등록처리");
+		int result = martService.martInsertAction(mart);
+		
+		return "/main";
+	}
+	
 	@PostMapping("/martCodeCheck")
 	@ResponseBody
 	public boolean martCodeCheckAjax(@RequestParam(value="martCode", required=false) String martCode) {
