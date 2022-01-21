@@ -34,6 +34,7 @@
 			<result column="name" 				property="name"/>
 		</association>		
 	</resultMap>
+	
 	<resultMap type="OrderDetail" id="OrderDetailMap">
 		<id column="orderDetailCode" 		property="orderDetailCode"/>
 		<result column="orderCode" 			property="orderCode"/>
@@ -202,21 +203,32 @@
 	FROM 
 		tb_orderDetail AS s
 		INNER JOIN 
-			tb_goods AS g
+		tb_goods AS g
 		ON 
-			s.barcode = g.barcode
-		WHERE s.orderCode = #{orderCode}
+		s.barcode = g.barcode
+	WHERE 
+		s.orderCode = #{orderCode}
 	</select>
 	
-	<!-- <select id="getOrderList" resultType="orderDetail">
-	SELECT 
-		businessName, 
-		registerNum, 
-		businessStaff
-	FROM 
-		tb_business
+	<select id="getOrderListByOrderCode" parameterType="String" resultType="Order" resultMap="OrderResultMap">
+	SELECT
+	   o.orderCode, o.orderNum, o.state
+	   , b.businessName, b.registerNum
+	   , u.name
+	FROM
+	   tb_order AS o
+	   INNER JOIN
+	   tb_business AS b
+	   on
+	   o.businessCode = b.businessCode
+	   INNER join
+	   tb_user AS u
+	   on
+	   o.ID = u.ID
+	WHERE
+	   o.orderCode = #{orderCode}
+		
 	</select>
-	 -->
 	
 	
 </mapper>

@@ -1,6 +1,7 @@
 package k5.goodsjoc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +58,15 @@ public class OrderService {
 	//주문서 상세 내역 테이블
 	public List<OrderDetail> getsalesDetailList(String orderCode) {
 		return orderMapper.getsalesDetailList(orderCode);
+	}
+	
+	//상품검색모달
+	public List<Map<String, Object>> getGoodsList(String sessionMartCode) {
+		return orderMapper.getGoodsList(sessionMartCode);
+	}
+
+	public List<Order> getOrderListByOrderCode(String orderCode) {
+		return orderMapper.getOrderListByOrderCode(orderCode);
 	}
 		
 }

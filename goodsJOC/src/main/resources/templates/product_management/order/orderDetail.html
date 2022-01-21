@@ -32,18 +32,27 @@
 					</div>
 				</div>
 				<div class="row invoice-info">
-					<div class="col-3">
+					<div class="col-4">
 						<table class="table">
 							<tbody style="font-size: small;">
-								<tr>
-									<th><i class="fas fa-angle-double-right"></i> 거래처명 :</th>
-								</tr>
-								<tr>
-									<th><i class="fas fa-angle-double-right"></i> 사업자등록번호 :</th>
-								</tr>
-								<tr>
-									<th><i class="fas fa-angle-double-right"></i> 담당자 :</th>
-								</tr>
+								<th:block th:if="${not #lists.isEmpty(orderList)}" th:each="l, i : ${orderList}">
+									<tr >
+										<th><i class="fas fa-angle-double-right"></i> 주문번호 :</th>
+										<td th:text="${l.orderNum}">
+									</tr>
+									<tr>
+										<th><i class="fas fa-angle-double-right"></i> 거래처명 :</th>
+										<td th:text="${l.business.getBusinessName()}">
+									</tr>
+									<tr>
+										<th><i class="fas fa-angle-double-right"></i> 사업자등록번호 :</th>
+										<td th:text="${l.business.getRegisterNum()}">
+									</tr>
+									<tr>
+										<th><i class="fas fa-angle-double-right"></i> 담당자 :</th>
+										<td th:text="${l.user.getName()}">
+									</tr>
+								</th:block>
 							</tbody>
 						</table>
 					</div>

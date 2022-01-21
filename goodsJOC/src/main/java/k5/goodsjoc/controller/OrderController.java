@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import k5.goodsjoc.dto.Order;
 import k5.goodsjoc.dto.OrderDetail;
-import k5.goodsjoc.service.BusinessService;
 import k5.goodsjoc.service.OrderService;
 
 @Controller
@@ -68,16 +67,14 @@ public class OrderController {
 	      List<OrderDetail> orderDetailList = orderService.getsalesDetailList(orderCode);
 	      model.addAttribute("orderDetailList", orderDetailList);      
 	      
-		/*
-		 * List<Order> orderList = orderService.getOrderList(orderCode);
-		 * model.addAttribute("orderList", orderList);
-		 */
+		  List<Order> orderList = orderService.getOrderListByOrderCode(orderCode);
+		  model.addAttribute("orderList", orderList);
+		 
 	      
 	      return "product_management/order/orderDetail";
 	   }
 	
 	
-
 	//주문관리 > 주문 검색 (정도혜)
 	@PostMapping("/orderList")
 	public String getSearchOrderList(
@@ -109,7 +106,18 @@ public class OrderController {
 		return "product_management/order/orderList";
 		}
 	
-		
+		//상품선택 모달 Ajax (정도혜)
+		@PostMapping("/searchGoodsModal")
+		@ResponseBody
+		public List<Map<String, Object>> searchGoodsModal(HttpServletRequest request) {
+			
+			HttpSession session = request.getSession();
+			String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+			
+			List<Map<String, Object>> goodsModal = orderService.getGoodsList(sessionMartCode);
+			
+			return goodsModal;
+		}	
 		
 	
 	}
