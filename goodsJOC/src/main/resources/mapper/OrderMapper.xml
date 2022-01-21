@@ -180,12 +180,16 @@
 	)VALUES (
 		NULL, 0, 0, NOW(), '진행중', NOW(), '', '', NOW(), 0)
 	</insert>
-	
-	
-	
-	
-	
-	
-	
+
+	<!-- 총 매입 건수 및 총금액 -->	
+	<select id="purchaseDatePrice" parameterType="String" resultType="Map">
+		SELECT
+			SUM(totalOrderPrice) AS purchasePrice
+			,COUNT(*) AS purchaseCnt
+		FROM
+			tb_order
+		WHERE
+			martCode = #{martCode} AND state = '승인' AND MONTH(NOW()) = MONTH(regDate)
+	</select>
 	
 </mapper>

@@ -1,6 +1,7 @@
 package k5.goodsjoc.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -29,6 +30,8 @@ public interface OrderMapper {
 	
 	//주문등록
 	public int orderInsert(Order order);
+	//매입 총 건수및 가격
+	public List<Map<String, Object>> purchaseDatePrice(String martCode);
 
 	
 }

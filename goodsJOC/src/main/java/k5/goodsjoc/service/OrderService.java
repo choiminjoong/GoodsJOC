@@ -1,6 +1,7 @@
 package k5.goodsjoc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +52,11 @@ public class OrderService {
 	//매출등록
 	public int orderInsert(Order order) {
 		return orderMapper.orderInsert(order);
+	}
+
+	//매입 총 건수 및 가격
+	public List<Map<String, Object>> purchaseDatePrice(String martCode) {
+		return orderMapper.purchaseDatePrice(martCode);
 	}
 }
 

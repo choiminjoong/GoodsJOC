@@ -15,295 +15,336 @@
    </th:block>
 
 <th:block layout:fragment="customContents">
-   <section class="content">
-      <div class="container-fluid">
-         <!--------------------매입관리 폼--------------------->
-         <div class="col-12">
-            <div class="card card-warning card-tabs">
-               <div class="card-header">
-                  <h3 class="card-title">
-                     <b>매입 관리</b>
-                  </h3>
-               </div>
-               <div class="card-body">
-               <form th:action="@{/trade_management/purchase/PurchaseList}" method="post">
-                  <div class="tab-content" id="custom-tabs-two-tabContent">
-                     <!-- 매입검색 -->
-                     <div class="row">
-                        <label class="col-sm-1 col-form-label">매입검색</label>
-                        <div class="col-sm-2">
-                           <select name="searchKey" class="form-control custom-select">
-                              <option value="goodsName">상품명</option>
-                              <option value="businessName">거래처명</option>
-                              <option value="purchaseDate">거래일</option>
-                           </select>
-                        </div>
-                        <div class="input-group input-group-m" style="width: 500px;">
-                           <input type="text" name="searchValue" style="margin-left: 3%"
-                              class="form-control float-right" placeholder="검색">
-                        </div>
-                        <div style="margin-left: 3%">
-                           <button type="submit" class="btn-lg btn-info">
-                           <b>검색</b>
-                           </button>
-                           <a href="#">
-                              <button type="button" class="btn-lg btn-info">
-                                 <b>등록</b>
-                              </button>
-                           </a>
-                        </div>
-                     </div>
-                     <!-----------------거래일검색------------------>
-                     <div class="row" style="margin-top: 1%">
-                        <label class="col-sm-1 col-form-label">거래일</label>
-                        <div class="col-sm-2">
-                           <input type="date" name="startDt" id="date" class="form-control">
-                        </div>
-                        <span style="font-weight: bold;">~</span>
-                        <div class="col-sm-2">
-                           <input type="date" name="endDt" id="date" class="form-control">
-                        </div>
-                     </div>
-                  </div>
-               </form>
-               </div>
-            </div>
-         </div>
-
-         <!-------------------매입출 조회 폼--------------------->
-         <div class="col-12">
-            <div class="card card-warning card-tabs">
-               <div class="card-header p-0 pt-1"></div>
-               <!-- /.card-header -->
-               <div class="card-body table-responsive p-0" style="height: 300px;">
-                  
-                     <div class="col-12">
-                        <table class="table table-hover text-nowrap text-center">
-                           <thead>
-                              <tr>
-                                 <th>주문번호</th>
-                                 <th>공급처</th>
-                                 <th>총 매입금액</th>
-                                 <th>거래상세</th>
-                                 <th>매입일시</th>
-                                 <th>등록자</th>
-                                 <th></th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr th:if="${not #lists.isEmpty(purchaseList)}" th:each="p : ${purchaseList}">
-                                 <td th:text="${p.orderNum}"></td>
-                                 <td th:text="${p.business.getBusinessName()}"></td>
-                                 <td th:text="${p.totalOrderPrice}"></td>
-                                 <td>
-                                 	<button type="button" id="orderDetailBtn" th:data-orderCode="${p.orderCode}" 
-                                 			class="btn btn-outline-warning btn-xs" data-toggle="modal" data-target="#exampleModalStatement">
-										거래명세서
-									</button>
-								 </td >
-								 <td th:text="${p.purchaseDate}"></td>
-								 <td th:text="${p.user.getName()}"></td>
-                                 <td class="text-right py-0 align-middle">
-                                    <div class="btn-group btn-group-sm">
-                                       <a href="#" class="btn btn-info">
-                                       		<i class="fas fa-highlighter"></i>
-                                       </a> 
-                                       <a href="#" class="btn btn-danger" data-toggle="modal" data-target="#exampleModalCenter">
-                                       		<i class="fas fa-trash"></i>
-                                       </a>
-                                    </div>
-                                 </td>
-                              </tr>
-
-                           </tbody>
-                        </table>
-                     </div>
-               </div>
-            </div>
-
-            <!--------------Modal-------------->
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-            	 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-               <div class="modal-dialog modal-dialog-centered" role="document">
-                  <div class="modal-content">
-                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">알림</h5>
-                        <button type="button" class="close" data-dismiss="modal"
-                           aria-label="Close">
-                           <span aria-hidden="true">&times;</span>
-                        </button>
-                     </div>
-                     <div class="modal-body">정말 삭제 하시겠습니까?</div>
-                     <div class="modal-footer">
-                        <a href="purchaseList"><button type="button"
-                              class="btn btn-secondary">예</button></a>
-                        <button type="button" class="btn btn-warning"
-                           data-dismiss="modal">아니오</button>
-                     </div>
-                  </div>
-               </div>
-            </div>
-
-            <!--------------Modal 거래명세서-------------->
-				<div class="modal fade" id="exampleModalStatement" tabindex="-1" role="dialog" aria-labelledby="exampleModalStatementTitle" aria-hidden="true">
-					<div class="modal-dialog" style="max-width: 100%; width: auto; display: table;">
-						<div class="modal-content">
-							<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalStatementTitle">거래명세서</h5>
-								<b class="text-danger">[공급받는자 보관용]</b>
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
+   <div class="card card-warning">
+		<div class="card-header">
+			<h3 class="card-title">
+				<b>매입정보조회</b>
+			</h3>
+		</div>
+		<div class="card-body table-responsive">
+			<form th:action="@{/product_management/goods/goodsList}" method="post">
+				<div class="tab-content row" id="custom-tabs-two-tabContent">
+					<div class="col-10">
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">담당자</label>
+							<div class="col-sm-3">
+								<div class="input-group mb-2">
+									<input type="text" id="cateNameInput" class="form-control text-center">
+									<div class="input-group-append">
+										<button type="button" id="searchCategoryBtn" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+											<i class="fas fa-search"></i>
+										</button>
+									</div>
+								</div>
 							</div>
-							<div class="modal-body">
-								<div class="invoice p-3 mb-3">
-									<!-------------클릭 이벤트------------->
-									<div class="row no-print">
-										<div class="col-12">
-											<a href="#" rel="noopener" target="_blank" class="btn btn-default float-right">
-												<i class="fas fa-print"></i>Print
-											</a>
-											<button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
-												<i class="fas fa-download"></i> PDF
-											</button>
-											<div class="invoice-col" style="margin-bottom: 20px; font-size: 18px;">
-												<div>
-													<b>관리번호:</b> <span id="orderNum"> </span>
-												</div>
-												<div>
-													<b>거래일시:</b> <span id="purchaseDate"></span>
-												</div>
-											</div>
-										</div>
-									</div>
-									<div class="row invoice-info">
-										
-										<div class="col-sm-1 invoice-col"></div>
-										<div class="col-sm-3 invoice-col" style="margin-bottom: 10px;">
-											<table>
-												<thead>
-													<tr><th>구분</th></tr>
-												</thead>
-												<tbody>
-													<tr><th>사업장명</th></tr>
-													<tr><th>사업자번호</th></tr>
-													<tr><th>대표자</th></tr>
-													<tr><th>연락처</th></tr>
-													<tr><th>주소</th></tr>
-												</tbody>
-											</table>
-										</div>
-										<div class="col-sm-4 invoice-col">
-											<table>
-												<thead>
-													<tr>
-														<th>공급 받는 자</th>
-													</tr>
-												</thead>
-												<tbody>
-													<tr><td th:text="${session.SMARTINFO.martName}">사업장명</td></tr>
-													<tr><td th:text="${session.SMARTINFO.registerNum}">사업자번호</td></tr>
-													<tr><td th:text="${session.SMARTINFO.partnerName}">대표자</td></tr>
-													<tr><td th:text="${session.SMARTINFO.callNum}">연락처</td></tr>
-													<tr><td th:text="${session.SMARTINFO.address}">주소</td></tr>
-												</tbody>
-											</table>
-										</div>
-										<div class="col-sm-4 invoice-col">
-											<table>
-												<thead>
-													<tr>
-														<th>공급처</th>
-													</tr>
-												</thead>
-												<tbody id="businessTable">
-												
-												</tbody>
-											</table>
-										</div>
-									</div>
+							<div class="col-sm-1"></div>
+							<label class="col-sm-1 col-form-label">거래일</label>
+							<div class="col-sm-2">
+								<input name="minPurchasePrice" type="date" class="form-control text-center">
+							</div>
+							<div class="col-sm-1 text-center">
+								<b>~</b>
+							</div>	
+							<div class="col-sm-2">
+								<input name="maxPurchasePrice" type="date" class="form-control text-center">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">주문번호</label>
+							<div class="col-sm-3">
+								<input type="number" name="searchCategory" class="form-control">
+							</div>
+							<div class="col-sm-1"></div>
+							<label class="col-sm-1 col-form-label">거래금액</label>
+							<div class="col-sm-2">
+								<input name="minSalesPrice" type="number" class="form-control text-center">
+							</div>
+							<div class="col-sm-1 text-center">
+								<b>~</b>
+							</div>	
+							<div class="col-sm-2">
+								<input name="maxSalesPrice" type="number" class="form-control text-center" value=0>
+							</div>
+						</div>
+						<div class="form-group row" style="margin-bottom: -10px;">
+							<label class="col-sm-1 col-form-label">공급처</label>
+							<div class="col-sm-5">
+								<input name="searchGoodsName" type="text" class="form-control float-right">
+							</div>
+							<div class="col-sm-2"></div>
+							<div class="col-sm-2">
+								<button type="submit" class="btn btn-block bg-gradient-warning btn-lg"><b>검색</b></button>
+							</div>
+							<div class="col-sm-1">
+								<a th:href="@{/product_management/goods/goodsList}" type="button" class="btn btn-block bg-gradient-warning btn-lg">
+									<i class="fas fa-redo-alt"></i>
+								</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-2" align="center" style="margin-bottom: -20px; margin-top: -5px;">
+						<th:block th:if="${not #lists.isEmpty(purchaseDatePrice)}" th:each="l : ${purchaseDatePrice}">
+							<div class="info-box mb-3 bg-info">
+								<span class="info-box-icon bg-info elevation-1">
+									<i class="fas fa-shopping-cart"></i>
+								</span>
+								<div class="info-box-content">
+									<span class="info-box-text"> <b class="nowMonth"></b> 월 매입 건수</span> 
+									<span class="info-box-number"> <b th:text="${l.purchaseCnt}"></b> 건</span>
+								</div>
+								<!-- /.info-box-content -->
+							</div>
+							<div class="info-box mb-3 bg-info" style="margin-top: -10px;">
+								<span class="info-box-icon bg-info elevation-1">
+									<i class="fas fa-won-sign"></i>
+								</span>
+								<div class="info-box-content">
+									<span class="info-box-text"> <b class="nowMonth"></b> 월 총매입금</span> 
+									<span class="info-box-number"> <b class="money" th:text="${l.purchasePrice}"></b></span>
+								</div>
+							</div>
+						</th:block>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
 
-									<!--------------본문 row------------->
-									<div class="row">
-										<div class="col-12 table-responsive">
-											<table class="table table-striped text-center">
-												<thead>
-													<tr>
-														<th>번호</th>
-														<th>상품명</th>
-														<th>유형</th>
-														<th>단가</th>
-														<th>수량</th>
-														<th>공급가액</th>
-														<th>부가세</th>
-														<th>합계</th>
-													</tr>
-												</thead>
-												<tbody id="detailTable">
-												</tbody>
-											</table>
-										</div>
-										<!-- /.col -->
-									</div>
-									<!-- /.row -->
+    <!-------------------매입출 조회 폼--------------------->
+	<div class="card card-warning card-tabs">
+		<div class="card-header p-0 pt-1"></div>
+		<!-- /.card-header -->
+		<div class="card-body table-responsive p-0" style="height: 300px;">
 
-									<!------------하단-------------->
-									<div class="row">
-										<!-- accepted payments column -->
-										<div class="col-6">
-											<p class="lead"><b>결제 방법</b></p>
-											<img src="../../dist/img/credit/visa.png" alt="Visa"> 
-											<img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
-											<img src="../../dist/img/credit/american-express.png" alt="American Express"> 
-											<img src="../../dist/img/credit/paypal2.png" alt="Paypal">
-											<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
-												<textarea class="form-control" rows="3" placeholder="참고사항"></textarea>
-											</p>
-										</div>
-										<!-- /.col -->
-										<div class="col-6">
-											<p class="lead"><b>총 결제금액</b></p>
+			<div class="col-12">
+				<table class="table table-hover text-nowrap text-center">
+					<thead>
+						<tr>
+							<th>주문번호</th>
+							<th>공급처</th>
+							<th>총 매입금액</th>
+							<th>거래상세</th>
+							<th>매입일시</th>
+							<th>담당자</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:if="${not #lists.isEmpty(purchaseList)}" th:each="p : ${purchaseList}">
+							<td th:text="${p.orderNum}"></td>
+							<td th:text="${p.business.getBusinessName()}"></td>
+							<td class="money" th:text="${p.totalOrderPrice}"></td>
+							<td>
+								<button type="button" id="orderDetailBtn" class="btn btn-outline-warning btn-xs"
+									 th:data-orderCode="${p.orderCode}" data-toggle="modal"data-target="#exampleModalStatement">
+									 거래명세서
+								</button>
+							</td>
+							<td th:text="${p.purchaseDate}"></td>
+							<td th:text="${p.user.getName()}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 
-											<div class="table-responsive">
-												<table class="table">
-													<tbody>
-														<tr>
-															<th style="width: 50%">공급가액:</th>
-															<td id="totalSupplyPrice"></td>
-														</tr>
-														<tr>
-															<th>부가세:</th>
-															<td id="totalVAT"></td>
-														</tr>
-														<tr>
-															<th>총합계:</th>
-															<td id="totalSumPrice"></td>
-														</tr>
-													</tbody>
-												</table>
-											</div>
+		<!--------------Modal 거래명세서-------------->
+		<div class="modal fade" id="exampleModalStatement" tabindex="-1"
+			role="dialog" aria-labelledby="exampleModalStatementTitle"
+			aria-hidden="true">
+			<div class="modal-dialog"
+				style="max-width: 100%; width: auto; display: table;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalStatementTitle">거래명세서</h5>
+						<b class="text-danger">[공급받는자 보관용]</b>
+						<button type="button" class="close" data-dismiss="modal"
+							aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<div class="invoice p-3 mb-3">
+							<!-------------클릭 이벤트------------->
+							<div class="row no-print">
+								<div class="col-12">
+									<a href="#" rel="noopener" target="_blank"
+										class="btn btn-default float-right"> <i
+										class="fas fa-print"></i>Print
+									</a>
+									<button type="button" class="btn btn-primary float-right"
+										style="margin-right: 5px;">
+										<i class="fas fa-download"></i> PDF
+									</button>
+									<div class="invoice-col"
+										style="margin-bottom: 20px; font-size: 18px;">
+										<div>
+											<b>관리번호:</b> <span id="orderNum"> </span>
+										</div>
+										<div>
+											<b>거래일시:</b> <span id="purchaseDate"></span>
 										</div>
 									</div>
 								</div>
 							</div>
-							<!---------------버튼-------------->
-							<div class="modal-footer">
-								<a href="purchaseList">
-									<button type="button" class="btn btn-secondary">예</button>
-								</a>
-								<button type="button" class="btn btn-warning"data-dismiss="modal">아니오</button>
+							<div class="row invoice-info">
+
+								<div class="col-sm-1 invoice-col"></div>
+								<div class="col-sm-3 invoice-col" style="margin-bottom: 10px;">
+									<table>
+										<thead>
+											<tr>
+												<th>구분</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<th>사업장명</th>
+											</tr>
+											<tr>
+												<th>사업자번호</th>
+											</tr>
+											<tr>
+												<th>대표자</th>
+											</tr>
+											<tr>
+												<th>연락처</th>
+											</tr>
+											<tr>
+												<th>주소</th>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="col-sm-4 invoice-col">
+									<table>
+										<thead>
+											<tr>
+												<th>공급 받는 자</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td th:text="${session.SMARTINFO.martName}">사업장명</td>
+											</tr>
+											<tr>
+												<td th:text="${session.SMARTINFO.registerNum}">사업자번호</td>
+											</tr>
+											<tr>
+												<td th:text="${session.SMARTINFO.partnerName}">대표자</td>
+											</tr>
+											<tr>
+												<td th:text="${session.SMARTINFO.callNum}">연락처</td>
+											</tr>
+											<tr>
+												<td th:text="${session.SMARTINFO.address}">주소</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+								<div class="col-sm-4 invoice-col">
+									<table>
+										<thead>
+											<tr>
+												<th>공급처</th>
+											</tr>
+										</thead>
+										<tbody id="businessTable">
+
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<!--------------본문 row------------->
+							<div class="row">
+								<div class="col-12 table-responsive">
+									<table class="table table-striped text-center">
+										<thead>
+											<tr>
+												<th>번호</th>
+												<th>상품명</th>
+												<th>유형</th>
+												<th>단가</th>
+												<th>수량</th>
+												<th>공급가액</th>
+												<th>부가세</th>
+												<th>합계</th>
+											</tr>
+										</thead>
+										<tbody id="detailTable">
+										</tbody>
+									</table>
+								</div>
+								<!-- /.col -->
+							</div>
+							<!-- /.row -->
+
+							<!------------하단-------------->
+							<div class="row">
+								<!-- accepted payments column -->
+								<div class="col-6">
+									<p class="lead">
+										<b>결제 방법</b>
+									</p>
+									<img src="../../dist/img/credit/visa.png" alt="Visa">
+									<img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
+									<img src="../../dist/img/credit/american-express.png" alt="American Express"> 
+									<img src="../../dist/img/credit/paypal2.png" alt="Paypal">
+									<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+										<textarea class="form-control" rows="3" placeholder="참고사항"></textarea>
+									</p>
+								</div>
+								<!-- /.col -->
+								<div class="col-6">
+									<p class="lead">
+										<b>총 결제금액</b>
+									</p>
+
+									<div class="table-responsive">
+										<table class="table">
+											<tbody>
+												<tr>
+													<th style="width: 50%">공급가액:</th>
+													<td id="totalSupplyPrice"></td>
+												</tr>
+												<tr>
+													<th>부가세:</th>
+													<td id="totalVAT"></td>
+												</tr>
+												<tr>
+													<th>총합계:</th>
+													<td id="totalSumPrice"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
+					<!---------------버튼-------------->
+					<div class="modal-footer">
+						<a href="purchaseList">
+							<button type="button" class="btn btn-secondary">예</button>
+						</a>
+						<button type="button" class="btn btn-warning" data-dismiss="modal">아니오</button>
+					</div>
 				</div>
 			</div>
-         <!-- /.card -->
-      </div>
-   </section>
+		</div>
+	</div>
+	<!-- /.card -->
 </th:block>
 <th:block layout:fragment="customJs">
 	<script>
 		$(function(){
+			
+			//현재 월 표시하기
+			var now = new Date();
+			var nowMonth = now.getMonth()+1;
+			console.log(nowMonth)
+			$('.nowMonth').text(nowMonth);
+			
 			//거래명세서 클릭시 데이터 가져오기
 			$(document).on('click', '#orderDetailBtn', function(){
 				var orderCode = $(this).attr('data-orderCode');
@@ -373,7 +414,6 @@
 					$('#totalSumPrice').text(totalSumPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원");
 				});
 			});
-				
 		//제이쿼리 끝	
 		});
 	</script>
