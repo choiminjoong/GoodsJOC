@@ -16,12 +16,16 @@ public class DisplayService {
 	public DisplayService(DisplayMapper displayMapper) {
 		this.displayMapper = displayMapper;
 	}
-	//매입 조회(오대성)
+	//재고이동 조회(오대성)
 	public List<Map<String, Object>> getDisplayList(String martCode){
 		return displayMapper.getDisplayList(martCode);
 	}
-	//매입 검색
+	//재고이동 검색
 	public List<Map<String, Object>> getDisplayBySearchKey(String searchKey, String searchValue, String martCode, String startDt, String endDt) {
 		return displayMapper.getDisplayBySearchKey(searchKey, searchValue, martCode, startDt, endDt);
 	}
+	
+	
+	
+	
 }
