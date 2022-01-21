@@ -20,19 +20,31 @@ public interface OrderMapper {
 	
 	//주문 단일정보 검색
 	public List<Order> getOrderListBySearchKey(String searchKey, String searchValue, String startDt, String endDt);
+	
 	//매입(주문상태=승인) 리스트 가져오기
 	public List<Order> getOrderPurchaseList(String martCode);
+
 	//매입(주문상태=승인)
 	public Order getPurchaseInfoByOrderCode(String orderCode);
-
-	//주문상세
-	public List<OrderDetail> getPurchaseDetailList(String orderCode);
 	
 	//주문등록
 	public int orderInsert(Order order);
 	//매입 총 건수및 가격
 	public List<Map<String, Object>> purchaseDatePrice(String martCode);
+
 	//매입 조건검색
 	public List<Order> searchPurchaseList(Map<String, Object> paramMap);
-	
+
+	//주문상세
+	public List<OrderDetail> getPurchaseDetailList(String orderCode);
+
+	//주문서 상세내역 테이블
+	public List<OrderDetail> getsalesDetailList(String orderCode);
+
+	//상품검색모달
+	public List<Map<String, Object>> getGoodsList(String sessionMartCode);
+
+	//주문거래처정보
+	public List<Order> getOrderListByOrderCode(String orderCode);
+
 }

@@ -1,133 +1,163 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	  layout:decorate="@{layout/default}">
-		
-	<!-- 페이지 제목 공간 -->
-	<th:block layout:fragment="customTitle">
-		<title> 주문관리 </title>
-	</th:block>
-	<!-- 로케이션 제목 -->
-	<th:block layout:fragment="locationTitle">
-	</th:block>
-	<!-- 로케이션 위치 -->
-	<th:block layout:fragment="locationPlace">
-		<a th:href="@{/main}">MAIN</a>
-		> 기초관리 > 주문관리 > 주문서 상세조회
-	</th:block>
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="@{layout/default}">
 	
-	<!-- 메인 컨텐츠 영역 -->		
-	<th:block layout:fragment="customContents">	  
-			<!-- 주문상세내역  -->
-            <div class="invoice p-2" style="margin-top:-1%">
-              <!-- title row -->
-              <div class="row">
-                <div class="col-12">
-                  <h4>
-                    <i class="fas fa-angle-double-right" style="margin-bottom: 1%" ></i><b style="font-size: 80%">ㅤ주문서 상세내역</b>
-                    <small class="float-right">Date: 2021-09-12</small>
-                  </h4>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- info row -->
-              <div class="row invoice-info">
-              <!-- /.col -->
-                <div class="col-sm-4 invoice-col" style="margin-top: 1%">
-                  <strong>barcode :</strong><span></span>
-                </div>
-                <div class="col-sm-3 invoice-col" style="margin-left:-3cm">
-                  <address>
-                    <strong>거래처 :</strong><br>
-                   	 거래처명 : <span ></span><br>
-                 	 주문일자 : <br>
-                    Phone: <span></span><br>
-                    Email: <span></span>
-                  </address>
-                </div>
-              </div>
-              <!-- /.row -->
-
-              <!-- Table row -->
-              <div class="row">
-                <div class="col-12 table-responsive">
-                  <table class="table table-striped">
-                    <thead align="center">
-                    <tr>
-                      <th>번호</th>
-                      <th>상품명</th>
-                      <th>수량</th>
-                      <th>매입단가</th>
-                      <th>공급가액</th>
-                      <th>납품일</th>
-                    </tr>
-                    </thead>
-                    <tbody align="center">
-	                    <tr>
-	                     <td>@@</td>
-	                     <td>@@</td>
-	                     <td>@@</td>
-	                     <td>@@</td>
-	                     <td>@@</td>                     
-	                     <td>@@</td>                     
-	                    </tr>
-	                    <tr>
-	                    <td>@@</td>
-	                     <td>@@</td>
-	                     <td>@@</td>
-	                     <td>@@</td>
-	                     <td>@@</td>                     
-	                     <td>@@</td>   
-	                    </tr>
-	                    <tr>
-	                     <td>@@</td>
-	                     <td>@@</td>
-	                     <td>@@</td>
-	                     <td>@@</td>
-	                     <td>@@</td>                     
-	                     <td>@@</td>   
-	                    </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <!-- /.col -->
-              </div>
-              <!-- /.row -->
-
-              <div class="row">
-
-                <!-- /.col -->
-                <div class="col-5" style="margin-top: 1%">
-                  <b style="color: red">ㅤ결제 대금</b>
-
-                  <div class="table-responsive">
-                    <table class="table">
-                    <tbody>
-                      <tr>
-                        <th>VAT :</th>
-                        <td></td>
-                      </tr>
-                      <tr>
-                       <th>합계 :</th>
-                        <td></td>
-                      </tr>
-                      <tr>
-                       
-                      </tr>
-                    </tbody></table>
-                  </div>
-                </div>
-                <!-- /.col -->
-              </div>
-				
-			<!-- 닫기 버튼  -->	
-              <div class="row no-print" style="margin-top: -4%">
-                <div class="col-12">                  
-                  <a href=orderList class="btn bg-danger color-palette float-right" 
-                  style="margin-right: 3%;"><b>ㅤ닫기ㅤ</b></a>
-                </div>
-              </div>
-            </div>		
+<!-- 페이지 제목 공간 -->
+<th:block layout:fragment="customTitle">
+	<title>주문관리</title>
+</th:block>
+<!-- 로케이션 제목 -->
+<th:block layout:fragment="locationTitle">
+</th:block>
+<!-- 로케이션 위치 -->
+<th:block layout:fragment="locationPlace">
+	<a id="main" th:href="@{/main}" class="joc-text1">MAIN</a>
+		 > 거래관리 > 주문서관리 > 주문서 상세내역
 	</th:block>
+
+<!-- 메인 컨텐츠 영역 -->
+<th:block layout:fragment="customContents">
+<div id="print">	
+	<div class="row">
+		<div class="col-10 mx-auto">
+			<!-- 주문상세내역  -->
+			<div class="invoice p-2" style="margin-top: -1%">
+				<!-- title row -->
+				<div class="row">
+					<div class="col-10">
+						<h4 style="margin-top: 2%">
+							<i class="fas fa-cart-plus" style="margin-bottom: 1%"></i>
+							<b style="font-size: 80%">ㅤ주문서 상세내역</b>
+                       	 	 <button type="button" value="인쇄하기" id="print" onclick="javascript:content_print();" class="btn-sm btn-info float-right" style="margin-right: -3.8cm;">
+                                  <i class="fas fa-download"></i> Print
+                           </button>                      
+						</h4>
+					</div>
+				</div>
+				<div class="row invoice-info">
+					<div class="col-3.5">
+						<table class="table">
+							<tbody style="font-size: small;">
+								<th:block th:if="${not #lists.isEmpty(orderList)}" th:each="l, i : ${orderList}">
+									<tr>
+										<th><i class="fas fa-angle-double-right"></i>ㅤ주문번호 :</th>
+										<td th:text="${l.orderNum}">
+									</tr>
+									<tr>
+										<th><i class="fas fa-angle-double-right"></i>ㅤ거래처명 :</th>
+										<td th:text="${l.business.getBusinessName()}">
+									</tr>
+									<tr>
+										<th><i class="fas fa-angle-double-right"></i>ㅤ사업자등록번호 :</th>
+										<td th:text="${l.business.getRegisterNum()}">
+									</tr>
+									<tr>
+										<th><i class="fas fa-angle-double-right"></i>ㅤ담당자 :</th>
+										<td th:text="${l.user.getName()}">
+									</tr>
+								</th:block>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<!-- 주문 상세내역 테이블 -->
+				<div class="row">
+					<div class="col-12 table-responsive">
+						<table class="table table-striped">
+							<thead align="center">
+								<tr>
+									<th>번호</th>
+									<th>상품명</th>
+									<th>규격</th>
+									<th>단위</th>
+									<th>유형</th>
+									<th>수량</th>
+									<th>매입단가</th>
+									<th>공급가액</th>
+									<th>부가세</th>
+									<th>총 금액</th>
+								</tr>
+							</thead>
+							<tbody align="center">
+								<tr th:if="${not #lists.isEmpty(orderDetailList)}" th:each="l, i : ${orderDetailList}">
+									<td th:text="${i.index+1}"></td>
+									<td th:text="${l.goods.getGoodsName()}"></td>
+									<td th:text="${l.goods.getWeight()}"></td>
+									<td th:text="${l.goods.getUnit()}"></td>
+									<td th:text="${l.goods.getTaxType()}"></td>
+									<td class="goodsCount" th:text="${l.qty}"></td>
+									<td class="money" th:text="${l.purchasePrice}"></td>
+									<td class="money" th:text="${l.supplyPrice}"></td>
+									<td class="money sumVat" th:text="${l.vat}"></td>
+									<td class="money sumTotalPrice" th:text="${l.totalPrice}"></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-4">
+						<b style="color: red">ㅤ결제 대금</b>
+						<div class="table-responsive">
+							<table class="table">
+								<tbody>
+									<tr>
+										<th>VAT :</th>
+									</tr>
+									<tr>
+										<th>합계 :</th>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+				<!-- 닫기 버튼  -->
+				<div class="row no-print" style="margin-top: -4%">
+					<div class="col-12">
+						<a href=orderList class="btn-sm bg-danger color-palette float-right"
+							style="margin-right: 3%;"><b>ㅤ닫기ㅤ</b></a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</th:block>
+<th:block layout:fragment="customJs">		
+	<script>
+		$(function(){
+			//총 금액합계 구하기
+			var vatGroup = $('.sumVat')	
+			var priceGroup = $('.sumTotalPrice')
+			console.log(vatGroup);
+			
+			for(var i=0; i<vatGroup.length; i++){
+				console.log($(vatGroup[i]).text());
+			} 			
+		});
+			
+	</script>	
+	<script type="text/javascript"> 
+	function content_print(){
+		   
+	    var initBody = document.body.innerHTML;
+	    window.onbeforeprint = function(){
+	        document.body.innerHTML =
+	
+	                         document.getElementById('print').innerHTML;
+	    }
+	    window.onafterprint = function(){
+	        document.body.innerHTML = initBody;
+	    }
+	    window.print();    
+	}           
+</script>
+							
+</th:block>
 </html>
 

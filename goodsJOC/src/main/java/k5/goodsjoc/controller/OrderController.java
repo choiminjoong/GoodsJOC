@@ -13,10 +13,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k5.goodsjoc.dto.GoodsCate;
 import k5.goodsjoc.dto.Order;
-import k5.goodsjoc.dto.ViewOrder;
+import k5.goodsjoc.dto.OrderDetail;
 import k5.goodsjoc.service.OrderService;
 
 @Controller
@@ -58,17 +59,24 @@ public class OrderController {
 		return "product_management/order/orderList";
 	}
 	
-	//주문관리 > 주문상세 (정도혜)
+	//주문관리 > 주문상세 (정도혜)	
 	@GetMapping("/orderDetail")
-	public String orderDetail(Model model) {
-		System.out.println("페이지: 주문 상세");
-		System.out.println("경로: product_management/order/orderDetail(GET방식 성공) ");
-		List<ViewOrder> viewOrder = orderService.getViewOrder();
-		model.addAttribute("viewOrder",viewOrder);		
-				
-		return "product_management/order/orderDetail";
-	}
-
+	   public String returnList(@RequestParam(value="orderCode", required = false)String orderCode, Model model) {
+	      System.out.println("페이지: 주문상세 조회 ");
+	      System.out.println("경로:  product_management/order/orderDetail(GET방식 성공) ");	     
+	      System.out.println("orderCode:" + orderCode);	     
+	      
+	      List<OrderDetail> orderDetailList = orderService.getsalesDetailList(orderCode);
+	      model.addAttribute("orderDetailList", orderDetailList);      
+	      
+		  List<Order> orderList = orderService.getOrderListByOrderCode(orderCode);
+		  model.addAttribute("orderList", orderList);
+		 
+	      
+	      return "product_management/order/orderDetail";
+	   }
+	
+	
 	//주문관리 > 주문 검색 (정도혜)
 	@PostMapping("/orderList")
 	public String getSearchOrderList(
@@ -76,7 +84,6 @@ public class OrderController {
 			,@RequestParam(value="searchValue", required = false) String searchValue
 			,@RequestParam(value="startDt", required = false) String startDt
 			,@RequestParam(value="endDt", required = false) String endDt
-			,@RequestParam(value="State", required=false) String State
 			,Model model){
 		System.out.println(searchKey);
 		System.out.println(searchValue);
@@ -85,6 +92,8 @@ public class OrderController {
 			searchKey = "orderNum";
 		}else if(searchKey != null && "businessName".equals(searchKey)) {
 			searchKey = "businessName";	
+		}else if(searchKey != null && "state".equals(searchKey)) {
+			searchKey = "state";	
 		}else  {
 			searchKey = "deliveryDate";
 		}
@@ -98,4 +107,19 @@ public class OrderController {
 			
 		return "product_management/order/orderList";
 		}
+	
+		//상품선택 모달 Ajax (정도혜)
+		@PostMapping("/searchGoodsModal")
+		@ResponseBody
+		public List<Map<String, Object>> searchGoodsModal(HttpServletRequest request) {
+			
+			HttpSession session = request.getSession();
+			String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+			
+			List<Map<String, Object>> goodsModal = orderService.getGoodsList(sessionMartCode);
+			
+			return goodsModal;
+		}	
+		
+	
 	}

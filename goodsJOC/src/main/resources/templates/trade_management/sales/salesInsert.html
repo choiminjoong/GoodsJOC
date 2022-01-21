@@ -12,8 +12,8 @@
 </th:block>
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
-   <a th:href="@{/main}">MAIN</a>
-      > 거래관리 > 매출관리 > 매출등록
+  <a id="main" th:href="@{/main}" class="joc-text1">MAIN</a>
+      > 거래관리 > 매출등록
    </th:block>
 
 <!-- 메인 컨텐츠 영역 -->
@@ -32,7 +32,7 @@
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ상품 ㅤ/ㅤ</label>
                 <button type="button" id="searchGoodsBtn" class="btn-sm bg-info disabled color-palette"
 					data-toggle="modal" data-target="#modal-default2">
-					상품 검색	
+					<b>상품 검색</b>
 				</button>
                   <div class="input-group-append">
                   <input type="text" class="form-control form-control-border border-warning" id="goodsNameInput"  readonly="readonly">
@@ -84,15 +84,15 @@
                   <input type="text" class="form-control form-control-border border-warning" name="salesTotalPrice" id="totalpricesInput">
                 </div>
              </div>
-         <!--수정 버튼 -->   
-         <div class="d-flex justify-content-center" style="margin: 0cm 0cm 1cm 12cm">
-            <button type="submit" style="margin-left: 5px" class="btn btn-warning">
-               <b>등록</b>
-            </button>
-            <a th:href="@{/trade_management/sales/salesList}" style="margin-left: 5px" class="btn btn-danger">
-               <b>닫기</b>
-            </a>
-        </div>      
+        	 <!--수정 버튼 -->   
+	         <div class="d-flex justify-content-center" style="margin: 0cm 0cm 1cm 11.5cm">
+	            <button type="submit" style="margin-left: 5px" class="btn btn-warning">
+	               <b>등록</b>
+	            </button>
+	            <a th:href="@{/trade_management/sales/salesList}" style="margin-left: 15px" class="btn btn-danger">
+	               <b>닫기</b>
+	            </a>
+	        </div>      
      </div>
    </div>
 
@@ -102,7 +102,7 @@
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header bg-warning">
-				<h4 class="modal-title">상품 검색</h4>
+				<h4 class="modal-title"><b>상품 검색</b></h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>

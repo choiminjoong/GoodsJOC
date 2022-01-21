@@ -11,7 +11,7 @@
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
 	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
-      > 거래관리 > 매출관리
+      > 거래관리 > 매출 및 영수증
    </th:block>
 
 <!-- 메인 컨텐츠 영역 -->
@@ -44,14 +44,14 @@
 							<div class="input-group-append"></div>
 						</div>
 						<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">
-							<button type="submit" class="btn btn-info">
+							<button type="submit" class="btn btn-warning">
 								<b>검색</b>
 							</button>
 						</div>
 						<div class="d-flex justify-content-center">
 							<a th:href="@{/trade_management/sales/salesInsert}">
 								<button type="button" class="btn btn-info">
-									<b>등록</b>
+									<b>매출 등록</b>
 								</button>
 							</a>	
 						</div>
@@ -70,14 +70,14 @@
 					<div class="col-sm-2">
 						<input type="date"  name="endDt" id="date" class="form-control">
 					</div>
-					<!-- 취소여부 검색 -->
+					<!-- 취소여부 검색
 					<label class="col-sm-1 col-form-label">취소 여부</label>
 					<div class="col-sm-2">
 						<select id="searchCancell" class="form-control custom-select">
 							<option value="취소">취소</option>
 							<option value="미취소">미취소</option>
 						</select>
-					</div>
+					</div> -->
 				</div>
 			</form>
 		</div>
@@ -129,6 +129,7 @@
 		</div>
 	</div>
 <!--------------영수증 Modal-------------->
+<div id="print">
 <form th:action="@{/trade_management/sales/salesList}" method="post">
 	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
 		role="dialog" aria-labelledby="exampleModalCenterTitle"
@@ -144,6 +145,7 @@
 				</div>
 				
 			<!-- 영수증 기본상세내역  -->
+			
 			<div class="modal-body">
 				<div class="invoice p-3 mb-3">
 					<!-- info row -->
@@ -158,13 +160,12 @@
 						<!-- 저장 & 프린트 버튼  -->
 						<div class="row no-print">
 							<div class="col-12">
-								<button type="button" class="btn btn-info float-right"
-									style="margin-right: 5px;">
-									<i class="fas fa-download"></i>저장
+								<button type="button" value="인쇄하기" id="print" onclick="javascript:content_print();" class="btn-sm btn-info float-right" style="margin-right: 5px;">
+									<i class="fas fa-download">ㅤPrint</i>
 								</button>
-								<button type="button" id="salesBtn" class="btn btn-danger float-right"
+								<button type="button" id="salesBtn" class="btn-sm btn-danger float-right"
 									style="margin-right: 5px;">
-									<i class="fas fa-times-circle">영수증 취소</i>
+									<i class="fas fa-times-circle">ㅤ영수증 취소</i>
 								</button>									
 							</div>
 						</div>
@@ -205,12 +206,10 @@
 									<table class="table">
 										<tbody>
 											<tr>
-												<th>VAT (1.5%)</th>
-												<td>3,636원</td>
+												<th>VAT :</th>
 											</tr>
 											<tr>
 												<th>합계 :</th>
-												<td>40,000원</td>
 											</tr>
 										</tbody>
 									</table>
@@ -228,8 +227,7 @@
 							});
 						</script>
 					</th:block>
-					<button type="button" class="btn btn-warning float-right"
-						data-dismiss="modal">
+					<button type="button" class="btn btn-warning float-right" data-dismiss="modal">
 						<b>닫기</b>
 					</button>
 				</div>
@@ -238,4 +236,21 @@
 	</div>
 </form>		
 </div>
+</div>
+<script type="text/javascript"> 
+	//모달 영역지정 프린트 
+	function content_print(){
+		   
+	    var initBody = document.body.innerHTML;
+	    window.onbeforeprint = function(){
+	        document.body.innerHTML =
+	
+	                         document.getElementById('print').innerHTML;
+	    }
+	    window.onafterprint = function(){
+	        document.body.innerHTML = initBody;
+	    }
+	    window.print();    
+	}           
+</script>
 

@@ -95,7 +95,7 @@ public class SalesController {
 			model.addAttribute("title", "거래처목록조회");
 			model.addAttribute("salesList", salesList);
 			
-			return "trade_management/sales/salesList";
+			return "product_management/order/orderList";
 		}
 		
 		//상품선택 모달 Ajax (정도혜)
