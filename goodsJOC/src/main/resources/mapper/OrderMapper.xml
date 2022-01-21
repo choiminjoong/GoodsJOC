@@ -52,6 +52,64 @@
 		</association>	
 	</resultMap>
 	
+	<!-- 매입(주문상태=승인) 조건검색 -->
+	<select id="searchPurchaseList" parameterType="Map" resultType="Order" resultMap="OrderResultMap">
+		SELECT 
+			o.orderCode, 
+			o.businessCode, 
+			o.orderNum, 
+			o.deliveryDate, 
+			o.state, 
+			o.purchaseDate,
+			o.martCode, 
+			o.id, 
+			o.regDate,
+			o.totalOrderPrice,
+			b.businessName,
+			o.ID,
+			u.name
+		FROM  
+			tb_order AS o
+			INNER JOIN 
+			tb_business AS b
+			ON o.businessCode = b.businessCode
+			INNER JOIN
+			tb_user AS u
+			ON
+			o.ID = u.ID
+		WHERE
+			o.state = "승인" and o.martCode = #{martCode}
+			<if test="businessCode != null and businessCode != ''.toString()">
+				AND o.businessCode = #{businessCode}
+			</if>
+			<if test="startDate != null and startDate != ''.toString()">
+				AND o.purchaseDate >= #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''.toString()">
+				AND #{endDate} >= o.purchaseDate
+			</if>
+			<if test="id != null and id != ''.toString()">
+				AND o.ID = #{id}
+			</if>
+			<if test="minPrice != null and minPrice != ''.toString() and minPrice != 0">
+				AND o.totalOrderPrice >= #{minPrice}
+			</if>
+			<if test="maxPrice != null and maxPrice != ''.toString() and maxPrice != 0">
+				AND #{maxPrice} >= o.totalOrderPrice
+			</if>
+			<if test="state != null and state != ''.toString() and state == 1">
+				AND o.deliveryDate > NOW()
+			</if>
+			<if test="state != null and state != ''.toString() and state == 2">
+				AND NOW() > o.deliveryDate
+			</if>
+			<if test="orderNum != null and orderNum != ''.toString()">
+				AND o.orderNum = #{orderNum}
+			</if>
+		ORDER BY
+			o.orderNum ASC
+	</select>
+	
 	<select id="getPurchaseDetailList" resultType="OrderDetail" resultMap="OrderDetailMap">
 		SELECT
 			d.purchasePrice, d.QTY, d.totalPrice, d.supplyPrice, d.VAT
@@ -111,7 +169,7 @@
 			ON
 			o.ID = u.ID
 		WHERE
-			o.state = "승인"
+			o.state = "승인" AND o.martCode = #{martCode}
 		ORDER BY
 			o.orderNum ASC
 	</select>

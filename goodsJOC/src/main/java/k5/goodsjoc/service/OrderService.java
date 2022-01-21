@@ -34,10 +34,9 @@ public class OrderService {
 	return orderMapper.getOrderListBySearchKey(searchKey, searchValue, startDt, endDt);
    }
 
-
-	public List<Order> getOrderPurchaseList() {
-		
-		return orderMapper.getOrderPurchaseList();
+   //매입내역 조회
+	public List<Order> getOrderPurchaseList(String martCode) {
+		return orderMapper.getOrderPurchaseList(martCode);
 	}
 
 	//거래명세서 매입정보만 가져오기
@@ -57,6 +56,10 @@ public class OrderService {
 	//매입 총 건수 및 가격
 	public List<Map<String, Object>> purchaseDatePrice(String martCode) {
 		return orderMapper.purchaseDatePrice(martCode);
+	}
+
+	public List<Order> searchPurchaseList(Map<String, Object> paramMap) {
+		return orderMapper.searchPurchaseList(paramMap);
 	}
 }
 

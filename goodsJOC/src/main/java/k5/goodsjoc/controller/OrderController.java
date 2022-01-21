@@ -1,6 +1,11 @@
 package k5.goodsjoc.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import k5.goodsjoc.dto.GoodsCate;
 import k5.goodsjoc.dto.Order;
 import k5.goodsjoc.dto.ViewOrder;
 import k5.goodsjoc.service.OrderService;
@@ -21,7 +27,6 @@ public class OrderController {
 		this.orderService = orderService;
 	}
 	
-
 	//주문관리 > 주문등록 (정도혜)
 	@GetMapping("/orderInsert")
 	public String orderInsert() {

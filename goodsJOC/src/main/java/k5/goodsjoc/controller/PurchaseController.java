@@ -1,5 +1,6 @@
 package k5.goodsjoc.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +29,48 @@ public class PurchaseController {
 	public PurchaseController(PurchaseService purchaseService, OrderService orderService) {
 		this.purchaseService = purchaseService;
 		this.orderService = orderService;
+	}
+	
+	@PostMapping("/searchPurchaseList")
+	public String searchPurchaseList(@RequestParam(value="businessCode", required=false) String businessCode,
+									 @RequestParam(value="startDate", required=false) String startDate,
+									 @RequestParam(value="endDate", required=false) String endDate,
+									 @RequestParam(value="id", required=false) String id,
+									 @RequestParam(value="minPrice", required=false) String minPrice,
+									 @RequestParam(value="maxPrice", required=false) String maxPrice,
+									 @RequestParam(value="state", required=false) String state,
+									 @RequestParam(value="orderNum", required=false) String orderNum,
+									 HttpServletRequest request, Model model) {
+		//로그인 기준 마트코드
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		System.out.println("로그인한 유저기준 마트고유코드: " + sessionMartCode);
+		
+		//조회할 변수들을 담은 맵
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("martCode", sessionMartCode);
+			paramMap.put("businessCode", businessCode);
+			paramMap.put("startDate", startDate);
+			paramMap.put("endDate", endDate);
+			paramMap.put("id", id);
+			paramMap.put("minPrice", minPrice);
+			paramMap.put("maxPrice", maxPrice);
+			paramMap.put("state", state);
+			paramMap.put("orderNum", orderNum);
+		//매입금액 및 건수 조회 
+		List<Map<String, Object>> purchaseDatePrice = orderService.purchaseDatePrice(sessionMartCode);
+		model.addAttribute("purchaseDatePrice", purchaseDatePrice);	
+		System.out.println(purchaseDatePrice);
+		
+		List<Order> purchaseList = orderService.searchPurchaseList(paramMap);
+		model.addAttribute("purchaseList", purchaseList);	
+		
+		//거래명세서 조회
+		List<Purchase> purchaseDetailList = purchaseService.getPurchaseDetailList(sessionMartCode);
+		model.addAttribute("purchaseDetailList", purchaseDetailList);	
+
+
+		return "trade_management/purchase/purchaseList";
 	}
 	
 	@PostMapping("/purchaseDetailList")
@@ -93,7 +136,7 @@ public class PurchaseController {
 		model.addAttribute("purchaseDatePrice", purchaseDatePrice);	
 		System.out.println(purchaseDatePrice);
 		
-		List<Order> purchaseList = orderService.getOrderPurchaseList();
+		List<Order> purchaseList = orderService.getOrderPurchaseList(sessionMartCode);
 		model.addAttribute("purchaseList", purchaseList);	
 		
 		//거래명세서 조회
