@@ -33,6 +33,17 @@ public class UserController {
 		this.martService = martService;
 	}
 	
+	@PostMapping("/searchStaffModal")
+	@ResponseBody
+	public List<User> searchStaffModal(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<User> result = userService.getSearchStaffList(sessionMartCode);
+		
+		return result;
+	}
+	
 	@PostMapping("/sw_getUserInfo")
 	@ResponseBody
 	public User sw_getUserInfo(@RequestParam(value="id", required=false) String id) {
@@ -129,8 +140,8 @@ public class UserController {
 				}else if(userInfo.getLevelNum().equals("5")) {
 					session.setAttribute("SLEVELNAME", "비권한자");
 				}
-				//세션 시간 1시간
-				session.setMaxInactiveInterval(60*60);
+				//세션 시간 24시간
+				session.setMaxInactiveInterval(60*60*24);
 				System.out.println("로그인 성공");
 				return "redirect:/main";	
 			}

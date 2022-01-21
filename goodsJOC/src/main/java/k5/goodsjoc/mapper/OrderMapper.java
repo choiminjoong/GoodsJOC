@@ -22,8 +22,8 @@ public interface OrderMapper {
 	public List<Order> getOrderListBySearchKey(String searchKey, String searchValue, String startDt, String endDt);
 	
 	//매입(주문상태=승인) 리스트 가져오기
-	public List<Order> getOrderPurchaseList();
-	
+	public List<Order> getOrderPurchaseList(String martCode);
+
 	//매입(주문상태=승인)
 	public Order getPurchaseInfoByOrderCode(String orderCode);
 	
@@ -31,6 +31,9 @@ public interface OrderMapper {
 	public int orderInsert(Order order);
 	//매입 총 건수및 가격
 	public List<Map<String, Object>> purchaseDatePrice(String martCode);
+
+	//매입 조건검색
+	public List<Order> searchPurchaseList(Map<String, Object> paramMap);
 
 	//주문상세
 	public List<OrderDetail> getPurchaseDetailList(String orderCode);
