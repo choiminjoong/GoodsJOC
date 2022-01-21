@@ -29,6 +29,8 @@ public interface OrderMapper {
 	
 	//주문등록
 	public int orderInsert(Order order);
+	//매입 총 건수및 가격
+	public List<Map<String, Object>> purchaseDatePrice(String martCode);
 
 	//주문상세
 	public List<OrderDetail> getPurchaseDetailList(String orderCode);

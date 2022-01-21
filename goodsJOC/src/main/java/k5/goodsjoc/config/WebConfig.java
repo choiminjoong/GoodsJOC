@@ -35,6 +35,7 @@ public class WebConfig implements WebMvcConfigurer{
 				.excludePathPatterns("/favicon.ico")
 				.excludePathPatterns("/system_management/user/userInsert")
 				.excludePathPatterns("/system_management/user/loginForm")
+				.excludePathPatterns("/system_management/user/loginCheck")
 				.excludePathPatterns("/system_management/user/login")
 				.excludePathPatterns("/system_management/user/logout")
 				.excludePathPatterns("/system_management/user/userIdCheck")

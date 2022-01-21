@@ -23,10 +23,10 @@
 			<!-- /.login-logo -->
 			<div class="card">
 				<div class="card-body login-card-body">
-					<p class="login-box-msg"><span style="color:green;"><b>매장</b> </span> 입장으로 로그인하기</p>
-					<form th:action="@{/system_management/user/login}" method="post">
+					<p class="login-box-msg"><span style="color:maroon;"><b>개발사</b> </span> 입장으로 로그인하기</p>
+					<form id="loginForm" th:action="@{/system_management/user/login}" method="post">
 						<div class="input-group mb-3">
-							<input type="text" name="id" id="loginId" class="form-control" value="martAdmin" placeholder="아이디">
+							<input type="text" name="id" id="loginId" class="form-control" value="swAdmin" placeholder="아이디">
 							<div class="input-group-append">
 								<div class="input-group-text">
 									<i class="fas fa-user-circle"></i>
@@ -34,7 +34,7 @@
 							</div>
 						</div>
 						<div class="input-group mb-3">
-							<input type="password" name="pw" class="form-control" value="0000" placeholder="비밀번호">
+							<input type="password" id="loginPw" name="pw" class="form-control" value="0000" placeholder="비밀번호">
 							<div class="input-group-append">
 								<div class="input-group-text">
 									<span class="fas fa-lock"></span>
@@ -44,13 +44,13 @@
 						<div class="row">
 							<div class="col-8">
 								<div class="icheck-warning">
-									<input type="checkbox" id="remember"> <label
-										for="remember"> 저장하기 </label>
+									<input type="checkbox" id="remember2"> 
+									<label for="remember2"> 저장하기 </label>
 								</div>
 							</div>
 							<!-- /.col -->
 							<div class="col-4">
-								<button type="submit" class="btn btn-warning btn-block">로그인</button>
+								<button id="loginBtn" type="button" class="btn btn-warning btn-block">로그인</button>
 	
 							</div>
 							<!-- /.col -->
@@ -71,7 +71,7 @@
 				</div>
 				<!-- /.login-card-body -->
 			</div>
-		</div>	
+		</div>
 			
 		<div class="col-2"></div>
 		
@@ -82,10 +82,10 @@
 			<!-- /.login-logo -->
 			<div class="card">
 				<div class="card-body login-card-body">
-					<p class="login-box-msg"><span style="color:maroon;"><b>개발사</b> </span> 입장으로 로그인하기</p>
-					<form th:action="@{/system_management/user/login}" method="post">
+					<p class="login-box-msg"><span style="color:teal;"><b>매장</b> </span> 입장으로 로그인하기</p>
+					<form id="loginForm2" th:action="@{/system_management/user/login}" method="post">
 						<div class="input-group mb-3">
-							<input type="text" name="id" id="loginId" class="form-control" value="swAdmin" placeholder="아이디">
+							<input type="text" name="id" id="loginId2" class="form-control" value="martAdmin" placeholder="아이디">
 							<div class="input-group-append">
 								<div class="input-group-text">
 									<i class="fas fa-user-circle"></i>
@@ -93,7 +93,7 @@
 							</div>
 						</div>
 						<div class="input-group mb-3">
-							<input type="password" name="pw" class="form-control" value="0000" placeholder="비밀번호">
+							<input type="password" id="loginPw2" name="pw" class="form-control" value="0000" placeholder="비밀번호">
 							<div class="input-group-append">
 								<div class="input-group-text">
 									<span class="fas fa-lock"></span>
@@ -109,7 +109,7 @@
 							</div>
 							<!-- /.col -->
 							<div class="col-4">
-								<button type="submit" class="btn btn-warning btn-block">로그인</button>
+								<button id="loginBtn2" type="button" class="btn btn-warning btn-block">로그인</button>
 	
 							</div>
 							<!-- /.col -->
@@ -141,5 +141,72 @@
 	<script th:src="@{/plugins/bootstrap/js/bootstrap.bundle.min.js}"></script>
 	<!-- AdminLTE App -->
 	<script th:src="@{/dist/js/adminlte.min.js}"></script>
+	
+	<script>
+		$(function(){
+			//로그인처리 전 로그인정보 일치여부체크
+			$(document).on('click', '#loginBtn', function(){
+				var loginId = $('#loginId').val();
+				var loginPw = $('#loginPw').val();
+				
+				var request = $.ajax({
+					url: '/system_management/user/loginCheck',
+					method: 'POST',
+					data: {'loginId' : loginId, 'loginPw' : loginPw},
+					dataType: 'json'
+				});
+				request.done(function(data){
+					console.log("받은 값: " + data);
+					if(data == 0){
+						alert('아이디를 입력해주세요');
+					}else if(data == 1){
+						alert('일치하는 아이디가 없습니다');
+					}else if(data == 2){
+						alert('비밀번호를 입력해주세요');
+					}else if(data == 3){
+						alert('비밀번호가 일치하지 않습니다');
+					}else if(data == 4){
+						$('#loginForm').submit();
+					}
+					
+				});
+				request.fail(function(jqXHR, textStatus){
+					alert("Request failed: " + textStatus)
+				});
+			});
+
+			//화면이 두개라...
+			$(document).on('click', '#loginBtn2', function(){
+				var loginId2 = $('#loginId2').val();
+				var loginPw2 = $('#loginPw2').val();
+				
+				var request = $.ajax({
+					url: '/system_management/user/loginCheck',
+					method: 'POST',
+					data: {'loginId' : loginId2, 'loginPw' : loginPw2},
+					dataType: 'json'
+				});
+				request.done(function(data){
+					console.log("받은 값: " + data);
+					if(data == 0){
+						alert('아이디를 입력해주세요');
+					}else if(data == 1){
+						alert('일치하는 아이디가 없습니다');
+					}else if(data == 2){
+						alert('비밀번호를 입력해주세요');
+					}else if(data == 3){
+						alert('비밀번호가 일치하지 않습니다');
+					}else if(data == 4){
+						$('#loginForm2').submit();
+					}
+					
+				});
+				request.fail(function(jqXHR, textStatus){
+					alert("Request failed: " + textStatus)
+				});
+			});
+		});
+	
+	</script>
 </body>
 </html>

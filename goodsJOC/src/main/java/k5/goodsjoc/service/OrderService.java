@@ -64,11 +64,17 @@ public class OrderService {
 	public List<Map<String, Object>> getGoodsList(String sessionMartCode) {
 		return orderMapper.getGoodsList(sessionMartCode);
 	}
-
+	
+	//주문상세내역 거래처정보
 	public List<Order> getOrderListByOrderCode(String orderCode) {
 		return orderMapper.getOrderListByOrderCode(orderCode);
 	}
 		
+	//매입 총 건수 및 가격
+	public List<Map<String, Object>> purchaseDatePrice(String martCode) {
+		return orderMapper.purchaseDatePrice(martCode);
+	}
+
 }
 
 

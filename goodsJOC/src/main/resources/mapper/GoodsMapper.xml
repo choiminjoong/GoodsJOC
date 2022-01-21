@@ -381,18 +381,21 @@
 	</select>
 	
 	<!-- 상품카테고리 조건검색(최민중) -->
-	<select id="getSearchGoodsCateList" resultType="GoodsCate">
+	<select id="getSearchGoodsCateList" resultType="GoodsCate" resultMap="goodsCateResultMap">
 		SELECT
-			categoryCode, categoryName, martCode, ID, regDate
+			c.categoryCode, c.categoryName, c.martCode, c.ID, DATE(c.regDate) AS regDate
+			,u.name
 		FROM
-			tb_category
+			tb_category AS c
+			INNER JOIN
+			tb_user AS u
 		WHERE
-			martCode = #{martCode} AND categoryCode > 0
+			c.martCode = #{martCode} AND c.categoryCode > 0
 			<if test="searchCate != null and searchCate != ''.toString()">
-				AND categoryName LIKE CONCAT('%', #{searchCate}, '%')
+				AND c.categoryName LIKE CONCAT('%', #{searchCate}, '%')
 			</if>
 		ORDER BY 
-			regDate DESC
+			c.regDate DESC
 	</select>
 	
 	<!-- 상품카테고리 조회화면(최민중) -->

@@ -1,6 +1,8 @@
 package k5.goodsjoc.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,6 +33,14 @@ public class UserController {
 		this.martService = martService;
 	}
 	
+	@PostMapping("/sw_getUserInfo")
+	@ResponseBody
+	public User sw_getUserInfo(@RequestParam(value="id", required=false) String id) {
+		User result = userService.getUserInfoByID(id);
+		
+		return result;
+	}
+	
 	@PostMapping("/userInsertAction")
 	public String userInsertAction(User user) {
 		System.out.println("페이지: 회원가입처리 ");
@@ -48,6 +58,43 @@ public class UserController {
 		
 		return "redirect:/system_management/user/loginForm";
 	}
+	
+	@PostMapping("/loginCheck")
+	@ResponseBody
+	public int loginCheck(@RequestParam(value="loginId", required=false) String id,
+						  @RequestParam(value="loginPw", required=false) String pw) {
+		System.out.println("입력받은 ID: " + id);
+		System.out.println("입력받은 PW: " + pw);
+		int result = 0;
+
+		if(id != null && !"".equals(id)) {
+			User userInfo = userService.getUserInfoByID(id);
+			
+			if(userInfo != null && !"".equals(userInfo)) {
+				if(pw != null && !"".equals(pw)) {
+					if(pw.equals(userInfo.getPw())){
+						//비번이 같은경우(로그인 성공)
+						result = 4;
+					}else {
+						//비번이 틀린경우
+						result = 3;
+					}
+				}else {
+					//비번을 안 쓴경우
+					result = 2;
+				}
+			}else{
+				//아이디로 찾은 유저정보가 없는 경우
+				result = 1;
+			}
+		}else {
+			//아이디를 안쓴경우
+			result = 0;
+		}
+		
+		return result;
+	}
+	
 	
 	@PostMapping("/login")
 	public String login(@RequestParam(value="id", required=false) String id,
@@ -225,11 +272,46 @@ public class UserController {
  		return checkResult;
  	} 
  	
- 	@GetMapping("/sw_userList")
- 	public String totalUserList(Model model) {
+ 	@PostMapping("/totalUserSearchList")
+ 	public String totalUserSearchList(@RequestParam(value="deleteStatus", required=false) String deleteStatus,
+ 									  @RequestParam(value="startDate", required=false) String startDate,
+ 									  @RequestParam(value="endDate", required=false) String endDate,
+ 									  @RequestParam(value="levelNum", required=false) String levelNum,
+ 									  @RequestParam(value="martName", required=false) String martName,
+ 									  @RequestParam(value="name", required=false) String name, Model model) {
+ 		Map<String, Object> paramMap = new HashMap<String, Object>();
+	 		paramMap.put("deleteStatus", deleteStatus);
+			paramMap.put("startDate", startDate);
+			paramMap.put("endDate", endDate);
+			paramMap.put("levelNum", levelNum);
+			paramMap.put("martName", martName);
+			paramMap.put("name", name);
+ 		List<User> totalUserList = userService.getTotalUserSearchList(paramMap);
+ 		model.addAttribute("totalUserList", totalUserList);
+ 		
  		return "system_management/user/sw_userList";
  	}
  	
+ 	@GetMapping("/sw_userList")
+ 	public String totalUserList(Model model) {
+ 		List<User> totalUserList = userService.getTotalUserList();
+ 		model.addAttribute("totalUserList", totalUserList);
+ 		
+ 		return "system_management/user/sw_userList";
+ 	}
+ 	
+ 	@GetMapping("/userActive")
+ 	public String userActive(String id) {
+ 		userService.userActive(id);
+ 		
+ 		return "redirect:/system_management/user/sw_userList";
+ 	}
+ 	@GetMapping("/userNoActive")
+ 	public String userNoACtive(String id) {
+ 		userService.userNoActive(id);
+ 		
+ 		return "redirect:/system_management/user/sw_userList";
+ 	}
 }
 
 
