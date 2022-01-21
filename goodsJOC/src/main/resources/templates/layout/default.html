@@ -50,5 +50,27 @@
 	</div>
 		<!-- 화면구현 페이지 개발자마다 js 삽입 공간 -->
 		<th:block layout:fragment="customJs"></th:block>
+
+	<!-- 모든 화면에서 필요한 스크립트(ex.정규식검사) -->
+	<script>
+		$(function(){
+			//돈 표현하기
+			var money = $('.money');
+			for(var i=0; i<money.length; i++){
+				var moneyText = $(money[i]).text().toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원";
+				console.log(moneyText);
+				$(money[i]).text(moneyText);
+			}
+
+			//개수 표현하기
+			var goodsCnt = $('.goodsCount');
+			for(var i=0; i<goodsCnt.length; i++){
+				var goodsCntText = $(goodsCnt[i]).text().toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"개";
+				console.log(goodsCnt);
+				$(goodsCnt[i]).text(goodsCntText);
+			}
+			
+		});
+	</script>
 </body>
 </html>
