@@ -100,5 +100,4 @@ public class OrderDetail {
 		this.goods = goods;
 	}
 
-
 }

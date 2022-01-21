@@ -27,7 +27,7 @@ public class SalesService {
 		return salesMapper.getSalesListBySearchKey(searchKey, searchValue, startDt, endDt);
 	}
 	
-	//상품모달
+	//상품검색모달
 	public List<Map<String, Object>> getGoodsList(String martCode) {
 		return salesMapper.getGoodsList(martCode);
 	}

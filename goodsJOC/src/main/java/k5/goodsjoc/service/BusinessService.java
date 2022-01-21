@@ -1,6 +1,7 @@
 package k5.goodsjoc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,5 +43,6 @@ public class BusinessService {
 	public int businessInsert(Business business) {
 		return businessMapper.businessInsert(business);
 	}
+
 	
 }

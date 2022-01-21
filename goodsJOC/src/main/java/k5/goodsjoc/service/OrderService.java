@@ -44,7 +44,8 @@ public class OrderService {
 	public Order getPurchaseInfoByOrderCode(String orderCode) {
 		return orderMapper.getPurchaseInfoByOrderCode(orderCode);
 	}
-
+	
+	//매입 주문상세
 	public List<OrderDetail> getPurchaseDetailList(String orderCode) {
 		return orderMapper.getPurchaseDetailList(orderCode);
 	}
@@ -53,11 +54,27 @@ public class OrderService {
 	public int orderInsert(Order order) {
 		return orderMapper.orderInsert(order);
 	}
-
+	
+	//주문서 상세 내역 테이블
+	public List<OrderDetail> getsalesDetailList(String orderCode) {
+		return orderMapper.getsalesDetailList(orderCode);
+	}
+	
+	//상품검색모달
+	public List<Map<String, Object>> getGoodsList(String sessionMartCode) {
+		return orderMapper.getGoodsList(sessionMartCode);
+	}
+	
+	//주문상세내역 거래처정보
+	public List<Order> getOrderListByOrderCode(String orderCode) {
+		return orderMapper.getOrderListByOrderCode(orderCode);
+	}
+		
 	//매입 총 건수 및 가격
 	public List<Map<String, Object>> purchaseDatePrice(String martCode) {
 		return orderMapper.purchaseDatePrice(martCode);
 	}
+
 }
 
 
