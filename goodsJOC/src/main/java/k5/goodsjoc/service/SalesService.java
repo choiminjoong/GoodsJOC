@@ -31,5 +31,11 @@ public class SalesService {
 	public List<Map<String, Object>> getGoodsList(String martCode) {
 		return salesMapper.getGoodsList(martCode);
 	}
-
+	
+	//매출등록
+	public int salesInsert(Sales sales) {
+		return salesMapper.salesInsert(sales);
+	}
+	
+	
 }

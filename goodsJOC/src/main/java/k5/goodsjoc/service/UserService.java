@@ -1,6 +1,7 @@
 package k5.goodsjoc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -52,6 +53,23 @@ public class UserService {
 
 	public int userInsertAction(User user) {
 		return userMapper.userInsertAction(user);
+	}
+
+	public List<User> getTotalUserList() {
+		return userMapper.getTotalUserList();
+	}
+
+	public List<User> getTotalUserSearchList(Map<String, Object> paramMap) {
+		return userMapper.getTotalUserSearchList(paramMap);
+	}
+
+	//계정 활성화
+	public void userActive(String id) {
+		userMapper.userActive(id);
+	}
+	//계정 비활
+	public void userNoActive(String id) {
+		userMapper.userNoActive(id);
 	}
 	
 }

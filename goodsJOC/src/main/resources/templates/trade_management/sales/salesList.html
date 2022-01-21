@@ -101,6 +101,7 @@
 							<th>상세보기</th>
 							<th>취소 여부</th>
 							<th>취소 일시</th>
+							<th>수 정</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -114,11 +115,13 @@
 									data-toggle="modal" data-target="#exampleModalCenter">영수증</button>
 							</td>
 							<td th:text="${l.canselCheck}"></td>
-							<!-- <td>
-								<button type="button" class="btn btn-outline-danger btn-xs"
-									data-toggle="modal" data-target="#exampleModalCenter1">취소</button>
-							</td> -->
 							<td th:text="${l.canselDate}"></td>
+							<td>
+								<!-- 수정버튼 -->
+								<button th:href="@{/trade_management/sales/salesUpdate}" class="btn-sm btn-info"> 
+									<i class="fas fa-highlighter"></i>
+								</button>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -214,19 +217,17 @@
 								</div>
 							</div>
 						</div>
-					</div>
-				
-				
-				<th:block layout:fragment="customJs">
-					<script>
-						$(function(){
-							$(document).on('click', '#salesBtn', function(){
-								alert('정말 취소하시겠습니까?');
-								$('#saleForm').submit();
+					</div>				
+					<th:block layout:fragment="customJs">
+						<script>
+							$(function(){
+								$(document).on('click', '#salesBtn', function(){
+									alert('정말 취소하시겠습니까?');
+									$('#saleForm').submit();
+								});
 							});
-						});
-					</script>
-				</th:block>
+						</script>
+					</th:block>
 					<button type="button" class="btn btn-warning float-right"
 						data-dismiss="modal">
 						<b>닫기</b>

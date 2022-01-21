@@ -33,7 +33,19 @@ public class SalesController {
 		System.out.println("경로: trade_management/sales/salesInsert(GET방식 성공) ");
 		
 		return "trade_management/sales/salesInsert";
-  }
+	}
+	
+	@PostMapping("/salesInsert")
+	public String salesInsert(Sales sales) {
+		System.out.println("페이지: 매출등록");
+		System.out.println("경로: trade_management/sales/salesInsert(POST방식 성공) ");
+		System.out.println("화면에서 받은 매출 정보: " + sales);
+		
+		salesService.salesInsert(sales);
+		
+		return "redirect:/trade_management/sales/salesList";
+		
+	}
 	
 	//매출관리 > 매출전체조회 (정도혜)
 	@GetMapping("/salesList")
@@ -97,11 +109,10 @@ public class SalesController {
 			List<Map<String, Object>> goodsModal = salesService.getGoodsList(sessionMartCode);
 			
 			return goodsModal;
-		}
+		}	
 		
+		 
 		
-	
-}
-
+	}		
 	
 

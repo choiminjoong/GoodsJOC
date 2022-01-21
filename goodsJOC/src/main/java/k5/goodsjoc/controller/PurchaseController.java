@@ -1,6 +1,7 @@
 package k5.goodsjoc.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -87,6 +88,10 @@ public class PurchaseController {
 		
 		HttpSession session = request.getSession();
 		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<Map<String, Object>> purchaseDatePrice = orderService.purchaseDatePrice(sessionMartCode);
+		model.addAttribute("purchaseDatePrice", purchaseDatePrice);	
+		System.out.println(purchaseDatePrice);
 		
 		List<Order> purchaseList = orderService.getOrderPurchaseList();
 		model.addAttribute("purchaseList", purchaseList);	

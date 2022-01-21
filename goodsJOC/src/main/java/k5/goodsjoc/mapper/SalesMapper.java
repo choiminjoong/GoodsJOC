@@ -18,6 +18,10 @@ public interface SalesMapper {
 
 	//상품 모달
 	public List<Map<String, Object>> getGoodsList(String martCode);
+
+	//매출등록
+	public int salesInsert(Sales sales);
 	
 	
+
 }

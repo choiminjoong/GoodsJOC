@@ -80,7 +80,7 @@
 	<select id="getUserInfoByID" parameterType="String" resultMap="userResultMap">
 		SELECT 
 			u.ID, u.PW, u.name, u.birthday, u.phone, u.email, u.address, u.martCode, u.levelNum, u.regDate
-			, l.levelName, m.martName
+			, l.levelName, m.martName, u.deleteStatus
 		FROM 
 			tb_user as u
 			INNER JOIN
@@ -92,7 +92,7 @@
 			ON
 			u.martCode = m.martCode
 		WHERE 
-			ID = #{ID};
+			ID = #{id};
 	</select>
 	
 	<!-- 매장별 사용자 조건 검색 (정도혜) -->
@@ -172,5 +172,76 @@
 			ID = #{userId};
 	</select>
 	
+	<select id="getTotalUserSearchList" parameterType="Map" resultType="User" resultMap="userResultMap">
+		SELECT 
+			u.ID, u.PW, u.name, u.birthday, u.email, u.martCode, u.levelNum, u.regDate
+			,l.levelName, m.martName, u.deleteStatus
+		FROM 
+			tb_user AS u
+			INNER JOIN 
+			tb_systemLevel AS l
+			ON
+			u.levelNum = l.levelNum
+			INNER JOIN
+			tb_mart AS m
+			ON
+			u.martCode = m.martCode
+		WHERE
+			u.martCode != 'GOODSJOC'
+			<if test="deleteStatus != null and deleteStatus != ''.toString()">
+					AND u.deleteStatus = #{deleteStatus}
+			</if>
+			<if test="startDate != null and startDate != ''.toString()">
+					AND u.regDate >= #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''.toString()">
+					AND #{endDate} >= u.regDate
+			</if>
+			<if test="levelNum != null and levelNum != ''.toString()">
+					AND u.levelNum = #{levelNum}
+			</if>
+			<if test="martName != null and martName != ''.toString()">
+					AND m.martName LIKE CONCAT('%', #{martName}, '%')
+			</if>
+			<if test="name != null and name != ''.toString()">
+					AND (u.name LIKE CONCAT('%', #{name}, '%') OR u.ID LIKE CONCAT('%', #{name}, '%'))
+			</if>
+		ORDER BY
+			u.martCode ASC, u.levelNum ASC
+	</select>
 	
+	<select id="getTotalUserList" resultMap="userResultMap">
+		SELECT 
+			u.ID, u.PW, u.name, u.birthday, u.email, u.martCode, u.levelNum, u.regDate
+			,l.levelName, m.martName, u.deleteStatus
+		FROM 
+			tb_user AS u
+			INNER JOIN 
+			tb_systemLevel AS l
+			ON
+			u.levelNum = l.levelNum
+			INNER JOIN
+			tb_mart AS m
+			ON
+			u.martCode = m.martCode
+		WHERE
+			u.martCode != 'GOODSJOC'
+		ORDER BY
+			u.martCode ASC, u.levelNum ASC
+	</select>
+	
+	<update id="userActive">
+		UPDATE tb_user
+		SET
+			deleteStatus='N'
+		WHERE 
+			id = #{id}
+	</update>
+	<update id="userNoActive">
+		UPDATE tb_user
+		SET
+			deleteStatus='Y'
+		WHERE 
+			id = #{id}
+	</update>
 </mapper>

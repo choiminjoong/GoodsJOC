@@ -19,22 +19,15 @@
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
       <!-- 폼 헤더 -->
-      <div class="col-md-7" style="margin-left: 7cm">      
-            <!-- general form elements -->
-            <div class="card card-warning card-tabs">
-          <div class="card-header">  
-           <h3 class="card-title">
-               <b><i class="fas fa-coins"></i>ㅤ매출 등록</b>
+	    <div class="col-md-7 mx-auto">      
+          <div class="card card-warning card-tabs">
+         	 <div class="card-header">  
+          		<h3 class="card-title">
+              		<b><i class="fas fa-coins"></i>ㅤ매출 등록</b>
                </h3>        
             </div>
-              <!-- /.card-header -->
-              <div class="card-body">          
-               <!-- 매출등록폼  -->        
-               <!--  <div class="form-group" style="margin-top: 1cm">
-                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ바코드</label>
-                  <input type="text" class="form-control form-control-border border-warning" id="exampleInputBorderWidth2" placeholder="입력해주세요.">
-                </div>
-                 -->
+             <div class="card-body">          
+               <!-- 매출등록폼  -->                      
                 <div class="form-group">
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ상품 ㅤ/ㅤ</label>
                 <button type="button" id="searchGoodsBtn" class="btn-sm bg-info disabled color-palette"
@@ -42,7 +35,7 @@
 					상품 검색	
 				</button>
                   <div class="input-group-append">
-                  <input type="text" class="form-control form-control-border border-warning" id="goodsNameInput" readonly="readonly">
+                  <input type="text" class="form-control form-control-border border-warning" id="goodsNameInput"  readonly="readonly">
                 </div>
                </div> 
                
@@ -52,7 +45,7 @@
                 </div>
                 
                  <div class="form-group">
-                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>유형 </label>
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ유형 </label>
                   <input type="text" class="form-control form-control-border border-warning" id="taxTypeInput" readonly="readonly">
                 </div>
                 
@@ -72,59 +65,56 @@
                 </div>
                
                 <div class="form-group">
-                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i> 수량</label>
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ수량</label>
                   <input type="number" class="form-control form-control-border border-warning" id="qtyInput" >
                 </div>
 
                 <div class="form-group">
-                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i> 공급가액</label>
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ공급가액</label>
                   <input type="text" class="form-control form-control-border border-warning" id="supplyPriceInput">
                 </div>
 
                 <div class="form-group">
-                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i> 부가세</label>
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ부가세</label>
                   <input type="text" class="form-control form-control-border border-warning" id="vatInput">
                 </div>
                             
                 <div class="form-group">
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ합계</label>
-                  <input type="text" class="form-control form-control-border border-warning" id="totalpricesInput">
+                  <input type="text" class="form-control form-control-border border-warning" name="salesTotalPrice" id="totalpricesInput">
                 </div>
-               </div>
-       
-  
+             </div>
          <!--수정 버튼 -->   
-         <div class="d-flex justify-content-center" style="margin: 0cm 0cm 1cm 14cm">
-            <a th:href="@{/trade_management/sales/salesList}" style="margin-left: 5px" class="btn btn-warning">
+         <div class="d-flex justify-content-center" style="margin: 0cm 0cm 1cm 12cm">
+            <button type="submit" style="margin-left: 5px" class="btn btn-warning">
                <b>등록</b>
-            </a>
+            </button>
             <a th:href="@{/trade_management/sales/salesList}" style="margin-left: 5px" class="btn btn-danger">
                <b>닫기</b>
             </a>
-         </div>      
-       </div>
+        </div>      
      </div>
+   </div>
 
 <!-- 상품 검색 모달  -->
 <form th:action="@{/product_management/sales/salesInsertAction}" method="POST" id="salesInsertForm" class="form-horizontal">
 <div class="modal fade" id="modal-default2" style="display: none;" aria-hidden="true">
-	<div class="modal-dialog modal-lg" >
-		<div class="modal-content" >
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
 			<div class="modal-header bg-warning">
 				<h4 class="modal-title">상품 검색</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">×</span>
 				</button>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body mx-auto">
 				<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
-					<div class="row">
-						<div class="col-sm-13">
-							<table style="width:100%" id="dataTableAjax2" class="text-center table table-bordered table-hover dataTable dtr-inline"
+						<div class="col-sm-15">
+							<table style="width:100%" id="dataTableAjax2" class="text-center table table-bordered dataTable dtr-inline"
 								role="grid" aria-describedby="example2_info">
 								<thead>
 									<tr style="width:100%" role="row">
-											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" style="t" rowspan="1" colspan="1"
 												aria-label="Browser: activate to sort column descending" aria-sort="ascending">
 												바코드
 											</th>
@@ -142,7 +132,7 @@
 											</th>
 											<th tabindex="0" rowspan="1" colspan="1">
 												선택하기
-											</th>
+											</th>											
 										</tr>
 									</thead>
 								</table>
@@ -152,7 +142,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 </form>
 </th:block>
 <th:block layout:fragment="customJs">			
