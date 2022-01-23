@@ -22,56 +22,90 @@
 			</h3>
 		</div>
 		<div class="card-body table-responsive">
-			<form th:action="@{/product_management/goods/goodsList}" method="post">
+			<form th:action="@{/trade_management/purchase/searchPurchaseList}" method="post">
 				<div class="tab-content row" id="custom-tabs-two-tabContent">
 					<div class="col-10">
 						<div class="form-group row">
-							<label class="col-sm-1 col-form-label">담당자</label>
+							<label class="col-sm-1 col-form-label">공급처</label>
 							<div class="col-sm-3">
-								<div class="input-group mb-2">
-									<input type="text" id="cateNameInput" class="form-control text-center">
+								<div style="display:none">
+									<label>거래처코드</label>
+									<div class="col-sm-10">
+										<input type="text" class="form-control" name="businessCode" id="businessCodeInput">
+									</div>
+								</div>
+								<div class="input-group">
+									<input type="text" id="businessNameInput" class="form-control text-center insertCheck" readonly>
 									<div class="input-group-append">
-										<button type="button" id="searchCategoryBtn" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+										<button type="button" id="searchBusinessBtn" class="btn btn-default" data-toggle="modal" data-target="#businessModal">
 											<i class="fas fa-search"></i>
 										</button>
 									</div>
 								</div>
 							</div>
+							
 							<div class="col-sm-1"></div>
+							
 							<label class="col-sm-1 col-form-label">거래일</label>
 							<div class="col-sm-2">
-								<input name="minPurchasePrice" type="date" class="form-control text-center">
+								<input name="startDate" type="date" class="form-control text-center">
 							</div>
 							<div class="col-sm-1 text-center">
 								<b>~</b>
 							</div>	
 							<div class="col-sm-2">
-								<input name="maxPurchasePrice" type="date" class="form-control text-center">
+								<input name="endDate" type="date" class="form-control text-center">
 							</div>
 						</div>
 						<div class="form-group row">
-							<label class="col-sm-1 col-form-label">주문번호</label>
+							<label class="col-sm-1 col-form-label">담당자</label>
 							<div class="col-sm-3">
-								<input type="number" name="searchCategory" class="form-control">
+								<div class="input-group mb-2">
+									<input type="text" id="staffNameInput" class="form-control text-center" readonly>
+									<div style="display:none">
+										<label>직원 아이디</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="id" id="staffIdInput">
+										</div>
+									</div>
+									<div class="input-group-append">
+										<button type="button" id="searchStaffBtn" class="btn btn-default" data-toggle="modal" data-target="#staffModal">
+											<i class="fas fa-search"></i>
+										</button>
+									</div>
+								</div>
 							</div>
-							<div class="col-sm-1"></div>
+							
+							<div class="col-sm-1"></div>						
+							
 							<label class="col-sm-1 col-form-label">거래금액</label>
 							<div class="col-sm-2">
-								<input name="minSalesPrice" type="number" class="form-control text-center">
+								<input name="minPrice" type="number" class="form-control text-center" value=0>
 							</div>
 							<div class="col-sm-1 text-center">
 								<b>~</b>
 							</div>	
 							<div class="col-sm-2">
-								<input name="maxSalesPrice" type="number" class="form-control text-center" value=0>
+								<input name="maxPrice" type="number" class="form-control text-center" value=0>
 							</div>
 						</div>
 						<div class="form-group row" style="margin-bottom: -10px;">
-							<label class="col-sm-1 col-form-label">공급처</label>
-							<div class="col-sm-5">
-								<input name="searchGoodsName" type="text" class="form-control float-right">
+							<label class="col-sm-1 col-form-label">상태</label>
+							<div class="col-sm-2">
+								<select name="state" class="form-control text-center">
+									<option value="">전체보기</option>
+									<option value="1">미수령</option>
+									<option value="2">수령완료</option>
+								</select>
 							</div>
-							<div class="col-sm-2"></div>
+							
+							<div class="col-sm-1"></div>
+							
+							<label class="col-sm-1 col-form-label text-center">주문번호</label>
+							<div class="col-sm-2">
+								<input type="number" name="orderNum" class="form-control text-center">
+							</div>
+							<div class="col-sm-1"></div>
 							<div class="col-sm-2">
 								<button type="submit" class="btn btn-block bg-gradient-warning btn-lg"><b>검색</b></button>
 							</div>
@@ -85,7 +119,7 @@
 					<div class="col-2" align="center" style="margin-bottom: -20px; margin-top: -5px;">
 						<th:block th:if="${not #lists.isEmpty(purchaseDatePrice)}" th:each="l : ${purchaseDatePrice}">
 							<div class="info-box mb-3 bg-info">
-								<span class="info-box-icon bg-info elevation-1">
+								<span class="info-box-icon bg-teal disabled color-palette elevation-1">
 									<i class="fas fa-shopping-cart"></i>
 								</span>
 								<div class="info-box-content">
@@ -95,7 +129,7 @@
 								<!-- /.info-box-content -->
 							</div>
 							<div class="info-box mb-3 bg-info" style="margin-top: -10px;">
-								<span class="info-box-icon bg-info elevation-1">
+								<span class="info-box-icon bg-teal elevation-1">
 									<i class="fas fa-won-sign"></i>
 								</span>
 								<div class="info-box-content">
@@ -114,7 +148,7 @@
 	<div class="card card-warning card-tabs">
 		<div class="card-header p-0 pt-1"></div>
 		<!-- /.card-header -->
-		<div class="card-body table-responsive p-0" style="height: 300px;">
+		<div class="card-body table-responsive p-0" style="max-height-: 500px;">
 
 			<div class="col-12">
 				<table class="table table-hover text-nowrap text-center">
@@ -122,7 +156,8 @@
 						<tr>
 							<th>주문번호</th>
 							<th>공급처</th>
-							<th>총 매입금액</th>
+							<th>매입금액</th>
+							<th>상태</th>
 							<th>거래상세</th>
 							<th>매입일시</th>
 							<th>담당자</th>
@@ -133,6 +168,7 @@
 							<td th:text="${p.orderNum}"></td>
 							<td th:text="${p.business.getBusinessName()}"></td>
 							<td class="money" th:text="${p.totalOrderPrice}"></td>
+							<td class="delivery" th:text="${p.deliveryDate}"></td>
 							<td>
 								<button type="button" id="orderDetailBtn" class="btn btn-outline-warning btn-xs"
 									 th:data-orderCode="${p.orderCode}" data-toggle="modal"data-target="#exampleModalStatement">
@@ -334,15 +370,202 @@
 		</div>
 	</div>
 	<!-- /.card -->
+
+	<!-- 거래처 검색 모달  -->
+	<div class="modal fade" id="businessModal" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title">거래처 검색</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+						<div class="row">
+							<div class="col-sm-12">
+								<table style="width:100%" id="dataTableAjax2" class="text-center table table-bordered table-hover dataTable dtr-inline"
+									role="grid" aria-describedby="example2_info">
+									<thead>
+										<tr style="width:540px;" role="row">
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+												구분</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending"aria-sort="ascending">
+												거래처명
+											</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending"aria-sort="ascending">
+												대표자
+											</th>
+											<th tabindex="0" rowspan="1" colspan="1">
+													선택하기
+											</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 거래처 검색 모달  -->
+	<div class="modal fade" id="staffModal" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title">직원 검색</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+						<div class="row">
+							<div class="col-sm-12">
+								<table style="width:100%" id="staffTable" class="text-center table table-bordered table-hover dataTable dtr-inline"
+									role="grid" aria-describedby="example2_info">
+									<thead>
+										<tr style="width:540px;" role="row">
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+												권한</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending"aria-sort="ascending">
+												이름
+											</th>
+											<th tabindex="0" rowspan="1" colspan="1">
+													선택하기
+											</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 </th:block>
 <th:block layout:fragment="customJs">
 	<script>
 		$(function(){
+			//직원 조회 AJax
+			$(document).on('click', '#searchStaffBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#staffTable').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/system_management/user/searchStaffModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "level.levelName"},
+						{ data: "name"},
+						{ data: ""},
+					],
+					columnDefs: [
+						{
+							targets: [2],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn2 = '<button type="button" data-dismiss="modal" class="btn btn-info staffPickBtn" data-staffName="'+ row.name +'" data-staffId="'+ row.id +'">선택</button>';
+								return htmlbtn2;
+							}
+						}
+					]
+				});
+			});
+			
+			//직원 선택
+			$(document).on('click', '.staffPickBtn', function(){
+				var staffNamePick = $(this).attr('data-staffName');
+				var staffIdPick = $(this).attr('data-staffId');
+				$('#staffNameInput').val(staffNamePick);
+				$('#staffIdInput').val(staffIdPick);
+			});
+			
+			//거래처리스트 조회 AJax
+			$(document).on('click', '#searchBusinessBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#dataTableAjax2').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/basic_management/business/searchBusinessModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "businessType"},
+						{ data: "businessName"},
+						{ data: "partnerName"},
+						{ data: "businessCode"}								
+					],
+					columnDefs: [
+						{
+							targets: [3],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn2 = '<button type="button" data-dismiss="modal" class="btn btn-info businessPickBtn" data-businessCode="'+ row.businessCode +'" data-businessName="'+ row.businessName +'">선택</button>';
+								return htmlbtn2;
+							}
+						}
+					]
+				});
+			});
+			
+			//거래처 선택
+			$(document).on('click', '.businessPickBtn', function(){
+				var businessCodePick = $(this).attr('data-businessCode');
+				var businessNamePick = $(this).attr('data-businessName');
+				console.log(businessCodePick);
+				console.log(businessNamePick);
+				$('#businessCodeInput').val(businessCodePick);
+				$('#businessNameInput').val(businessNamePick);
+			});
+			
+			//배송상태
+			var delivery = $('.delivery')
+			console.log(delivery);
+			for(var i=0; i<delivery.length; i++){
+				var deliveryDate = new Date($(delivery[i]).text());
+				var nowDate = new Date();
+				if(deliveryDate < nowDate){
+					$(delivery[i]).text('수령완료').css('color', 'blue');
+				}else{
+					$(delivery[i]).text('미수령').css('color', 'red');
+				}
+			}
 			
 			//현재 월 표시하기
 			var now = new Date();
 			var nowMonth = now.getMonth()+1;
-			console.log(nowMonth)
 			$('.nowMonth').text(nowMonth);
 			
 			//거래명세서 클릭시 데이터 가져오기
@@ -414,7 +637,7 @@
 					$('#totalSumPrice').text(totalSumPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원");
 				});
 			});
-		//제이쿼리 끝	
+		//제이쿼리 끝
 		});
 	</script>
 </th:block>

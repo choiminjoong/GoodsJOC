@@ -71,5 +71,9 @@ public class UserService {
 	public void userNoActive(String id) {
 		userMapper.userNoActive(id);
 	}
+
+	public List<User> getSearchStaffList(String sessionMartCode) {
+		return userMapper.getSearchStaffList(sessionMartCode);
+	}
 	
 }
