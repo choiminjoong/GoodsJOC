@@ -52,6 +52,10 @@
 											<b>등록</b>
 										</button>
 								</a>
+								<div class="info-box-content">
+									<span class="info-box-text"> <b class="nowMonth"></b> 월 총반품액</span> 
+									<span class="info-box-number"> <b class="money" th:text="${l.returnPrice}"></b></span>
+								</div>
 								</div>
 							</div>
 							<!-----------------반품일검색------------------>
@@ -79,7 +83,7 @@
 					<!-- /.card-header -->
 					<div class="card-body table-responsive p-0" style="height: 300px;">
 						<div class="col-12">
-							<table class="table table-hover text-nowrap">
+							<table class="table table-hover text-nowrap text-center">
 								<thead>
 									<tr>
 										<th>번호</th>
@@ -87,7 +91,9 @@
 										<th>수량</th>
 										<th>거래처명</th>
 										<th>반품액</th>
+										<th>담당자</th>
 										<th>반품예정일</th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -97,6 +103,7 @@
 										<td th:text="${r.returnQTY}"></td>
 										<td th:text="${r.business.getBusinessName()}"></td>
 										<td th:text="${r.returnPrice}"></td>
+										<td th:text="${r.user.getName()}"></td>
 										<td th:text="${r.regDate}"></td>
 										<td class="text-right py-0 align-middle">
 											<div class="btn-group btn-group-sm">
