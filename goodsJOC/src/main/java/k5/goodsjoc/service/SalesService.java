@@ -18,8 +18,8 @@ public class SalesService {
 		this.salesMapper = salesMapper;
 	}
 	//매출 전체조회
-	public List<Sales> getSalesList(){
-		return salesMapper.getSalesList();
+	public List<Sales> getSalesList(String martCode){
+		return salesMapper.getSalesList(martCode);
 	}
 	
 	//매출 조건 검색
@@ -35,6 +35,10 @@ public class SalesService {
 	//매출등록화면
 	public int salesInsert(Sales sales) {
 		return salesMapper.salesInsert(sales);
+	}
+	//월별 건수 및 금액 조회
+	public List<Map<String, Object>> getSalesTotalInfo(String martCode){
+		return salesMapper.getSalesTotalInfo(martCode);
 	}
 	
 	//매출등록

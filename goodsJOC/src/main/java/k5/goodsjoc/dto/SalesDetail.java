@@ -4,11 +4,20 @@ public class SalesDetail {
 	private String salesDetailCode;
 	private String barcode;
 	private String salesCode;
-	private String QTY;
+	private String qty;
 	private String totalPrice;
 	private String supplyPrice;
-	private String VAT;
+	private String vat;
 	
+	private Goods goods;
+
+	@Override
+	public String toString() {
+		return "SalesDetail [salesDetailCode=" + salesDetailCode + ", barcode=" + barcode + ", salesCode=" + salesCode
+				+ ", qty=" + qty + ", totalPrice=" + totalPrice + ", supplyPrice=" + supplyPrice + ", vat=" + vat
+				+ ", goods=" + goods + "]";
+	}
+
 	public String getSalesDetailCode() {
 		return salesDetailCode;
 	}
@@ -33,12 +42,12 @@ public class SalesDetail {
 		this.salesCode = salesCode;
 	}
 
-	public String getQTY() {
-		return QTY;
+	public String getQty() {
+		return qty;
 	}
 
-	public void setQTY(String qTY) {
-		QTY = qTY;
+	public void setQty(String qty) {
+		this.qty = qty;
 	}
 
 	public String getTotalPrice() {
@@ -57,18 +66,20 @@ public class SalesDetail {
 		this.supplyPrice = supplyPrice;
 	}
 
-	public String getVAT() {
-		return VAT;
+	public String getVat() {
+		return vat;
 	}
 
-	public void setVAT(String vAT) {
-		VAT = vAT;
+	public void setVat(String vat) {
+		this.vat = vat;
 	}
 
-	@Override
-	public String toString() {
-		return "SalesDetail [salesDetailCode=" + salesDetailCode + ", barcode=" + barcode + ", salesCode=" + salesCode
-				+ ", QTY=" + QTY + ", totalPrice=" + totalPrice + ", supplyPrice=" + supplyPrice + ", VAT=" + VAT + "]";
+	public Goods getGoods() {
+		return goods;
+	}
+
+	public void setGoods(Goods goods) {
+		this.goods = goods;
 	}
 	
 }

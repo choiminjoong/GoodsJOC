@@ -5,38 +5,82 @@
 <mapper namespace="k5.goodsjoc.mapper.SalesMapper">
 	<!-- Sales ResultMap (정도혜) -->
 	<resultMap type="Sales" id="salesResultMap">
-		<result column="salesCode" 				property="salesCode"/>
-		<result column="receiptNum" 			property="receiptNum"/>
-		<result column="salesTotalPrice" 		property="salesTotalPrice"/>
-		<result column="martCode" 				property="martCode"/>		
-		<result column="ID" 					property="ID"/>
-		<result column="regDate"				property="regDate"/>
-		<result column="canselCheck" 			property="canselCheck"/>
-		<result column="casnselStaff" 			property="casnselStaff"/>
-		<result column="canselDate" 			property="canselDate"/>
+		<id	column="salesCode" 				property="salesCode"/>
+		<result column="receiptNum" 		property="receiptNum"/>
+		<result column="salesTotalPrice" 	property="salesTotalPrice"/>
+		<result column="martCode" 			property="martCode"/>		
+		<result column="ID" 				property="id"/>
+		<result column="regDate"			property="regDate"/>
+		<result column="canselCheck" 		property="canselCheck"/>
+		<result column="canselStaff" 		property="canselStaff"/>
+		<result column="canselDate" 		property="canselDate"/>
 	
-		<association javaType="Goods" property="goods">
-			<id column="barcode" 		property="barcode"/>
-			<result column="goodsName"	property="goodsName" />
-			<result column="salesPrice"	property="salesPrice" />
+		<association javaType="User" 		property="user">
+			<id column="ID" 				property="id"/>
+			<result column="name"			property="name" />
+		</association>
+		<association javaType="Mart" 		property="mart">
+			<id column="martCode" 			property="martCode"/>
+			<result column="martName" 		property="martName" />
+			<result column="partnerName" 	property="partnerName" />
+			<result column="partnerPhone" 	property="partnerPhone" />
+			<result column="registerNum" 	property="registerNum" />
+			<result column="sectors" 		property="sectors" />
+			<result column="status" 		property="status" />
+			<result column="callNum" 		property="callNum" />
+			<result column="address" 		property="address" />
+			<result column="serviceUse" 	property="serviceUse" />
+		</association>
+	</resultMap>	
+		
+	<resultMap type="Sales" id="salesDetailResultMap">
+		<id	column="salesDetailCode"		property="salesDetailCode"/>
+		<result column="barcode" 			property="barcode"/>
+		<result column="salesCode" 			property="salesCode"/>
+		<result column="QTY" 				property="qty"/>		
+		<result column="totalPrice" 		property="totalPrice"/>		
+		<result column="supplyPrice" 		property="supplyPrice"/>		
+		<result column="VAT" 				property="vat"/>		
+	
+		<association javaType="Goods" 		property="goods">
+			<id column="barcode" 			property="barcode"/>
+			<result column="goodsName" 		property="goodsName" />
+			<result column="weight" 		property="weight" />
+			<result column="unit" 			property="unit" />
+			<result column="maker" 			property="maker" />
+			<result column="taxType" 		property="taxType" />
+			<result column="salesPrice" 	property="salesPrice" />
 		</association>
 	</resultMap>		
 
-	
-	<!-- Sales 전체조회 (정도혜) -->
-	<select id="getSalesList" parameterType="String" resultMap="salesResultMap">
+	<!-- 월별 건수 및 금액 조회 -->
+	<select id="getSalesTotalInfo" resultType="Map">
 		SELECT 
-			salesCode, 
-			receiptNum, 
-			salesTotalPrice, 
-			martCode, 
-			ID,
-			regDate, 
-			canselCheck, 
-			casnselStaff, 
-			canselDate
+			SUM(salesTotalPrice) AS salesSumPrice
+			,COUNT(*) AS salesCnt
 		FROM 
 			tb_sales
+		WHERE
+			martCode = #{martCode} AND MONTH(regDate) = MONTH(NOW()) AND canselCheck != '취소'
+	</select>
+	
+	
+	<!-- Sales 전체조회 (정도혜) -->
+	<select id="getSalesList" resultType="Sales" resultMap="salesResultMap">
+		SELECT 
+			s.salesCode, s.receiptNum, s.salesTotalPrice, s.regDate, s.canselCheck, s.casnselStaff, s.canselDate
+			, s.martCode
+			, s.ID, u.name
+		FROM 
+			tb_sales AS s
+			INNER join
+			tb_user AS u
+			on
+			s.ID = u.ID
+		WHERE
+			s.martCode = #{martCode}
+		ORDER BY
+			s.regDate DESC
 	</select>
 
 	<select id="getSalesListBySearchKey" resultType="Sales">
@@ -129,7 +173,7 @@
 			</if>
 		</trim>
 			WHERE 
-			salesCode=#{salesCode}
+				salesCode=#{salesCode}
 	</update>
 	
 	<insert id="addsalesAction" parameterType="Sales">
