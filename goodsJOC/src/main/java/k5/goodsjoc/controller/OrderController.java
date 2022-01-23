@@ -35,15 +35,35 @@ public class OrderController {
 		return "product_management/order/orderInsert";
 	}
 	
-    @PostMapping("/orderInsert")
-    public String orderInsert(Order order) {
-       System.out.println("페이지: 주문 등록 ");
-       System.out.println("경로: product_management/order/orderInsert(POST방식 성공) ");   
-       System.out.println("화면에서 받은 주문 정보 : "+  order);
-       
-       orderService.orderInsert(order);
-       
-       return "redirect:/product_management/order/orderList";
+    @PostMapping("/orderInsertAction")
+    public String orderInsert(HttpServletRequest request, Order order, OrderDetail orderDetail) {
+    	System.out.println("페이지: 주문 등록 ");
+    	System.out.println("경로: product_management/order/orderInsertAction(POST방식 성공) ");   
+		HttpSession session = request.getSession();
+		
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		String sessionId = (String) session.getAttribute("SID");
+
+		order.setMartCode(sessionMartCode);
+		order.setId(sessionId);
+		order.setTotalOrderPrice(orderDetail.getTotalPrice());
+		System.out.println("화면에서 받은 주문 정보 : "+  order);
+		System.out.println("화면에서 받은 주문상세 정보 : "+  orderDetail);
+		
+		int result = orderService.orderInsertAction(order);
+		if(result > 0) {
+			String searchOrderCode = orderService.searchOrderCode(order);
+			orderDetail.setOrderCode(searchOrderCode);
+			
+			int detailResult = orderService.orderInsertAction(orderDetail);
+			if(detailResult > 0) {
+				return "redirect:/product_management/order/orderList";
+			}else{
+				return "system_management/error/error500";
+			}
+		}else {
+			return "system_management/error/error500";
+		}
     }
     
 	//주문관리 > 주문목록 (정도혜)
