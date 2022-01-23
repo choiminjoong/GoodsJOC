@@ -73,15 +73,15 @@
 			   w.martCode = #{martCode}
 		
 	</select>
-	<select id="getDisplayBySearchKey" resultType="Map">
+	<select id="getDisplayBySearchKey" parameterType="String" resultType="Map">
 			SELECT 
 				   w.displayQTY AS displayQTY
-				   , date_format(w.regDate, '%Y-%m-%d% %h:%m:%s') AS regDate
-				   , g.goodsName AS goodsName
-				   , s.shelfName AS shelfName
-				   , h.warehouseName AS warehouseName
-				   , c.showcasePlace AS showcasePlace
-				   , u.NAME AS userName
+				   ,date_format(w.regDate, '%Y-%m-%d% %h:%m:%s') AS regDate
+				   ,g.goodsName AS goodsName
+				   ,s.shelfName AS shelfName
+				   ,h.warehouseName AS warehouseName
+				   ,c.showcasePlace AS showcasePlace
+				   ,u.NAME AS userName
 				FROM 
 					tb_display AS w
 				INNER JOIN

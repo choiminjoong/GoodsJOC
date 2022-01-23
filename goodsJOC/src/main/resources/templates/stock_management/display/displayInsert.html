@@ -31,34 +31,48 @@
 					</div>
 					<!----------------재고이동 등록 폼 ---------------->
 					<div class="card-body">
+					<form class="form-horizontal" th:action="@{/stock_management/display/displayInsert}" method="post">
 						<div class="form-group">
 							<label for="inputName"><code>*</code>상품명</label> <input type="text"
-								id="inputName" class="form-control">
+								id="inputName" class="form-control" name="goodsName">
 						</div>
 						<div class="form-group">
 							<label for="inputClientCompany"><code>*</code>출고 창고</label> <input type="text"
-								id="inputClientCompany" class="form-control">
+								id="inputClientCompany" class="form-control" name="warehouseName">
 						</div>
 						<div class="form-group">
 							<label for="inputStatus"><code>*</code>출고 진열대</label> <input type="text"
-								id="inputClientCompany" class="form-control">
+								id="inputClientCompany" class="form-control" name="shelfName">
 						</div>
 						<div class="form-group">
 							<label for="inputProjectLeader"><code>*</code>판매 진열대</label> <input
-								type="text" id="inputProjectLeader" class="form-control">
+								type="text" id="inputProjectLeader" class="form-control" name="showcaseName">
 						</div>
 						<div class="form-group">
 							<label for="inputProjectLeader"><code>*</code>이동수량</label> <input type="text"
 								id="inputProjectLeader" class="form-control">
 						</div>
+						<div class="form-group row" style="display:none">
+							<label for="warehouseType" class="col-sm-2 col-form-label">아이디</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="ID" th:value="${session.SID}"  readonly="readonly">
+								</div>
+						</div>
+						<div class="form-group row" style="display:none">
+							<label for="warehouseType" class="col-sm-2 col-form-label">마트</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="martCode" th:value="${session.SMARTCODE}"  readonly="readonly">
+								</div>
+						</div>
 						<div class="form-group">
-							<label for="inputProjectLeader"><code>*</code>담당자</label> <input type="text"
-								id="inputProjectLeader" class="form-control">
+							<label for="inputProjectLeader"><code>*</code>등록자</label> <input type="text"
+								id="inputProjectLeader" class="form-control" name="name">
 						</div>
 						<div class="form-group">
 							<label for="inputProjectLeader"><code>*</code>이동일자</label> <input type="date"
-								id="inputProjectLeader" class="form-control">
+								id="inputProjectLeader" class="form-control" name="regDate">
 						</div>
+						</form>
 					</div>
 					<!-- /.card-body -->
 					<!----------------버튼-------------->

@@ -32,7 +32,7 @@ public class GoodsReturnController {
 	}
 	
 	//반품 검색
-	@PostMapping("/returnList")
+	@PostMapping("/searchReturnList")
 	public String searchReturnList(HttpServletRequest request,
 									@RequestParam(value="searchKey", required = false) String searchKey,
 									@RequestParam(value="searchValue", required = false) String searchValue,
