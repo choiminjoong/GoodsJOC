@@ -30,11 +30,11 @@
 					<div class="card-body">
 						<div class="tab-content" id="custom-tabs-two-tabContent">
 							<!-- 반품검색 -->
-							<form th:action="@{/stock_management/goodsReturn/returnList}" method="post">
+							<form th:action="@{/stock_management/goodsReturn/searchReturnList}" method="post">
 							<div class="row">
 								<label class="col-sm-1 col-form-label">반품검색</label>
 								<div class="col-sm-2">
-									<select name="searchKey" id="orderCode" class="form-control custom-select">
+									<select name="searchKey" class="form-control custom-select">
 										<option value="goodsName">상품명</option>
 										<option value="name">담당자</option>
 										<option value="businessName">거래처명</option>
@@ -52,10 +52,7 @@
 											<b>등록</b>
 										</button>
 								</a>
-								<div class="info-box-content">
-									<span class="info-box-text"> <b class="nowMonth"></b> 월 총반품액</span> 
-									<span class="info-box-number"> <b class="money" th:text="${l.returnPrice}"></b></span>
-								</div>
+								
 								</div>
 							</div>
 							<!-----------------반품일검색------------------>

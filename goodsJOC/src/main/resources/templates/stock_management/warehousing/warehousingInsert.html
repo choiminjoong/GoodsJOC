@@ -37,11 +37,7 @@
 						</div>
 						<div class="form-group">
 							<label for="inputProjectLeader"><code>*</code>창고명</label>
-								<select class="form-control" name="warehouseCode">
-									<th:block th:if="${not #lists.isEmpty(warehouseNameList)}" th:each="w : ${warehouseNameList}" class="form-control">
-										<option th:value="${w.warehouseCode}" th:text="${w.warehouseName}"></option>
-									</th:block>
-								</select>
+								<input type="text" id="inputProjectLeader" class="form-control" name="warehousingName">
 						</div>
 						<div class="form-group">
 							<label for="inputProjectLeader"><code>*</code>창고 진열대</label> <input
