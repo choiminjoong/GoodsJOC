@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import k5.goodsjoc.dto.OrderDetail;
 import k5.goodsjoc.dto.Sales;
 import k5.goodsjoc.service.SalesService;
 
@@ -25,6 +26,15 @@ public class SalesController {
 	public SalesController(SalesService salesService) {
 		this.salesService = salesService;
 	}
+	
+	@PostMapping("/salesDetialInfo")
+	@ResponseBody
+	public List<OrderDetail> salesDetialInfo(){
+		
+		
+		return null;
+	}
+	
 	
 	//매출관리 > 매출등록 (정도혜)
 	@GetMapping("/salesInsert")
@@ -52,8 +62,13 @@ public class SalesController {
 	public String salesList(HttpServletRequest request, Model model) {
 		System.out.println("페이지: 매출 조회");
 		System.out.println("경로: trade_management/sales/salesList(GET방식 성공) ");
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
 		
-		List<Sales> salesList = salesService.getSalesList();
+		List<Map<String, Object>> salesTotalInfo = salesService.getSalesTotalInfo(sessionMartCode);
+		model.addAttribute("salesTotalInfo", salesTotalInfo);
+		
+		List<Sales> salesList = salesService.getSalesList(sessionMartCode);
 		model.addAttribute("salesList", salesList);
 		
 		return "trade_management/sales/salesList";

@@ -11,7 +11,7 @@ import k5.goodsjoc.dto.Sales;
 public interface SalesMapper {
 	
 	//매출 전체 조회
-	public List<Sales> getSalesList();
+	public List<Sales> getSalesList(String martCode);
 	
 	//매출 조건검색
 	public List<Sales> getSalesListBySearchKey(String searchKey, String searchValue, String startDt, String endDt);
@@ -21,7 +21,7 @@ public interface SalesMapper {
 
 	//매출등록
 	public int salesInsert(Sales sales);
-	
-	
+	//월별 매출 및 건수
+	public List<Map<String, Object>> getSalesTotalInfo(String martCode);
 
 }

@@ -53,7 +53,6 @@
 			<result column="purchasePrice" 		property="purchasePrice" />
 		</association>	
 	</resultMap>
-<<<<<<< HEAD
 	
 	<!-- 매입(주문상태=승인) 조건검색 -->
 	<select id="searchPurchaseList" parameterType="Map" resultType="Order" resultMap="OrderResultMap">
@@ -112,10 +111,7 @@
 		ORDER BY
 			o.orderNum ASC
 	</select>
-	
-=======
 
->>>>>>> refs/heads/develop
 	<select id="getPurchaseDetailList" resultType="OrderDetail" resultMap="OrderDetailMap">
 		SELECT
 			d.purchasePrice, d.QTY, d.totalPrice, d.supplyPrice, d.VAT
@@ -300,7 +296,7 @@
 		FROM
 			tb_order
 		WHERE
-			martCode = #{martCode} AND state = '승인' AND MONTH(NOW()) = MONTH(regDate)
+			martCode = #{martCode} AND state = '승인' AND MONTH(NOW()) = MONTH(purchaseDate)
 	</select>
 	
 </mapper>

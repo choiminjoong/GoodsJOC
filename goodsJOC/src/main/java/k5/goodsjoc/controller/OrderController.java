@@ -1,6 +1,5 @@
 package k5.goodsjoc.controller;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import k5.goodsjoc.dto.GoodsCate;
 import k5.goodsjoc.dto.Order;
 import k5.goodsjoc.dto.OrderDetail;
 import k5.goodsjoc.service.OrderService;

@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.MartMapper">
 	<resultMap type="Mart" id="martResultMap">
-		<result column="martCode" 			property="martCode" />
+		<id column="martCode" 				property="martCode" />
 		<result column="martName" 			property="martName" />
 		<result column="partnerName" 		property="partnerName" />
 		<result column="partnerPhone" 		property="partnerPhone" />
