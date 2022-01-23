@@ -83,6 +83,22 @@ public class OrderService {
 	public List<Order> searchPurchaseList(Map<String, Object> paramMap) {
 		return orderMapper.searchPurchaseList(paramMap);
 	}
+	//주문등록
+	public int orderInsertAction(Order order) {
+		return orderMapper.orderInsertAction(order);
+	}
+	//주문등록 후 주문코드 넘기기
+	public String searchOrderCode(Order order) {
+		return orderMapper.searchOrderCode(order);
+	}
+	//주문상세등록
+	public int orderInsertAction(OrderDetail orderDetail) {
+		int result = 0;
+		result += orderMapper.orderDetailInsertAction(orderDetail);
+		
+		return result;
+	}
+
 
 }
 
