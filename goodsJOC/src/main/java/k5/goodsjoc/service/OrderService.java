@@ -20,24 +20,27 @@ public class OrderService {
       this.orderMapper = orderMapper;
    }
    
+   //주문 전체조회
    public List<Order> getOrderList(){
       return orderMapper.getOrderList();
       
    }
    public List<ViewOrder> getViewOrder(){
-	      return orderMapper.getViewOrder();
-	      
+	      return orderMapper.getViewOrder();	      
    }
    
-   // 주문 조건 검색
+   //주문 조건 검색
    public List<Order> getOrderListBySearchKey(String searchKey, String searchValue, String startDt, String endDt) {
 	return orderMapper.getOrderListBySearchKey(searchKey, searchValue, startDt, endDt);
    }
 
-
-	public List<Order> getOrderPurchaseList() {
-		
+	public List<Order> getOrderPurchaseList() {		
 		return orderMapper.getOrderPurchaseList();
+	}
+	
+	//주문등록화면
+	public int orderInsert(Order order) {
+		return orderMapper.orderInsert(order);
 	}
 
 	//거래명세서 매입정보만 가져오기
@@ -48,11 +51,6 @@ public class OrderService {
 	//매입 주문상세
 	public List<OrderDetail> getPurchaseDetailList(String orderCode) {
 		return orderMapper.getPurchaseDetailList(orderCode);
-	}
-	
-	//매출등록
-	public int orderInsert(Order order) {
-		return orderMapper.orderInsert(order);
 	}
 	
 	//주문서 상세 내역 테이블
@@ -75,6 +73,11 @@ public class OrderService {
 		return orderMapper.purchaseDatePrice(martCode);
 	}
 
+	//주문 총 가격
+	public List<Map<String, Object>> totalOrderPrice(String martCode) {
+		return orderMapper.totalOrderPrice(martCode);
+	}
+	
 }
 
 

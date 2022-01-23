@@ -11,6 +11,9 @@ import k5.goodsjoc.dto.ViewOrder;
 
 @Mapper
 public interface OrderMapper {
+		
+	//주문등록화면
+	public int orderInsert(Order order);
 	
 	//주문 전체 조회
 	public List<Order> getOrderList();
@@ -27,8 +30,6 @@ public interface OrderMapper {
 	//매입(주문상태=승인)
 	public Order getPurchaseInfoByOrderCode(String orderCode);
 	
-	//주문등록
-	public int orderInsert(Order order);
 	//매입 총 건수및 가격
 	public List<Map<String, Object>> purchaseDatePrice(String martCode);
 
@@ -43,5 +44,9 @@ public interface OrderMapper {
 
 	//주문거래처정보
 	public List<Order> getOrderListByOrderCode(String orderCode);
+	
+	//주문총가격
+	public List<Map<String, Object>> totalOrderPrice(String martCode);
+
 
 }

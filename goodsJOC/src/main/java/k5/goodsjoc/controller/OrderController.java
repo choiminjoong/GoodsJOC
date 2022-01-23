@@ -26,7 +26,7 @@ public class OrderController {
 		this.orderService = orderService;
 	}
 	
-	//주문관리 > 주문등록 (정도혜)
+	//주문관리 > 주문등록화면 (정도혜)
 	@GetMapping("/orderInsert")
 	public String orderInsert() {
 		System.out.println("페이지: 주문 등록");
@@ -34,25 +34,33 @@ public class OrderController {
 		
 		return "product_management/order/orderInsert";
 	}
-	 @PostMapping("/orderInsert")
-     public String orderInsert(Order order) {
-        System.out.println("페이지: 거래처 등록 ");
-        System.out.println("경로: basic_management/order/orderInsert(POST방식 성공) ");   
-        System.out.println("화면에서 받은 거래처 정보 : "+  order);
-        
-        orderService.orderInsert(order);
-        
-        return "redirect:/product_management/order/orderInsert";
-     }
-		
+	
+    @PostMapping("/orderInsert")
+    public String orderInsert(Order order) {
+       System.out.println("페이지: 주문 등록 ");
+       System.out.println("경로: product_management/order/orderInsert(POST방식 성공) ");   
+       System.out.println("화면에서 받은 주문 정보 : "+  order);
+       
+       orderService.orderInsert(order);
+       
+       return "redirect:/product_management/order/orderList";
+    }
+    
 	//주문관리 > 주문목록 (정도혜)
 	@GetMapping("/orderList")
-	public String orderList(Model model) {
+	public String orderList(HttpServletRequest request, Model model) {
 		System.out.println("페이지: 주문 관리");
 		System.out.println("경로: product_management/order/orderList(GET방식 성공) ");
 		
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
 		List<Order> orderList = orderService.getOrderList();
-		model.addAttribute("orderList",orderList);		
+		model.addAttribute("orderList",orderList);
+
+		List<Map<String, Object>> totalOrderPrice = orderService.totalOrderPrice(sessionMartCode);
+		model.addAttribute("totalOrderPrice", totalOrderPrice);	
+		System.out.println(totalOrderPrice);
 		
 		return "product_management/order/orderList";
 	}
@@ -118,6 +126,5 @@ public class OrderController {
 			
 			return goodsModal;
 		}	
-		
 	
 	}
