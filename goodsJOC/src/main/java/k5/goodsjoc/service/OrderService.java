@@ -34,8 +34,10 @@ public class OrderService {
 	return orderMapper.getOrderListBySearchKey(searchKey, searchValue, startDt, endDt);
    }
 
-	public List<Order> getOrderPurchaseList() {		
-		return orderMapper.getOrderPurchaseList();
+
+   //매입내역 조회
+	public List<Order> getOrderPurchaseList(String martCode) {
+		return orderMapper.getOrderPurchaseList(martCode);
 	}
 	
 	//주문등록화면
@@ -78,6 +80,10 @@ public class OrderService {
 		return orderMapper.totalOrderPrice(martCode);
 	}
 	
+	public List<Order> searchPurchaseList(Map<String, Object> paramMap) {
+		return orderMapper.searchPurchaseList(paramMap);
+	}
+
 }
 
 

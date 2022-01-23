@@ -37,6 +37,8 @@ public interface UserMapper {
 	public void userActive(String id);
 	//계정 비활성화
 	public void userNoActive(String id);
+
+	public List<User> getSearchStaffList(String sessionMartCode);
 	
 	
 }
