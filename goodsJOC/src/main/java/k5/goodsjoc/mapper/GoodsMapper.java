@@ -33,7 +33,7 @@ public interface GoodsMapper {
 	public int updateGoodsPrice(String barcode, String salesPrice);
 	//판매가 기록남기기
 	public int addSalesPrice(Map<String, Object> paramMap);
-	//매장별 카테고리목롣 조회
+	//매장별 카테고리목록 조회
 	public List<Map<String, Object>> getCategoryList(String martCode);
 	//바코드 사용여부체크
 	public int goodsCheckByBarcode(String barcode);

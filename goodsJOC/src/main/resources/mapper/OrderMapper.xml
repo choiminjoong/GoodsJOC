@@ -191,6 +191,7 @@
 		o.purchaseDate,
 		o.martCode, 
 		o.id, 
+		o.totalOrderPrice,
 		o.regDate,
 		b.businessName
 	FROM  
@@ -230,6 +231,7 @@
 		</trim>
 	</select>
 	
+	<!-- 주문등록화면  -->
 	<insert id="orderInsert" parameterType="Order">
 	INSERT INTO tb_order(
 		orderCode, 
@@ -272,6 +274,7 @@
 		s.orderCode = #{orderCode}
 	</select>
 	
+	<!-- 상품검색 modal -->
 	<select id="getOrderListByOrderCode" parameterType="String" resultType="Order" resultMap="OrderResultMap">
 	SELECT
 	   o.orderCode, o.orderNum, o.state
@@ -302,5 +305,17 @@
 		WHERE
 			martCode = #{martCode} AND state = '승인' AND MONTH(NOW()) = MONTH(regDate)
 	</select>
+	
+	<!-- 총 주문 금액 -->	
+	<select id="totalOrderPrice" parameterType="String" resultType="Map">
+		SELECT
+			SUM(totalOrderPrice) AS totalOrderPrice
+		FROM
+			tb_order
+		WHERE
+			martCode = #{martCode}
+	</select>
+	
+	
 	
 </mapper>
