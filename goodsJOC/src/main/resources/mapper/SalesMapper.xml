@@ -53,6 +53,7 @@
 		</association>
 	</resultMap>		
 
+
 	<!-- 월별 건수 및 금액 조회 -->
 	<select id="getSalesTotalInfo" resultType="Map">
 		SELECT 

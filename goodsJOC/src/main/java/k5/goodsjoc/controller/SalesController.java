@@ -29,7 +29,7 @@ public class SalesController {
 	
 	@PostMapping("/salesDetialInfo")
 	@ResponseBody
-	public List<OrderDetail> salesDetialInfo(){
+	public List<OrderDetail> salesDetialInfo(@RequestParam(value="orderCode", required=false) String orderCode){
 		
 		
 		return null;
