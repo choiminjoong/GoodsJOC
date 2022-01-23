@@ -176,4 +176,27 @@
 				salesCode=#{salesCode}
 	</update>
 	
+	<insert id="addsalesAction" parameterType="Sales">
+	INSERT INTO tb_sales(
+		receiptNum, 
+		salesTotalPrice, 
+		martCode, 
+		ID, 
+		regDate, 
+		canselCheck, 
+		casnselStaff, 
+		canselDate
+	)VALUES (
+		#{receiptNum},
+		#{salesTotalPrice},
+		#{martCode},
+		#{ID},
+		NOW(),
+		#{canselCheck},
+		#{casnselStaff},
+		NOW()
+		);	
+	</insert>
+	
+	
 </mapper>

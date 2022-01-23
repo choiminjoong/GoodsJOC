@@ -26,6 +26,8 @@
               		<b><i class="fas fa-coins"></i>ㅤ매출 등록</b>
                </h3>        
             </div>
+            
+        <form th:action="@{/trade_management/sales/salesInsertAction}" method="POST" id="salesInsertAction" class="form-horizontal">    
              <div class="card-body">          
                <!-- 매출등록폼  -->                      
                 <div class="form-group">
@@ -35,56 +37,61 @@
 					<b>상품 검색</b>
 				</button>
                   <div class="input-group-append">
-                  <input type="text" class="form-control form-control-border border-warning" id="goodsNameInput"  readonly="readonly">
+                  <input type="text" class="form-control form-control-border border-warning" id="goodsNameInput" name="goodsName" readonly="readonly">
                 </div>
                </div> 
                
                 <div class="form-group">
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ바코드</label>
-                  <input type="text" class="form-control form-control-border border-warning" id="barcodeInput" readonly="readonly">
+                  <input type="text" class="form-control form-control-border border-warning" id="barcodeInput" name="barcode" readonly="readonly">
                 </div>
                 
                  <div class="form-group">
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ유형 </label>
-                  <input type="text" class="form-control form-control-border border-warning" id="taxTypeInput" readonly="readonly">
+                  <input type="text" class="form-control form-control-border border-warning" id="taxTypeInput" name="taxType" readonly="readonly">
                 </div>
                 
                 <div class="form-group">
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ매입처명</label>
-                  <input type="text" class="form-control form-control-border border-warning" id="businessNameInput" readonly="readonly">
+                  <input type="text" class="form-control form-control-border border-warning" id="businessNameInput" name="businessName" readonly="readonly">
                 </div>
 
                 <div class="form-group" style="display: none;">
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ매입처코드</label>
-                  <input type="text" class="form-control form-control-border border-warning" id="businessCodeInput" readonly="readonly">
+                  <input type="text" class="form-control form-control-border border-warning" id="businessCodeInput" name="businessCode" readonly="readonly">
                 </div>
                 
                 <div class="form-group">
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ판매가</label>
-                  <input type="text" class="form-control form-control-border border-warning" id="salesPriceInput" readonly="readonly">
+                  <input type="text" class="form-control form-control-border border-warning" id="salesPriceInput" name="salesPrice" readonly="readonly">
                 </div>
                
                 <div class="form-group">
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ수량</label>
-                  <input type="number" class="form-control form-control-border border-warning" id="qtyInput" >
+                  <input type="number" class="form-control form-control-border border-warning" id="qtyInput" name="QTY" >
                 </div>
 
                 <div class="form-group">
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ공급가액</label>
-                  <input type="text" class="form-control form-control-border border-warning" id="supplyPriceInput">
+                  <input type="text" class="form-control form-control-border border-warning" id="supplyPriceInput" name="supplyPrice">
                 </div>
 
                 <div class="form-group">
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ부가세</label>
-                  <input type="text" class="form-control form-control-border border-warning" id="vatInput">
+                  <input type="text" class="form-control form-control-border border-warning" id="vatInput" name="VAT">
                 </div>
                             
                 <div class="form-group">
                   <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ합계</label>
-                  <input type="text" class="form-control form-control-border border-warning" name="salesTotalPrice" id="totalpricesInput">
+                  <input type="text" class="form-control form-control-border border-warning"  id="totalpricesInput" name="salesTotalPrice">
                 </div>
+                
+                <div style="display:none">
+					<input type="text" name="id" th:value="${session.SID}" readonly>
+					<input type="text" name="martCode" th:value="${session.SMARTCODE}" readonly>
+				</div>
              </div>
-        	 <!--수정 버튼 -->   
+        	 <!--등록 버튼 -->   
 	         <div class="d-flex justify-content-center" style="margin: 0cm 0cm 1cm 11.5cm">
 	            <button type="submit" style="margin-left: 5px" class="btn btn-warning">
 	               <b>등록</b>
@@ -93,12 +100,13 @@
 	               <b>닫기</b>
 	            </a>
 	        </div>      
+         </form>  
      </div>
    </div>
 
 <!-- 상품 검색 모달  -->
 <form th:action="@{/product_management/sales/salesInsertAction}" method="POST" id="salesInsertForm" class="form-horizontal">
-<div class="modal fade" id="modal-default2" style="display: none;" aria-hidden="true">
+<div class="modal content" id="modal-default2" style="display: none;" aria-hidden="true">
 	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 			<div class="modal-header bg-warning">
@@ -228,7 +236,7 @@
 				$('#businessNameInput').val(businessNamePick);
 				$('#taxTypeInput').val(taxTypePick);
 			});
-			
+
 		});						
 		</script>	
 	</th:block>

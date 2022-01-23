@@ -32,7 +32,7 @@ public class SalesService {
 		return salesMapper.getGoodsList(martCode);
 	}
 	
-	//매출등록
+	//매출등록화면
 	public int salesInsert(Sales sales) {
 		return salesMapper.salesInsert(sales);
 	}
@@ -41,5 +41,10 @@ public class SalesService {
 		return salesMapper.getSalesTotalInfo(martCode);
 	}
 	
+	//매출등록
+	public int addsalesAction(Sales sales) {
+		return salesMapper.addsalesAction(sales);
+	}
 	
+
 }

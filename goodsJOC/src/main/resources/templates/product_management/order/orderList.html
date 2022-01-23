@@ -29,12 +29,13 @@
 			<div class="card-body">
 				<div class="tab-content" id="custom-tabs-two-tabContent">
 					<!-- 주문검색 -->
-					<form th:action="@{/product_management/order/orderList}" method="post">
+					<form th:action="@{/product_management/order/orderList}"
+						method="post">
 						<div class="form-group row">
 							<label class="col-sm-1 col-form-label">주문검색</label>
 							<div class="col-sm-2">
 								<select name="searchKey" class="form-control custom-select">
-									<option>:: 선택  ::</option>
+									<option>:: 선택 ::</option>
 									<option value="orderNum">주문번호</option>
 									<option value="businessName">매입처</option>
 									<option value="deliveryDate">납품일</option>
@@ -46,12 +47,12 @@
 									class="form-control float-right" placeholder="검색어를 입력해주세요.">
 								<div class="input-group-append"></div>
 							</div>
-								<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">
-									<button type="submit" class="btn btn-warning">
-										<b>검색</b>
-									</button>
-								</div>		
-								<div class="d-flex justify-content-center">
+							<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">
+								<button type="submit" class="btn btn-warning">
+									<b>검색</b>
+								</button>
+							</div>
+							<div class="d-flex justify-content-center">
 								<a th:href="@{/product_management/order/orderInsert}">
 									<button type="button" class="btn btn-info">
 										<b>주문 등록</b>
@@ -59,12 +60,11 @@
 								</a>
 							</div>
 						</div>
-
+						<!-- 주문일자검색 -->
 						<div class="form-group row">
-							<!-- 주문일자검색 -->
 							<label class="col-sm-1 col-form-label">주문일자</label>
 							<div class="col-sm-2">
-								<input type="date" name="startDt"id="date" class="form-control">
+								<input type="date" name="startDt" id="date" class="form-control">
 							</div>
 							<th:block>
 								<b>~</b>
@@ -73,10 +73,28 @@
 								<input type="date" name="endDt" id="date" class="form-control">
 							</div>
 						</div>
+						<!-- 월 총 주문금액   -->
+						<div class="col-lg-2 col-5" style="margin-left: 27cm; margin-top: -3cm;">
+							<th:block th:if="${not #lists.isEmpty(totalOrderPrice)}" th:each="l : ${totalOrderPrice}">
+								<div class="small-box bg-olive">
+									<div class="inner">
+										<div class="icon" style="margin-top: 27px">
+											<i class="fas fa-shopping-cart"></i>
+										</div>
+										<div>
+											<span><b>총 주문</b></span>
+										</div>
+										<span><b class="money" th:text="${l.totalOrderPrice}"></b></span>
+									</div>
+									<div class="small-box-footer">ㅤ</div>
+								</div>
+							</th:block>
+						</div>
 					</form>
 				</div>
 			</div>
 		</div>
+	</div>
 
 	<!-- 주문테이블 -->
 	<div class="col-md-13" style="margin-top: 1%">
@@ -101,7 +119,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${not #lists.isEmpty(orderList)}" th:each="l, i: ${orderList}">
+						<tr th:if="${not #lists.isEmpty(orderList)}"
+							th:each="l, i: ${orderList}">
 							<td th:text="${l.orderCode}"></td>
 							<td th:text="${l.business.getBusinessName()}"></td>
 							<td th:text="${l.orderNum}"></td>
@@ -109,20 +128,15 @@
 							<td class="state-color" th:text="${l.state}"></td>
 							<td th:text="${l.purchaseDate}"></td>
 							<td th:text="${l.martCode}"></td>
-							<td>
-								<a th:href="@{/product_management/order/orderDetail(orderCode=${l.orderCode})}">
+							<td><a
+								th:href="@{/product_management/order/orderDetail(orderCode=${l.orderCode})}">
 									<button type="submit" class="btn btn-outline-primary btn-xs">
-										주문서 상세보기
-									</button>
-								</a>								
-							</td>
-							<td>
-								<a th:href="@{/product_management/order/orderList}">
-									<button type="button" id="salesBtn" class="btn btn-outline-danger btn-xs">
-										취소
-									</button>
-								</a>								
-							</td>
+										주문서 상세보기</button>
+							</a></td>
+							<td><a th:href="@{/product_management/order/orderList}">
+									<button type="button" id="salesBtn"
+										class="btn btn-outline-danger btn-xs">취소</button>
+							</a></td>
 						</tr>
 					</tbody>
 				</table>
@@ -131,7 +145,7 @@
 		</div>
 	</div>
 </th:block>
-<th:block layout:fragment="customJs">	
+<th:block layout:fragment="customJs">
 	<script type="text/javascript">
 		$(function(){
 			var stateGroup = $('.state-color');

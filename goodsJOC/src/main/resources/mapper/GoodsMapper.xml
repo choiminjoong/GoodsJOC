@@ -366,7 +366,7 @@
 			,#{id}
 			,NOW()
 		)
-			</insert>
+	</insert>
 	
 	<!-- 상품카테고리 선택용 모달(최민중) -->
 	<select id="getCategoryList" parameterType="String" resultType="Map">
