@@ -19,82 +19,102 @@
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
 	<!-- 주문 검색,등록버튼 -->
-	<div class="col-md-14">
+	<div class="col-md-13">
 		<div class="card card-warning color-pallete">
 			<div class="card-header">
 				<h3 class="card-title">
 					<b>주문 조회</b>
 				</h3>
 			</div>
-			<div class="card-body">
-				<div class="tab-content" id="custom-tabs-two-tabContent">
+			<div class="card-body table-responsive">
 					<!-- 주문검색 -->
-					<form th:action="@{/product_management/order/orderList}"
-						method="post">
+					<form th:action="@{/product_management/order/orderList}" method="post">
 						<div class="form-group row">
 							<label class="col-sm-1 col-form-label">주문검색</label>
 							<div class="col-sm-2">
 								<select name="searchKey" class="form-control custom-select">
-									<option>:: 선택 ::</option>
+									<option>전체 검색</option>
 									<option value="orderNum">주문번호</option>
 									<option value="businessName">매입처</option>
 									<option value="deliveryDate">납품일</option>
 									<option value="state">상태</option>
 								</select>
 							</div>
-							<div class="input-group input-group-m" style="width: 500px;">
+							<div class="input-group input-group-m" style="width: 510px;">
 								<input type="text" name="searchValue" style="margin-left: 3%"
 									class="form-control float-right" placeholder="검색어를 입력해주세요.">
 								<div class="input-group-append"></div>
-							</div>
-							<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">
-								<button type="submit" class="btn btn-warning">
-									<b>검색</b>
-								</button>
-							</div>
-							<div class="d-flex justify-content-center">
-								<a th:href="@{/product_management/order/orderInsert}">
-									<button type="button" class="btn btn-info">
-										<b>주문 등록</b>
-									</button>
-								</a>
-							</div>
+							</div>																	
 						</div>
 						<!-- 주문일자검색 -->
 						<div class="form-group row">
-							<label class="col-sm-1 col-form-label">주문일자</label>
+						<label class="col-sm-1 col-form-label">주문일자</label>
 							<div class="col-sm-2">
 								<input type="date" name="startDt" id="date" class="form-control">
 							</div>
 							<th:block>
 								<b>~</b>
 							</th:block>
-							<div class="col-sm-2">
+							<div class="col-sm-5">
 								<input type="date" name="endDt" id="date" class="form-control">
+							</div>					
+						</div>	
+						<!-- 상태검색 -->
+						<div class="form-group row">
+						<label class="col-sm-1">상태 검색</label>
+							<div class="col-sm-2">
+								<select name="state" class="form-control text-center">
+									<option value="">전체보기</option>
+									<option value="">진행중</option>
+									<option value="">승인</option>
+									<option value="">반려</option>
+								</select>
+							</div>	
+							
+							<div class="col-sm-2">
+								<button type="submit" class="btn btn-block bg-gradient-warning btn-sm"><b>검색</b></button>
 							</div>
-						</div>
-						<!-- 월 총 주문금액   -->
-						<div class="col-lg-2 col-5" style="margin-left: 27cm; margin-top: -3cm;">
+							<div class="col-sm-1">
+								<a th:href="@{/product_management/order/orderlist}" type="button" class="btn btn-block bg-gradient-warning btn-sm">
+									<i class="fas fa-redo-alt"></i>
+								</a>
+							</div>
+							<div class="col-sm-2">
+								<a th:href="@{/product_management/order/orderInsert}" type="button" class="btn btn-block bg-gradient-info btn-sm">
+									<b>주문 등록</b>
+								</a>
+							</div>
+						</div>	
+		
+						<!-- 월 주문금액   -->
+						<div class="col-2" align="center" style="margin-left: 26cm; margin-top: -4.6cm;">
 							<th:block th:if="${not #lists.isEmpty(totalOrderPrice)}" th:each="l : ${totalOrderPrice}">
-								<div class="small-box bg-olive">
-									<div class="inner">
-										<div class="icon" style="margin-top: 27px">
-											<i class="fas fa-shopping-cart"></i>
-										</div>
-										<div>
-											<span><b>총 주문</b></span>
-										</div>
-										<span><b class="money" th:text="${l.totalOrderPrice}"></b></span>
+								<!-- 월 주문건수 -->
+								<div class="info-box mb-3 bg-info">
+									<span class="info-box-icon bg-teal disabled color-palette elevation-1">
+										<i class="fas fa-shopping-cart"></i>
+									</span>
+									<div class="info-box-content">
+										<span class="info-box-text"> <b class="nowMonth"></b> 월 판매 건수</span> 
+										<span class="info-box-number"> <b></b> 건</span>
 									</div>
-									<div class="small-box-footer">ㅤ</div>
 								</div>
+								<!-- 월 매출금 -->
+								<div class="info-box mb-3 bg-info">
+									<span class="info-box-icon bg-teal disabled color-palette elevation-1">
+										<i class="fas fa-won-sign"></i>
+									</span>
+									<div class="info-box-content">
+										<span class="info-box-text"> <b class="nowMonth"></b>월 주문 금액</span> 
+										<span class="info-box-number"> <b class="money" th:text="${l.totalOrderPrice}"></b></span>
+									</div>
+								</div>								
 							</th:block>
-						</div>
+						</div>	
 					</form>
 				</div>
 			</div>
 		</div>
-	</div>
 
 	<!-- 주문테이블 -->
 	<div class="col-md-13" style="margin-top: 1%">
@@ -113,7 +133,6 @@
 							<th>납품일</th>
 							<th>상태</th>
 							<th>매입일시</th>
-							<th>매장고유코드</th>
 							<th>주문서상세내역</th>
 							<th>주문취소</th>
 						</tr>
@@ -127,7 +146,6 @@
 							<td th:text="${l.deliveryDate}"></td>
 							<td class="state-color" th:text="${l.state}"></td>
 							<td th:text="${l.purchaseDate}"></td>
-							<td th:text="${l.martCode}"></td>
 							<td><a
 								th:href="@{/product_management/order/orderDetail(orderCode=${l.orderCode})}">
 									<button type="submit" class="btn btn-outline-primary btn-xs">

@@ -1,5 +1,6 @@
 package k5.goodsjoc.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -108,11 +109,13 @@ public class OrderController {
 	public String getSearchOrderList(
 			@RequestParam(value="searchKey", required = false) String searchKey
 			,@RequestParam(value="searchValue", required = false) String searchValue
+			,@RequestParam(value="searchState", required = false) String searchState
 			,@RequestParam(value="startDt", required = false) String startDt
 			,@RequestParam(value="endDt", required = false) String endDt
 			,Model model){
 		System.out.println(searchKey);
 		System.out.println(searchValue);
+		System.out.println(searchState);
 					
 		if(searchKey != null && "orderNum".equals(searchKey)) {
 			searchKey = "orderNum";
@@ -126,6 +129,9 @@ public class OrderController {
 
 		// 검색키 검색어를 통해서 사용자목록 조회	
 		List<Order> orderList = orderService.getOrderListBySearchKey(searchKey, searchValue, startDt, endDt);
+		
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("searchState", searchState);
 		
 		// 조회된 회원목록 model에 값을 저장
 		model.addAttribute("title", "주문목록조회");
