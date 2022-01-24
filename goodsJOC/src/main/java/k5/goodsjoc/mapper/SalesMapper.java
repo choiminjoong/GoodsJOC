@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import k5.goodsjoc.dto.Sales;
+import k5.goodsjoc.dto.SalesDetail;
 
 @Mapper
 public interface SalesMapper {
@@ -27,6 +28,10 @@ public interface SalesMapper {
 
 	//매출등록
 	public int addsalesAction(Sales sales);
+	//매출상세 조회 Ajax
+	public List<SalesDetail> getSalesDetailList(String salesCode);
+	//판매취소정보 Ajax
+	public Sales getSalesCanselInfo(String salesCode);
 
 
 }
