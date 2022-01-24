@@ -54,4 +54,10 @@ public class SalesService {
 	public Sales getSalesCanselInfo(String salesCode) {
 		return salesMapper.getSalesCanselInfo(salesCode);
 	}
+	public void receiptCanselAction(String id, String salesCode) {
+		salesMapper.receiptCanselAction(id, salesCode);
+	}
+	public List<Sales> getSearchSalesList(Map<String, Object> paramMap) {
+		return salesMapper.getSearchSalesList(paramMap);
+	}
 }

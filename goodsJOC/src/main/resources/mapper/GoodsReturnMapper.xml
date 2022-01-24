@@ -85,6 +85,16 @@
 						AND r.regDate BETWEEN #{startDt} AND #{endDt}
 					</if>
 	</select>
+	<!-- 월별 반품 건수 및 금액 조회 -->
+	<select id="getReturnPriceTotalInfo" resultType="Map">
+		SELECT 
+			SUM(returnPrice) AS returnSumPrice
+			,COUNT(*) AS returnPriceCnt
+		FROM 
+			tb_goodsReturn
+		WHERE
+			martCode = #{martCode} AND MONTH(regDate) = MONTH(NOW())
+	</select>
 	
 	
 	

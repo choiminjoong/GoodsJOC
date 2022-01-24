@@ -73,6 +73,7 @@
 			   w.martCode = #{martCode}
 		
 	</select>
+	<!--재고 조건 검색(오대성)  -->
 	<select id="getDisplayBySearchKey" parameterType="String" resultType="Map">
 			SELECT 
 				   w.displayQTY AS displayQTY

@@ -44,17 +44,10 @@
 									<input type="text" name="searchValue" style="margin-left: 3%"
 										class="form-control float-right" placeholder="검색">
 								</div>
-								<div style="margin-left: 15%">
-									<button type="submit" class="btn-lg btn-info">
-										<b>검색</b>
-									</button> <a href="returnInsert">
-										<button type="button" class="btn-lg btn-info">
-											<b>등록</b>
-										</button>
-								</a>
 								
-								</div>
+								
 							</div>
+							
 							<!-----------------반품일검색------------------>
 							<div class="row" style="margin-top: 1%">
 								<!-- 주문일자검색 -->
@@ -66,12 +59,53 @@
 								<div class="col-sm-2">
 									<input type="date" name="endDt" id="date" class="form-control">
 								</div>
+							<div class="col-sm-2">
+								<button type="submit" class="btn btn-block bg-gradient-warning btn-lg"><b>검색</b></button>
 							</div>
+							<div class="col-sm-1">
+								<a th:href="@{/stock_management/goodsReturn/returnList}" type="button" class="btn btn-block bg-gradient-warning btn-lg">
+									<i class="fas fa-redo-alt"></i>
+								</a>
+							</div>
+							<div class="col-sm-2">
+								<a th:href="@{/stock_management/goodsReturn/returnInsert}">
+								<button type="button" class="btn btn-block bg-gradient-info btn-lg" style="width: 50%"><b>반품등록</b></button>
+								</a>
+							</div>
+							<!-- 반품액 보여주기 -->
+							<div class="col-1.5" align="center" style="margin-top: -60px;">
+						<th:block th:if="${not #lists.isEmpty(returnPriceTotalInfo)}" th:each="l : ${returnPriceTotalInfo}">
+							<div class="info-box mb-3 bg-info">
+								<span class="info-box-icon bg-teal disabled color-palette elevation-1">
+									<i class="fas fa-shopping-cart"></i>
+								</span>
+								<div class="info-box-content">
+									<span class="info-box-text"> <b class="nowMonth"></b> 월 반품 건수</span> 
+									<span class="info-box-number"> <b th:text="${l.returnPriceCnt}"></b> 건</span>
+								</div>
+								<!-- /.info-box-content -->
+							</div>
+							<div class="info-box mb-3 bg-info" style="margin-top: -10px;">
+								<span class="info-box-icon bg-teal elevation-1">
+									<i class="fas fa-won-sign"></i>
+								</span>
+								<div class="info-box-content">
+									<span class="info-box-text"> <b class="nowMonth"></b> 월 총 반품액수</span> 
+									<span class="info-box-number"> <b class="money" th:text="${l.returnSumPrice}"></b></span>
+								</div>
+							</div>
+						</th:block>
+					</div>
+						</div>
+						
 							</form>
+							
 						</div>
 
 					</div>
+					
 				</div>
+				
 			</div>
 			<!-------------------검수 조회 폼--------------------->
 			<div class="col-12">

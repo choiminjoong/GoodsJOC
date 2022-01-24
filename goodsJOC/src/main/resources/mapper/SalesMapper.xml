@@ -54,6 +54,17 @@
 		</association>
 	</resultMap>		
 
+	<!-- 영수증 취소-->
+	<select id="receiptCanselAction">
+		UPDATE 
+			tb_sales
+		SET
+			canselCheck = '취소'
+			, canselStaff = #{id}
+			, canselDate = NOW()
+		WHERE
+			salesCode = #{salesCode}
+	</select>
 
 	<!-- 판매취소정보 데이터 -->	
 	<select id="getSalesCanselInfo" resultType="Sales" resultMap="salesResultMap">
@@ -113,29 +124,46 @@
 			s.regDate DESC
 	</select>
 
-
-	<select id="getSalesListBySearchKey" resultType="Sales">
+	<!-- 판매 조건검색(최민중 -->
+	<select id="getSearchSalesList" resultType="Sales" resultMap="salesResultMap">
 		SELECT 
-			s.salesCode,
-			s.receiptNum,
-			s.salesTotalPrice,
-			s.martCode,
-			s.ID,
-			s.regDate,
-			s.canselCheck,
-			s.canselStaff,
-			s.canselDate,
-			date_format(s.regDate, '%Y-%m-%d') AS regDate
+			s.salesCode, s.receiptNum, s.salesTotalPrice, s.regDate, s.canselCheck, s.canselStaff, s.canselDate
+			, s.martCode
+			, s.ID, u.name
 		FROM 
 			tb_sales AS s
-		<trim prefix="WHERE" prefixOverrides="AND|OR">
-			<if test="searchValue != null and searchValue != ''.toString()">
-				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			INNER join
+			tb_user AS u
+			on
+			s.ID = u.ID
+		WHERE
+			s.martCode = #{martCode}
+			<if test="startDate != null and startDate != ''.toString()">
+				AND s.regDate >= #{startDate}
 			</if>
-			<if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
-				AND date_format(s.regDate, '%Y-%m-%d') BETWEEN #{startDt} AND #{endDt}
+			<if test="endDate != null and endDate != ''.toString()">
+				AND #{endDate} >=  s.regDate
 			</if>
-		</trim>	
+			<if test="id != null and id != ''.toString()">
+				AND s.ID = #{id}
+			</if>
+			<if test="minPrice != null and minPrice != ''.toString() and minPrice != 0">
+				AND s.salesTotalPrice >= #{minPrice}
+			</if>
+			<if test="maxPrice != null and maxPrice != ''.toString() and maxPrice != 0">
+				AND #{maxPrice} >= s.salesTotalPrice
+			</if>
+			<if test="receiptNum != null and receiptNum != ''.toString()">
+				AND #{maxPrice} >= s.salesTotalPrice
+			</if>
+			<if test="canselCheck != null and canselCheck != ''.toString() and canselCheck == 1">
+				AND s.canselCheck != '취소'
+			</if>
+			<if test="canselCheck != null and canselCheck != ''.toString() and canselCheck == 2">
+				AND s.canselCheck = '취소'
+			</if>
+		ORDER BY
+			s.regDate DESC
 	</select>
 	
 	<select id="getsalesDetailList" resultType="Sales">
@@ -228,5 +256,4 @@
 		NOW()
 		);	
 	</insert>
-
 </mapper>
