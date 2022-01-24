@@ -34,8 +34,11 @@
 						<form th:action="@{/product_management/order/orderInsertAction}" method="post">
 							<div class="form-group">
 								<label for="exampleInputBorderWidth2">
-									<i class="fas fa-angle-double-right"></i>ㅤ주문번호
-								</label> 
+									<i class="fas fa-angle-double-right">ㅤ주문번호  / </i>
+								</label>  
+									<span class="input-group-append">
+										<button type="button" id="orderNumCheckBtn" class="btn-sm bg-info disabled color-palette">주문번호 중복확인</button>
+									</span>						
 								<input type="number" name="orderNum" placeholder="관리 할 주문번호를 입력해주세요" class="form-control form-control-border border-warning">
 							</div>
 							
@@ -53,7 +56,7 @@
 									</label>
 									<button type="button" id="searchGoodsBtn" class="btn-sm bg-info disabled color-palette"
 											data-toggle="modal" data-target="#modal-default2">
-										<b>상품 검색</b>
+										상품 검색
 									</button>
 									<input type="text" class="form-control form-control-border border-warning"
 										id="goodsNameInput" readonly="readonly">
@@ -276,6 +279,48 @@
 			$('#businessNameInput').val(businessNamePick);
 			$('#taxTypeInput').val(taxTypePick);
 		});
+		
+		
+	//주문번호 
+		$(function(){
+			//등록전 빈칸체크
+			var idCheckCnt = 0;
+			$(document).on('click', '#ordertBtn', function(){
+				//1.빈칸체크
+				var checkList = $('.orderInsert');
+				var nullCheckCnt = 0;
+				for(var i=0; i<checkList.length; i++){
+					if($(checkList[i]).val().trim() == ''){
+						nullCheckCnt += 1;
+					} 
+				}
+						
+			//주문번호 중복체크
+			$(document).on('click', '#orderNumCheckBtn', function(){
+				var idInput = $('#orderNumInput').val();
+				console.log(idInput);
+
+				if(typeof idInput != 'undefined' && idInput != null && idInput != ''){
+					var request = $.ajax({
+						url: '/product_management/order/orderNumCheck',
+						method: 'POST',
+						data: {'orderNum' : orderNumInput},
+						dataType: 'json'
+					});
+					request.done(function(data){
+						console.log(data);
+						if(data){
+							alert("이미 사용하고 있는 주문번호입니다.");
+						}else{
+							alert("사용 가능한 주문번호입니다.");
+							idCheckCnt += 1;
+						}
+					});
+				}else{
+					alert("주문번호를 입력해주세요.")
+					return false;
+				}
+			});		
 
 	});						
 	</script>

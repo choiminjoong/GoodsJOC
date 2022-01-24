@@ -52,6 +52,8 @@
 		ON
 			r.ID = u.ID
 	</select>
+	
+	<!--반품 조건 검색  -->
 	<select id="getSearchGoodsReturnList" resultType="goodsReturn" resultMap="goodsReturnResultMap">
 		SELECT 
 			g.goodsName,

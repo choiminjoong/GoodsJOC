@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import k5.goodsjoc.dto.Sales;
+import k5.goodsjoc.dto.SalesDetail;
 import k5.goodsjoc.mapper.SalesMapper;
 
 @Service
@@ -45,6 +46,12 @@ public class SalesService {
 	public int addsalesAction(Sales sales) {
 		return salesMapper.addsalesAction(sales);
 	}
-	
-
+	//매출상세 Ajax
+	public List<SalesDetail> getSalesDetailList(String salesCode) {
+		return salesMapper.getSalesDetailList(salesCode);
+	}
+	//판매취소정보
+	public Sales getSalesCanselInfo(String salesCode) {
+		return salesMapper.getSalesCanselInfo(salesCode);
+	}
 }

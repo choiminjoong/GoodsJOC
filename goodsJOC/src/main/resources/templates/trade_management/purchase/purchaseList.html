@@ -260,19 +260,19 @@
 										</thead>
 										<tbody>
 											<tr>
-												<td th:text="${session.SMARTINFO.martName}">사업장명</td>
+												<td th:text="${session.SMARTINFO.getMartName()}">사업장명</td>
 											</tr>
 											<tr>
-												<td th:text="${session.SMARTINFO.registerNum}">사업자번호</td>
+												<td th:text="${session.SMARTINFO.getRegisterNum()}">사업자번호</td>
 											</tr>
 											<tr>
-												<td th:text="${session.SMARTINFO.partnerName}">대표자</td>
+												<td th:text="${session.SMARTINFO.getPartnerName()}">대표자</td>
 											</tr>
 											<tr>
-												<td th:text="${session.SMARTINFO.callNum}">연락처</td>
+												<td th:text="${session.SMARTINFO.getCallNum()}">연락처</td>
 											</tr>
 											<tr>
-												<td th:text="${session.SMARTINFO.address}">주소</td>
+												<td th:text="${session.SMARTINFO.getAddress()}">주소</td>
 											</tr>
 										</tbody>
 									</table>

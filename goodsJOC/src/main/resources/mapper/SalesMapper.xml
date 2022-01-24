@@ -3,200 +3,230 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.SalesMapper">
-   <!-- Sales ResultMap (정도혜) -->
-   <resultMap type="Sales" id="salesResultMap">
-      <id   column="salesCode"             property="salesCode"/>
-      <result column="receiptNum"       property="receiptNum"/>
-      <result column="salesTotalPrice"    property="salesTotalPrice"/>
-      <result column="martCode"          property="martCode"/>      
-      <result column="ID"             property="id"/>
-      <result column="regDate"         property="regDate"/>
-      <result column="canselCheck"       property="canselCheck"/>
-      <result column="canselStaff"       property="canselStaff"/>
-      <result column="canselDate"       property="canselDate"/>
-   
-      <association javaType="User"       property="user">
-         <id column="ID"             property="id"/>
-         <result column="name"         property="name" />
-      </association>
-      <association javaType="Mart"       property="mart">
-         <id column="martCode"          property="martCode"/>
-         <result column="martName"       property="martName" />
-         <result column="partnerName"    property="partnerName" />
-         <result column="partnerPhone"    property="partnerPhone" />
-         <result column="registerNum"    property="registerNum" />
-         <result column="sectors"       property="sectors" />
-         <result column="status"       property="status" />
-         <result column="callNum"       property="callNum" />
-         <result column="address"       property="address" />
-         <result column="serviceUse"    property="serviceUse" />
-      </association>
-   </resultMap>   
-      
-   <resultMap type="Sales" id="salesDetailResultMap">
-      <id   column="salesDetailCode"      property="salesDetailCode"/>
-      <result column="barcode"          property="barcode"/>
-      <result column="salesCode"          property="salesCode"/>
-      <result column="QTY"             property="qty"/>      
-      <result column="totalPrice"       property="totalPrice"/>      
-      <result column="supplyPrice"       property="supplyPrice"/>      
-      <result column="VAT"             property="vat"/>      
-   
-      <association javaType="Goods"       property="goods">
-         <id column="barcode"          property="barcode"/>
-         <result column="goodsName"       property="goodsName" />
-         <result column="weight"       property="weight" />
-         <result column="unit"          property="unit" />
-         <result column="maker"          property="maker" />
-         <result column="taxType"       property="taxType" />
-         <result column="salesPrice"    property="salesPrice" />
-      </association>
-   </resultMap>      
 
-   <!-- 월별 건수 및 금액 조회 -->
-   <select id="getSalesTotalInfo" resultType="Map">
-      SELECT 
-         SUM(salesTotalPrice) AS salesSumPrice
-         ,COUNT(*) AS salesCnt
-      FROM 
-         tb_sales
-      WHERE
-         martCode = #{martCode} AND MONTH(regDate) = MONTH(NOW()) AND canselCheck != '취소'
-   </select>
-   
-   
-   <!-- Sales 전체조회 (정도혜) -->
-   <select id="getSalesList" resultType="Sales" resultMap="salesResultMap">
-      SELECT 
-         s.salesCode, s.receiptNum, s.salesTotalPrice, s.regDate, s.canselCheck, s.casnselStaff, s.canselDate
-         , s.martCode
-         , s.ID, u.name
-      FROM 
-         tb_sales AS s
-         INNER join
-         tb_user AS u
-         on
-         s.ID = u.ID
-      WHERE
-         s.martCode = #{martCode}
-      ORDER BY
-         s.regDate DESC
-   </select>
+	<!-- Sales ResultMap (정도혜) -->
+	<resultMap type="Sales" id="salesResultMap">
+		<id	column="salesCode" 				property="salesCode"/>
+		<result column="receiptNum" 		property="receiptNum"/>
+		<result column="salesTotalPrice" 	property="salesTotalPrice"/>
+		<result column="martCode" 			property="martCode"/>		
+		<result column="ID" 				property="id"/>
+		<result column="regDate"			property="regDate"/>
+		<result column="canselCheck" 		property="canselCheck"/>
+		<result column="canselStaff" 		property="canselStaff"/>
+		<result column="canselDate" 		property="canselDate"/>
+	
+		<association javaType="User" 		property="user">
+			<id column="ID" 				property="id"/>
+			<result column="name"			property="name" />
+		</association>
+		<association javaType="Mart" 		property="mart">
+			<id column="martCode" 			property="martCode"/>
+			<result column="martName" 		property="martName" />
+			<result column="partnerName" 	property="partnerName" />
+			<result column="partnerPhone" 	property="partnerPhone" />
+			<result column="registerNum" 	property="registerNum" />
+			<result column="sectors" 		property="sectors" />
+			<result column="status" 		property="status" />
+			<result column="callNum" 		property="callNum" />
+			<result column="address" 		property="address" />
+			<result column="serviceUse" 	property="serviceUse" />
+		</association>
+	</resultMap>	
+		
+	<resultMap type="SalesDetail" id="salesDetailResultMap">
+		<id	column="salesDetailCode"		property="salesDetailCode"/>
+		<result column="barcode" 			property="barcode"/>
+		<result column="salesCode" 			property="salesCode"/>
+		<result column="QTY" 				property="qty"/>		
+		<result column="totalPrice" 		property="totalPrice"/>		
+		<result column="supplyPrice" 		property="supplyPrice"/>		
+		<result column="VAT" 				property="vat"/>		
+	
+		<association javaType="Goods" 		property="goods">
+			<id column="barcode" 			property="barcode"/>
+			<result column="goodsName" 		property="goodsName" />
+			<result column="weight" 		property="weight" />
+			<result column="unit" 			property="unit" />
+			<result column="maker" 			property="maker" />
+			<result column="taxType" 		property="taxType" />
+			<result column="salesPrice" 	property="salesPrice" />
+		</association>
+	</resultMap>		
 
-   <select id="getSalesListBySearchKey" resultType="Sales">
-      SELECT 
-         s.salesCode,
-         s.receiptNum,
-         s.salesTotalPrice,
-         s.martCode,
-         s.ID,
-         s.regDate,
-         s.canselCheck,
-         s.casnselStaff,
-         s.canselDate,
-         date_format(s.regDate, '%Y-%m-%d') AS regDate
-      FROM 
-         tb_sales AS s
-      <trim prefix="WHERE" prefixOverrides="AND|OR">
-         <if test="searchValue != null and searchValue != ''.toString()">
-            AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
-         </if>
-         <if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
-            AND date_format(s.regDate, '%Y-%m-%d') BETWEEN #{startDt} AND #{endDt}
-         </if>
-      </trim>   
-   </select>
-   
-   <select id="getsalesDetailList" resultType="Sales">
-   SELECT 
-      g.goodsName,
-      g.salesPrice,
-      s.QTY,
-      s.totalPrice   
-   FROM 
-      tb_salesDetail AS s
-   INNER JOIN 
-      tb_goods AS g
-   ON 
-   s.barcode = g.barcode   
-   </select>
-         
-   <!-- 상품 선택용 모달(정도혜) -->
-   <select id="getGoodsList" parameterType="String" resultType="Map">
-   SELECT 
-      g.barcode AS barcode,
-      g.goodsName AS goodsName,
-      g.salesPrice AS salesPrice,
-      b.businessName AS businessName,
-      b.businessCode AS businessCode,
-      g.taxType as taxType
-      
-   FROM 
-      tb_goods AS g
-      INNER JOIN 
-      tb_business AS b
-      ON 
-      b.businessCode = g.businessCode
-   WHERE 
-      g.martCode = #{martCode}         
-   </select>
-   
-   <update id="updateBusinessInfo" parameterType="Sales">
-      UPDATE tb_sales
-      <trim prefix="SET" prefixOverrides=",">
-         <if test="salesCode != null and salesCode != ''.toString()">
-            ,salesCode = #{salesCode}
-         </if>
-         <if test="receiptNum != null and receiptNum != ''.toString()">
-            ,receiptNum = #{receiptNum}
-         </if>
-         <if test="salesCode != null and salesCode != ''.toString()">
-            ,salesCode = #{salesCode}
-         </if>
-         <if test="salesTotalPrice != null and salesTotalPrice != ''.toString()">
-            ,salesTotalPrice = #{salesTotalPrice}
-         </if>
-         <if test="ID != null and ID != ''.toString()">
-            ,ID = #{ID}
-         </if>
-         <if test="regDate != null and regDate != ''.toString()">
-            ,regDate = #{regDate}
-         </if>
-         <if test="canselCheck != null and canselCheck != ''.toString()">
-            ,canselCheck = #{canselCheck}
-         </if>
-         <if test="casnselStaff != null and casnselStaff != ''.toString()">
-            ,casnselStaff = #{casnselStaff}
-         </if>
-         <if test="canselDate != null and canselDate != ''.toString()">
-            ,canselDate = #{canselDate}
-         </if>
-      </trim>
-         WHERE 
-            salesCode=#{salesCode}
-   </update>
-   
-   <insert id="addsalesAction" parameterType="Sales">
-   INSERT INTO tb_sales(
-      receiptNum, 
-      salesTotalPrice, 
-      martCode, 
-      ID, 
-      regDate, 
-      canselCheck, 
-      casnselStaff, 
-      canselDate
-   )VALUES (
-      #{receiptNum},
-      #{salesTotalPrice},
-      #{martCode},
-      #{ID},
-      NOW(),
-      #{canselCheck},
-      #{casnselStaff},
-      NOW()
-      );   
-   </insert>
-   
-   
+
+	<!-- 판매취소정보 데이터 -->	
+	<select id="getSalesCanselInfo" resultType="Sales" resultMap="salesResultMap">
+		SELECT 
+			u.name, s.canselCheck, s.canselDate
+		FROM 
+			tb_sales AS s
+			INNER join
+			tb_user AS u
+			ON
+			s.canselStaff = u.ID
+		WHERE
+			s.salesCode = #{salesCode}
+	</select>
+
+	<!-- 영수증상세 데이터 -->	
+	<select id="getSalesDetailList" resultType="SalesDetail" resultMap="salesDetailResultMap">
+		SELECT 
+			g.goodsName, g.salesPrice, g.taxType
+			, d.QTY, d.totalPrice, d.supplyPrice, d.VAT
+		FROM 
+			tb_salesDetail AS d
+			INNER join
+			tb_goods AS g
+			ON
+			d.barcode = g.barcode
+		WHERE
+			d.salesCode = #{salesCode}
+	</select>
+	
+	<!-- 월별 건수 및 금액 조회 -->
+	<select id="getSalesTotalInfo" resultType="Map">
+		SELECT 
+			SUM(salesTotalPrice) AS salesSumPrice
+			,COUNT(*) AS salesCnt
+		FROM 
+			tb_sales
+		WHERE
+			martCode = #{martCode} AND MONTH(regDate) = MONTH(NOW()) AND canselCheck != '취소'
+	</select>
+	
+	<!-- Sales 전체조회 (정도혜) -->
+	<select id="getSalesList" resultType="Sales" resultMap="salesResultMap">
+		SELECT 
+			s.salesCode, s.receiptNum, s.salesTotalPrice, s.regDate, s.canselCheck, s.canselStaff, s.canselDate
+			, s.martCode
+			, s.ID, u.name
+		FROM 
+			tb_sales AS s
+			INNER join
+			tb_user AS u
+			on
+			s.ID = u.ID
+		WHERE
+			s.martCode = #{martCode}
+		ORDER BY
+			s.regDate DESC
+	</select>
+
+
+	<select id="getSalesListBySearchKey" resultType="Sales">
+		SELECT 
+			s.salesCode,
+			s.receiptNum,
+			s.salesTotalPrice,
+			s.martCode,
+			s.ID,
+			s.regDate,
+			s.canselCheck,
+			s.canselStaff,
+			s.canselDate,
+			date_format(s.regDate, '%Y-%m-%d') AS regDate
+		FROM 
+			tb_sales AS s
+		<trim prefix="WHERE" prefixOverrides="AND|OR">
+			<if test="searchValue != null and searchValue != ''.toString()">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%');
+			</if>
+			<if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
+				AND date_format(s.regDate, '%Y-%m-%d') BETWEEN #{startDt} AND #{endDt}
+			</if>
+		</trim>	
+	</select>
+	
+	<select id="getsalesDetailList" resultType="Sales">
+	SELECT 
+	   g.goodsName,
+	   g.salesPrice,
+	   s.QTY,
+	   s.totalPrice   
+	FROM 
+	   tb_salesDetail AS s
+	INNER JOIN 
+	   tb_goods AS g
+	ON 
+	s.barcode = g.barcode	
+	</select>
+			
+	<!-- 상품 선택용 모달(정도혜) -->
+	<select id="getGoodsList" parameterType="String" resultType="Map">
+	SELECT 
+		g.barcode AS barcode,
+		g.goodsName AS goodsName,
+		g.salesPrice AS salesPrice,
+		b.businessName AS businessName,
+		b.businessCode AS businessCode,
+		g.taxType as taxType
+		
+	FROM 
+		tb_goods AS g
+		INNER JOIN 
+		tb_business AS b
+		ON 
+		b.businessCode = g.businessCode
+	WHERE 
+		g.martCode = #{martCode}			
+	</select>
+	
+	<update id="updateBusinessInfo" parameterType="Sales">
+		UPDATE tb_sales
+		<trim prefix="SET" prefixOverrides=",">
+			<if test="salesCode != null and salesCode != ''.toString()">
+				,salesCode = #{salesCode}
+			</if>
+			<if test="receiptNum != null and receiptNum != ''.toString()">
+				,receiptNum = #{receiptNum}
+			</if>
+			<if test="salesCode != null and salesCode != ''.toString()">
+				,salesCode = #{salesCode}
+			</if>
+			<if test="salesTotalPrice != null and salesTotalPrice != ''.toString()">
+				,salesTotalPrice = #{salesTotalPrice}
+			</if>
+			<if test="ID != null and ID != ''.toString()">
+				,ID = #{ID}
+			</if>
+			<if test="regDate != null and regDate != ''.toString()">
+				,regDate = #{regDate}
+			</if>
+			<if test="canselCheck != null and canselCheck != ''.toString()">
+				,canselCheck = #{canselCheck}
+			</if>
+			<if test="casnselStaff != null and casnselStaff != ''.toString()">
+				,canselStaff = #{casnselStaff}
+			</if>
+			<if test="canselDate != null and canselDate != ''.toString()">
+				,canselDate = #{canselDate}
+			</if>
+		</trim>
+			WHERE 
+				salesCode=#{salesCode}
+	</update>
+	
+	<insert id="addsalesAction" parameterType="Sales">
+	INSERT INTO tb_sales(
+		receiptNum, 
+		salesTotalPrice, 
+		martCode, 
+		ID, 
+		regDate, 
+		canselCheck, 
+		canselStaff, 
+		canselDate
+	)VALUES (
+		#{receiptNum},
+		#{salesTotalPrice},
+		#{martCode},
+		#{ID},
+		NOW(),
+		#{canselCheck},
+		#{canselStaff},
+		NOW()
+		);	
+	</insert>
+
 </mapper>
