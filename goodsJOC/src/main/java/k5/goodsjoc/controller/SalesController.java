@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import k5.goodsjoc.dto.OrderDetail;
 import k5.goodsjoc.dto.Sales;
+import k5.goodsjoc.dto.SalesDetail;
 import k5.goodsjoc.service.SalesService;
 
 @Controller
@@ -27,14 +27,29 @@ public class SalesController {
 		this.salesService = salesService;
 	}
 	
-	@PostMapping("/salesDetialInfo")
+	//판매취소 정보
+	@PostMapping("/salesCanselInfo")
 	@ResponseBody
-	public List<OrderDetail> salesDetialInfo(){
+	public Sales salesCanselInfo(@RequestParam(value="salesCode", required=false) String salesCode){
+		System.out.println("페이지: 영수증 상세");
+		System.out.println("경로: trade_management/sales/salesInsert(POST방식 성공) ");
 		
+		Sales result = salesService.getSalesCanselInfo(salesCode);
 		
-		return null;
+		return result;
 	}
 	
+	//판매정보 상세(영수증)
+	@PostMapping("/salesDetailInfo")
+	@ResponseBody
+	public List<SalesDetail> salesDetailInfo(@RequestParam(value="salesCode", required=false) String salesCode){
+		System.out.println("페이지: 영수증 상세");
+		System.out.println("경로: trade_management/sales/salesInsert(POST방식 성공) ");
+		
+		List<SalesDetail> result = salesService.getSalesDetailList(salesCode);
+		
+		return result;
+	}
 	
 	//매출관리 > 매출등록 (정도혜)
 	@GetMapping("/salesInsert")

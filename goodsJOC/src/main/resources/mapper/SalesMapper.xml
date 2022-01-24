@@ -33,7 +33,7 @@
 		</association>
 	</resultMap>	
 		
-	<resultMap type="Sales" id="salesDetailResultMap">
+	<resultMap type="SalesDetail" id="salesDetailResultMap">
 		<id	column="salesDetailCode"		property="salesDetailCode"/>
 		<result column="barcode" 			property="barcode"/>
 		<result column="salesCode" 			property="salesCode"/>
@@ -53,6 +53,35 @@
 		</association>
 	</resultMap>		
 
+	<!-- 판매취소정보 데이터 -->	
+	<select id="getSalesCanselInfo" resultType="Sales" resultMap="salesResultMap">
+		SELECT 
+			u.name, s.canselCheck, s.canselDate
+		FROM 
+			tb_sales AS s
+			INNER join
+			tb_user AS u
+			ON
+			s.canselStaff = u.ID
+		WHERE
+			s.salesCode = #{salesCode}
+	</select>
+
+	<!-- 영수증상세 데이터 -->	
+	<select id="getSalesDetailList" resultType="SalesDetail" resultMap="salesDetailResultMap">
+		SELECT 
+			g.goodsName, g.salesPrice, g.taxType
+			, d.QTY, d.totalPrice, d.supplyPrice, d.VAT
+		FROM 
+			tb_salesDetail AS d
+			INNER join
+			tb_goods AS g
+			ON
+			d.barcode = g.barcode
+		WHERE
+			d.salesCode = #{salesCode}
+	</select>
+	
 	<!-- 월별 건수 및 금액 조회 -->
 	<select id="getSalesTotalInfo" resultType="Map">
 		SELECT 
@@ -64,11 +93,10 @@
 			martCode = #{martCode} AND MONTH(regDate) = MONTH(NOW()) AND canselCheck != '취소'
 	</select>
 	
-	
 	<!-- Sales 전체조회 (정도혜) -->
 	<select id="getSalesList" resultType="Sales" resultMap="salesResultMap">
 		SELECT 
-			s.salesCode, s.receiptNum, s.salesTotalPrice, s.regDate, s.canselCheck, s.casnselStaff, s.canselDate
+			s.salesCode, s.receiptNum, s.salesTotalPrice, s.regDate, s.canselCheck, s.canselStaff, s.canselDate
 			, s.martCode
 			, s.ID, u.name
 		FROM 
@@ -92,7 +120,7 @@
 			s.ID,
 			s.regDate,
 			s.canselCheck,
-			s.casnselStaff,
+			s.canselStaff,
 			s.canselDate,
 			date_format(s.regDate, '%Y-%m-%d') AS regDate
 		FROM 
@@ -166,7 +194,7 @@
 				,canselCheck = #{canselCheck}
 			</if>
 			<if test="casnselStaff != null and casnselStaff != ''.toString()">
-				,casnselStaff = #{casnselStaff}
+				,canselStaff = #{casnselStaff}
 			</if>
 			<if test="canselDate != null and canselDate != ''.toString()">
 				,canselDate = #{canselDate}
@@ -184,7 +212,7 @@
 		ID, 
 		regDate, 
 		canselCheck, 
-		casnselStaff, 
+		canselStaff, 
 		canselDate
 	)VALUES (
 		#{receiptNum},
@@ -193,7 +221,7 @@
 		#{ID},
 		NOW(),
 		#{canselCheck},
-		#{casnselStaff},
+		#{canselStaff},
 		NOW()
 		);	
 	</insert>
