@@ -1,6 +1,7 @@
 package k5.goodsjoc.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,7 +17,8 @@ public interface GoodsReturnMapper {
 	public List<GoodsReturn> getGoodsReturnList(String martCode);
 	//반품 검색
 	public List<GoodsReturn> getSearchGoodsReturnList(String martCode, String searchKey, String searchValue,  String startDt, String endDt);
-	
+	//월별 매출 및 건수
+	public List<Map<String, Object>> getReturnPriceTotalInfo(String martCode);
 
 	
 }
