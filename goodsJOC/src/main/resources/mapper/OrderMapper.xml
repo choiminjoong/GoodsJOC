@@ -100,10 +100,10 @@
 				AND #{maxPrice} >= o.totalOrderPrice
 			</if>
 			<if test="state != null and state != ''.toString() and state == 1">
-				AND o.deliveryDate > NOW()
+				AND o.state > NOW()
 			</if>
-			<if test="state != null and state != ''.toString() and state == 2">
-				AND NOW() > o.deliveryDate
+			<if test="searchState != null and state != ''.toString() and searchState == 1">
+				AND o.searchState > NOW()
 			</if>
 			<if test="orderNum != null and orderNum != ''.toString()">
 				AND o.orderNum = #{orderNum}

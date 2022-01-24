@@ -84,25 +84,20 @@
 							</div>
 							
 						</div>
-						<div class="form-group row" style="margin-bottom: -10px;">
-							
-							<label class="col-sm-1 col-form-label">주문번호</label>
-							<div class="col-sm-3">
-								<input type="number" name="orderNum" class="form-control text-center">
-							</div>
-							
-							<div class="col-sm-2"></div>
-							
+						<div class="form-group row">
+														
 							<div class="col-sm-2">
-								<button type="submit" class="btn btn-block bg-gradient-warning btn-lg"><b>검색</b></button>
+								<button type="submit" class="btn btn-block bg-gradient-warning btn-sm"><b>검색</b></button>
 							</div>
 							<div class="col-sm-1">
-								<a th:href="@{/product_management/goods/goodsList}" type="button" class="btn btn-block bg-gradient-warning btn-lg">
+								<a th:href="@{/trade_management/sales/salesList}" type="button" class="btn btn-block bg-gradient-warning btn-sm">
 									<i class="fas fa-redo-alt"></i>
 								</a>
 							</div>
 							<div class="col-sm-2">
-								<button type="button" class="btn btn-block bg-gradient-info btn-lg"><b>판매등록</b></button>
+								<a th:href="@{/trade_management/sales/salesInsert}" type="button" class="btn btn-block bg-gradient-info btn-sm">
+									<b>매출 등록</b>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -166,8 +161,7 @@
 									</button>
 								</td>
 								<td style="color: red;" th:text="${l.canselCheck}"></td>
-								<td th:text="${l.canselDate}"></td>
-							
+								<td th:text="${l.canselDate}"></td>						
 							</tr>
 						</tbody>
 					</table>
@@ -268,22 +262,60 @@
 											</table>
 										</div>
 									</div>
-								</div>
-								
+								</div>								
 							</div>
-									<!-- 저장 & 프린트 버튼  -->
-									<div class="no-print">
-											<button type="button" value="인쇄하기" id="print" class="btn-sm btn-info float-right" 
-													onclick="javascript:content_print();">
-												<i class="fas fa-download">ㅤPrint</i>
-											</button>
-									</div>
+							<!-- 저장 & 프린트 버튼  -->
+							<div class="no-print">
+								<button type="button" value="인쇄하기" id="print" class="btn-sm btn-info float-right" 
+										onclick="javascript:content_print();">
+									<i class="fas fa-download">ㅤPrint</i>
+								</button>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</form>
 	</div>
+	
+	<!-- 거래처 검색 모달  -->
+	<div class="modal fade" id="staffModal" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title"><b>직원 검색</b></h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+						<div class="row">
+							<div class="col-sm-12">
+								<table style="width:100%" id="staffTable" class="text-center table table-bordered table-hover dataTable dtr-inline"
+									role="grid" aria-describedby="example2_info">
+									<thead>
+										<tr style="width:540px;" role="row">
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+												권한</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending"aria-sort="ascending">
+												이름
+											</th>
+											<th tabindex="0" rowspan="1" colspan="1">
+													선택하기
+											</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>	
 </th:block>
 
 <th:block layout:fragment="customJs">
@@ -341,10 +373,51 @@
 					
 				});
 			});
+			//직원 조회 AJax
+			$(document).on('click', '#searchStaffBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#staffTable').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/system_management/user/searchStaffModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "level.levelName"},
+						{ data: "name"},
+						{ data: ""},
+					],
+					columnDefs: [
+						{
+							targets: [2],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn2 = '<button type="button" data-dismiss="modal" class="btn btn-info staffPickBtn" data-staffName="'+ row.name +'" data-staffId="'+ row.id +'">선택</button>';
+								return htmlbtn2;
+							}
+						}
+					]
+				});
+			});
 			
-			
-			
-			
+			//직원 선택
+			$(document).on('click', '.staffPickBtn', function(){
+				var staffNamePick = $(this).attr('data-staffName');
+				var staffIdPick = $(this).attr('data-staffId');
+				$('#staffNameInput').val(staffNamePick);
+				$('#staffIdInput').val(staffIdPick);
+			});
+
 		});
 	</script>
 </th:block>
