@@ -1,6 +1,7 @@
 package k5.goodsjoc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,6 +26,10 @@ public class GoodsReturnService {
 	public List<GoodsReturn> getSearchGoodsReturnList(String martCode, String searchKey, String searchValue, String startDt, String endDt){
 		return goodsReturnMapper.getSearchGoodsReturnList(martCode, searchKey, searchValue, startDt, endDt);
 	}
+	//월별 건수 및 금액 조회
+		public List<Map<String, Object>> getReturnPriceTotalInfo(String martCode){
+			return goodsReturnMapper.getReturnPriceTotalInfo(martCode);
+		}
 	
 	
 }
