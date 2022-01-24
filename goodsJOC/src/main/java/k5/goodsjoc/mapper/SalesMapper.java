@@ -32,6 +32,10 @@ public interface SalesMapper {
 	public List<SalesDetail> getSalesDetailList(String salesCode);
 	//판매취소정보 Ajax
 	public Sales getSalesCanselInfo(String salesCode);
+	//영수증 취소처리
+	public void receiptCanselAction(String id, String salesCode);
+	//매출 조건검색
+	public List<Sales> getSearchSalesList(Map<String, Object> paramMap);
 
 
 }

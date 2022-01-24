@@ -1,5 +1,6 @@
 package k5.goodsjoc.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +26,51 @@ public class SalesController {
 	private SalesService salesService;
 	public SalesController(SalesService salesService) {
 		this.salesService = salesService;
+	}
+	@PostMapping("/searchSalesList")
+	public String getSearchSalesList(@RequestParam(value="id", required=false) String id,
+									 @RequestParam(value="minPrice", required=false) String minPrice,
+									 @RequestParam(value="maxPrice", required=false) String maxPrice,
+									 @RequestParam(value="canselCheck", required=false) String canselCheck,
+									 @RequestParam(value="startDate", required=false) String startDate,
+									 @RequestParam(value="endDate", required=false) String endDate,
+									 @RequestParam(value="receiptNum", required=false) String receiptNum,
+									 HttpServletRequest request, Model model) {
+		//로그인 기준 마트코드
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		System.out.println("로그인한 유저기준 마트고유코드: " + sessionMartCode);
+		
+		//조회할 변수들을 담은 맵
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.put("martCode", sessionMartCode);
+			paramMap.put("id", id);
+			paramMap.put("minPrice", minPrice);
+			paramMap.put("maxPrice", maxPrice);
+			paramMap.put("canselCheck", canselCheck);
+			paramMap.put("startDate", startDate);
+			paramMap.put("endDate", endDate);
+			paramMap.put("receiptNum", receiptNum);
+		//금액정보
+		List<Map<String, Object>> salesTotalInfo = salesService.getSalesTotalInfo(sessionMartCode);
+		model.addAttribute("salesTotalInfo", salesTotalInfo);
+		
+		List<Sales> salesList = salesService.getSearchSalesList(paramMap);
+		model.addAttribute("salesList", salesList);
+			
+		return "trade_management/sales/salesList";
+	}
+	
+	@PostMapping("/receiptCanselAction")
+	public String receiptCanselAction(@RequestParam(value="salesCode", required=false) String salesCode, HttpServletRequest request) {
+		System.out.println("페이지: 영수증취소");
+		System.out.println("경로: trade_management/sales/receiptCanselAction(POST방식 성공) ");
+		HttpSession session = request.getSession();
+		String sessionId = (String) session.getAttribute("SID");
+		
+		salesService.receiptCanselAction(sessionId, salesCode);
+		
+		return "redirect:/trade_management/sales/salesList";
 	}
 	
 	//판매취소 정보
@@ -118,7 +164,6 @@ public class SalesController {
 			searchKey = "casnselStaff";
 		}
 		// 검색키 검색어를 통해서 회원목록 조회
-		
 		List<Sales> salesList = salesService.getSalesListBySearchKey(searchKey, searchValue, startDt, endDt);
 		
 		// 조회된 회원목록 model에 값을 저장
@@ -150,9 +195,4 @@ public class SalesController {
 		
 		return "redirect:/trade_management/sales/salesList";
 	}
-	
-	 
-		
-	}		
-	
-
+}		

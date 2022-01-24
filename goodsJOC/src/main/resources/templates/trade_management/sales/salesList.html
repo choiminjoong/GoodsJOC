@@ -24,7 +24,7 @@
 			</h3>
 		</div>
 		<div class="card-body table-responsive">
-			<form th:action="@{/trade_management/purchase/searchPurchaseList}" method="post">
+			<form th:action="@{/trade_management/sales/searchSalesList}" method="post">
 				<div class="tab-content row" id="custom-tabs-two-tabContent">
 					<div class="col-10">
 						<div class="form-group row">
@@ -63,7 +63,7 @@
 						<div class="form-group row">
 							<label class="col-sm-1 col-form-label">취소여부</label>
 							<div class="col-sm-3">
-								<select name="state" class="form-control text-center">
+								<select name="canselCheck" class="form-control text-center">
 									<option value="">전체보기</option>
 									<option value="1">정상판매</option>
 									<option value="2">판매취소</option>
@@ -86,9 +86,9 @@
 						</div>
 						<div class="form-group row" style="margin-bottom: -10px;">
 							
-							<label class="col-sm-1 col-form-label">주문번호</label>
+							<label class="col-sm-1 col-form-label">영수증 번호</label>
 							<div class="col-sm-3">
-								<input type="number" name="orderNum" class="form-control text-center">
+								<input type="number" name="receiptNum" class="form-control text-center">
 							</div>
 							
 							<div class="col-sm-2"></div>
@@ -97,7 +97,7 @@
 								<button type="submit" class="btn btn-block bg-gradient-warning btn-lg"><b>검색</b></button>
 							</div>
 							<div class="col-sm-1">
-								<a th:href="@{/product_management/goods/goodsList}" type="button" class="btn btn-block bg-gradient-warning btn-lg">
+								<a th:href="@{/trade_management/sales/salesList}" type="button" class="btn btn-block bg-gradient-warning btn-lg">
 									<i class="fas fa-redo-alt"></i>
 								</a>
 							</div>
@@ -287,8 +287,7 @@
 							</div>
 						</div>
 						<div class="card-footer">
-							<input type="text" id="canselCheckInput">
-							<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#del-modal">영수증 취소하기</button>
+							<button type="button" id="canselChange" class="btn btn-outline-danger" data-toggle="modal" data-target="#del-modal">영수증 취소하기</button>
 							<button type="button" class="btn btn-warning float-right" data-dismiss="modal" aria-label="Close">닫기</button>
 						</div>
 					</div>
@@ -305,7 +304,7 @@
 					<h4 class="modal-title">경고</h4>
 				</div>
 				<div class="modal-body">
-					<form id="deleteForm" th:action="@{/product_management/goods/goodsDeleteAction}" method="get">
+					<form th:action="@{/trade_management/sales/receiptCanselAction}" method="post">
 						<div style="height:100px;">
 							<div>
 								<span>영수증을 취소하면 다시 되돌릴 수 없습니다.</span>
@@ -326,14 +325,13 @@
 							</div>
 							<div class="col-2"></div>
 							<div class="col-3">
-								<form th:action="@{trade_management/sales/receiptCanselAction}" method="post">
+								
 									<div style="display:none;">
 										<input type="text" id="canselTargetSalesCode" name="salesCode">
 									</div>
-									<button type="submit" id="realDelete" class="btn btn-danger btn-block">
+									<button type="submit" id="canselBtn" class="btn btn-danger btn-block">
 										판매취소
 									</button>
-								</form>
 							</div>
 							<div class="col-2"></div>
 						</div>
@@ -343,6 +341,44 @@
 		</div>
 	</div>
 	
+	<!-- 직원 검색 모달  -->
+	<div class="modal fade" id="staffModal" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title">직원 검색</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+						<div class="row">
+							<div class="col-sm-12">
+								<table style="width:100%" id="staffTable" class="text-center table table-bordered table-hover dataTable dtr-inline"
+									role="grid" aria-describedby="example2_info">
+									<thead>
+										<tr style="width:540px;" role="row">
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+												권한</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending"aria-sort="ascending">
+												이름
+											</th>
+											<th tabindex="0" rowspan="1" colspan="1">
+													선택하기
+											</th>
+										</tr>
+									</thead>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	
 </th:block>
@@ -362,7 +398,11 @@
 				$('#salesDate').text(regDate);
 				$('#staffName').text(staff);
 				$('#canselTargetSalesCode').val(salesCode);
-				$('#canselCheckInput').val(canselCheck);
+				if(canselCheck == '취소'){
+					$('#canselChange').hide();
+				}else{
+					$('#canselChange').show();
+				}
 				//판매정보 가져오기
 				var request = $.ajax({
 					url: '/trade_management/sales/salesDetailInfo',
@@ -432,6 +472,50 @@
 			var nowMonth = now.getMonth()+1;
 			$('.nowMonth').text(nowMonth);
 			
+			//직원 조회 AJax
+			$(document).on('click', '#searchStaffBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#staffTable').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/system_management/user/searchStaffModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "level.levelName"},
+						{ data: "name"},
+						{ data: ""},
+					],
+					columnDefs: [
+						{
+							targets: [2],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn2 = '<button type="button" data-dismiss="modal" class="btn btn-info staffPickBtn" data-staffName="'+ row.name +'" data-staffId="'+ row.id +'">선택</button>';
+								return htmlbtn2;
+							}
+						}
+					]
+				});
+			});
+			
+			//직원 선택
+			$(document).on('click', '.staffPickBtn', function(){
+				var staffNamePick = $(this).attr('data-staffName');
+				var staffIdPick = $(this).attr('data-staffId');
+				$('#staffNameInput').val(staffNamePick);
+				$('#staffIdInput').val(staffIdPick);
+			});
 			
 		});
 	</script>
