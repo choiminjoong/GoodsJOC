@@ -100,7 +100,7 @@
 							</div>
 							<div class="col-sm-1">
 
-								<a th:href="@{/trade_management/sales/salesList}" type="button" class="btn btn-block bg-gradient-warning btn-lg">
+								<a th:href="@{/trade_management/sales/salesList}" type="button" class="btn btn-block bg-gradient-warning btn-sm">
 
 									<i class="fas fa-redo-alt"></i>
 								</a>
@@ -155,6 +155,7 @@
 								<th>판매금액</th>
 								<th>담당자</th>
 								<th>상세보기</th>
+								<th>취소</th>
 								<th>취소 여부</th>
 								<th>취소 일시</th>
 							</tr>
@@ -172,6 +173,11 @@
 											th:data-regDate="${l.regDate}" th:data-staff="${l.user.getName()}" th:data-canselCheck="${l.canselCheck}">
 											영수증
 									</button>
+								</td>
+								<td>
+									<a th:href="@{/trade_management/sales/salesList}">
+										<button type="button" id="salesBtn" class="btn btn-outline-danger btn-xs">취소</button>
+									</a>
 								</td>
 								<td style="color: red;" th:text="${l.canselCheck}"></td>
 								<td th:text="${l.canselDate}"></td>						
@@ -559,7 +565,14 @@
 				$('#staffNameInput').val(staffNamePick);
 				$('#staffIdInput').val(staffIdPick);
 			});
-
+		
+			//주문취소버튼 알림
+			$(function(){
+				$(document).on('click', '#salesBtn', function(){
+					alert('정말 취소하시겠습니까?');
+					$('#saleForm').submit();
+				});
+			});
 		});
 	</script>
 </th:block>

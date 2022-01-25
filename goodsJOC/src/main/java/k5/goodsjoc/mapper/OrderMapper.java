@@ -50,13 +50,17 @@ public interface OrderMapper {
 	
 	//주문총가격
 	public List<Map<String, Object>> totalOrderPrice(String martCode);
+	
 	//주문등록
 	public int orderInsertAction(Order order);
+	
 	//주문등록후 orderCode 넘겨주기
 	public String searchOrderCode(Order order);
+	
 	//주문상세등록
 	public int orderDetailInsertAction(OrderDetail orderDetail);
 
-
+	//주문번호 중복검사
+	public int orderCheckByorderNum(String order);
 
 }

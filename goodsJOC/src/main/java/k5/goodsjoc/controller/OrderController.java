@@ -152,5 +152,20 @@ public class OrderController {
 			
 			return goodsModal;
 		}	
-	
+		
+		// 주문번호 사용여부확인 Ajax (정도혜)
+		@PostMapping("/orderCheck")
+		@ResponseBody
+		public boolean orderCheck(@RequestParam(value="order", required=false) String order) {
+			System.out.println("주문번호 사용여부 확인 버튼Ajax");
+			System.out.println("등록폼에서 확인할 주문번호: " + order);
+			
+			boolean checkResult = false;
+			int check = orderService.orderCheckByorderNum(order);
+			if(check > 0) checkResult = true;
+			
+			return checkResult;
+		}
+		
+
 	}

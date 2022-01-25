@@ -159,7 +159,7 @@ public class UserController {
 		
 		return "system_management/user/loginForm";
 	}
-	
+	// 사원관리 조회화면
 	@GetMapping("/userList")
 	public String staffList(HttpServletRequest request, Model model) {
 		System.out.println("페이지: 사용자 목록 ");
@@ -223,7 +223,6 @@ public class UserController {
 
       List<User> userList = userService.getUserListBySearchKey(searchKey, searchValue, sessionMartCode);
 
-
       
       // 조회된 회원목록 model에 값을 저장
       model.addAttribute("title", "사원목록조회");
@@ -232,11 +231,11 @@ public class UserController {
       return "system_management/user/userList";
       }
    
-   //직원관리 > 직원정보 수정처리(정도혜)
-   @PostMapping("/userUpdateAction") 
-    public String userUpdateAction(User user) {
-       System.out.println("페이지: 개인정보수정처리");
-       System.out.println("경로: system_management/user/userUpdateAction(POST방식 성공) ");
+   	//직원관리 > 직원정보 수정처리(정도혜)
+   	   @PostMapping("/userUpdateAction") 
+   	   public String userUpdateAction(User user) {
+	   System.out.println("페이지: 개인정보수정처리");
+	   System.out.println("경로: system_management/user/userUpdateAction(POST방식 성공) ");
          
        userService.updateUserInfo(user);
        
