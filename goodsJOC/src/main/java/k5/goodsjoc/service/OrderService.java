@@ -98,7 +98,16 @@ public class OrderService {
 		
 		return result;
 	}
-
+	
+	//주문번호 중복검사
+	public int orderCheckByorderNum(String order) {
+		int result =0;
+		result += orderMapper.orderCheckByorderNum(order);
+		
+		return result;
+	}
+	
+	
 
 }
 

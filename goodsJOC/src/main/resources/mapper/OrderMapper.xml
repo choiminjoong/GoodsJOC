@@ -115,7 +115,7 @@
 	<select id="getPurchaseDetailList" resultType="OrderDetail" resultMap="OrderDetailMap">
 		SELECT
 			d.purchasePrice, d.QTY, d.totalPrice, d.supplyPrice, d.VAT
-			, g.goodsName, g.taxType, g.weight
+			,g.goodsName, g.taxType, g.weight
 		FROM
 			tb_orderDetail AS d
 			INNER JOIN
@@ -247,6 +247,7 @@
 			, #{totalOrderPrice}
 		)
 	</insert>
+	
 	<!-- 주문등록 후 orderCode 넘겨주기 -->
 	<select id="searchOrderCode" parameterType="Order" resultType="String">
 		SELECT 
@@ -257,6 +258,7 @@
 			businessCode = #{businessCode} AND orderNum = #{orderNum} AND deliveryDate = #{deliveryDate}
 			AND martCode = #{martCode} AND ID = #{id}
 	</select>
+	
 	<!-- 주문등록처리  -->
 	<insert id="orderDetailInsertAction" parameterType="OrderDetail">
 		INSERT INTO tb_orderDetail(
@@ -334,6 +336,17 @@
 			tb_order
 		WHERE
 			martCode = #{martCode}
+	</select>
+	
+	
+	<!-- 주문번호 중복검사 -->
+	<select id="orderCheckByorderNum" parameterType="String" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			tb_order
+		WHERE
+			orderNum = #{order};
 	</select>
 	
 	
