@@ -27,9 +27,16 @@ public class GoodsReturnService {
 		return goodsReturnMapper.getSearchGoodsReturnList(martCode, searchKey, searchValue, startDt, endDt);
 	}
 	//월별 건수 및 금액 조회
-		public List<Map<String, Object>> getReturnPriceTotalInfo(String martCode){
-			return goodsReturnMapper.getReturnPriceTotalInfo(martCode);
-		}
-	
+	public List<Map<String, Object>> getReturnPriceTotalInfo(String martCode){
+		return goodsReturnMapper.getReturnPriceTotalInfo(martCode);
+	}
+	//반품(상품) 모달
+	public List<Map<String, Object>> getGoodsReturnModal(String martCode) {
+		return goodsReturnMapper.getGoodsReturnModal(martCode);
+	}
+	//반품 등록
+	public int addreturnAction(GoodsReturn goodsReturn) {
+		return goodsReturnMapper.addreturnAction(goodsReturn);
+	}
 	
 }

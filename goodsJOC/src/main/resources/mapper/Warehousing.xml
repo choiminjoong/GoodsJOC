@@ -32,7 +32,7 @@
 		</association>
 	</resultMap>
 	
-
+	<!--입고 조회  -->
 	<select id="getWarehousingList" resultMap="WarehousingResultMap">
 	SELECT 
 		i.barcode,
@@ -62,6 +62,7 @@
 		i.ID = u.ID
 	</select>
 	
+	<!-- 입고 검색 -->
 	<select id="getWarehousingBySearchKey" resultType="Warehousing" resultMap="WarehousingResultMap">
 	SELECT 
 		i.warehousingQTY,

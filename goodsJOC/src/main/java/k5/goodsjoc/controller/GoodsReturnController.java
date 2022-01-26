@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import k5.goodsjoc.dto.GoodsReturn;
 import k5.goodsjoc.service.GoodsReturnService;
@@ -30,6 +31,28 @@ public class GoodsReturnController {
 		System.out.println("경로: stock_management/goodsReturn/returnInsert(GET방식 성공) ");
 		
 		return "stock_management/goodsReturn/returnInsert";
+	}
+	//재고이동 모달
+	@PostMapping("/goodsReturnModal")
+	@ResponseBody
+	public List<Map<String, Object>> GoodsReturnModal(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<Map<String, Object>> returnModal = goodsReturnService.getGoodsReturnModal(sessionMartCode);
+		
+		return returnModal;
+	}
+	
+	//반품등록후 반품리스트로 전환
+	@PostMapping("/returnInsertAction")
+	public String returnInsertAction(GoodsReturn goodsReturn) {
+		System.out.println("반품등록처리 POST방식:");
+		System.out.println("입력받은 데이터: " + goodsReturn);
+		goodsReturnService.addreturnAction(goodsReturn);
+			
+		return "redirect:/stock_management/goodsReturn/returnList";
 	}
 	
 	//반품 검색
@@ -66,7 +89,7 @@ public class GoodsReturnController {
 		
 		return "stock_management/goodsReturn/returnList";
 	}
-
+	//반품 조회
 	@GetMapping("/returnList")
 	public String returnList(HttpServletRequest request, Model model) {
 		System.out.println("페이지: 반품 조회 ");
