@@ -108,7 +108,7 @@
 			ID = #{id};
 	</select>
 	
-	<!-- 매장별 사용자 조건 검색 (정도혜) -->
+	<!--사용자 조건 검색 (정도혜) -->
 	<select id="getUserListBySearchKey" resultMap="userResultMap" resultType="User">		 
 		SELECT 
 			u.ID,
@@ -185,6 +185,7 @@
 			ID = #{userId};
 	</select>
 	
+	<!--직원 키워드검색 -->
 	<select id="getTotalUserSearchList" parameterType="Map" resultType="User" resultMap="userResultMap">
 		SELECT 
 			u.ID, u.PW, u.name, u.birthday, u.email, u.martCode, u.levelNum, u.regDate

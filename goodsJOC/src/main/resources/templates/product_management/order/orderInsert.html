@@ -33,12 +33,14 @@
 					<div class="table table-head-fixed text-nowrap">
 						<form th:action="@{/product_management/order/orderInsertAction}" method="post">
 							<div class="form-group">
-								<label for="exampleInputBorderWidth2">
-									<i class="fas fa-angle-double-right"></i>ㅤ주문번호
-								</label> 
-								<input type="number" name="orderNum" placeholder="관리 할 주문번호를 입력해주세요" class="form-control form-control-border border-warning">
-							</div>
-							
+								<label for="orderInput"></label>
+									<i class="fas fa-angle-double-right">ㅤ주문번호  /ㅤ</i>
+										<button type="button" id="orderCheckBtn" class="btn-sm bg-info disabled color-palette">
+											주문번호 중복확인
+										</button>												  
+								<input type="number" name="orderNum" id="orderInput" placeholder="관리 할 주문번호를 입력해주세요." class="form-control form-control-border border-warning">
+								<code>* 주문번호 중복확인 필수</code>
+							</div>							
 							<div class="form-group">
 								<label for="exampleInputBorderWidth2">
 									<i class="fas fa-angle-double-right"></i>ㅤ납기 요청일
@@ -53,7 +55,7 @@
 									</label>
 									<button type="button" id="searchGoodsBtn" class="btn-sm bg-info disabled color-palette"
 											data-toggle="modal" data-target="#modal-default2">
-										<b>상품 검색</b>
+										상품 검색
 									</button>
 									<input type="text" class="form-control form-control-border border-warning"
 										id="goodsNameInput" readonly="readonly">
@@ -193,7 +195,7 @@
 </th:block>
 
 <th:block layout:fragment="customJs">
-	<script>
+<script>
 	//상품리스트 조회 AJax
 	$(function(){
 	
@@ -276,8 +278,39 @@
 			$('#businessNameInput').val(businessNamePick);
 			$('#taxTypeInput').val(taxTypePick);
 		});
+		
+		<!-- 주문번호 중복검사  -->
+		//주문번호 사용여부 체크
+		$(document).on('click', '#orderCheckBtn', function(){
+			var orderCheck = $('#orderInput').val();
+			
+			if(typeof orderCheck != 'undefined' && orderCheck != null && orderCheck != ''){
+				var request = $.ajax({
+					url: '/product_management/order/orderCheck',
+					method: 'POST',
+					data: {'order' : orderCheck},
+					dataType: 'json'
+				});
+				request.done(function(data){
+					if(data){
+						alert("이미 사용하고 있는 주문번호입니다.");
+					}else{
+						alert("사용 가능합니다.");
+						$('#addBtn').prop('disabled', false);
+						checkCnt += 1;
+					}
+					
+				});
+				request.fail(function(jqXHR, textStatus){
+					alert("Request failed: " + textStatus)
+				});
+			}else{
+				alert("주문번호를 입력해주세요")
+				return false;
+			}
+		});
 
-	});						
-	</script>
+	});		
+</script>
 </th:block>
 </html>

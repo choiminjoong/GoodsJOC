@@ -1,6 +1,7 @@
 package k5.goodsjoc.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -75,6 +76,9 @@ public class GoodsReturnController {
 		
 		List<GoodsReturn> goodsReturnList = goodsReturnService.getGoodsReturnList(sessionMartCode);
 		model.addAttribute("goodsReturnList", goodsReturnList);
+		
+		List<Map<String, Object>> returnPriceTotalInfo = goodsReturnService.getReturnPriceTotalInfo(sessionMartCode);
+		model.addAttribute("returnPriceTotalInfo", returnPriceTotalInfo);
 		
 		return "stock_management/goodsReturn/returnList";
 	}

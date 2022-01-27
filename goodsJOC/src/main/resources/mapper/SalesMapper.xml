@@ -3,6 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.SalesMapper">
+
 	<!-- Sales ResultMap (정도혜) -->
 	<resultMap type="Sales" id="salesResultMap">
 		<id	column="salesCode" 				property="salesCode"/>

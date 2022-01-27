@@ -84,6 +84,7 @@
 							</div>
 							
 						</div>
+
 						<div class="form-group row" style="margin-bottom: -10px;">
 							
 							<label class="col-sm-1 col-form-label">영수증 번호</label>
@@ -93,16 +94,21 @@
 							
 							<div class="col-sm-2"></div>
 							
+
 							<div class="col-sm-2">
-								<button type="submit" class="btn btn-block bg-gradient-warning btn-lg"><b>검색</b></button>
+								<button type="submit" class="btn btn-block bg-gradient-warning btn-sm"><b>검색</b></button>
 							</div>
 							<div class="col-sm-1">
-								<a th:href="@{/trade_management/sales/salesList}" type="button" class="btn btn-block bg-gradient-warning btn-lg">
+
+								<a th:href="@{/trade_management/sales/salesList}" type="button" class="btn btn-block bg-gradient-warning btn-sm">
+
 									<i class="fas fa-redo-alt"></i>
 								</a>
 							</div>
 							<div class="col-sm-2">
-								<button type="button" class="btn btn-block bg-gradient-info btn-lg"><b>판매등록</b></button>
+								<a th:href="@{/trade_management/sales/salesInsert}" type="button" class="btn btn-block bg-gradient-info btn-sm">
+									<b>매출 등록</b>
+								</a>
 							</div>
 						</div>
 					</div>
@@ -149,6 +155,7 @@
 								<th>판매금액</th>
 								<th>담당자</th>
 								<th>상세보기</th>
+								<th>취소</th>
 								<th>취소 여부</th>
 								<th>취소 일시</th>
 							</tr>
@@ -167,9 +174,13 @@
 											영수증
 									</button>
 								</td>
+								<td>
+									<a th:href="@{/trade_management/sales/salesList}">
+										<button type="button" id="salesBtn" class="btn btn-outline-danger btn-xs">취소</button>
+									</a>
+								</td>
 								<td style="color: red;" th:text="${l.canselCheck}"></td>
-								<td th:text="${l.canselDate}"></td>
-							
+								<td th:text="${l.canselDate}"></td>						
 							</tr>
 						</tbody>
 					</table>
@@ -283,8 +294,11 @@
 											</tbody>
 										</table>
 									</div>
+
 								</div>
+
 							</div>
+
 						</div>
 						<div class="card-footer">
 							<button type="button" id="canselChange" class="btn btn-outline-danger" data-toggle="modal" data-target="#del-modal">영수증 취소하기</button>
@@ -380,7 +394,6 @@
 		</div>
 	</div>
 	
-	
 </th:block>
 
 <th:block layout:fragment="customJs">
@@ -466,6 +479,42 @@
 				});
 				
 			});
+			//직원 조회 AJax
+			$(document).on('click', '#searchStaffBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#staffTable').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/system_management/user/searchStaffModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "level.levelName"},
+						{ data: "name"},
+						{ data: ""},
+					],
+					columnDefs: [
+						{
+							targets: [2],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn2 = '<button type="button" data-dismiss="modal" class="btn btn-info staffPickBtn" data-staffName="'+ row.name +'" data-staffId="'+ row.id +'">선택</button>';
+								return htmlbtn2;
+							}
+						}
+					]
+				});
+			});
 			
 			//현재 월 표시하기
 			var now = new Date();
@@ -516,7 +565,14 @@
 				$('#staffNameInput').val(staffNamePick);
 				$('#staffIdInput').val(staffIdPick);
 			});
-			
+		
+			//주문취소버튼 알림
+			$(function(){
+				$(document).on('click', '#salesBtn', function(){
+					alert('정말 취소하시겠습니까?');
+					$('#saleForm').submit();
+				});
+			});
 		});
 	</script>
 </th:block>
