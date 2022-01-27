@@ -140,8 +140,7 @@ public class UserController {
 				}else if(userInfo.getLevelNum().equals("5")) {
 					session.setAttribute("SLEVELNAME", "비권한자");
 				}
-				//세션 시간 24시간
-				session.setMaxInactiveInterval(60*60*24);
+				
 				System.out.println("로그인 성공");
 				return "redirect:/main";	
 			}
