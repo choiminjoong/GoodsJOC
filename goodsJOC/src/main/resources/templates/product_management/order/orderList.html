@@ -40,7 +40,7 @@
 								<option value="state">상태</option>
 							</select>
 						</div>
-						<div class="input-group input-group-m" style="width: 515px;">
+						<div class="input-group input-group-m" style="width: 575px;">
 							<input type="text" name="searchValue" style="margin-left: 3%" class="form-control float-right" placeholder="검색어를 입력해주세요.">
 						</div>
 					</div>
@@ -73,7 +73,7 @@
 						<!-- 등록 검색  되돌리기 버튼  -->
 						<div class="col-sm-2">
 							<button type="submit" class="btn btn-block bg-gradient-warning btn-sm">
-								<b>검색</b>
+								<b>검 색</b>
 							</button>
 						</div>
 						<div class="col-sm-1">
@@ -101,8 +101,8 @@
 				</form>
 			</div>
 		</div>
-	</div>
-
+	</div>	
+	
 	<!-- 주문테이블 -->
 	<div class="col-md-13" style="margin-top: 1%">
 		<div class="card card-warning color-pallete">
@@ -121,7 +121,7 @@
 							<th>상태</th>
 							<th>매입일시</th>
 							<th>주문서상세내역</th>
-							<th>주문취소</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -139,15 +139,53 @@
 								</a>
 							</td>
 							<td>
-								<a th:href="@{/product_management/order/orderList}">
-									<button type="button" id="salesBtn" class="btn btn-outline-danger btn-xs">취소</button>
-								</a>
+								<button type="submit" id="bsdelectBtn" class="btn btn-outline-danger btn-sm" th:data-barcode="${l.businessCode}" data-toggle="modal" data-target="#del-modal">
+									<i class="fas fa-trash"></i>
+								</button>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 			</div>
 			<div class="card-footer"></div>
+		</div>
+	</div>
+
+	<!-- 삭제확인 모달  -->
+	<div class="modal fade" id="del-modal" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-danger">
+					<h4 class="modal-title">알림</h4>
+				</div>
+				<div class="modal-body">
+					<form id="deleteForm" th:action="@{/basic_management/business/businessDeleteAction}" method="get">
+						<div style="height:70px;">
+							<div>
+								<span>정말 삭제하시겠습니까?</span>
+							</div>
+						</div>
+						<div style="display:none">
+							<input type="text" id="sendBarcode" name="sendBarcode">
+						</div>
+						<div class="row">
+							<div class="col-2"></div>
+							<div class="col-3">
+								<button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">취소</span>
+								</button>
+							</div>
+							<div class="col-2"></div>
+							<div class="col-3">
+								<button type="button" id="realDelete" class="btn btn-danger btn-block">
+									삭제하기
+								</button>
+							</div>
+							<div class="col-2"></div>
+						</div>
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </th:block>
@@ -169,7 +207,7 @@
 	//주문취소버튼 알림
 	$(function(){
 		$(document).on('click', '#salesBtn', function(){
-			alert('정말 취소하시겠습니까?');
+			alert('정말 삭제하시겠습니까?');
 			$('#saleForm').submit();
 		});
 	});
