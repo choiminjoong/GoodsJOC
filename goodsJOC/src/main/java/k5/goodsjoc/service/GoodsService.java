@@ -35,6 +35,7 @@ public class GoodsService {
 		return goodsMapper.getSearchGoodsList(paramMap);
 	}
 
+	//카테고리 선택모달
 	public List<Map<String, Object>> goodsCateModal() {
 		return goodsMapper.goodsCateModal();
 	}
