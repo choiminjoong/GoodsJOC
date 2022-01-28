@@ -196,7 +196,7 @@ public class GoodsController {
 		return "product_management/goods/goodsPriceList";
 	}
 	
-	//상품정보 수정 페이지 (미완성)
+	//상품정보 수정 페이지
 	@GetMapping("/goodsUpdate")
 	public String goodsUpdate(@RequestParam(value="barcode", required= false) String barcode, Model model) {
 		System.out.println("barcode: " + barcode);
