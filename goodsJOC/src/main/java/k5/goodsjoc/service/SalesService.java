@@ -33,19 +33,11 @@ public class SalesService {
 		return salesMapper.getGoodsList(martCode);
 	}
 	
-	//매출등록화면
-	public int salesInsert(Sales sales) {
-		return salesMapper.salesInsert(sales);
-	}
 	//월별 건수 및 금액 조회
 	public List<Map<String, Object>> getSalesTotalInfo(String martCode){
 		return salesMapper.getSalesTotalInfo(martCode);
 	}
 	
-	//매출등록
-	public int addsalesAction(Sales sales) {
-		return salesMapper.addsalesAction(sales);
-	}
 	//매출상세 Ajax
 	public List<SalesDetail> getSalesDetailList(String salesCode) {
 		return salesMapper.getSalesDetailList(salesCode);
@@ -60,4 +52,35 @@ public class SalesService {
 	public List<Sales> getSearchSalesList(Map<String, Object> paramMap) {
 		return salesMapper.getSearchSalesList(paramMap);
 	}
+	
+	//1.최근 주문번호+1
+	public String getReceiptNumber(String sessionMartCode) {
+		return salesMapper.getReceiptNumber(sessionMartCode);
+	}
+	//2.매출등록 	
+	public int salesInsertAction(Sales sales) {
+		int result = 0;
+		result += salesMapper.salesInsertAction(sales);
+		
+		return result;
+	}
+	//3.등록할 판매코드 검색
+	public String getSalesCode(Sales sales) {
+		return salesMapper.getSalesCode(sales);
+	}
+	//4.매출상세등록
+	public int salesDetailInertAction(SalesDetail salesDetail) {
+		int result = 0;
+		result += salesMapper.salesDetailInertAction(salesDetail);
+		
+		return result;
+	}
+	//5.상품수량 업데이트
+	public int goodsShowcaseQTYUpdate(String barcode, String qty) {
+		int result = 0;
+		result += salesMapper.goodsShowcaseQTYUpdate(barcode, qty);
+		
+		return result;
+	}
+
 }

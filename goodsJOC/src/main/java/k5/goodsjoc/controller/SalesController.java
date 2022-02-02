@@ -106,18 +106,6 @@ public class SalesController {
 		return "trade_management/sales/salesInsert";
 	}
 	
-	@PostMapping("/salesInsert")
-	public String salesInsert(Sales sales) {
-		System.out.println("페이지: 매출등록");
-		System.out.println("경로: trade_management/sales/salesInsert(POST방식 성공) ");
-		System.out.println("화면에서 받은 매출 정보: " + sales);
-		
-		salesService.salesInsert(sales);
-		
-		return "redirect:/trade_management/sales/salesList";
-		
-	}
-	
 	//매출관리 > 매출전체조회 (정도혜)
 	@GetMapping("/salesList")
 	public String salesList(HttpServletRequest request, Model model) {
@@ -134,14 +122,7 @@ public class SalesController {
 		
 		return "trade_management/sales/salesList";
 	}
-	
-	@GetMapping("/purchaseList1")
-	public String purchaseList1() {
-		System.out.println("페이지: 매출 조회");
-		System.out.println("경로: trade_management/sales/purchaseList1(GET방식 성공) ");
-		
-		return "trade_management/sales/purchaseList1";
-	}
+
 	
 	//매출관리 > 조건검색 (정도혜)
 	@PostMapping("/salesList")
@@ -170,7 +151,7 @@ public class SalesController {
 		model.addAttribute("title", "거래처목록조회");
 		model.addAttribute("salesList", salesList);
 		
-		return "product_management/order/orderList";
+		return "trade_management/sales/salesList";
 	}
 	
 	//상품선택 모달 Ajax (정도혜)
@@ -186,13 +167,52 @@ public class SalesController {
 		return goodsModal;
 	}	
 	
-	//매출등록후 매출리스트로 전환
+	//매출등록 + 매출상세등록 + 상품재고수정
 	@PostMapping("/salesInsertAction")
-	public String salesInsertAction(Sales sales) {
+	public String salesInsertAction(HttpServletRequest request, Sales sales, SalesDetail salesDetail) {
 		System.out.println("매출등록처리 POST방식:");
 		System.out.println("입력받은 데이터: " + sales);
-		salesService.addsalesAction(sales);
+		System.out.println("입력받은 데이터: " + salesDetail);
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		String sessionId = (String) session.getAttribute("SID");
 		
-		return "redirect:/trade_management/sales/salesList";
+		sales.setMartCode(sessionMartCode);
+		sales.setId(sessionId);
+		sales.setSalesTotalPrice(salesDetail.getTotalPrice());
+		
+		//주문번호 자동등록
+		String receiptNumber = salesService.getReceiptNumber(sessionMartCode);
+		sales.setReceiptNum(receiptNumber);
+		
+		//매출등록
+		int salesInsertResult = salesService.salesInsertAction(sales);
+		
+		//매출등록 완료시 매출상세등록
+		if(salesInsertResult > 0) {
+			String salesCode = salesService.getSalesCode(sales);
+			salesDetail.setSalesCode(salesCode);
+			
+			int detailResult = salesService.salesDetailInertAction(salesDetail);
+			//매출상세 등록 완료시 상품수량 업데이트
+			if(detailResult > 0) {
+				String barcode = salesDetail.getBarcode();
+				String qty = salesDetail.getQty();
+				
+				int qtyUpdateResult = salesService.goodsShowcaseQTYUpdate(barcode, qty);
+				if(qtyUpdateResult > 0) {
+					System.out.println("상품수량 업데이트 완료");
+					return "redirect:/trade_management/sales/salesList";
+				}else {
+					System.out.println("상품수량 수정시 에러페이지");
+					return "system_management/error/error500";
+				}
+			}else {
+				System.out.println("상품상세등록 에러페이지");
+				return "system_management/error/error500";
+			}
+		}
+		System.out.println("매출상세등록 실패시 에러페이지");
+		return "system_management/error/error500";
 	}
 }		
