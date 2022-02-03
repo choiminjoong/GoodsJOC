@@ -18,7 +18,7 @@ public class WarehousingService {
 		this.warehousingMapper = warehousingMapper;
 	}
 	
-	
+	//입고 등록
 	public int warehousingInsert(Warehousing warehousing) {
 		return warehousingMapper.warehousingInsert(warehousing);
 	}

@@ -96,6 +96,25 @@
 			martCode = #{martCode} AND MONTH(regDate) = MONTH(NOW())
 	</select>
 	
+	<!-- 재고이동 선택용 모달(오대성) -->
+	<select id="getGoodsReturnModal" parameterType="String" resultType="Map">
+		SELECT 
+			g.barcode AS barcode,
+			(g.goodsTotalStock - g.uncheckedQTY) AS returnQTY,
+			g.uncheckedQTY AS uncheckedQTY,
+			b.businessName AS businessName,
+			g.purchasePrice AS purchasePrice,
+			g.businessCode AS businessCode
+		FROM 
+			tb_goods AS g
+			INNER JOIN 
+			tb_business AS b
+			ON 
+			g.businessCode = b.businessCode
+		WHERE 
+			g.martCode = #{martCode}			
+	</select>
+	
 	
 	
 	
