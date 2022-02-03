@@ -86,17 +86,17 @@
 								<b>주문 등록</b>
 							</a>
 						</div>
-						<div class="col-2" align="center" style="margin-bottom: -5px; margin-top: -90px; margin-left: 120px">					
+						<!-- <div class="col-2" align="center" style="margin-bottom: -5px; margin-top: -90px; margin-left: 120px">					
 							<div class="info-box mb-3 bg-info">
 								<span class="info-box-icon bg-teal disabled color-palette elevation-1">
 									<i class="fas fa-shopping-cart"></i>
 								</span>
 								<div class="info-box-content">
-									<span class="info-box-text"> <b class="nowMonth"></b> 월 주문 건수</span> 
+									<span class="info-box-text"> <b class="nowMonth"></b>  월 주문 건수</span> 
 									<span class="info-box-number"> <b>3</b> 건</span>
 								</div>
 							</div>						
-						</div>
+						</div> -->
 					</div>
 				</form>
 			</div>
@@ -111,7 +111,7 @@
 			</div>
 			<!-- /.card-header -->
 			<div class="card-body table-responsive p-0">
-				<table class="table table-head-fixed text-nowrap text-center">
+				<table class="table table-head-fixed text-nowrap text-center" th:action="@{/product_management/order/orderDelete}">
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -125,9 +125,8 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:if="${not #lists.isEmpty(orderList)}"
-							th:each="l, i: ${orderList}">
-							<td th:text="${l.orderCode}"></td>
+						<tr th:if="${not #lists.isEmpty(orderList)}" th:each="l, i: ${orderList}">
+							<td class="codePick" th:text="${l.orderCode}"></td>
 							<td th:text="${l.business.getBusinessName()}"></td>
 							<td th:text="${l.orderNum}"></td>
 							<td th:text="${l.deliveryDate}"></td>
@@ -139,7 +138,9 @@
 								</a>
 							</td>
 							<td>
-								<button type="submit" id="bsdelectBtn" class="btn btn-outline-danger btn-sm" th:data-barcode="${l.businessCode}" data-toggle="modal" data-target="#del-modal">
+								<!-- 삭제버튼  -->
+								<button type="button" id="orderDeleteBtn" class="btn btn-outline-danger btn-sm" 
+									th:data-orderCode="${l.orderCode}" data-toggle="modal" data-target="#del-modal">
 									<i class="fas fa-trash"></i>
 								</button>
 							</td>
@@ -150,8 +151,8 @@
 			<div class="card-footer"></div>
 		</div>
 	</div>
-
-	<!-- 삭제확인 모달  -->
+	
+	<!-- 주문삭제 확인 모달  -->
 	<div class="modal fade" id="del-modal" style="display: none;" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content" >
@@ -159,14 +160,14 @@
 					<h4 class="modal-title">알림</h4>
 				</div>
 				<div class="modal-body">
-					<form id="deleteForm" th:action="@{/basic_management/business/businessDeleteAction}" method="get">
-						<div style="height:70px;">
+					<form id="deleteForm" th:action="@{/product_management/order/orderDeleteAction}" method="get">
+						<div style="height:60px;">
 							<div>
-								<span>정말 삭제하시겠습니까?</span>
+								<span>삭제하시겠습니까?</span>
 							</div>
 						</div>
 						<div style="display:none">
-							<input type="text" id="sendBarcode" name="sendBarcode">
+							<input type="text" id="sendOrderCode" name="sendOrderCode">
 						</div>
 						<div class="row">
 							<div class="col-2"></div>
@@ -189,6 +190,7 @@
 		</div>
 	</div>
 </th:block>
+
 <th:block layout:fragment="customJs">
 	<script type="text/javascript">
 		$(function(){
@@ -201,16 +203,20 @@
 				}else{
 					$(stateGroup[i]).css('color','green');
 				}
-			}
+			}	
+			
+		//삭제버튼 클릭시 모달에 orderCode 보내기
+		$(document).on('click', '#orderDeleteBtn', function(){
+			var codePick = $(this).parent().parent().parent().children('.codePick').text();
+			$('#sendOrderCode').val(codePick);
 		});
 		
-	//주문취소버튼 알림
-	$(function(){
-		$(document).on('click', '#salesBtn', function(){
-			alert('정말 삭제하시겠습니까?');
-			$('#saleForm').submit();
-		});
-	});
+		//삭제하기
+		$(document).on('click', '#realDelete', function(){
+			alert('삭제되었습니다.');
+			$('#deleteForm').submit();
+		});		
+	});		
 	</script>
 </th:block>
 </html>

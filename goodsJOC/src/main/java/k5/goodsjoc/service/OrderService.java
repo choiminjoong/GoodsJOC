@@ -74,11 +74,6 @@ public class OrderService {
 	public List<Map<String, Object>> purchaseDatePrice(String martCode) {
 		return orderMapper.purchaseDatePrice(martCode);
 	}
-
-	//주문 총 가격
-	public List<Map<String, Object>> totalOrderPrice(String martCode) {
-		return orderMapper.totalOrderPrice(martCode);
-	}
 	
 	public List<Order> searchPurchaseList(Map<String, Object> paramMap) {
 		return orderMapper.searchPurchaseList(paramMap);
@@ -87,10 +82,12 @@ public class OrderService {
 	public int orderInsertAction(Order order) {
 		return orderMapper.orderInsertAction(order);
 	}
+	
 	//주문등록 후 주문코드 넘기기
 	public String searchOrderCode(Order order) {
 		return orderMapper.searchOrderCode(order);
 	}
+	
 	//주문상세등록
 	public int orderInsertAction(OrderDetail orderDetail) {
 		int result = 0;
@@ -107,8 +104,11 @@ public class OrderService {
 		return result;
 	}
 	
-	
-
+	//주문삭제
+	public int orderDeleteAction(String orderCode) {
+		return orderMapper.orderDeleteAction(orderCode);
+		
+	}
 }
 
 

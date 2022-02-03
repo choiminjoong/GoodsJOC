@@ -1,7 +1,6 @@
 package k5.goodsjoc.service;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,8 +26,7 @@ public class BusinessService {
 	public Business getBusinessInfoByCode(String businessCode) {		
 		return businessMapper.getBusinessInfoByCode(businessCode);
 	}
-	
-	
+		
 	// 거래처 조건 검색
 	public List<Business> getBusinessListBySearchKey(String searchKey, String searchValue, String startDt, String endDt) {
 		return businessMapper.getBusinessListBySearchKey(searchKey, searchValue, startDt, endDt);
@@ -44,4 +42,9 @@ public class BusinessService {
 		return businessMapper.businessInsert(business);
 	}
 	
+	//거래처 삭제
+	public int businessDeleteAction(String businessCode) {
+		return businessMapper.businessDeleteAction(businessCode);
+	}
+
 }

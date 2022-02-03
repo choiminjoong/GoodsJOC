@@ -106,7 +106,7 @@
 			martCode = #{martCode} AND MONTH(regDate) = MONTH(NOW()) AND canselCheck != '취소'
 	</select>
 	
-	<!-- Sales 전체조회 (정도혜) -->
+	<!-- 매출 전체조회 (정도혜) -->
 	<select id="getSalesList" resultType="Sales" resultMap="salesResultMap">
 		SELECT 
 			s.salesCode, s.receiptNum, s.salesTotalPrice, s.regDate, s.canselCheck, s.canselStaff, s.canselDate
@@ -124,7 +124,7 @@
 			s.regDate DESC
 	</select>
 
-	<!-- 판매 조건검색(최민중 -->
+	<!-- 판매 조건검색(최민중) -->
 	<select id="getSearchSalesList" resultType="Sales" resultMap="salesResultMap">
 		SELECT 
 			s.salesCode, s.receiptNum, s.salesTotalPrice, s.regDate, s.canselCheck, s.canselStaff, s.canselDate

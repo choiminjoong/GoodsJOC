@@ -136,6 +136,12 @@ public class BusinessController {
       return "redirect:/basic_management/business/businessList";
    }   
    
-  
-   
+   //거래처 삭제처리
+   @GetMapping("/businessDeleteAction")
+   public String businessDeleteAction(@RequestParam(value="sendBusinessCode", required= false) String businessCode) {
+	   businessService.businessDeleteAction(businessCode);
+	   System.out.println("거래처 삭제처리 GET방식");
+	   
+	   return "redirect:/basic_management/business/businessList"; 
+   }
 }

@@ -46,7 +46,7 @@
 	FROM 
 		tb_business
 	WHERE 
-		businessCode  = #{businessCode}
+		businessCode =#{businessCode}
 	</select>
 	
 	<!-- 거래처 정보수정(정도혜) -->
@@ -171,10 +171,10 @@
 
 	<!-- 거래처 삭제(정도혜) -->	
 	<delete id="businessDeleteAction">
-		DELETE FROM
-			tb_business
-		WHERE
-			businessCode=#{businessList};
+	DELETE FROM 
+		tb_business 
+	WHERE 
+		businessCode=#{businessCode}
 	</delete>
 	
 </mapper>

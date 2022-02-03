@@ -33,42 +33,40 @@
 						<div class="form-group row">
 							<label for="Name" class="col-sm-3 col-form-label"><code>*</code> 거래처명</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="businessName" id="businessName"
-									th:value="${l.businessName}">
+								<input type="text" class="form-control" name="businessName" id="businessName" th:value="${l.businessName}">
 							</div>
 						</div>
 	
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label"><code>*</code> 대표자명</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="partnerName" id="partnerName"
-									th:value="${l.partnerName}">
+								<input type="text" class="form-control" name="partnerName" id="partnerName" th:value="${l.partnerName}">
 							</div>
 						</div>
 	
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label"><code>*</code> 대표자번호</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="partnerPhone" id="partnerPhone"
-									th:value="${l.partnerPhone}" readonly="readonly">
+								<input type="text" class="form-control" name="partnerPhone" id="partnerPhone" th:value="${l.partnerPhone}">
 							</div>
 						</div>
 		
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label"><code>*</code> 사업장등록번호</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="registerNum" id="registerNum"
-								th:value="${l.registerNum}">
+								<input type="text" class="form-control" name="registerNum" id="registerNum" th:value="${l.registerNum}">
 							</div>
 						</div>
 	
-						<div class="form-group row">
-							<label class="col-sm-3 col-form-label"><code>*</code> 구분</label>
-							<div class="col-sm-9">
-								<input type="text" class="form-control" name="businessType" id="businessType"
-								th:value="${l.businessType}">
-							</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label"> 구분</label>
+						<div class="col-sm-9">
+							<select name="businessType" class="form-control" id="businessType">
+								<option>개인</option>
+								<option>기업</option>						
+							</select>
 						</div>
+					</div>
 	
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">업종</label>
@@ -81,8 +79,7 @@
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">업태</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="status" id="status"
-									th:value="${l.status}">
+								<input type="text" class="form-control" name="status" id="status" th:value="${l.status}">
 							</div>
 						</div>
 	
@@ -90,78 +87,86 @@
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">전화번호</label>
 							<div class="col-sm-9">
-								<input type="tel" class="form-control" name="callNum" id="callNum"
-									th:value="${l.callNum}">
+								<input type="tel" class="form-control" name="callNum" id="callNum" th:value="${l.callNum}">
 							</div>
 						</div>
 	
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">상세주소</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="address" id="address"
-								th:value="${l.address}">
+								<input type="text" class="form-control" name="address" id="address" th:value="${l.address}">
 							</div>
 						</div>
 	
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">FAX</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="fax" id="fax"
-								th:value="${l.fax}">
+								<input type="text" class="form-control" name="fax" id="fax" th:value="${l.fax}">
 							</div>	
 						</div>
 			
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label"><code>*</code> 담당자 이름</label>
+							<label class="col-sm-3 col-form-label"> 담당자 이름</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="businessStaff" id="businessStaff"
-									th:value="${l.businessStaff}">
+								<input type="text" class="form-control" name="businessStaff" id="businessStaff" th:value="${l.businessStaff}">
 							</div>
 						</div>
 	
 						<div class="form-group row">
-							<label class="col-sm-3 col-form-label"><code>*</code> 담당자 연락처</label>
+							<label class="col-sm-3 col-form-label"> 담당자 연락처</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" name="businessStaffPhone" id="businessStaffPhone"
-									th:value="${l.businessStaffPhone}">
+								<input type="text" class="form-control" name="businessStaffPhone" id="businessStaffPhone" th:value="${l.businessStaffPhone}">
 							</div>
 						</div>
 					
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">담당자 이메일</label>
 							<div class="col-sm-9">
-								<input type="email" class="form-control" name="businessStaffEmail" id="businessStaffEmail"
-									th:value="${l.businessStaffEmail}">
+								<input type="email" class="form-control" name="businessStaffEmail" id="businessStaffEmail" th:value="${l.businessStaffEmail}">
 							</div>
 						</div>
 	
 						<div class="form-group row">
 							<label class="col-sm-3 col-form-label">비고</label>
 							<div class="col-sm-9">
-								<input type="email" class="form-control" name="note" id="note"
-									th:value="${l.note}">
+								<input type="email" class="form-control" name="note" id="note" th:value="${l.note}">
 							</div>
 						</div>
 							<div style="display: none">
-							<input type="text" class="form-control" name="businessCode" id="businessCode"
-									th:value="${l.businessCode}">
-						</div>
+								<input type="text" class="form-control" name="businessCode" id="businessCode" th:value="${l.businessCode}">
+							</div>
 					</div>
 					<!-- 수정버튼  -->
 					<button type="submit" id="bsupdateBtn" class="btn btn-m bg-warning  color-palette btn-block">
-					<b>수정 완료</b></button>
+						<b>수정 완료</b>
+					</button>
 				</form>
 			</div>
 		</div>
 	</div>
 	<th:block layout:fragment="customJs">
-		<script>
+		<script>	
 			$(function(){
+				//거래처 수정 빈칸체크
 				$(document).on('click', '#bsupdateBtn', function(){
-					alert('수정이 완료되었습니다.');
-					$('#updateForm').submit();
+					if($('#businessName').val() == ''){
+						alert('거래처명을 입력해주세요.');
+						return false;
+					}else if($('#partnerName').val() == '' || $('#partnerName').val() == undefined){
+						alert('대표자명을 입력해주세요.');
+						return false;
+					}else if($('#partnerPhone').val() == '' || $('#partnerPhone').val() == undefined){
+						alert('대표자 번호를 입력해주세요.');
+						return false;
+					}else if($('#registerNum').val() == '' || $('#registerNum').val() == undefined){
+						alert('사업자등록번호를 입력해주세요.');
+						return false;
+					}else{
+						alert('수정이 완료되었습니다.');
+						$('#updateForm').submit();
+					}
 				});
-			});
+			});		
 		</script>
 	</th:block>
 </th:block>

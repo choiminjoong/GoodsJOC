@@ -23,6 +23,11 @@ public interface BusinessMapper {
 	
 	//거래처 등록
 	public int businessInsert(Business business);
+	
+	//거래처삭제
+	public int businessDeleteAction(String businessCode);
+	
+
 
 	
 }

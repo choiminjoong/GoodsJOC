@@ -28,10 +28,13 @@ public interface SalesMapper {
 
 	//매출등록
 	public int addsalesAction(Sales sales);
+	
 	//매출상세 조회 Ajax
 	public List<SalesDetail> getSalesDetailList(String salesCode);
+	
 	//판매취소정보 Ajax
 	public Sales getSalesCanselInfo(String salesCode);
+	
 	//영수증 취소처리
 	public void receiptCanselAction(String id, String salesCode);
 	//매출 조건검색
