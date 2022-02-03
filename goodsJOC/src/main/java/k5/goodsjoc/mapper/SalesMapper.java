@@ -23,9 +23,6 @@ public interface SalesMapper {
 	//월별 매출 및 건수
 	public List<Map<String, Object>> getSalesTotalInfo(String martCode);
 
-	//매출등록
-	public int addsalesAction(Sales sales);
-
 	//매출상세 조회 Ajax
 	public List<SalesDetail> getSalesDetailList(String salesCode);
 	
