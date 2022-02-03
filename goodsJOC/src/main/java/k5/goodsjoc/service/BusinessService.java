@@ -40,6 +40,7 @@ public class BusinessService {
 
 	//05.거래처 정보 수정처리
 	public int updateBusinessInfo(Business business) {
+
 		return businessMapper.updateBusinessInfo(business);
 	}
 	
