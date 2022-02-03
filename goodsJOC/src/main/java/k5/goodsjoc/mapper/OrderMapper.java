@@ -66,5 +66,18 @@ public interface OrderMapper {
 	//주문삭제
 	public int orderDeleteAction(String orderCode);
 
+	//1.주문승인
+	public int orderChangePurchase(String orderCode);
+	//2.주문반려
+	public void orderFail(String orderCode);
+	//3.주문승인시 물품 수량 및 바코드
+	public List<OrderDetail> getOrderQTYList(String orderCode);
+	//4.주문승인시 상품정보 업데이트
+	public int goodsUncheckedQTYUpdate(List<OrderDetail> qtyList);
+	//5.주문상세삭제
+	public int deleteOrderDetail(String orderCode);
+	//6.주문삭제
+	public int deleteOrder(String orderCode);
+
 
 }
