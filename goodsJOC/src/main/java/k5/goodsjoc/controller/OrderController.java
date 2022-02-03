@@ -171,4 +171,60 @@ public class OrderController {
 			
 			return "redirect:/product_management/order/orderList";
 		}
+		
+		//주문 승인
+		@GetMapping("/orderChangePurchase")
+		public String orderChangePurchase(@RequestParam(value="orderCode", required = false) String orderCode) {
+			int orderChangeResult = orderService.orderChangePurchase(orderCode);
+			
+			if(orderChangeResult > 0) {
+				List<OrderDetail> qtyList = orderService.getOrderQTYList(orderCode);
+				if(qtyList != null) {
+					int goodsUpdateResult = orderService.goodsUncheckedQTYUpdate(qtyList);
+					
+					if(goodsUpdateResult > 0) {
+						System.out.println("상품수량정보 업데이트 완료");
+						return "redirect:/product_management/order/orderList";
+					}else {
+						System.out.println("상품수량 업데이트 실패");
+						return "system_management/error/error500";
+					}
+				}else {
+					System.out.println("주문상세데이터 조회 실패");
+					return "system_management/error/error500";
+				}
+			}else {
+				System.out.println("주문승인 실패");
+				return "system_management/error/error500";
+			}
+		}
+		//주문 반려
+		@GetMapping("/orderFail")
+		public String orderFail(@RequestParam(value="orderCode", required = false) String orderCode) {
+			orderService.orderFail(orderCode);
+			
+			return "redirect:/product_management/order/orderList";
+		}
+		//주문 취소
+		@GetMapping("/orderCansel")
+		public String orderCansel(@RequestParam(value="orderCode", required = false) String orderCode) {
+			int detailCanselResult = orderService.deleteOrderDetail(orderCode);
+			
+			if(detailCanselResult > 0) {
+				int orderCanselResult = orderService.deleteOrder(orderCode);
+				if(orderCanselResult > 0) {
+					return "redirect:/product_management/order/orderList";
+				}else {
+					System.out.println("주문취소 실패");
+					return "system_management/error/error500";
+				}
+			}else {
+				System.out.println("주문상세취소 실패");
+				return "system_management/error/error500";
+			}
+		}
+		
+		
+		
+		
 	}

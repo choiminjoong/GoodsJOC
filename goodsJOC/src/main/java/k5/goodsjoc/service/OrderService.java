@@ -109,6 +109,45 @@ public class OrderService {
 		return orderMapper.orderDeleteAction(orderCode);
 		
 	}
+
+	//1.주문승인
+	public int orderChangePurchase(String orderCode) {
+		int result = 0;
+		result += orderMapper.orderChangePurchase(orderCode);
+	
+		return result;
+	}
+	//2.주문반려
+	public void orderFail(String orderCode) {
+		orderMapper.orderFail(orderCode);
+		
+	}
+	//3.주문승인시 물품 수량 및 바코드
+	public List<OrderDetail> getOrderQTYList(String orderCode) {
+		return orderMapper.getOrderQTYList(orderCode);
+	}
+	//4.주문승인시 상품정보 업데이트
+	public int goodsUncheckedQTYUpdate(List<OrderDetail> qtyList) {
+		int result = 0;
+		result += orderMapper.goodsUncheckedQTYUpdate(qtyList);
+
+		return result;
+	}
+	//5.주문상세삭제
+	public int deleteOrderDetail(String orderCode) {
+		int result = 0;
+		result += orderMapper.deleteOrderDetail(orderCode);
+
+		return result;
+	}
+	//6.주문삭제
+	public int deleteOrder(String orderCode) {
+		int result = 0;
+		result += orderMapper.deleteOrder(orderCode);
+		
+		return result;
+	}
+
 }
 
 
