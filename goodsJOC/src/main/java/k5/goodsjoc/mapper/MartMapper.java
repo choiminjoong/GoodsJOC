@@ -9,19 +9,26 @@ import k5.goodsjoc.dto.Mart;
 
 @Mapper
 public interface MartMapper {
-
-	//자신의 마트정보 보기 조회(martInfo)
+/**
+	01.본인매장 정보조회	02.본인매장 정보수정처리	03.매장 고유코드 사용여부 체크(개발사 입장)	04.매장 등록처리(개발사 입장)
+	05.매장 전체조회(개발사 입장)	06.매장 조건조회(개발사 입장)
+**/
+	//01.본인매장 정보조회
 	public Mart getMartInfoByMartCode(String martCode);
 	
-	//자신의 마트정보 수정하기(martUpdate)
+	//02.본인매장 정보수정처리
 	public int updateMartInfo(Mart mart);
 
-	//마트코드 사용유무 체크
+	//03.매장 고유코드 사용여부 체크(개발사 입장)
 	public int martCodeCheck(String martCode);
-	//마트 등록
+	
+	//04.매장 등록처리(개발사 입장)
 	public int martInsertAction(Mart mart);
-	//마트리스트
+
+	//05.매장 전체조회(개발사 입장)
 	public List<Mart> getMartList();
-	//매장 조건검색
+
+	//06.매장 조건조회(개발사 입장)
 	public List<Mart> getMartSearchList(Map<String, Object> paramMap);
+	
 }

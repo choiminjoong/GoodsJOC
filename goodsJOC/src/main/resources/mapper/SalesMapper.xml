@@ -54,6 +54,75 @@
 		</association>
 	</resultMap>		
 
+	<!-- 1.주문번호 자동등록 -->
+	<select id="getReceiptNumber" resultType="String">
+		SELECT 
+			MAX(receiptNum) + 1 AS receiptNumber
+		FROM 
+			tb_sales
+		WHERE
+			martCode = #{martCode}
+	</select>
+	
+	<!-- 2.매출등록 -->
+	<insert id="salesInsertAction" parameterType="sales">
+		INSERT INTO tb_sales(
+			receiptNum
+			, salesTotalPrice
+			, martCode
+			, ID
+			, regDate
+		)VALUES (
+			#{receiptNum}
+			, #{salesTotalPrice}
+			, #{martCode}
+			, #{id}
+			, NOW()
+		)
+	</insert>
+
+	<!-- 3.등록할 판매코드 검색 -->
+	<select id="getSalesCode" parameterType="Sales" resultType="String">
+		SELECT 
+			salesCode
+		FROM 
+			tb_sales
+		WHERE
+			receiptNum = #{receiptNum} 
+			AND salesTotalPrice = #{salesTotalPrice}
+			AND martCode = #{martCode}
+			AND ID = #{id}
+	</select>
+
+	<!-- 4.매출상세등록 -->	
+	<insert id="salesDetailInertAction" parameterType="salesDetail">
+		INSERT INTO tb_salesDetail(
+			barcode
+			, salesCode
+			, QTY
+			, totalPrice
+			, supplyPrice
+			, VAT
+		)VALUES (
+			#{barcode}
+			, #{salesCode}
+			, #{qty}
+			, #{totalPrice}
+			, #{supplyPrice}
+			, #{vat}
+		)
+	</insert>
+	<!-- 5.상품수량 업데이트 -->
+	<update id="goodsShowcaseQTYUpdate">
+		UPDATE 
+			tb_goods
+		SET
+			showcaseStock = showcaseStock - #{qty}
+			, goodsTotalStock = goodsTotalStock - #{qty}
+		WHERE
+			barcode = #{barcode}
+	</update>
+
 	<!-- 영수증 취소-->
 	<select id="receiptCanselAction">
 		UPDATE 
@@ -235,25 +304,4 @@
 				salesCode=#{salesCode}
 	</update>
 	
-	<insert id="addsalesAction" parameterType="Sales">
-	INSERT INTO tb_sales(
-		receiptNum, 
-		salesTotalPrice, 
-		martCode, 
-		ID, 
-		regDate, 
-		canselCheck, 
-		canselStaff, 
-		canselDate
-	)VALUES (
-		#{receiptNum},
-		#{salesTotalPrice},
-		#{martCode},
-		#{ID},
-		NOW(),
-		#{canselCheck},
-		#{canselStaff},
-		NOW()
-		);	
-	</insert>
 </mapper>

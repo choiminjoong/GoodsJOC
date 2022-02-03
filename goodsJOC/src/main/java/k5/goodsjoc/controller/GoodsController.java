@@ -31,18 +31,39 @@ public class GoodsController {
 	public GoodsController(GoodsService goodsService) {
 		this.goodsService = goodsService;
 	}
-	
-	@PostMapping("/goodsUpdateAction")
-	public String goodsUpdateAction(Goods goods) {
-		System.out.println("상품 정보수정 POST방식");
-		System.out.println("화면에서 받은 데이터: " + goods);
+/**
+	01.카테고리 조회 및 등록화면	02.카테고리 등록처리	03.카테고리 수정처리	04.카테고리 삭제처리	05.카테고리 조건검색 화면
+	06.상품 등록화면		07.바코드 사용여부 체크	08.상품 등록처리		09.상품 수정화면		10.상품 수정처리		11.상품 삭제처리
+	12.상품 전체조회 화면	13.카테고리 선택 모달 Ajax		14.상품 조건검색 화면	15.판매단가 조정화면	16.판매단가 변경처리
+**/	
+	//01.카테고리 조회 및 등록화면
+	@GetMapping("/goodsCate")
+	public String goodsCate(HttpServletRequest request, Model model) {
+		System.out.println("페이지: 상품 카테고리 ");
+		System.out.println("경로: product_management/goods/goodsCate(GET방식 성공) ");
 		
-		int result = goodsService.goodsUpdateAction(goods);
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
 		
-		return "redirect:/product_management/goods/goodsList";
+		List<GoodsCate> goodsCateList = goodsService.getGoodsCateList(sessionMartCode);
+		model.addAttribute("goodsCateList", goodsCateList);
+		System.out.println("model에 담긴 상품카테고리: " + model);
+		
+		return "product_management/goods/goodsCate";
 	}
 	
-	//상품카테고리정보 수정
+	//02.카테고리 등록처리
+	@PostMapping("/goodsCateInsert")
+	public String goodsCateInsertAction(GoodsCate goodsCate) {
+		System.out.println("카테고리 등록처리 POST방식");
+		System.out.println("입력받은 데이터: " + goodsCate);
+		
+		int result = goodsService.goodsCateInsertAction(goodsCate);
+		
+		return "redirect:/product_management/goods/goodsCate";
+	}	
+	
+	//03.카테고리 수정처리
 	@PostMapping("goodsCateUpdate")
 	public String goodsCateUpdateAction(GoodsCate goodsCate) {
 		System.out.println("카테고리 정보수정 POST방식");
@@ -51,9 +72,9 @@ public class GoodsController {
 		goodsService.goodsCateUpdate(goodsCate);
 		
 		return "redirect:/product_management/goods/goodsCate";
-	}
-	
-	//카테고리 삭제처리
+	}	
+
+	//04.카테고리 삭제처리
 	@GetMapping("/goodsCateDelete")
 	public String goodsCateDeleteAction(@RequestParam(value="categoryCode", required=false)String categoryCode){
 		System.out.println("카테고리 삭제처리 GET방식");
@@ -70,28 +91,7 @@ public class GoodsController {
 		return "system_management/error/error500";
 	}
 	
-	//카테고리 등록처리
-	@PostMapping("/goodsCateInsert")
-	public String goodsCateInsertAction(GoodsCate goodsCate) {
-		System.out.println("카테고리 등록처리 POST방식");
-		System.out.println("입력받은 데이터: " + goodsCate);
-		
-		int result = goodsService.goodsCateInsertAction(goodsCate);
-		
-		return "redirect:/product_management/goods/goodsCate";
-	}
-	
-	//상품등록후 상품리스트로 전환
-	@PostMapping("/goodsInsertAction")
-	public String goodsInsertAction(Goods goods) {
-		System.out.println("상품등록처리 POST방식:");
-		System.out.println("입력받은 데이터: " + goods);
-		goodsService.addGoodsAction(goods);
-		
-		return "redirect:/product_management/goods/goodsList";
-	}
-	
-	
+	//05.카테고리 조건검색 화면
 	@PostMapping("/searchGoodsCate")
 	public String searchGoodsCate(HttpServletRequest request, Model model,
 								  @RequestParam(value="searchCate", required=false)String searchCate) {
@@ -105,9 +105,18 @@ public class GoodsController {
 		System.out.println("model에 담긴 상품카테고리: " + model);
 		
 		return "product_management/goods/goodsCate";
-	}
-	
-	//상품관리 > 등록페이지 바코드 사용여부확인 Ajax (최민중)
+	}	
+
+	//06.상품 등록화면
+	@GetMapping("/goodsInsert")
+	public String goodsInsert() {
+		System.out.println("페이지: 상품 등록 ");
+		System.out.println("경로: product_management/goods/goodsInsert(GET방식 성공) ");
+		
+		return "product_management/goods/goodsInsert";
+	}		
+
+	//07.바코드 사용여부 체크
 	@PostMapping("/barcodeCheck")
 	@ResponseBody
 	public boolean barcodeCheck(@RequestParam(value="barcode", required=false) String barcode) {
@@ -121,6 +130,39 @@ public class GoodsController {
 		return checkResult;
 	}
 	
+	//08.상품 등록처리
+	@PostMapping("/goodsInsertAction")
+	public String goodsInsertAction(Goods goods) {
+		System.out.println("상품등록처리 POST방식:");
+		System.out.println("입력받은 데이터: " + goods);
+		goodsService.addGoodsAction(goods);
+		
+		return "redirect:/product_management/goods/goodsList";
+	}
+	
+	//09.상품 수정화면
+	@GetMapping("/goodsUpdate")
+	public String goodsUpdate(@RequestParam(value="barcode", required= false) String barcode, Model model) {
+		System.out.println("barcode: " + barcode);
+
+		Goods goodsInfo = goodsService.getGoodsInfoByBarcode(barcode);
+		model.addAttribute("goodsInfo", goodsInfo);
+		
+		return "product_management/goods/goodsUpdate";
+	}
+	
+	//10.상품 수정처리
+	@PostMapping("/goodsUpdateAction")
+	public String goodsUpdateAction(Goods goods) {
+		System.out.println("상품 정보수정 POST방식");
+		System.out.println("화면에서 받은 데이터: " + goods);
+		
+		int result = goodsService.goodsUpdateAction(goods);
+		
+		return "redirect:/product_management/goods/goodsList";
+	}	
+	
+	//11.상품 삭제처리
 	@GetMapping("/goodsDeleteAction")
 	public String goodsDeleteAction(@RequestParam(value="sendBarcode", required= false) String barcode) {
 		goodsService.deleteGoods(barcode);
@@ -128,7 +170,27 @@ public class GoodsController {
 		return "redirect:/product_management/goods/goodsList";
 	}
 	
-	//상품관리 내 상품카테고리 선택 모달 Ajax (최민중)
+	//12.상품 전체조회 화면
+	@GetMapping("/goodsList")
+	public String goodsList(HttpServletRequest request, Model model) {
+		System.out.println("페이지: 상품 조회 ");
+		System.out.println("경로: product_management/goods/goodsList(GET방식 성공) ");
+		
+		HttpSession session = request.getSession();
+		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+		
+		List<GoodsCate> goodsCateList = goodsService.getGoodsCateList(sessionMartCode);
+		model.addAttribute("goodsCateList", goodsCateList);
+		System.out.println("model에 담긴 상품카테고리: " + model);
+		
+		List<Goods> goodsList = goodsService.getGoodsList(sessionMartCode);
+		model.addAttribute("goodsList", goodsList);
+		System.out.println("model에 담긴 상품리스트: " + model);
+		
+		return "product_management/goods/goodsList";
+	}	
+	
+	//13.카테고리 선택 모달 Ajax
 	@PostMapping("/searchCategoryModal")
 	@ResponseBody
 	public List<Map<String, Object>> searchCategoryModal(HttpServletRequest request) {
@@ -140,99 +202,7 @@ public class GoodsController {
 		return categoryModal;
 	}
 	
-	//상품관리 > 조회 > 단가수정작업 (최민중)
-	@PostMapping("/goodsPriceUpdate")
-	public String goodsPriceUpdate(HttpServletRequest request, Goods goods, Model model) {
-		System.out.println("페이지: 상품단가 변경액션 ");
-		System.out.println("경로: product_management/goods/goodsPriceUpdate(Post방식 성공) ");
-		System.out.println("리스트에서 받은 바코드: " + goods.getBarcode());
-		System.out.println("수정할 판매단가: " + goods.getSalesPrice());
-		String barcode = goods.getBarcode();
-		String salesPrice = goods.getSalesPrice();
-
-		if(salesPrice != null && salesPrice != "".toString()) {
-			//판매가 수정
-			int updateSucess = goodsService.updateGoodsPrice(barcode, salesPrice);
-			System.out.println("판매단가 수정 완료 ");
-			
-			if(updateSucess > 0) {
-				System.out.println("판매단가 기록");
-				//판매가 변경기록을 위한  Insert 매개변수 ID, MARTCODE
-				HttpSession session = request.getSession();
-				String sessionID = (String) session.getAttribute("SID");
-				String sessionMartCode = (String) session.getAttribute("SMARTCODE");
-				
-				Map<String, Object> paramMap = new HashMap<String, Object>();
-				paramMap.put("martCode", sessionMartCode);
-				paramMap.put("ID", sessionID);
-				paramMap.put("barcode", barcode);
-				paramMap.put("salesPrice", salesPrice);
-				
-				//판매가 변경 기록하기
-				goodsService.addSalesPrice(paramMap);
-				
-				return "redirect:/product_management/goods/goodsList";
-			}
-		}
-		
-		return "system_management/error/error500";
-	}
-	
-	//상품관리 > 조회 > 단가조정 (최민중)
-	@GetMapping("/goodsPriceList")
-	public String goodsPriceList(@RequestParam(value="barcode", required= false) String barcode, Model model) {
-		System.out.println("페이지: 상품단가 조정 ");
-		System.out.println("경로: product_management/goods/goodsPriceList(GET방식 성공)");
-		System.out.println("리스트에서 받은 바코드: " + barcode);
-		
-		Goods goodsInfo = goodsService.getGoodsInfoByBarcode(barcode);
-		model.addAttribute("goodsInfo", goodsInfo);
-		
-		List<PurchasePrice> purchasePriceList = goodsService.getPurchasePriceListByBarcode(barcode);
-		List<SalesPrice> salesPriceList = goodsService.getSalesPriceListByBarcode(barcode);
-		model.addAttribute("purchasePriceList", purchasePriceList);
-		model.addAttribute("salesPriceList", salesPriceList);
-		
-		return "product_management/goods/goodsPriceList";
-	}
-	
-	//상품정보 수정 페이지
-	@GetMapping("/goodsUpdate")
-	public String goodsUpdate(@RequestParam(value="barcode", required= false) String barcode, Model model) {
-		System.out.println("barcode: " + barcode);
-
-		Goods goodsInfo = goodsService.getGoodsInfoByBarcode(barcode);
-		model.addAttribute("goodsInfo", goodsInfo);
-		
-		return "product_management/goods/goodsUpdate";
-	}
-	
-	//상품관리 > 카테고리 페이지 (최민중)
-	@GetMapping("/goodsCate")
-	public String goodsCate(HttpServletRequest request, Model model) {
-		System.out.println("페이지: 상품 카테고리 ");
-		System.out.println("경로: product_management/goods/goodsCate(GET방식 성공) ");
-		
-		HttpSession session = request.getSession();
-		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
-		
-		List<GoodsCate> goodsCateList = goodsService.getGoodsCateList(sessionMartCode);
-		model.addAttribute("goodsCateList", goodsCateList);
-		System.out.println("model에 담긴 상품카테고리: " + model);
-		
-		return "product_management/goods/goodsCate";
-	}
-	
-	//상품관리 > 등록 페이지(최민중)
-	@GetMapping("/goodsInsert")
-	public String goodsInsert() {
-		System.out.println("페이지: 상품 등록 ");
-		System.out.println("경로: product_management/goods/goodsInsert(GET방식 성공) ");
-		
-		return "product_management/goods/goodsInsert";
-	}	
-	
-	//상품관리 > 조회 > 조건검색하기 (최민중)
+	//14.상품 조건검색 화면
 	@PostMapping("/goodsList")
 	public String goodsList(@RequestParam(value="searchCategory", required=false) String searchCategory,
 							@RequestParam(value="minPurchasePrice", required=false) String minPurchasePrice,
@@ -279,25 +249,62 @@ public class GoodsController {
 		System.out.println("모델에 담긴 goodsList: " + model);	
 		
 		return "product_management/goods/goodsList";
+	}	
+	
+	//15.판매단가 조정화면
+	@GetMapping("/goodsPriceList")
+	public String goodsPriceList(@RequestParam(value="barcode", required= false) String barcode, Model model) {
+		System.out.println("페이지: 상품단가 조정 ");
+		System.out.println("경로: product_management/goods/goodsPriceList(GET방식 성공)");
+		System.out.println("리스트에서 받은 바코드: " + barcode);
+		
+		Goods goodsInfo = goodsService.getGoodsInfoByBarcode(barcode);
+		model.addAttribute("goodsInfo", goodsInfo);
+		
+		List<PurchasePrice> purchasePriceList = goodsService.getPurchasePriceListByBarcode(barcode);
+		List<SalesPrice> salesPriceList = goodsService.getSalesPriceListByBarcode(barcode);
+		model.addAttribute("purchasePriceList", purchasePriceList);
+		model.addAttribute("salesPriceList", salesPriceList);
+		
+		return "product_management/goods/goodsPriceList";
 	}
 	
-	//상품관리 > 조회 페이지 (최민중)
-	@GetMapping("/goodsList")
-	public String goodsList(HttpServletRequest request, Model model) {
-		System.out.println("페이지: 상품 조회 ");
-		System.out.println("경로: product_management/goods/goodsList(GET방식 성공) ");
+	//16.판매단가 변경처리
+	@PostMapping("/goodsPriceUpdate")
+	public String goodsPriceUpdate(HttpServletRequest request, Goods goods, Model model) {
+		System.out.println("페이지: 상품단가 변경액션 ");
+		System.out.println("경로: product_management/goods/goodsPriceUpdate(Post방식 성공) ");
+		System.out.println("리스트에서 받은 바코드: " + goods.getBarcode());
+		System.out.println("수정할 판매단가: " + goods.getSalesPrice());
+		String barcode = goods.getBarcode();
+		String salesPrice = goods.getSalesPrice();
+
+		if(salesPrice != null && salesPrice != "".toString()) {
+			//판매가 수정
+			int updateSucess = goodsService.updateGoodsPrice(barcode, salesPrice);
+			System.out.println("판매단가 수정 완료 ");
+			
+			if(updateSucess > 0) {
+				System.out.println("판매단가 기록");
+				//판매가 변경기록을 위한  Insert 매개변수 ID, MARTCODE
+				HttpSession session = request.getSession();
+				String sessionID = (String) session.getAttribute("SID");
+				String sessionMartCode = (String) session.getAttribute("SMARTCODE");
+				
+				Map<String, Object> paramMap = new HashMap<String, Object>();
+				paramMap.put("martCode", sessionMartCode);
+				paramMap.put("ID", sessionID);
+				paramMap.put("barcode", barcode);
+				paramMap.put("salesPrice", salesPrice);
+				
+				//판매가 변경 기록하기
+				goodsService.addSalesPrice(paramMap);
+				
+				return "redirect:/product_management/goods/goodsList";
+			}
+		}
 		
-		HttpSession session = request.getSession();
-		String sessionMartCode = (String) session.getAttribute("SMARTCODE");
-		
-		List<GoodsCate> goodsCateList = goodsService.getGoodsCateList(sessionMartCode);
-		model.addAttribute("goodsCateList", goodsCateList);
-		System.out.println("model에 담긴 상품카테고리: " + model);
-		
-		List<Goods> goodsList = goodsService.getGoodsList(sessionMartCode);
-		model.addAttribute("goodsList", goodsList);
-		System.out.println("model에 담긴 상품리스트: " + model);
-		
-		return "product_management/goods/goodsList";
+		return "system_management/error/error500";
 	}
+	
 }
