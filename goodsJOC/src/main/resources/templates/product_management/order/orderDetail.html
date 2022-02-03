@@ -105,10 +105,10 @@
 							<table class="table">
 								<tbody>
 									<tr>
-										<th>합계 : </th>
+										<td><b>합계 :</b> </td>
 									</tr>
 									<tr>
-										<th>VAT : </th>
+										<td><b>VAT : </b></td>
 									</tr>
 								</tbody>
 							</table>
@@ -131,7 +131,7 @@
 <th:block layout:fragment="customJs">		
 	<script>
 		$(function(){
-			//총 금액합계 구하기
+			//주문한 물품의 총합계
 			var vatGroup = $('.sumVat')	
 			var priceGroup = $('.sumTotalPrice')
 			console.log(vatGroup);
@@ -141,7 +141,8 @@
 			} 			
 		});
 			
-	</script>	
+	</script>		
+	
 	<script type="text/javascript"> 
 	function content_print(){
 		   
@@ -157,7 +158,13 @@
 	    window.print();    
 	}           
 </script>
-							
+
+<script>
+	//결재대금 총합계
+	
+
+</script>	
+					
 </th:block>
 </html>
 

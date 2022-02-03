@@ -19,6 +19,10 @@ public interface GoodsReturnMapper {
 	public List<GoodsReturn> getSearchGoodsReturnList(String martCode, String searchKey, String searchValue,  String startDt, String endDt);
 	//월별 매출 및 건수
 	public List<Map<String, Object>> getReturnPriceTotalInfo(String martCode);
+	//반품(상품) 모달
+	public List<Map<String, Object>> getGoodsReturnModal(String martCode);
+	//반품등록
+	public int addreturnAction(GoodsReturn goodsReturn);
 
 	
 }
