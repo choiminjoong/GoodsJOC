@@ -349,6 +349,12 @@
 			orderNum = #{order};
 	</select>
 	
-	
+	<!-- 주문삭제(정도혜)  -->
+	<delete id="orderDeleteAction">
+	DELETE FROM 
+		tb_order 
+	WHERE 
+		orderCode=#{orderCode}
+	</delete>
 	
 </mapper>

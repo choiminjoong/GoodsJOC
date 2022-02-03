@@ -62,5 +62,9 @@ public interface OrderMapper {
 
 	//주문번호 중복검사
 	public int orderCheckByorderNum(String order);
+	
+	//주문삭제
+	public int orderDeleteAction(String orderCode);
+
 
 }

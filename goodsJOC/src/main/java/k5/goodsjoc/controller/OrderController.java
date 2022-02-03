@@ -78,10 +78,6 @@ public class OrderController {
 		
 		List<Order> orderList = orderService.getOrderList();
 		model.addAttribute("orderList",orderList);
-
-		List<Map<String, Object>> totalOrderPrice = orderService.totalOrderPrice(sessionMartCode);
-		model.addAttribute("totalOrderPrice", totalOrderPrice);	
-		System.out.println(totalOrderPrice);
 		
 		return "product_management/order/orderList";
 	}
@@ -131,8 +127,8 @@ public class OrderController {
 		List<Order> orderList = orderService.getOrderListBySearchKey(searchKey, searchValue, startDt, endDt);
 		
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("searchState", searchState);
-		
+		paramMap.put("searchState", searchState);	
+	
 		// 조회된 회원목록 model에 값을 저장
 		model.addAttribute("title", "주문목록조회");
 		model.addAttribute("orderList", orderList);
@@ -167,5 +163,12 @@ public class OrderController {
 			return checkResult;
 		}
 		
-
+		//주문 삭제처리
+		@GetMapping("/orderDeleteAction")
+		public String orderDeleteAction(@RequestParam(value="sendOrderCode", required= false) String orderCode) {
+			orderService.orderDeleteAction(orderCode);
+			System.out.println("주문 삭제처리 GET방식");
+			
+			return "redirect:/product_management/order/orderList";
+		}
 	}
