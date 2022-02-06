@@ -98,7 +98,7 @@
 					<tbody>
 						<tr th:if="${not #lists.isEmpty(businessList)}" th:each="l, i : ${businessList}">
 							<td th:text="${i.index+1}"></td>
-							<td class="codePick" th:text="${l.businessCode}"></td>
+							<td class="codePick" th:text="${l.businessCode}" style="display: none;"></td>
 							<td th:text="${l.businessType}"></td>
 							<td th:text="${l.businessName}"></td>
 							<td th:text="${l.partnerName}"></td>
