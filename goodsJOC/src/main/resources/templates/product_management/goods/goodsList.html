@@ -102,7 +102,6 @@
 	</div>
 
 
-
 	<div class="card card-warning">
 		<div class="card-header p-0 pt-1"></div>
 		<div class="card-body table-responsive p-0">
@@ -131,7 +130,7 @@
 						<td th:text="${l.business.getBusinessName()}">매입처</td>
 						<td th:text="${l.taxType}"></td>
 						<td th:text="${l.goodsTotalStock}">재고량</td>
-						<td th:text="${l.purchasePrice}">매입단가</td>
+						<td id="purchasePrice" th:text="${l.purchasePrice}">매입단가</td>
 						<td th:text="${l.salesPrice}">판매단가</td>
 						<td th:text="${l.margin}">마진</td>
 						<td>
@@ -139,9 +138,11 @@
 								<a th:href="@{/product_management/goods/goodsUpdate(barcode=${l.barcode})}" class="btn btn-primary">
 									<i class="fas fa-highlighter"></i>
 								</a>
-								<a th:href="@{/product_management/goods/goodsPriceList(barcode=${l.barcode})}" class="btn btn-info">
-									<i class="fas fa-won-sign"></i>
-								</a>
+								<th:block th:if="${session.SLEVEL == '2'}">
+									<a th:href="@{/product_management/goods/goodsPriceList(barcode=${l.barcode})}" class="btn btn-info">
+										<i class="fas fa-won-sign"></i>
+									</a>
+								</th:block>
 								<button type="button" id="goodsDeleteBtn" class="btn btn-danger" th:data-barcode="${l.barcode}" data-toggle="modal" data-target="#del-modal">
 									<i class="fas fa-trash"></i>
 								</button>

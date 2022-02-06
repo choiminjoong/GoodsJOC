@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="@{layout/default}">
+	
+<!-- 페이지 제목 공간 -->
+<th:block layout:fragment="customTitle">
+	<title>매장 조회</title>
+</th:block>
+<!-- 로케이션 위치 -->
+<th:block layout:fragment="locationPlace">
+<a id="main" th:href="@{/main}" class="joc-a2"><b>MAIN</b></a>
+	> 사업장관리 > 매장조회
+</th:block>
+
+<!-- 메인 컨텐츠 영역 -->		
+<th:block layout:fragment="customContents">	       	 
+
+	<div class="card card-indigo">
+		<div class="card-header">
+			<h3 class="card-title">
+				<b>유저 조회</b>
+			</h3>
+		</div>
+		<div class="card-body table-responsive">
+			<form th:action="@{/system_management/user/totalUserSearchList}" method="post">
+				<div class="tab-content row" id="custom-tabs-two-tabContent">
+					<div class="col-10">
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">계정 상태</label>
+							<div class="col-sm-3">
+								<select name="deleteStatus" class="form-control custom-select text-center">
+									<option value="">전체보기</option>
+									<option value="N">활성화</option>
+									<option value="Y">비활성화</option>
+								</select>
+							</div>
+							<div class="col-sm-1"></div>
+							<label class="col-sm-1 col-form-label">등록기간</label>
+							<div class="col-sm-2">
+								<input name="startDate" type="date" class="form-control text-center">
+							</div>
+							<div class="col-sm-1 text-center">
+								<b>~</b>
+							</div>	
+							<div class="col-sm-2">
+								<input name="endDate" type="date" class="form-control text-center">
+							</div>
+							
+							
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">권한</label>
+							<div class="col-sm-3">
+								<select name="levelNum" class="form-control custom-select text-center">
+									<option value="">전체보기</option>
+									<option value="2">관리자</option>
+									<option value="3">매니저</option>
+									<option value="4">직원</option>
+									<option value="5">비권한자</option>
+								</select>
+							</div>
+							<div class="col-1"></div>
+							<label class="col-sm-1 col-form-label">매장명</label>
+							<div class="col-sm-5">
+								<input name="martName" type="text" class="form-control float-right">
+							</div>
+						</div>
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">이름 / ID</label>
+							<div class="col-sm-5">
+								<input name="name" type="text" class="form-control float-right">
+							</div>
+							<div class="col-sm-2"></div>
+							<div class="col-sm-2">
+								<button type="submit" class="btn btn-block bg-indigo btn-lg"><b>검색</b></button>
+							</div>
+							<div class="col-sm-1">
+								<a th:href="@{/system_management/user/sw_userList}" class="btn btn-block bg-indigo btn-lg">
+									<i class="fas fa-redo-alt"></i>
+								</a>
+							</div>
+						</div>
+					</div>				
+					<div class="col-2" align="center">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+
+
+	<div class="card card-indigo">
+		<div class="card-header p-0 pt-1"></div>
+		<div class="card-body table-responsive p-0">
+			<table class="table table-head-fixed text-nowrap text-center">
+				<thead>
+					<tr>
+						<th>매장명</th>
+						<th>권한</th>
+						<th>ID</th>
+						<th>사용자명</th>
+						<th>생년월일</th>
+						<th>Email</th>
+						<th>계정상태</th>
+						<th>등록일시</th>
+						<th>상세보기</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:if="${not #lists.isEmpty(totalUserList)}" th:each="l, i: ${totalUserList}">
+						<td th:text="${l.mart.getMartName()}"></td>
+						<td th:text="${l.level.getLevelName()}"></td>
+						<td th:text="${l.id}"></td>
+						<td th:text="${l.name}"></td>
+						<td th:text="${l.birthday}"></td>
+						<td th:text="${l.email}"></td>
+						<th:block th:if="${l.deleteStatus == 'N'}">
+							<td style="color: blue;">활성화</td>
+						</th:block>
+						<th:block th:unless="${l.deleteStatus == 'N'}">
+							<td style="color: red;">비활성화</td>
+						</th:block>
+						<td th:text="${l.regDate}"></td>
+						<td>
+							<button type="button" class="btn btn-default btn-sm userDetailBtn" th:data-id="${l.id}" data-toggle="modal" data-target="#userInfoModal">
+								<i class="fas fa-search"></i>
+							</button>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	
+	<!-- 상세보기 모달 -->
+	<div class="modal fade" id="userInfoModal" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content" >
+				<div class="modal-header bg-olive">
+					<h4 class="modal-title">상세보기</h4>
+				</div>
+				<div class="modal-body">
+					<div class="card-body">
+						<div class="form-group">
+							<label>이름</label> 
+							<input type="text" id="userName" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>생년월일</label> 
+							<input type="date" id="userBirth" class="form-control">
+						</div>
+						<div class="form-group">
+							<label>연락처</label> 
+							<input type="text" id="userPhone" class="form-control" >
+						</div>
+						<div class="form-group">
+							<label>이메일</label> 
+							<input type="text" name="email" id="userEmail" class="form-control" >
+						</div>
+						<div class="form-group">
+							<label>주소</label> 
+							<input type="text" class="form-control" id="userAddr" readonly>
+						</div>
+						<div class="form-group">
+							<label>가입일</label> 
+							<input type="text"class="form-control"id="userReg" readonly>
+						</div>
+
+						<!-- 버튼  -->
+						<div class="row" >
+							<div class="col-9" style="margin-top: 20px;">
+								<form th:action="@{/system_management/user/userActive}">
+									<button id="activeBtn" type="submit" class="btn btn-outline-success">
+										<b>계정 활성화 하기</b>
+									</button>
+									<code id="noActiveId" style="margin-left: 10px">※현재 회원탈퇴를 요청한 비활성화된 계정입니다</code>
+									<div style="display:none;">
+										<input type="text" name="id" id="activeTarget" style="display:none;">
+									</div>
+								</form>
+								<form th:action="@{/system_management/user/userNoActive}">
+									<button id="noActiveBtn" type="submit" class="btn btn-outline-success">
+										<b>계정 비활성화 하기</b>
+									</button>
+									<div style="display:none;">
+										<input type="text" name="id" id="noActiveTarget">
+									</div>
+								</form>
+							</div>
+							<div class="col-3" style="margin-top: 20px;">
+								<button type="button" class="btn bg-maroon" style="float: right;" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">닫기</span>
+								</button>
+							</div>
+						 </div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</th:block>
+
+<th:block layout:fragment="customJs">		
+	<script type="text/javascript">
+		$(function(){
+			var activeBtn = $('#activeBtn')
+			var noActiveBtn = $('#noActiveBtn')
+			var noActiveId= $('#noActiveId')
+			//버튼클릭 ajax
+			$(document).on('click', '.userDetailBtn', function(){
+				activeBtn.hide();
+				noActiveBtn.hide();
+				noActiveId.hide();
+				var id = $(this).attr('data-id');
+				$('#activeTarget').val(id);
+				$('#noActiveTarget').val(id);
+				
+				var request = $.ajax({
+					url: '/system_management/user/sw_getUserInfo',
+					method: 'POST',
+					data: {'id' : id},
+					dataType: 'json'
+				});
+				request.done(function(data){
+					var userName = data.name;
+					var userBirth = data.birthday;
+					var userPhone = data.phone
+					var userEmail = data.email
+					var userAddr = data.address
+					var userReg = data.regDate
+					var delStatus = data.deleteStatus;
+				
+					$('#userName').val(userName);
+					$('#userBirth').val(userBirth);
+					$('#userPhone').val(userPhone);
+					$('#userEmail').val(userEmail);
+					$('#userAddr').val(userAddr);
+					$('#userReg').val(userReg);
+					
+					if(delStatus == 'Y'){
+						console.log("계정활성화기능 추가")
+						activeBtn.show();
+						noActiveId.show();
+					}else{
+						console.log("계정비활기능 추가")
+						noActiveBtn.show();
+					}
+				});
+				request.fail(function(jqXHR, textStatus){
+					alert("Request failed: " + textStatus)
+				});
+			});
+			
+		});
+	</script>
+</th:block>
+</html>

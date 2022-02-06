@@ -14,51 +14,227 @@
       > 재고관리 > 반품조회 > 반품등록
    </th:block>
 <th:block layout:fragment="customContents">
-	<section class="content">
-		<div class="container-fluid">
 			<!---------------반품 등록---------------->
-			<div class="col">
-				<div class="card card-warning">
-					<div class="card-header">
-						<h3 class="card-title"><b>반품 등록</b></h3>
+			<div class="col-md-7 mx-auto">      
+          <div class="card card-warning card-tabs">
+         	 <div class="card-header">  
+          		<h3 class="card-title">
+              		<b><i class="fas fa-coins"></i>ㅤ매출 등록</b>
+               </h3>        
+            </div>
+            
+        <form th:action="@{/trade_management/sales/salesInsertAction}" method="POST" id="salesInsertAction" class="form-horizontal">    
+             <div class="card-body">          
+               <!-- 매출등록폼  -->                      
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ상품 ㅤ/ㅤ</label>
+                <button type="button" id="searchGoodsBtn" class="btn-sm bg-info disabled color-palette"
+					data-toggle="modal" data-target="#modal-default2">
+					<b>상품 검색</b>
+				</button>
+                  <div class="input-group-append">
+                  <input type="text" class="form-control form-control-border border-warning" id="goodsNameInput" name="goodsName" readonly="readonly">
+                </div>
+               </div> 
+               
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ바코드</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="barcodeInput" name="barcode" readonly="readonly">
+                </div>
+                
+                 <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ유형 </label>
+                  <input type="text" class="form-control form-control-border border-warning" id="taxTypeInput" name="taxType" readonly="readonly">
+                </div>
+                
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ매입처명</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="businessNameInput" name="businessName" readonly="readonly">
+                </div>
 
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool"
-								data-card-widget="collapse" title="Collapse">
-								<i class="fas fa-minus"></i>
-							</button>
+                <div class="form-group" style="display: none;">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ매입처코드</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="businessCodeInput" name="businessCode" readonly="readonly">
+                </div>
+                
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ판매가</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="salesPriceInput" name="salesPrice" readonly="readonly">
+                </div>
+               
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ수량</label>
+                  <input type="number" class="form-control form-control-border border-warning" id="qtyInput" name="QTY" >
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ공급가액</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="supplyPriceInput" name="supplyPrice">
+                </div>
+
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ부가세</label>
+                  <input type="text" class="form-control form-control-border border-warning" id="vatInput" name="VAT">
+                </div>
+                            
+                <div class="form-group">
+                  <label for="exampleInputBorderWidth2"><i class="fas fa-angle-double-right"></i>ㅤ합계</label>
+                  <input type="text" class="form-control form-control-border border-warning"  id="totalpricesInput" name="salesTotalPrice">
+                </div>
+                
+                <div style="display:none">
+					<input type="text" name="id" th:value="${session.SID}" readonly>
+					<input type="text" name="martCode" th:value="${session.SMARTCODE}" readonly>
+				</div>
+             </div>
+        	 <!--등록 버튼 -->   
+	         <div class="d-flex justify-content-center" style="margin: 0cm 0cm 1cm 11.5cm">
+	            <button type="submit" style="margin-left: 5px" class="btn btn-warning">
+	               <b>등록</b>
+	            </button>
+	            <a th:href="@{/trade_management/sales/salesList}" style="margin-left: 15px" class="btn btn-danger">
+	               <b>닫기</b>
+	            </a>
+	        </div>      
+         </form>  
+     </div>
+   </div>
+
+<!-- 상품 검색 모달  -->
+<form th:action="@{/product_management/sales/salesInsertAction}" method="POST" id="salesInsertForm" class="form-horizontal">
+<div class="modal content" id="modal-default2" style="display: none;" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header bg-warning">
+				<h4 class="modal-title"><b>상품 검색</b></h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">×</span>
+				</button>
+			</div>
+			<div class="modal-body mx-auto">
+				<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+						<div class="col-sm-15">
+							<table style="width:100%" id="dataTableAjax2" class="text-center table table-bordered dataTable dtr-inline"
+								role="grid" aria-describedby="example2_info">
+								<thead>
+									<tr style="width:100%" role="row">
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" style="t" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending" aria-sort="ascending">
+												바코드
+											</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+												상품명
+											</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending" aria-sort="ascending">
+												매입처명
+											</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending" aria-sort="ascending">
+												상품가격
+											</th>
+											<th tabindex="0" rowspan="1" colspan="1">
+												선택하기
+											</th>											
+										</tr>
+									</thead>
+								</table>
+							</div>
 						</div>
 					</div>
-					<!----------------반품 등록 폼 ---------------->
-					<div class="card-body">
-						<div class="form-group">
-							<label for="inputName"><code>*</code>상품명</label> <input type="text"
-								id="inputName" class="form-control">
-						</div>
-						<div class="form-group">
-							<label for="inputClientCompany"><code>*</code>수량</label> <input type="text"
-								id="inputClientCompany" class="form-control">
-						</div>
-						<div class="form-group">
-							<label for="inputStatus"><code>*</code>거래처명</label> <input type="text"
-								id="inputClientCompany" class="form-control">
-						</div>
-						<div class="form-group">
-							<label for="inputStatus"><code>*</code>반품액</label> <input type="text"
-								id="inputClientCompany" class="form-control">
-						</div>
-						<div class="form-group">
-							<label for="inputProjectLeader"><code>*</code>반품예정일</label> <input type="date"
-								id="inputProjectLeader" class="form-control">
-						</div>
-					</div>
-					<!-- /.card-body -->
-					<!----------------버튼-------------->
-					<a href="returnList"
-						class="btn btn-m bg-info color-palette btn-block"><b>등록</b></a>
 				</div>
 			</div>
-
-			<!-- /.card -->
 		</div>
-	</section>
+</form>
+</th:block>
+<th:block layout:fragment="customJs">			
+	<script>							
+		//상품리스트 조회 AJax
+		$(function(){
+		
+			//상품가격 자동등록
+			$('#qtyInput').keyup(function(){
+				var salesPriceInput = Number($('#salesPriceInput').val());
+				var qtyInput = Number($('#qtyInput').val());	
+				var totalpricesInput = $('#totalpricesInput');
+				var supplyPriceInput = $('#supplyPriceInput')	
+				var vatInput = $('#vatInput')	
+				var taxTypeInput = $('#taxTypeInput').val();
+				
+				//총가격
+				totalpricesInput.val(salesPriceInput*qtyInput);
+				
+				//부가세구하기
+				if(taxTypeInput == '과세'){
+					var supplyPrice = Math.round(Number(totalpricesInput.val()) / 11 * 10);
+					var vat = Math.round(Number(totalpricesInput.val()) / 11);
+					supplyPriceInput.val(supplyPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원");	
+					vatInput.val(vat.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원");	
+				}else {
+					supplyPriceInput.val(Number(totalpricesInput.val()).toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")+"원");		
+				}
+				
+			});
+				
+			// 상품목록 ajax
+			$(document).on('click', '#searchGoodsBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#dataTableAjax2').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/trade_management/sales/searchGoodsModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "barcode"},
+						{ data: "goodsName"},
+						{ data: "businessName"},
+						{ data: "salesPrice"},
+					],
+					columnDefs: [
+						{
+							targets: [4],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn2 = '<button type="button" data-dismiss="modal" class="btn btn-info goodsPickBtn" data-barcode="'+ row.barcode +'" data-goodsName="'+ row.goodsName +'" data-salesPrice="'+ row.salesPrice+'" data-businessCode="'+ row.businessCode+'" data-businessName="'+ row.businessName+ '" data-taxType="'+row.taxType+'">선택</button>';
+								return htmlbtn2;
+							}
+						}
+					]
+				});
+			});
+			
+			//상품 선택
+			$(document).on('click', '.goodsPickBtn', function(){
+				console.log($(this));
+				var barcodePick = $(this).attr('data-barcode');
+				var goodsNamePick = $(this).attr('data-goodsName');
+				var salesPricePick = $(this).attr('data-salesPrice');
+				var businessCodePick = $(this).attr('data-businessCode');
+				var businessNamePick = $(this).attr('data-businessName');
+				var taxTypePick = $(this).attr('data-taxType');
+						
+				$('#barcodeInput').val(barcodePick);
+				$('#goodsNameInput').val(goodsNamePick);
+				$('#salesPriceInput').val(salesPricePick);
+				$('#businessCodeInput').val(businessCodePick);
+				$('#businessNameInput').val(businessNamePick);
+				$('#taxTypeInput').val(taxTypePick);
+			});
+
+		});						
+		</script>	
+	</th:block>
+			<!-- /.card -->
+	

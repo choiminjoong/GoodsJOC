@@ -11,140 +11,164 @@
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
 	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
-	> 기초관리 > 거래처 관리 > 등록
+	> 기초관리 > 거래처관리 > 거래처등록
 </th:block>
 
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
 	<!-- 거래처 등록  -->
 	<div class="row justify-content-center">
-		<div class="col-md-6" style="margin-top: -1%">
+		<div class="col-md-6">
 			<div class="card card-primary">
-				<div class="btn-sm bg-warning color-palette btn-block card-header ">
+				<div class=" bg-warning color-palette btn-block card-header ">
 					<b><i class="fas fa-check"></i>ㅤ거래처 등록</b>
 				</div>
 
 				<form th:action="@{/basic_management/business/businessInsert}" method="post">
 				<div class="card-body">
 					<div class="form-group row">
+					
 						<label for="Name" class="col-sm-3 col-form-label"><code>*</code> 거래처명</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="businessName" placeholder="필수 입력해주세요.">
+							<input type="text" class="form-control" name="businessName" id="businessName" placeholder="필수 입력해주세요.">
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label"><code>*</code> 대표자명</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="partnerName" placeholder="필수 입력해주세요.">
+							<input type="text" class="form-control" name="partnerName" id="partnerName" placeholder="필수 입력해주세요.">
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label"><code>*</code> 대표자번호</label>
+						<label class="col-sm-3 col-form-label"><code>*</code> 대표자 번호</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="partnerPhone" placeholder="필수 입력해주세요.">
+							<input type="text" class="form-control" name="partnerPhone" id="partnerPhone"  placeholder="필수 입력해주세요.">
 						</div>
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label"><code>*</code> 사업장등록번호</label>
+						<label class="col-sm-3 col-form-label"><code>*</code> 사업자등록번호</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="registerNum" placeholder="필수 입력해주세요.">
+							<input type="text" class="form-control" name="registerNum" id="registerNum" placeholder="필수 입력해주세요.">
 						</div>
 					</div>
-
+					
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label"><code>*</code> 구분</label>
 						<div class="col-sm-9">
-						<select name="businessType" class="form-control">
-							<option>개인</option>
-							<option>기업</option>						
-						</select>
+							<select name="businessType" class="form-control" id="businessType">
+								<option>개인</option>
+								<option>기업</option>						
+							</select>
 						</div>
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label"><code>*</code> 업종</label>
+						<label class="col-sm-3 col-form-label"> 업종</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="sectors" placeholder="필수 입력해주세요.">
+							<input type="text" class="form-control" name="sectors" id="sectors" placeholder="필수 입력해주세요.">
 						</div>
 					</div>
-
+	
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label">업태</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="status" placeholder="...">
+							<input type="text" class="form-control" name="status" id="status">
 						</div>
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label"><code>*</code> 전화번호</label>
+						<label class="col-sm-3 col-form-label"> 전화번호</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="callNum" placeholder="필수 입력해주세요.">
+							<input type="text" class="form-control" name="callNum" id="callNum" placeholder="필수 입력해주세요.">
 						</div>
 					</div>
 
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label"><code>*</code> 상세주소</label>
+						<label class="col-sm-3 col-form-label"> 상세주소</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="address" placeholder="필수 입력해주세요.">
+							<input type="text" class="form-control" name="address" id="address" placeholder="필수 입력해주세요.">
 						</div>
 					</div>
-
-					<div class="form-group row">
-						<label class="col-sm-3 col-form-label">FAX</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" name="fax" placeholder="...">
-						</div>
-					</div>
-
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label"> 담당자 이름</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="businessStaff" placeholder="...">
+							<input type="text" class="form-control" name="businessStaff" id="businessStaff">
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label"> 담당자 연락처</label>
 						<div class="col-sm-9">
-							<input type="text" class="form-control" name="businessStaffPhone" placeholder="...">
+							<input type="text" class="form-control" id="user_phone" name="businessStaffPhone">
 						</div>
 					</div>
 
 					<div class="form-group row">
 						<label class="col-sm-3 col-form-label"> 담당자 이메일</label>
 						<div class="col-sm-9">
-							<input type="email" class="form-control" name="businessStaffEmail" placeholder="...">
+							<input type="email" class="form-control" name="businessStaffEmail" id="businessStaffEmail">
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label">FAX</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" name="fax" id="fax">
 						</div>
 					</div>
 
-					<div class="form-group row">
-						<label class="col-sm-3 col-form-label"> 비고</label>
-						<div class="col-sm-9">
-							<input type="text" class="form-control" name="note" placeholder="...">
-						</div>
+					<div style="margin-bottom:10px; margin-top=10px;">
+						<code>※ 필수입력값을 입력후 등록해주세요. </code>
 					</div>
 					
 					<div class="form-group row" style="display: none">
 						<label class="col-sm-3 col-form-label">등록자</label>
 						<div class="col-sm-9">
-							<input type="text" th:value="${session.SID}" class="form-control" name="id" placeholder="...">
+							<input type="text" th:value="${session.SID}" class="form-control" name="id" id="id">
 						</div>
 					</div>
 
 					<div class="form-group row" style="display: none">
 						<label class="col-sm-3 col-form-label">마트고유코트</label>
 						<div class="col-sm-9">
-							<input type="text" th:value="${session.SMARTCODE}" class="form-control" name="martCode" placeholder="...">
+							<input type="text" th:value="${session.SMARTCODE}" class="form-control" name="martCode">
 						</div>
 					</div>
 				<!-- 등록버튼  -->
-					<button type="submit" class="btn btn-m bg-warning color-palette btn-block"><b>등록</b></button>
+					<button type="submit" id="bsupdateBtn" name="btn_pass" class="btn btn-m bg-warning color-palette btn-block"><b>등록</b></button>
 					</div>
 				</form>
 			</div>
 		</div>
 	</div>
 </th:block>
+<th:block layout:fragment="customJs">
+	<script>
+		$(function(){
+			//거래처 등록 빈칸체크
+			$(document).on('click', '#bsupdateBtn', function(){
+				if($('#businessName').val() == ''){
+					alert('거래처명을 입력해주세요.');
+					return false;
+				}else if($('#partnerName').val() == '' || $('#partnerName').val() == undefined){
+					alert('대표자명을 입력해주세요.');
+					return false;
+				}else if($('#partnerPhone').val() == '' || $('#partnerPhone').val() == undefined){
+					alert('대표자 번호를 입력해주세요.');
+					return false;
+				}else if($('#registerNum').val() == '' || $('#registerNum').val() == undefined){
+					alert('사업자등록번호를 입력해주세요.');
+					return false;
+				}else{
+					alert('등록이 완료되었습니다.');
+					$('#updateForm').submit();
+				}
+			});
+		});		
+	</script>
+</th:block>
+
+
+
 </html>

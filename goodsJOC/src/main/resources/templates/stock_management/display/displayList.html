@@ -26,19 +26,20 @@
 					</div>
 					<div class="card-body">
 						<div class="tab-content" id="custom-tabs-two-tabContent">
-							<!-- 주문검색 -->
+							<!-- 재고이동 -->
+					<form th:action="@{/stock_management/display/searchDisplayList}" method="post">
 							<div class="row">
 								<label class="col-sm-1 col-form-label">이동검색</label>
 								<div class="col-sm-2">
-									<select id="orderCode" class="form-control custom-select">
-										<option value="상품명">상품명</option>
-										<option value="담당자">담당자</option>
-										<option value="창고">창고</option>
-										<option value="판매진열대">판매진열대</option>
+									<select name="searchKey" class="form-control custom-select">
+										<option value="goodsName">상품명</option>
+										<option value="name">담당자</option>
+										<option value="warehouseName">창고</option>
+										<option value="showcasePlace">판매진열대</option>
 									</select>
 								</div>
 								<div class="input-group input-group-m" style="width: 500px;">
-									<input type="text" name="table_search" style="margin-left: 3%"
+									<input type="text" name="searchValue" style="margin-left: 3%"
 										class="form-control float-right"
 										placeholder="검색">
 								</div>
@@ -49,14 +50,14 @@
 								<!-- 주문일자검색 -->
 								<label class="col-sm-1 col-form-label">이동일</label>
 								<div class="col-sm-2">
-									<input type="date" id="date" class="form-control">
+									<input type="date" name="startDt" id="date" class="form-control">
 								</div>
 								<span style="font-weight: bolder;">~</span>
 								<div class="col-sm-2">
-									<input type="date" id="date" class="form-control">
+									<input type="date" name="endDt" id="date" class="form-control">
 								</div>
 								<div class="col-sm-2">
-									<button type="button" class="btn btn-block bg-gradient-warning btn-lg" style="width: 225px">
+									<button type="submit" class="btn btn-block bg-gradient-warning btn-lg" style="width: 225px">
 										<b>검색</b>
 									</button> 
 								</div>
@@ -70,8 +71,8 @@
 							<a th:href="@{/stock_management/disposal/disposalList}" class="btn btn-block bg-gradient-info btn-lg">폐기</a>
 						</div>
 							</div>
+						</form>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -82,7 +83,7 @@
 					<!-- /.card-header -->
 					<div class="card-body table-responsive p-0" style="height: 300px;">
 						<div class="col-12">
-							<table class="table table-hover text-nowrap">
+							<table class="table table-hover text-nowrap text-center">
 								<thead>
 									<tr>
 										<th>번호</th>
@@ -93,7 +94,8 @@
 										<th>이동 수량</th>
 										<th>담당자</th>
 										<th>이동일자</th>
-									</tr>
+										<th></th>
+			 						</tr>
 								</thead>
 								<tbody>
 									<tr th:if="${not #lists.isEmpty(displayList)}" th:each="d, i : ${displayList}">

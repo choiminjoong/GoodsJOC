@@ -12,45 +12,64 @@ import k5.goodsjoc.dto.SalesPrice;
 
 @Mapper
 public interface GoodsMapper {
-	
-	//상품리스트 조회(카테고리+상품) 
-	public List<Goods> getGoodsList(String martCode);
-	//카테고리 등록
-	public int addGoodsCate(GoodsCate goodsCate);
-	//카테고리 조회
+/**
+	01.카테고리 전체조회	02.카테고리 등록처리	03.카테고리 수정처리	04.카테고리 삭제 전 상품의 분류를 미지정으로 수정처리 
+	05.카테고리 삭제처리	06.카테고리 조건검색 화면	07.바코드 사용여부 체크	08.상품등록처리		09.바코드로 상품정보 가져오기	
+	10.상품정보 수정처리	11.상품 삭제처리		12.상품 전체조회		13.카테고리 선택 모달 Ajax		14.상품 조건검색
+	15.특정 상품 매입가 조회	16.특정 상품 판매가 조회	17.상품 판매가 수정	18.수정된 판매가 기록
+**/		
+	//01.카테고리 전체조회
 	public List<GoodsCate> getGoodsCateList(String martCode);
-	//상품조건검색 
-	public List<Goods> getSearchGoodsList(Map<String, Object> paramMap);
-	//상품카테고리 선택모달
-	public List<Map<String, Object>> goodsCateModal();
-	//단일 상품정보 조회
-	public Goods getGoodsInfoByBarcode(String barcode);
-	//단일상품 매입가 리스트
-	public List<PurchasePrice> getPurchasePriceListByBarcode(String barcode);
-	//단일상품 판매가 리스트
-	public List<SalesPrice> getSalesPriceListByBarcode(String barcode);
-	//상품 판매단가 수정
-	public int updateGoodsPrice(String barcode, String salesPrice);
-	//판매가 기록남기기
-	public int addSalesPrice(Map<String, Object> paramMap);
-	//매장별 카테고리목롣 조회
-	public List<Map<String, Object>> getCategoryList(String martCode);
-	//바코드 사용여부체크
-	public int goodsCheckByBarcode(String barcode);
-	//상품카테고리 조건검색
-	public List<GoodsCate> getSearchGoodsCateList(String searchCate, String martCode);
-	//상품 등록
-	public int addGoodsAction(Goods goods);
-	//상품삭제
-	public int deleteGoods(String barcode);
-	//카테고리등록
+	
+	//02.카테고리 등록처리
 	public int goodsCateInsertAction(GoodsCate goodsCate);
-	//카테고리 삭제
-	public int goodsCateDeleteAction(String categoryCode);
-	//카테고리 삭제전 카테고리에 들어있는 상품의 카테고리 바꿔주기
-	public int updateGoodsCategoryCode(String categoryCode);
-	//카테고리 업데이트
+
+	//03.카테고리 수정처리
 	public int goodsCateUpdate(GoodsCate goodsCate);
-	//상품정보 수정
+
+	//04.카테고리 삭제 전 상품의 분류를 미지정으로 수정처리
+	public int updateGoodsCategoryCode(String categoryCode);
+	
+	//05.카테고리 삭제처리	
+	public int goodsCateDeleteAction(String categoryCode);
+
+	//06.카테고리 조건검색 화면	
+	public List<GoodsCate> getSearchGoodsCateList(String searchCate, String martCode);
+	
+	//07.바코드 사용여부 체크	
+	public int goodsCheckByBarcode(String barcode);
+	
+	//08.상품등록처리	
+	public int addGoodsAction(Goods goods);
+	
+	//09.바코드로 상품정보 가져오기	
+	public Goods getGoodsInfoByBarcode(String barcode);	
+
+	//10.상품정보 수정처리	
 	public int goodsUpdateAction(Goods goods);
+	
+	//11.상품 삭제처리	
+	public int deleteGoods(String barcode);	
+	
+	//12.상품 전체조회
+	public List<Goods> getGoodsList(String martCode);	
+	
+	//13.카테고리 선택 모달 Ajax	
+	public List<Map<String, Object>> getCategoryList(String martCode);
+	
+	//14.상품 조건검색	
+	public List<Goods> getSearchGoodsList(Map<String, Object> paramMap);
+	
+	//15.특정 상품 매입가 조회	
+	public List<PurchasePrice> getPurchasePriceListByBarcode(String barcode);
+
+	//16.특정 상품 판매가 조회	
+	public List<SalesPrice> getSalesPriceListByBarcode(String barcode);
+	
+	//17.상품 판매가 수정	
+	public int updateGoodsPrice(String barcode, String salesPrice);
+	
+	//18.수정된 판매가 기록	
+	public int addSalesPrice(Map<String, Object> paramMap);
+	
 }

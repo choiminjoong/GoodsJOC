@@ -79,7 +79,7 @@ public class WarehousingController {
 		
 		return "stock_management/warehousing/warehousingList";
 	}
-	
+	//입고 수정
 	@GetMapping("/warehousingUpdate")
 	public String warehousingUpdate() {
 		System.out.println("페이지: 입고 등록 ");

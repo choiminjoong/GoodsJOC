@@ -34,6 +34,7 @@
 			<result column="name" 				property="name"/>
 		</association>		
 	</resultMap>
+	
 	<resultMap type="OrderDetail" id="OrderDetailMap">
 		<id column="orderDetailCode" 		property="orderDetailCode"/>
 		<result column="orderCode" 			property="orderCode"/>
@@ -52,11 +53,129 @@
 			<result column="purchasePrice" 		property="purchasePrice" />
 		</association>	
 	</resultMap>
+	
+	<!-- 1.주문승인 -->
+	<update id="orderChangePurchase" parameterType="String">
+		UPDATE 
+			tb_order
+		SET
+			state='승인'
+			,purchaseDate = NOW()
+		WHERE
+			orderCode = #{orderCode}
+	</update>
+
+	<!-- 2.주문반려 -->
+	<update id="orderFail" parameterType="String">
+		UPDATE 
+			tb_order
+		SET
+			state='반려'
+		WHERE
+			orderCode = #{orderCode}
+	</update>
+	
+	<!-- 3.주문승인시 물품 수량 및 바코드 -->
+	<select id="getOrderQTYList" resultType="OrderDetail">
+		SELECT 
+			barcode, QTY, purchasePrice
+		FROM 
+			tb_orderDetail
+		WHERE
+			orderCode = #{orderCode}
+	</select>
+	
+	<!-- 4.주문승인시 상품정보 업데이트 -->
+	<update id="goodsUncheckedQTYUpdate">
+		UPDATE 
+			tb_goods
+		<foreach collection="qtyList" item="list">
+		SET
+			uncheckedQTY = #{list.qty}
+			, purchasePrice = #{list.purchasePrice}
+		WHERE 
+			barcode = #{list.barcode}
+		</foreach>
+	</update>
+
+	<!-- 5.주문상세삭제 -->
+	<delete id="deleteOrderDetail">
+		DELETE FROM 
+			tb_orderDetail 
+		WHERE 
+			orderCode= #{orderCode}
+	</delete>
+
+	<!-- 6.주문삭제 -->
+	<delete id="deleteOrder">
+		DELETE FROM 
+			tb_order
+		WHERE 
+			orderCode= #{orderCode}
+	</delete>
+	
+	<!-- 매입(주문상태=승인) 조건검색 -->
+	<select id="searchPurchaseList" parameterType="Map" resultType="Order" resultMap="OrderResultMap">
+		SELECT 
+			o.orderCode, 
+			o.businessCode, 
+			o.orderNum, 
+			o.deliveryDate, 
+			o.state, 
+			o.purchaseDate,
+			o.martCode, 
+			o.id, 
+			o.regDate,
+			o.totalOrderPrice,
+			b.businessName,
+			o.ID,
+			u.name
+		FROM  
+			tb_order AS o
+			INNER JOIN 
+			tb_business AS b
+			ON o.businessCode = b.businessCode
+			INNER JOIN
+			tb_user AS u
+			ON
+			o.ID = u.ID
+		WHERE
+			o.state = "승인" and o.martCode = #{martCode}
+			<if test="businessCode != null and businessCode != ''.toString()">
+				AND o.businessCode = #{businessCode}
+			</if>
+			<if test="startDate != null and startDate != ''.toString()">
+				AND o.purchaseDate >= #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''.toString()">
+				AND #{endDate} >= o.purchaseDate
+			</if>
+			<if test="id != null and id != ''.toString()">
+				AND o.ID = #{id}
+			</if>
+			<if test="minPrice != null and minPrice != ''.toString() and minPrice != 0">
+				AND o.totalOrderPrice >= #{minPrice}
+			</if>
+			<if test="maxPrice != null and maxPrice != ''.toString() and maxPrice != 0">
+				AND #{maxPrice} >= o.totalOrderPrice
+			</if>
+			<if test="state != null and state != ''.toString() and state == 1">
+				AND o.state > NOW()
+			</if>
+			<if test="searchState != null and state != ''.toString() and searchState == 1">
+				AND o.searchState > NOW()
+			</if>
+			<if test="orderNum != null and orderNum != ''.toString()">
+				AND o.orderNum = #{orderNum}
+			</if>
+		ORDER BY
+			o.orderNum ASC
+	</select>
 
 	<select id="getPurchaseDetailList" resultType="OrderDetail" resultMap="OrderDetailMap">
 		SELECT
 			d.purchasePrice, d.QTY, d.totalPrice, d.supplyPrice, d.VAT
-			, g.goodsName, g.taxType, g.weight
+			,g.goodsName, g.taxType, g.weight
 		FROM
 			tb_orderDetail AS d
 			INNER JOIN
@@ -112,7 +231,7 @@
 			ON
 			o.ID = u.ID
 		WHERE
-			o.state = "승인"
+			o.state = "승인" AND o.martCode = #{martCode}
 		ORDER BY
 			o.orderNum ASC
 	</select>
@@ -128,13 +247,14 @@
 		o.purchaseDate,
 		o.martCode, 
 		o.id, 
+		o.totalOrderPrice,
 		o.regDate,
 		b.businessName
 	FROM  
 		tb_order AS o
 	INNER JOIN tb_business AS b
 		ON o.businessCode = b.businessCode
-	
+	ORDER BY o.orderNum DESC
 	</select>
 	
 	<!-- 주문 조건검색(정도혜) -->
@@ -167,30 +287,57 @@
 		</trim>
 	</select>
 	
-	<insert id="orderInsert" parameterType="Order">
-	INSERT INTO tb_order(
-		orderCode, 
-		businessCode, 
-		orderNum, 
-		deliveryDate, 
-		state, 
-		purchaseDate, 
-		martCode, 
-		ID, 
-		totalOrderPrice,
-		regDate
-	)VALUES (
-		#{orderCode},
-		#{businessCode},
-		#{orderNum},
-		#{deliveryDate},
-		#{state},
-		#{purchaseDate},
-		#{martCode},
-		#{ID},
-		#{totalOrderPrice},
-		NOW()
-		);
+	<!-- 주문등록처리  -->
+	<insert id="orderInsertAction" parameterType="Order">
+		INSERT INTO tb_order(
+			businessCode
+			, orderNum
+			, deliveryDate
+			, martCode
+			, ID
+			, regDate
+			, totalOrderPrice
+		)VALUES (
+			#{businessCode}
+			, #{orderNum}
+			, #{deliveryDate}
+			, #{martCode}
+			, #{id}
+			, NOW()
+			, #{totalOrderPrice}
+		)
+	</insert>
+	
+	<!-- 주문등록 후 orderCode 넘겨주기 -->
+	<select id="searchOrderCode" parameterType="Order" resultType="String">
+		SELECT 
+			orderCode
+		FROM 
+			tb_order
+		WHERE
+			businessCode = #{businessCode} AND orderNum = #{orderNum} AND deliveryDate = #{deliveryDate}
+			AND martCode = #{martCode} AND ID = #{id}
+	</select>
+	
+	<!-- 주문등록처리  -->
+	<insert id="orderDetailInsertAction" parameterType="OrderDetail">
+		INSERT INTO tb_orderDetail(
+			orderCode
+			, barcode
+			, purchasePrice
+			, QTY
+			, totalPrice
+			, supplyPrice
+			, VAT
+		)VALUES (
+			#{orderCode}
+			, #{barcode}
+			, #{purchasePrice}
+			, #{qty}
+			, #{totalPrice}
+			, #{supplyPrice}
+			, #{vat}
+		)
 	</insert>
 	
 	<!-- 주문서 상세내역  -->
@@ -202,21 +349,72 @@
 	FROM 
 		tb_orderDetail AS s
 		INNER JOIN 
-			tb_goods AS g
+		tb_goods AS g
 		ON 
-			s.barcode = g.barcode
-		WHERE s.orderCode = #{orderCode}
+		s.barcode = g.barcode
+	WHERE 
+		s.orderCode = #{orderCode}
 	</select>
 	
-	<!-- <select id="getOrderList" resultType="orderDetail">
-	SELECT 
-		businessName, 
-		registerNum, 
-		businessStaff
-	FROM 
-		tb_business
+	<!-- 상품검색 modal -->
+	<select id="getOrderListByOrderCode" parameterType="String" resultType="Order" resultMap="OrderResultMap">
+	SELECT
+	   o.orderCode, o.orderNum, o.state
+	   , b.businessName, b.registerNum
+	   , u.name
+	FROM
+	   tb_order AS o
+	   INNER JOIN
+	   tb_business AS b
+	   on
+	   o.businessCode = b.businessCode
+	   INNER join
+	   tb_user AS u
+	   on
+	   o.ID = u.ID
+	WHERE
+	   o.orderCode = #{orderCode}
+		
 	</select>
-	 -->
 	
+	<!-- 총 매입 건수 및 총금액 -->	
+	<select id="purchaseDatePrice" parameterType="String" resultType="Map">
+		SELECT
+			SUM(totalOrderPrice) AS purchasePrice
+			,COUNT(*) AS purchaseCnt
+		FROM
+			tb_order
+		WHERE
+			martCode = #{martCode} AND state = '승인' AND MONTH(NOW()) = MONTH(purchaseDate)
+	</select>
+	
+	<!-- 총 주문 금액 -->	
+	<select id="totalOrderPrice" parameterType="String" resultType="Map">
+		SELECT
+			SUM(totalOrderPrice) AS totalOrderPrice
+		FROM
+			tb_order
+		WHERE
+			martCode = #{martCode}
+	</select>
+	
+	
+	<!-- 주문번호 중복검사 -->
+	<select id="orderCheckByorderNum" parameterType="String" resultType="int">
+		SELECT
+			COUNT(1)
+		FROM
+			tb_order
+		WHERE
+			orderNum = #{order};
+	</select>
+	
+	<!-- 주문삭제(정도혜)  -->
+	<delete id="orderDeleteAction">
+	DELETE FROM 
+		tb_order 
+	WHERE 
+		orderCode=#{orderCode}
+	</delete>
 	
 </mapper>

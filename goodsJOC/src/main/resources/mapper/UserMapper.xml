@@ -3,7 +3,6 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="k5.goodsjoc.mapper.UserMapper">
-	<!-- user ResultMap (정도혜) -->
 	<!-- user innerjoin level resultMap(최민중)-->
 	<resultMap type="User" id="userResultMap">
 		<id column="ID"					property="id"/>
@@ -33,6 +32,20 @@
 		<result column="levelName"	property="levelName" />
 		<result column="note"		property="note"/>
 	</resultMap>
+
+	<!-- 매장별 조회 모달(최민중) -->
+	<select id="getSearchStaffList" resultType="User" resultMap="userResultMap">
+		SELECT 
+			u.ID, u.name, u.levelNum, l.levelName
+		FROM 
+			tb_user AS u
+			INNER JOIN 
+			tb_systemLevel AS l
+			ON
+			u.levelNum = l.levelNum
+		WHERE
+			martCode= #{martCode} AND u.deleteStatus = 'N' AND u.levelNum != 5
+	</select>
 
 	<!-- 회원가입 -->
 	<insert id="userInsertAction">
@@ -80,7 +93,7 @@
 	<select id="getUserInfoByID" parameterType="String" resultMap="userResultMap">
 		SELECT 
 			u.ID, u.PW, u.name, u.birthday, u.phone, u.email, u.address, u.martCode, u.levelNum, u.regDate
-			, l.levelName, m.martName
+			, l.levelName, m.martName, u.deleteStatus
 		FROM 
 			tb_user as u
 			INNER JOIN
@@ -92,10 +105,10 @@
 			ON
 			u.martCode = m.martCode
 		WHERE 
-			ID = #{ID};
+			ID = #{id};
 	</select>
 	
-	<!-- 매장별 사용자 조건 검색 (정도혜) -->
+	<!--사용자 조건 검색 (정도혜) -->
 	<select id="getUserListBySearchKey" resultMap="userResultMap" resultType="User">		 
 		SELECT 
 			u.ID,
@@ -172,5 +185,77 @@
 			ID = #{userId};
 	</select>
 	
+	<!--직원 키워드검색 -->
+	<select id="getTotalUserSearchList" parameterType="Map" resultType="User" resultMap="userResultMap">
+		SELECT 
+			u.ID, u.PW, u.name, u.birthday, u.email, u.martCode, u.levelNum, u.regDate
+			,l.levelName, m.martName, u.deleteStatus
+		FROM 
+			tb_user AS u
+			INNER JOIN 
+			tb_systemLevel AS l
+			ON
+			u.levelNum = l.levelNum
+			INNER JOIN
+			tb_mart AS m
+			ON
+			u.martCode = m.martCode
+		WHERE
+			u.martCode != 'GOODSJOC'
+			<if test="deleteStatus != null and deleteStatus != ''.toString()">
+					AND u.deleteStatus = #{deleteStatus}
+			</if>
+			<if test="startDate != null and startDate != ''.toString()">
+					AND u.regDate >= #{startDate}
+			</if>
+			<if test="endDate != null and endDate != ''.toString()">
+					AND #{endDate} >= u.regDate
+			</if>
+			<if test="levelNum != null and levelNum != ''.toString()">
+					AND u.levelNum = #{levelNum}
+			</if>
+			<if test="martName != null and martName != ''.toString()">
+					AND m.martName LIKE CONCAT('%', #{martName}, '%')
+			</if>
+			<if test="name != null and name != ''.toString()">
+					AND (u.name LIKE CONCAT('%', #{name}, '%') OR u.ID LIKE CONCAT('%', #{name}, '%'))
+			</if>
+		ORDER BY
+			u.martCode ASC, u.levelNum ASC
+	</select>
 	
+	<select id="getTotalUserList" resultMap="userResultMap">
+		SELECT 
+			u.ID, u.PW, u.name, u.birthday, u.email, u.martCode, u.levelNum, u.regDate
+			,l.levelName, m.martName, u.deleteStatus
+		FROM 
+			tb_user AS u
+			INNER JOIN 
+			tb_systemLevel AS l
+			ON
+			u.levelNum = l.levelNum
+			INNER JOIN
+			tb_mart AS m
+			ON
+			u.martCode = m.martCode
+		WHERE
+			u.martCode != 'GOODSJOC'
+		ORDER BY
+			u.martCode ASC, u.levelNum ASC
+	</select>
+	
+	<update id="userActive">
+		UPDATE tb_user
+		SET
+			deleteStatus='N'
+		WHERE 
+			id = #{id}
+	</update>
+	<update id="userNoActive">
+		UPDATE tb_user
+		SET
+			deleteStatus='Y'
+		WHERE 
+			id = #{id}
+	</update>
 </mapper>

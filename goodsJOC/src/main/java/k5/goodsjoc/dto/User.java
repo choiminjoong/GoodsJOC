@@ -1,7 +1,6 @@
 package k5.goodsjoc.dto;
 
 public class User {
-
 	private String id;
 	private String pw;
 	private String name;
@@ -14,15 +13,15 @@ public class User {
 	private String regDate;
 	private String deleteStatus;
 
+	private Level level;
+	private Mart mart;
+	
 	public String getDeleteStatus() {
 		return deleteStatus;
 	}
 	public void setDeleteStatus(String deleteStatus) {
 		this.deleteStatus = deleteStatus;
 	}
-	private Level level;
-	private Mart mart;
-
 	public Mart getMart() {
 		return mart;
 	}

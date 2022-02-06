@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k5.goodsjoc.mapper.GoodsReturnMapper">
+	<!-- Purchase ResultMap (오대성) -->
+	<resultMap type="GoodsReturn" id="goodsReturnResultMap">
+		<result column="returnCode" 				property="returnCode"/>
+		<result column="barcode" 			property="barcode"/>
+		<result column="returnQTY" 		property="returnQTY"/>
+		<result column="returnPrice" 				property="returnPrice"/>		
+		<result column="note" 					property="note"/>
+		<result column="martCode"				property="martCode"/>
+		<result column="ID" 			property="ID"/>
+		<result column="regDate" 			property="regDate"/>
+		
+		<association javaType="Goods" property="goods">
+			<id column="barcode" 	property="barcode"/>
+			<result column="goodsName" 			property="goodsName"/>
+		</association>
+		<association javaType="Business" property="business">
+			<id column="businessCode" 	property="businessCode"/>
+			<result column="businessName" 			property="businessName"/>
+		</association>
+		<association javaType="User" property="user">
+			<id column="ID" 	property="ID"/>
+			<result column="name" 			property="name"/>
+		</association>
+	</resultMap>		
+	
+	<!-- GoodsReturn 전체조회 (오대성) -->
+	<select id="getGoodsReturnList" resultType="goodsReturn" resultMap="goodsReturnResultMap">
+		SELECT 
+			g.goodsName,
+			r.returnQTY,
+			b.businessName,
+			r.returnPrice,
+			u.NAME,
+			r.regDate
+		FROM 
+			tb_goodsReturn AS r
+		INNER JOIN 
+			tb_goods AS g
+		ON
+			r.barcode = g.barcode
+		INNER JOIN 
+			tb_business AS b
+		ON 
+			b.businessCode = g.businessCode
+		INNER JOIN 
+			tb_user AS u
+		ON
+			r.ID = u.ID
+	</select>
+	
+	<!--반품 조건 검색  -->
+	<select id="getSearchGoodsReturnList" resultType="goodsReturn" resultMap="goodsReturnResultMap">
+		SELECT 
+			g.goodsName,
+			r.returnQTY,
+			b.businessName,
+			r.returnPrice,
+			u.NAME,
+			r.regDate
+		FROM 
+			tb_goodsReturn AS r
+		INNER JOIN 
+			tb_goods AS g
+		ON
+			r.barcode = g.barcode
+		INNER JOIN 
+			tb_business AS b
+		ON 
+			b.businessCode = g.businessCode
+		INNER JOIN 
+			tb_user AS u
+		ON
+			r.ID = u.ID
+			WHERE
+				r.martCode = #{martCode}
+					<if test="searchValue != null and searchValue != ''.toString()">
+						AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+					</if>
+					<if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
+						AND r.regDate BETWEEN #{startDt} AND #{endDt}
+					</if>
+	</select>
+	<!-- 월별 반품 건수 및 금액 조회 -->
+	<select id="getReturnPriceTotalInfo" resultType="Map">
+		SELECT 
+			SUM(returnPrice) AS returnSumPrice
+			,COUNT(*) AS returnPriceCnt
+		FROM 
+			tb_goodsReturn
+		WHERE
+			martCode = #{martCode} AND MONTH(regDate) = MONTH(NOW())
+	</select>
+	
+	<!-- 재고이동 선택용 모달(오대성) -->
+	<select id="getGoodsReturnModal" parameterType="String" resultType="Map">
+		SELECT 
+			g.barcode AS barcode,
+			(g.goodsTotalStock - g.uncheckedQTY) AS returnQTY,
+			g.uncheckedQTY AS uncheckedQTY,
+			b.businessName AS businessName,
+			g.purchasePrice AS purchasePrice,
+			g.businessCode AS businessCode
+		FROM 
+			tb_goods AS g
+			INNER JOIN 
+			tb_business AS b
+			ON 
+			g.businessCode = b.businessCode
+		WHERE 
+			g.martCode = #{martCode}			
+	</select>
+	
+	
+	
+	
+</mapper>

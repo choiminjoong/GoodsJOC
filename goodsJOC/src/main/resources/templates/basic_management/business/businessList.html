@@ -24,7 +24,7 @@
 					<b>거래처 조회</b>
 				</h3>
 			</div>
-			<div class="card-body">
+			<div class="card-body table-responsive">
 			<form th:action="@{/basic_management/business/businessList}" method="post">
 				<div class="tab-content" id="custom-tabs-two-tabContent">
 					<!-- 주문검색 -->
@@ -32,7 +32,7 @@
 						<label class="col-sm-1 col-form-label" style="text-align: center;">검 색</label>
 							<div class="col-sm-2">
 								<select name="searchKey" class="form-control custom-select">
-									<option value="">:: 선택  ::</option>
+									<option value="">전체 검색</option>
 									<option value="businessType">구분</option>
 									<option value="businessName">거래처명</option>
 									<option value="partnerName">대표자</option>
@@ -40,17 +40,21 @@
 								</select>
 							</div>
 							<div class="input-group input-group-m" style="width: 450px;">
-								<input type="text" name="searchValue"
-									class="form-control float-right" placeholder="검색어를 입력해주세요.">
+								<input type="text" name="searchValue" class="form-control float-right" placeholder="검색어를 입력해주세요.">
 							</div>
-							<div class="d-flex justify-content-center" style="margin-left: 10px">
-							<button type="submit" class="btn btn-info">
+							<div class="d-flex justify-content-center"	>
+							<button type="submit" class="btn btn-warning">
 								<b>검색</b>
 							</button>
+							<div class="col-sm-1">
+								<a th:href="@{/basic_management/business/businessList}" type="button" class="btn bg-gradient-warning"> 
+									<i class="fas fa-redo-alt"></i>
+								</a>
+							</div>
 							</div>	
 							<a th:href="@{/basic_management/business/businessInsert}">
-							<button type="button" class="btn btn-info" style="margin-left: 5px">
-								<b>등록</b>
+							<button type="button" class="btn btn-info" style="margin-left: 20px">
+								<b>거래처 등록</b>
 							</button>
 							</a>
 						</div>
@@ -71,15 +75,12 @@
 		</div>
 	</div>
 
-
-
-
 	<!-- 거래처 리스트 화면 -->
 	<div class="col-md-13" style="margin-top: 1%">
 		<div class="card card-warning color-pallete">
 			<div class="card-header p-0 pt-1"></div>
 			<div class="card-body table-responsive p-0">
-				<table class="table table-head-fixed text-nowrap text-center">
+				<table class="table table-head-fixed text-nowrap text-center" th:action="@{/basic_management/business/businessDelete}">
 					<thead>
 						<tr>
 							<th>번호</th>
@@ -97,6 +98,7 @@
 					<tbody>
 						<tr th:if="${not #lists.isEmpty(businessList)}" th:each="l, i : ${businessList}">
 							<td th:text="${i.index+1}"></td>
+							<td class="codePick" th:text="${l.businessCode}" style="display: none;"></td>
 							<td th:text="${l.businessType}"></td>
 							<td th:text="${l.businessName}"></td>
 							<td th:text="${l.partnerName}"></td>
@@ -111,9 +113,10 @@
 											<i class="fas fa-highlighter"></i>
 										</a>
 										<!--삭제 버튼  -->
-										<button type="button" id="bsdelectBtn" class="btn btn-danger"> <i class="fas fa-trash"></i>
+										<button type="button" id="deleteBtn" class="btn btn-danger" data-toggle="modal" 
+												th:data-businessCode="${l.businessCode}" data-target="#del-modal">
+											<i class="fas fa-trash"></i>				
 										</button>									
-	
 									</div>
 								</td>
 							</th:block>
@@ -124,15 +127,62 @@
 			<div class="card-footer"></div>
 		</div>
 	</div>
+	
+	<!--거래처 삭제확인 모달  -->
+	<div class="modal fade" id="del-modal" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-danger">
+					<h4 class="modal-title">알림</h4>
+				</div>
+				<div class="modal-body">
+					<form id="deleteForm" th:action="@{/basic_management/business/businessDeleteAction}" method="get">
+						<div style="height:60px;">
+							<div>
+								<span>삭제하시겠습니까?</span>
+							</div>
+						</div>
+						<div style="display:none;">
+							<input type="text" id="sendBusinessCode" name="sendBusinessCode">
+						</div>
+						<div class="row">
+							<div class="col-2"></div>
+							<div class="col-3">
+								<button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">취소</span>
+								</button>
+							</div>
+							<div class="col-2"></div>
+							<div class="col-3">
+								<button type="button" id="realDelete" class="btn btn-danger btn-block">
+									삭제하기
+								</button>
+							</div>
+							<div class="col-2"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>	
 </th:block>
+
 <th:block layout:fragment="customJs">
-	<script>
-		$(function(){
-			$(document).on('click', '#bsdelectBtn', function(){
-				alert('정말 삭제하시겠습니까?');
-				$('#updateForm').submit();
-			});
+	<script type="text/javascript">
+	$(function(){
+		//삭제버튼 클릭시 모달에 비즈니스코드 보내기
+		$(document).on('click', '#deleteBtn', function(){
+			var codePick = $(this).parent().parent().parent().children('.codePick').text();
+			$('#sendBusinessCode').val(codePick);
 		});
-	</script>
+		
+		//삭제하기
+		$(document).on('click', '#realDelete', function(){
+			alert('삭제되었습니다.');
+			$('#deleteForm').submit();
+		});
+	});
+		
+	</script>	
 </th:block>
 </html>

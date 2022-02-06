@@ -11,231 +11,568 @@
 <!-- 로케이션 위치 -->
 <th:block layout:fragment="locationPlace">
 	<a id="main" th:href="@{/main}" class="joc-text1"><b>MAIN</b></a>
-      > 거래관리 > 매출관리
+      > 거래관리 > 매출 및 영수증
    </th:block>
 
 <!-- 메인 컨텐츠 영역 -->
 <th:block layout:fragment="customContents">
 	<!-- 주문 검색,등록버튼 -->
-	<div class="col-md-12">
-		<div class="card card-warning color-pallete">
-			<div class="card-header">
-				<h3 class="card-title">
-					<b>매출관리</b>
-				</h3>
-			</div>
-			<div class="card-body">
-			<form th:action="@{/trade_management/sales/salesList}" method="post">
-				<div class="tab-content" id="custom-tabs-two-tabContent">
-					<!-- 매출검색 -->
-					<div class="form-group row">
-						<label class="col-sm-1 col-form-label">키워드검색</label>
-						<div class="col-sm-2">
-							<select name="searchKey" class="form-control custom-select">
-								<option value="">:: 선택  ::</option>
-								<option value="receiptNum">영수증번호</option>
-								<option value="salesTotalPrice">매출액</option>
-								<option value="casnselStaff">취소담당자</option>
-							</select>
+	<div class="card card-warning">
+		<div class="card-header">
+			<h3 class="card-title">
+				<b>매출정보조회</b>
+			</h3>
+		</div>
+		<div class="card-body table-responsive">
+			<form th:action="@{/trade_management/sales/searchSalesList}" method="post">
+				<div class="tab-content row" id="custom-tabs-two-tabContent">
+					<div class="col-10">
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">담당자</label>
+							<div class="col-sm-3">
+								<div class="input-group mb-2">
+									<input type="text" id="staffNameInput" class="form-control text-center" readonly>
+									<div style="display:none">
+										<label>직원 아이디</label>
+										<div class="col-sm-10">
+											<input type="text" class="form-control" name="id" id="staffIdInput">
+										</div>
+									</div>
+									<div class="input-group-append">
+										<button type="button" id="searchStaffBtn" class="btn btn-default" data-toggle="modal" data-target="#staffModal">
+											<i class="fas fa-search"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+							
+							<div class="col-sm-1"></div>
+							
+							<label class="col-sm-1 col-form-label">판매금액</label>
+							
+							<div class="col-sm-2">
+								<input name="minPrice" type="number" class="form-control text-center" value=0>
+							</div>
+							<div class="col-sm-1 text-center">
+								<b>~</b>
+							</div>	
+							<div class="col-sm-2">
+								<input name="maxPrice" type="number" class="form-control text-center" value=0>
+							</div>
 						</div>
-						<div class="input-group input-group-m" style="width: 500px;">
-							<input type="text" name="searchValue" style="margin-left: 3%"
-								class="form-control float-right" placeholder="검색어를 입력해주세요.">
-							<div class="input-group-append"></div>
+						<div class="form-group row">
+							<label class="col-sm-1 col-form-label">취소여부</label>
+							<div class="col-sm-3">
+								<select name="canselCheck" class="form-control text-center">
+									<option value="">전체보기</option>
+									<option value="1">정상판매</option>
+									<option value="2">판매취소</option>
+								</select>
+							</div>
+							
+							<div class="col-sm-1"></div>
+							
+							<label class="col-sm-1 col-form-label">거래일시</label>
+							<div class="col-sm-2">
+								<input name="startDate" type="date" class="form-control text-center">
+							</div>
+							<div class="col-sm-1 text-center">
+								<b>~</b>
+							</div>	
+							<div class="col-sm-2">
+								<input name="endDate" type="date" class="form-control text-center">
+							</div>
+							
 						</div>
-						<div class="d-flex justify-content-center" style="margin: 0 10px 0 10px">
-							<button type="submit" class="btn btn-info">
-								<b>검색</b>
-							</button>
-						</div>
-						<div class="d-flex justify-content-center">
-							<a th:href="@{/trade_management/sales/salesInsert}">
-								<button type="button" class="btn btn-warning">
-									<b>매출 등록</b>
-								</button>
-							</a>	
-						</div>
-					</div>
-				</div>
 
-				<!-- 주문일자검색 -->
-				<div class="form-group row">
-					<label class="col-sm-1 col-form-label">일자검색</label>
-					<div class="col-sm-2">
-						<input type="date" name="startDt" id="date" class="form-control">
+						<div class="form-group row" style="margin-bottom: -10px;">
+							
+							<label class="col-sm-1 col-form-label">영수증 번호</label>
+							<div class="col-sm-3">
+								<input type="number" name="receiptNum" class="form-control text-center">
+							</div>
+							
+							<div class="col-sm-2"></div>
+							
+
+							<div class="col-sm-2">
+								<button type="submit" class="btn btn-block bg-gradient-warning btn-sm"><b>검색</b></button>
+							</div>
+							<div class="col-sm-1">
+
+								<a th:href="@{/trade_management/sales/salesList}" type="button" class="btn btn-block bg-gradient-warning btn-sm">
+
+									<i class="fas fa-redo-alt"></i>
+								</a>
+							</div>
+							<div class="col-sm-2">
+								<a th:href="@{/trade_management/sales/salesInsert}" type="button" class="btn btn-block bg-gradient-info btn-sm">
+									<b>매출 등록</b>
+								</a>
+							</div>
+						</div>
 					</div>
-					<th:block>
-						<b>~</b>
-					</th:block>
-					<div class="col-sm-2">
-						<input type="date"  name="endDt" id="date" class="form-control">
-					</div>
-					<!-- 취소여부 검색 -->
-					<label class="col-sm-1 col-form-label">취소 여부</label>
-					<div class="col-sm-2">
-						<select id="searchCancell" class="form-control custom-select">
-							<option value="취소">취소</option>
-							<option value="미취소">미취소</option>
-						</select>
+					<div class="col-2" align="center" style="margin-bottom: -20px; margin-top: -5px;">
+						<th:block th:if="${not #lists.isEmpty(salesTotalInfo)}" th:each="l : ${salesTotalInfo}">
+							<div class="info-box mb-3 bg-info">
+								<span class="info-box-icon bg-teal disabled color-palette elevation-1">
+									<i class="fas fa-shopping-cart"></i>
+								</span>
+								<div class="info-box-content">
+									<span class="info-box-text"> <b class="nowMonth"></b> 월 판매 건수</span> 
+									<span class="info-box-number"> <b th:text="${l.salesCnt}"></b> 건</span>
+								</div>
+								<!-- /.info-box-content -->
+							</div>
+							<div class="info-box mb-3 bg-info" style="margin-top: -10px;">
+								<span class="info-box-icon bg-teal elevation-1">
+									<i class="fas fa-won-sign"></i>
+								</span>
+								<div class="info-box-content">
+									<span class="info-box-text"> <b class="nowMonth"></b> 월 총매출금</span> 
+									<span class="info-box-number"> <b class="money" th:text="${l.salesSumPrice}"></b> </span>
+								</div>
+							</div>
+						</th:block>
 					</div>
 				</div>
 			</form>
 		</div>
 	</div>
-</div>
 
-<!-------------------매출 조회 폼--------------------->
-<div class="col-12">
-	<div class="card card-warning card-tabs">
-		<div class="card-header p-0 pt-1"></div>
-		<!-- /.card-header -->
-		<div class="card-body table-responsive p-0" style="height: 400px;">
-			<div class="col-12">
-				<table class="table table-hover text-center">
-					<thead>
-						<tr>
-							<th>순번</th>
-							<th>영수증번호</th>
-							<th>매출액</th>
-							<th>거래일시</th>
-							<th>상세보기</th>
-							<th>취소 여부</th>
-							<th>취소 일시</th>
-							<th>수 정</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:if="${not #lists.isEmpty(salesList)}" th:each="l, i : ${salesList}">
-							<td th:text="${i.index+1}"></td>
-							<td th:text="${l.receiptNum}"></td>
-							<td th:text="${l.salesTotalPrice}"></td>
-							<td th:text="${l.regDate}"></td>
-							<td>
-								<button type="submit" class="btn btn-outline-primary btn-xs"
-									data-toggle="modal" data-target="#exampleModalCenter">영수증</button>
-							</td>
-							<td th:text="${l.canselCheck}"></td>
-							<td th:text="${l.canselDate}"></td>
-							<td>
-								<!-- 수정버튼 -->
-								<button th:href="@{/trade_management/sales/salesUpdate}" class="btn-sm btn-info"> 
-									<i class="fas fa-highlighter"></i>
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
+	<!-------------------매출 조회 폼--------------------->
+	<div class="col-12">
+		<div class="card card-warning card-tabs">
+			<div class="card-header p-0 pt-1"></div>
+			<!-- /.card-header -->
+			<div class="card-body table-responsive p-0" style="height: 400px;">
+				<div class="col-12">
+					<table class="table table-hover text-center">
+						<thead>
+							<tr>
+								<th>영수증번호</th>
+								<th>거래일시</th>
+								<th>판매금액</th>
+								<th>담당자</th>
+								<th>상세보기</th>
+								<th>취소</th>
+								<th>취소 여부</th>
+								<th>취소 일시</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr th:if="${not #lists.isEmpty(salesList)}" th:each="l, i : ${salesList}">
+								<td th:text="${l.receiptNum}"></td>
+								<td th:text="${l.regDate}"></td>
+								<td class="money" th:text="${l.salesTotalPrice}"></td>
+								<td th:text="${l.user.getName()}"></td>
+								<td>
+									<button type="button" class="btn btn-outline-primary btn-xs receiptBtn" 
+											data-toggle="modal" data-target="#receiptModal"
+											th:data-salesCode="${l.salesCode}" th:data-receiptNum="${l.receiptNum}" 
+											th:data-regDate="${l.regDate}" th:data-staff="${l.user.getName()}" th:data-canselCheck="${l.canselCheck}">
+											영수증
+									</button>
+								</td>
+								<td>
+									<a th:href="@{/trade_management/sales/salesList}">
+										<button type="button" id="salesBtn" class="btn btn-outline-danger btn-xs">취소</button>
+									</a>
+								</td>
+								<td style="color: red;" th:text="${l.canselCheck}"></td>
+								<td th:text="${l.canselDate}"></td>						
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
-<!--------------영수증 Modal-------------->
-<form th:action="@{/trade_management/sales/salesList}" method="post">
-	<div class="modal fade" id="exampleModalCenter" tabindex="-1"
-		role="dialog" aria-labelledby="exampleModalCenterTitle"
-		aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-				<div class="modal-header bg-info">
-					<h5 class="modal-title" id="SalesDetall">영수증</h5>
-					<button type="button" class="close" data-dismiss="modal"
-						aria-label="Close">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				
-			<!-- 영수증 기본상세내역  -->
-			<div class="modal-body">
-				<div class="invoice p-3 mb-3">
-					<!-- info row -->
-					<div class="row invoice-info">
-						<div class="col">
-							<b>매장명</b> : 다모아 마트 <br> 
-							<b>사업자번호</b> :  000-0000-000<br>
-							<b>대표자</b> : 정도혜 <br> 
-							<b>전화번호 :</b> 010-000-000<br> 
-							<b>주소 :전라북도 전주시 덕진구 인후동</b> <br>
+	
+	<!--------------영수증 Modal-------------->
+	<div id="print">
+		<form th:action="@{/trade_management/sales/salesList}" method="post">
+			<div class="modal fade" id="receiptModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+				<div class="modal-dialog modal-md">
+					<div class="modal-content">
+						<div class="modal-header bg-info">
+							<h5 class="modal-title" id="SalesDetall">영수증</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
 						</div>
-						<!-- 저장 & 프린트 버튼  -->
-						<div class="row no-print">
-							<div class="col-12">
-								<button type="button" class="btn btn-info float-right"
-									style="margin-right: 5px;">
-									<i class="fas fa-download"></i>저장
-								</button>
-								<button type="button" id="salesBtn" class="btn btn-danger float-right"
-									style="margin-right: 5px;">
-									<i class="fas fa-times-circle">영수증 취소</i>
-								</button>									
+						<!-- 영수증 상세내역  -->
+						<div class="modal-body">
+							<div class="invoice p-3 mb-3">
+								<!-- info row -->
+								<div class="invoice-info">
+									<div>
+										<h3 class="text-center">
+										********** <span th:text="${session.SMARTINFO.getMartName()}"></span> **********
+										</h3>
+										<div id="buySuccess" class="text-center" style="margin-bottom: 10px;">
+											<div>교환/환불시 구매점에서 가능(결제카드지참)</div>
+											<div>체크카드 취소 시 대금환급은 최대 7일소요</div>
+										</div>
+										<div id="buyFail" class="text-center" style="margin-bottom: 10px;">
+											<div id="canselText" style="color: red;"></div>
+											<div id="canselStaff" style="color: red;"></div>
+										</div>
+										<div class="row" style="margin-bottom: 20px;">
+											<div class="col-12">
+												<b>주소:</b><span> </span><span th:text="${session.SMARTINFO.getAddress()}"></span>
+											</div>
+											<div class="col-6">
+												<b>대표자:</b><span> </span><span th:text="${session.SMARTINFO.getPartnerName()}"></span>
+											</div>
+											<div class="col-6">
+												<b>사업자번호:</b><span> </span><span th:text="${session.SMARTINFO.getRegisterNum()}"></span>
+											</div>
+											<div class="col-6">
+												<b>담당직원:</b><span> </span><span id="staffName"></span>
+											</div>
+											<div class="col-6">
+												<b>매장연락처:</b><span> </span><span th:text="${session.SMARTINFO.getCallNum()}"></span>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-8">
+												<h5><b>No.</b><span> </span><span id="receiptNumber"></span></h5>
+											</div>
+											<div class="col-4">
+												<h6><span id="salesDate"></span></h6>
+											</div>
+										</div>
+									</div>
+								</div>
+								<div>
+								
+								</div>
+								
+								<!-- 영수증 테이블-->
+								<div class="row">
+									<div class="col-12 table-responsive">
+										<table class="table table-striped text-center">
+											<thead>
+												<tr>
+													<th></th>
+													<th>상품명</th>
+													<th>가격</th>
+													<th>수량</th>
+													<th>합계</th>
+												</tr>
+											</thead>
+											<tbody id="salesDetailTable">
+											</tbody>
+										</table>
+									</div>
+									<div style="margin-top: -15px; margin-bottom: 10px;">
+										<span style="color: blue; margin-left: 7px;"> ※ 상품명에 *이 붙은 항목은 비과세 상품입니다</span>
+									</div>
+								</div>
+								<!-- 영수증 하단  -->
+								<div class="row">
+									<div class="col-6">
+										<img src="../../dist/img/credit/visa.png" alt="Visa">
+										<img src="../../dist/img/credit/mastercard.png" alt="Mastercard">
+										<img src="../../dist/img/credit/paypal2.png" alt="Paypal">
+										<p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
+											<textarea class="form-control" rows="3" placeholder="참고사항"></textarea>
+										</p>
+									</div>
+									<div class="col-6 table-responsive" style="margin-top:40px;">
+										<table class="table">
+											<tbody>
+												<tr>
+													<th>VAT : </th>
+													<td id="totalVAT"></td>
+												</tr>
+												<tr>
+													<th>결제금액 :</th>
+													<td id="totalSumPrice"></td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+						<div class="card-footer">
+							<button type="button" id="canselChange" class="btn btn-outline-danger" data-toggle="modal" data-target="#del-modal">영수증 취소하기</button>
+							<button type="button" class="btn btn-warning float-right" data-dismiss="modal" aria-label="Close">닫기</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</div>
+	
+	<!-- 삭제확인 모달  -->
+	<div class="modal fade" id="del-modal" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-danger">
+					<h4 class="modal-title">경고</h4>
+				</div>
+				<div class="modal-body">
+					<form th:action="@{/trade_management/sales/receiptCanselAction}" method="post">
+						<div style="height:100px;">
+							<div>
+								<span>영수증을 취소하면 다시 되돌릴 수 없습니다.</span>
+							</div>
+							<div>
+								<span>정말 취소하시겠습니까?</span>
 							</div>
 						</div>
+						<div style="display:none">
+							<input type="text" id="sendBarcode" name="sendBarcode">
 						</div>
-						<!-- 영수증 발행시각 -->
-						<div class="col-15" style="text-align: center;">
-							<h4 style="margin-top: 10%">
-								<i>영수증 : </i><a> 00001</a><br> <small>[ 발행일시: 2021-12-12 오전 8:41:09 ]</small>
-							</h4>
-						</div>							
-						<!-- 영수증 테이블-->
 						<div class="row">
-							<div class="col-15 table-responsive">
-								<table class="table table-striped" style="text-align: center;">
-									<thead style="text-align: center;">
-										<tr>
-											<th>상품명</th>
-											<th>단가</th>
-											<th>수량</th>
-											<th>금액</th>
+							<div class="col-2"></div>
+							<div class="col-3">
+								<button type="button" class="btn btn-secondary btn-block" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">취소</span>
+								</button>
+							</div>
+							<div class="col-2"></div>
+							<div class="col-3">
+								
+									<div style="display:none;">
+										<input type="text" id="canselTargetSalesCode" name="salesCode">
+									</div>
+									<button type="submit" id="canselBtn" class="btn btn-danger btn-block">
+										판매취소
+									</button>
+							</div>
+							<div class="col-2"></div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 직원 검색 모달  -->
+	<div class="modal fade" id="staffModal" style="display: none;" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content" >
+				<div class="modal-header bg-warning">
+					<h4 class="modal-title">직원 검색</h4>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="example2_wrapper" class="dataTables_wrapper dt-bootstrap4">
+						<div class="row">
+							<div class="col-sm-12">
+								<table style="width:100%" id="staffTable" class="text-center table table-bordered table-hover dataTable dtr-inline"
+									role="grid" aria-describedby="example2_info">
+									<thead>
+										<tr style="width:540px;" role="row">
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-sort="ascending" aria-label="Rendering engine: activate to sort column descending">
+												권한</th>
+											<th class="sorting sorting_asc" tabindex="0" aria-controls="example2" rowspan="1" colspan="1"
+												aria-label="Browser: activate to sort column descending"aria-sort="ascending">
+												이름
+											</th>
+											<th tabindex="0" rowspan="1" colspan="1">
+													선택하기
+											</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr th:if="${not #lists.isEmpty(salesDetail)}" th:each="l : ${salesDetail}">
-											<td th:text="${l.goods.getGoodsName()}"></td>
-											<td th:text="${l.goods.getSalesPrice()}"></td>
-											<td th:text="${l.QTY}"></td>
-											<td th:text="${l.totalPrice}"></td>
-										</tr>
-									</tbody>
 								</table>
 							</div>
 						</div>
-						<!-- 영수증 하단  -->
-						<div class="row">
-							<div class="col-4">
-								<div class="table-responsive">
-									<table class="table">
-										<tbody>
-											<tr>
-												<th>VAT (1.5%)</th>
-												<td>3,636원</td>
-											</tr>
-											<tr>
-												<th>합계 :</th>
-												<td>40,000원</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>				
-					<th:block layout:fragment="customJs">
-						<script>
-							$(function(){
-								$(document).on('click', '#salesBtn', function(){
-									alert('정말 취소하시겠습니까?');
-									$('#saleForm').submit();
-								});
-							});
-						</script>
-					</th:block>
-					<button type="button" class="btn btn-warning float-right"
-						data-dismiss="modal">
-						<b>닫기</b>
-					</button>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</form>		
-</div>
+	
+</th:block>
 
+<th:block layout:fragment="customJs">
+	<script type="text/javascript"> 
+		//제이쿼리
+		$(function(){
+			//영수증 버튼 클릭시 이벤트
+			$(document).on('click', '.receiptBtn', function(){
+				var salesCode = $(this).attr('data-salesCode');
+				var receiptNum = $(this).attr('data-receiptNum');
+				var regDate = $(this).attr('data-regDate');
+				var staff = $(this).attr('data-staff');
+				var canselCheck = $(this).attr('data-canselCheck');
+				$('#receiptNumber').text(receiptNum);
+				$('#salesDate').text(regDate);
+				$('#staffName').text(staff);
+				$('#canselTargetSalesCode').val(salesCode);
+				if(canselCheck == '취소'){
+					$('#canselChange').hide();
+				}else{
+					$('#canselChange').show();
+				}
+				//판매정보 가져오기
+				var request = $.ajax({
+					url: '/trade_management/sales/salesDetailInfo',
+					method: 'POST',
+					data: {'salesCode' : salesCode},
+					dataType: 'json'
+				});
+				request.done(function(data){
+					//판매정보 넣기
+					var salesDetailTable = $('#salesDetailTable');
+					var totalSumPrice = 0;
+					var totalVAT = 0;
+					
+					//초기화
+					$('#buySuccess').show();
+					$('#buyFail').hide();
+					salesDetailTable.empty();
+					//값 담기
+					for(var i=0; i<data.length; i++){
+						if(data[i].goods.taxType.toString() == '과세'){
+							salesDetailTable.append("<tr><td>" + (i+1) + '</td><td>' + data[i].goods.goodsName + '</td><td>'
+								+ data[i].goods.salesPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "원" + '</td><td>' 
+								+ data[i].qty.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "개" + '</td><td>' 
+								+ data[i].totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "원" + "</td></tr>")
+							totalSumPrice += Number(data[i].totalPrice);
+							totalVAT += Number(data[i].vat);
+						}else{
+							salesDetailTable.append("<tr><td>" + (i+1) + '</td><td><code>*</code>' + data[i].goods.goodsName + '</td><td>'
+								+ data[i].goods.salesPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "원" + '</td><td>' 
+								+ data[i].qty.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "개" + '</td><td>' 
+								+ data[i].totalPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "원" + "</td></tr>")
+							totalSumPrice += Number(data[i].totalPrice);
+							totalVAT += Number(data[i].vat);
+						}
+					}
+					$("#totalSumPrice").text(totalSumPrice.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "원")
+					$("#totalVAT").text(totalVAT.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",") + "원")
+				
+				});
+				
+				//취소정보 가져오기
+				var canselResult = $.ajax({
+					url: '/trade_management/sales/salesCanselInfo',
+					method: 'POST',
+					data: {'salesCode' : salesCode},
+					dataType: 'json'
+				});
+				canselResult.done(function(data){
+					if(data.canselCheck == '취소'){
+						$('#buyFail').show();
+						$('#buySuccess').hide();
+						
+						var canselText = data.canselDate + "에 취소된 영수증입니다.";
+						var canselStaff = "(취소한  직원: " + data.user.name + ")";
+						$('#canselText').text(canselText);
+						$('#canselStaff').text(canselStaff);
+					}else{
+						$('#buySuccess').show();
+						$('#buyFail').hide();
+					}
+				});
+				
+			});
+			//직원 조회 AJax
+			$(document).on('click', '#searchStaffBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#staffTable').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/system_management/user/searchStaffModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "level.levelName"},
+						{ data: "name"},
+						{ data: ""},
+					],
+					columnDefs: [
+						{
+							targets: [2],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn2 = '<button type="button" data-dismiss="modal" class="btn btn-info staffPickBtn" data-staffName="'+ row.name +'" data-staffId="'+ row.id +'">선택</button>';
+								return htmlbtn2;
+							}
+						}
+					]
+				});
+			});
+			
+			//현재 월 표시하기
+			var now = new Date();
+			var nowMonth = now.getMonth()+1;
+			$('.nowMonth').text(nowMonth);
+			
+			//직원 조회 AJax
+			$(document).on('click', '#searchStaffBtn', function(){
+				var aLengthMenuArray = [];
+				aLengthMenuArray.push([5,10]);
+				aLengthMenuArray.push([5,10]);
+				
+				$('#staffTable').DataTable({
+					destroy: true,
+					pageLength: 5,
+					aLengthMenu: aLengthMenuArray,
+					ajax: {
+						url: '/system_management/user/searchStaffModal',
+	   					type: 'POST',
+	   					dataSrc: function(data){
+	        				console.log(JSON.stringify(data));
+	        				return data;
+	        			}
+					},
+					columns: [
+						{ data: "level.levelName"},
+						{ data: "name"},
+						{ data: ""},
+					],
+					columnDefs: [
+						{
+							targets: [2],
+							orderable : false,
+							searchable : false,
+							render : function(data, type, row){
+								var htmlbtn2 = '<button type="button" data-dismiss="modal" class="btn btn-info staffPickBtn" data-staffName="'+ row.name +'" data-staffId="'+ row.id +'">선택</button>';
+								return htmlbtn2;
+							}
+						}
+					]
+				});
+			});
+			
+			//직원 선택
+			$(document).on('click', '.staffPickBtn', function(){
+				var staffNamePick = $(this).attr('data-staffName');
+				var staffIdPick = $(this).attr('data-staffId');
+				$('#staffNameInput').val(staffNamePick);
+				$('#staffIdInput').val(staffIdPick);
+			});
+		
+			//주문취소버튼 알림
+			$(function(){
+				$(document).on('click', '#salesBtn', function(){
+					alert('정말 취소하시겠습니까?');
+					$('#saleForm').submit();
+				});
+			});
+		});
+	</script>
+</th:block>

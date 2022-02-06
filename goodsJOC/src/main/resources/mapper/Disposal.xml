@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="k5.goodsjoc.mapper.DisposalMapper">
+	<resultMap type="Disposal" id="DisposalResultMap">
+		<result column="disposalCode" 				property="disposalCode"/>
+		<result column="barcode" 				property="barcode"/>
+		<result column="shelfCode" 			property="shelfCode"/>
+		<result column="disposalQTY" 					property="disposalQTY"/>
+		<result column="martCode" 			property="martCode"/>
+		<result column="ID" 				property="ID"/>
+		<result column="regDate" 					property="regDate"/>
+		
+		<association javaType="Goods" property="goods">
+			<id column="barcode" 	property="barcode"/>
+			<result column="goodsName" 			property="goodsName"/>
+		</association>
+		<association javaType="Business" property="business">
+			<id column="businessCode" 	property="businessCode"/>
+			<result column="businessName" 			property="businessName"/>
+		</association>
+		<association javaType="User" property="user">
+			<id column="ID" 	property="ID"/>
+			<result column="name" 			property="name"/>
+		</association>
+		
+	</resultMap>
+	
+	<!--폐기 조회  -->
+	<select id="getDisposalList" resultMap="DisposalResultMap">
+		SELECT 
+			g.goodsName,
+			d.disposalQTY,
+			b.businessName,
+			u.NAME,
+			d.regDate
+		FROM 
+			tb_disposal AS d
+			INNER JOIN 
+			tb_goods AS g
+			ON 
+			d.barcode = g.barcode
+			INNER JOIN 
+			tb_business AS b
+			ON 
+			g.businessCode = b.businessCode
+			INNER JOIN 
+			tb_user AS u
+			ON 
+			d.ID = u.ID
+	</select>
+	<!--폐기 검색  -->
+	<select id="getDisposalBySearch" resultMap="DisposalResultMap">
+		SELECT 
+			g.goodsName,
+			d.disposalQTY,
+			b.businessName,
+			u.NAME,
+			d.regDate
+		FROM 
+			tb_disposal AS d
+			INNER JOIN 
+			tb_goods AS g
+			ON 
+			d.barcode = g.barcode
+			INNER JOIN 
+			tb_business AS b
+			ON 
+			g.businessCode = b.businessCode
+			INNER JOIN 
+			tb_user AS u
+			ON 
+			d.ID = u.ID
+			WHERE
+			d.martCode = #{martCode}
+			<if test="searchValue != null and searchValue != ''.toString()">
+				AND ${searchKey} LIKE CONCAT('%', #{searchValue}, '%')
+			</if>
+			<if test="startDt != null and startDt != ''.toString() and endDt != null and endDt != ''.toString()">
+				AND d.regDate BETWEEN #{startDt} AND #{endDt}
+			</if>
+	</select>
+	
+	
+
+</mapper>

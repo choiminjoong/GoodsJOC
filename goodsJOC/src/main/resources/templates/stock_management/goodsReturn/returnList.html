@@ -30,46 +30,82 @@
 					<div class="card-body">
 						<div class="tab-content" id="custom-tabs-two-tabContent">
 							<!-- 반품검색 -->
+							<form th:action="@{/stock_management/goodsReturn/searchReturnList}" method="post">
 							<div class="row">
 								<label class="col-sm-1 col-form-label">반품검색</label>
 								<div class="col-sm-2">
-									<select id="orderCode" class="form-control custom-select">
-										<option value="상품명">상품명</option>
-										<option value="담당자">담당자</option>
-										<option value="거래처명">거래처명</option>
-										<option value="반품예정일">반품예정일</option>
+									<select name="searchKey" class="form-control custom-select">
+										<option value="goodsName">상품명</option>
+										<option value="name">담당자</option>
+										<option value="businessName">거래처명</option>
 									</select>
 								</div>
 								<div class="input-group input-group-m" style="width: 500px;">
-									<input type="text" name="table_search" style="margin-left: 3%"
+									<input type="text" name="searchValue" style="margin-left: 3%"
 										class="form-control float-right" placeholder="검색">
 								</div>
-								<div style="margin-left: 15%">
-									<button type="button" class="btn-lg btn-info">
-										<b>검색</b>
-									</button> <a href="returnInsert">
-										<button type="button" class="btn-lg btn-info">
-											<b>등록</b>
-										</button>
-								</a>
-								</div>
+								
+								
 							</div>
+							
 							<!-----------------반품일검색------------------>
 							<div class="row" style="margin-top: 1%">
 								<!-- 주문일자검색 -->
 								<label class="col-sm-1 col-form-label">반품예정일</label>
 								<div class="col-sm-2">
-									<input type="date" id="date" class="form-control">
+									<input type="date" name="startDt" id="date" class="form-control">
 								</div>
 								<span style="font-weight: bold;">~</span>
 								<div class="col-sm-2">
-									<input type="date" id="date" class="form-control">
+									<input type="date" name="endDt" id="date" class="form-control">
+								</div>
+							<div class="col-sm-2">
+								<button type="submit" class="btn btn-block bg-gradient-warning btn-lg"><b>검색</b></button>
+							</div>
+							<div class="col-sm-1">
+								<a th:href="@{/stock_management/goodsReturn/returnList}" type="button" class="btn btn-block bg-gradient-warning btn-lg">
+									<i class="fas fa-redo-alt"></i>
+								</a>
+							</div>
+							<div class="col-sm-2">
+								<a th:href="@{/stock_management/goodsReturn/returnInsert}">
+								<button type="button" class="btn btn-block bg-gradient-info btn-lg" style="width: 50%"><b>반품등록</b></button>
+								</a>
+							</div>
+							<!-- 반품액 보여주기 -->
+							<div class="col-1.5" align="center" style="margin-top: -60px;">
+						<th:block th:if="${not #lists.isEmpty(returnPriceTotalInfo)}" th:each="l : ${returnPriceTotalInfo}">
+							<div class="info-box mb-3 bg-info">
+								<span class="info-box-icon bg-teal disabled color-palette elevation-1">
+									<i class="fas fa-shopping-cart"></i>
+								</span>
+								<div class="info-box-content">
+									<span class="info-box-text"> <b class="nowMonth"></b> 월 반품 건수</span> 
+									<span class="info-box-number"> <b th:text="${l.returnPriceCnt}"></b> 건</span>
+								</div>
+								<!-- /.info-box-content -->
+							</div>
+							<div class="info-box mb-3 bg-info" style="margin-top: -10px;">
+								<span class="info-box-icon bg-teal elevation-1">
+									<i class="fas fa-won-sign"></i>
+								</span>
+								<div class="info-box-content">
+									<span class="info-box-text"> <b class="nowMonth"></b> 월 총 반품액수</span> 
+									<span class="info-box-number"> <b class="money" th:text="${l.returnSumPrice}"></b></span>
 								</div>
 							</div>
+						</th:block>
+					</div>
+						</div>
+						
+							</form>
+							
 						</div>
 
 					</div>
+					
 				</div>
+				
 			</div>
 			<!-------------------검수 조회 폼--------------------->
 			<div class="col-12">
@@ -78,29 +114,28 @@
 					<!-- /.card-header -->
 					<div class="card-body table-responsive p-0" style="height: 300px;">
 						<div class="col-12">
-							<table class="table table-hover text-nowrap">
+							<table class="table table-hover text-nowrap text-center">
 								<thead>
 									<tr>
-										<th></th>
+										<th>번호</th>
 										<th>상품명</th>
 										<th>수량</th>
 										<th>거래처명</th>
 										<th>반품액</th>
+										<th>담당자</th>
 										<th>반품예정일</th>
+										<th></th>
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox1"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox1"></label>
-											</div></td>
-										<td>흙당근</td>
-										<td>10</td>
-										<td>JB</td>
-										<td></td>
-										<td>2021-09-11</td>
+									<tr th:if="${not #lists.isEmpty(goodsReturnList)}" th:each="r, i : ${goodsReturnList}">
+										<td th:text="${i.index+1}"></td>
+										<td th:text="${r.goods.getGoodsName()}"></td>
+										<td th:text="${r.returnQTY}"></td>
+										<td th:text="${r.business.getBusinessName()}"></td>
+										<td th:text="${r.returnPrice}"></td>
+										<td th:text="${r.user.getName()}"></td>
+										<td th:text="${r.regDate}"></td>
 										<td class="text-right py-0 align-middle">
 											<div class="btn-group btn-group-sm">
 												<a href="returnUpdate" class="btn btn-info"><i
@@ -110,86 +145,7 @@
 											</div>
 										</td>
 									</tr>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox2"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox2"></label>
-											</div></td>
-										<td>알감자</td>
-										<td>15</td>
-										<td>JB</td>
-										<td></td>
-										<td>2021-10-12</td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="returnUpdate" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox3"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox3"></label>
-											</div></td>
-										<td>고당도딸기</td>
-										<td>20</td>
-										<td>JB</td>
-										<td></td>
-										<td>2021-08-09</td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="returnUpdate" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox4"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox4"></label>
-											</div></td>
-										<td>주황당근</td>
-										<td>25</td>
-										<td>JB</td>
-										<td></td>
-										<td>2021-12-13</td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="returnUpdate" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td><div class="custom-control custom-checkbox">
-												<input type="checkbox" id="jb-checkbox5"
-													class="custom-control-input"> <label
-													class="custom-control-label" for="jb-checkbox5"></label>
-											</div></td>
-										<td>오이고추</td>
-										<td>30</td>
-										<td>JB</td>
-										<td></td>
-										<td>2021-03-21</td>
-										<td class="text-right py-0 align-middle">
-											<div class="btn-group btn-group-sm">
-												<a href="returnUpdate" class="btn btn-info"><i
-													class="fas fa-eye"></i></a> <a href="#" class="btn btn-danger"
-													data-toggle="modal" data-target="#exampleModalCenter"><i
-													class="fas fa-trash"></i></a>
-											</div>
-										</td>
-									</tr>
+									
 								</tbody>
 							</table>
 						</div>
