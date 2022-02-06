@@ -54,6 +54,66 @@
 		</association>	
 	</resultMap>
 	
+	<!-- 1.주문승인 -->
+	<update id="orderChangePurchase" parameterType="String">
+		UPDATE 
+			tb_order
+		SET
+			state='승인'
+			,purchaseDate = NOW()
+		WHERE
+			orderCode = #{orderCode}
+	</update>
+
+	<!-- 2.주문반려 -->
+	<update id="orderFail" parameterType="String">
+		UPDATE 
+			tb_order
+		SET
+			state='반려'
+		WHERE
+			orderCode = #{orderCode}
+	</update>
+	
+	<!-- 3.주문승인시 물품 수량 및 바코드 -->
+	<select id="getOrderQTYList" resultType="OrderDetail">
+		SELECT 
+			barcode, QTY, purchasePrice
+		FROM 
+			tb_orderDetail
+		WHERE
+			orderCode = #{orderCode}
+	</select>
+	
+	<!-- 4.주문승인시 상품정보 업데이트 -->
+	<update id="goodsUncheckedQTYUpdate">
+		UPDATE 
+			tb_goods
+		<foreach collection="qtyList" item="list">
+		SET
+			uncheckedQTY = #{list.qty}
+			, purchasePrice = #{list.purchasePrice}
+		WHERE 
+			barcode = #{list.barcode}
+		</foreach>
+	</update>
+
+	<!-- 5.주문상세삭제 -->
+	<delete id="deleteOrderDetail">
+		DELETE FROM 
+			tb_orderDetail 
+		WHERE 
+			orderCode= #{orderCode}
+	</delete>
+
+	<!-- 6.주문삭제 -->
+	<delete id="deleteOrder">
+		DELETE FROM 
+			tb_order
+		WHERE 
+			orderCode= #{orderCode}
+	</delete>
+	
 	<!-- 매입(주문상태=승인) 조건검색 -->
 	<select id="searchPurchaseList" parameterType="Map" resultType="Order" resultMap="OrderResultMap">
 		SELECT 
@@ -194,7 +254,7 @@
 		tb_order AS o
 	INNER JOIN tb_business AS b
 		ON o.businessCode = b.businessCode
-	
+	ORDER BY o.orderNum DESC
 	</select>
 	
 	<!-- 주문 조건검색(정도혜) -->
