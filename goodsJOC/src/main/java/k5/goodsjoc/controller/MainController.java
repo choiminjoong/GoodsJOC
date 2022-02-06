@@ -26,6 +26,10 @@ public class MainController {
 		
 		return "system_management/error/error500"; 
 	}
+	@GetMapping("/profile")
+	public String profile() {
+		return "profile";
+	}
 
 	
 }
