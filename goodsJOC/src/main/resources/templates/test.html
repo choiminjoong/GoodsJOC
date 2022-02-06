@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>간지나는 페이지</title>
+<style type="text/css">
+background: linear-gradient(137deg, #fff6b7, #f77c99, #6578f2, #c2ffd8); 
+background-size: 800% 800%; 
+-webkit-animation: AnimationName 16s ease infinite; 
+-moz-animation: AnimationName 16s ease infinite; 
+-o-animation: AnimationName 16s ease infinite; 
+animation: AnimationName 16s ease infinite; 
+@-webkit-keyframes AnimationName { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} } 
+@-moz-keyframes AnimationName { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} } 
+@-o-keyframes AnimationName { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} } 
+@keyframes AnimationName { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} } 
+.container { color: #fff;
+ background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); 
+background-size: 400% 400%; 
+animation: AnimationName 15s ease infinite; 
+width: 100%; 
+height: 100vh; 
+display: flex; 
+flex-direction: column; 
+align-items: center; 
+justify-content: center; 
+top: 35%; text-align: center;
+ }
+ .outer {
+  border: 6px solid royalblue;
+  width: 300px;
+  height: 200px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+
+.inner-list {
+  display: flex;
+  transition: .3s ease-out;
+  height: 100%;
+}
+
+.inner {
+  border: 6px solid olive;
+  padding: 0 16px;
+}
+
+.button-list {
+  text-align: center;
+}
+
+</style>
+</head>
+<body>
+<div class="container" style="height: 400px" role="listbox">
+	<h1 style="font-size: 50px">GOODS JOC</h1>
+	<b>기초 시스템을 구축 및 매장 운영에 효율적인 매장관리 시스템</b>
+
+<div class="outer">
+  <div class="inner-list">
+    <div class="inner">
+      <h2>first...</h2>
+    </div>
+    <div class="inner">
+      <h2>second...</h2>
+    </div>
+    <div class="inner">
+      <h2>third...</h2>
+    </div>
+  </div>
+</div>
+</div>
+<div class="button-list">
+  <button class="button-left">← Left</button>
+ <i class="fas fa-angle-right"><button class="button-right"></button></i>
+</div>
+
+</body>
+<script type="text/javascript">
+/*
+div사이즈 동적으로 구하기
+*/
+const outer = document.querySelector('.outer');
+const innerList = document.querySelector('.inner-list');
+const inners = document.querySelectorAll('.inner');
+let currentIndex = 0; // 현재 슬라이드 화면 인덱스
+
+inners.forEach((inner) => {
+inner.style.width = `${outer.clientWidth}px`; // inner의 width를 모두 outer의 width로 만들기
+})
+
+innerList.style.width = `${outer.clientWidth * inners.length}px`; // innerList의 width를 inner의 width * inner의 개수로 만들기
+
+/*
+버튼에 이벤트 등록하기
+*/
+const buttonLeft = document.querySelector('.button-left');
+const buttonRight = document.querySelector('.button-right');
+
+buttonLeft.addEventListener('click', () => {
+currentIndex--;
+currentIndex = currentIndex < 0 ? 0 : currentIndex; // index값이 0보다 작아질 경우 0으로 변경
+innerList.style.marginLeft = `-${outer.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
+clearInterval(interval); // 기존 동작되던 interval 제거
+interval = getInterval(); // 새로운 interval 등록
+});
+
+buttonRight.addEventListener('click', () => {
+currentIndex++;
+currentIndex = currentIndex >= inners.length ? inners.length - 1 : currentIndex; // index값이 inner의 총 개수보다 많아질 경우 마지막 인덱스값으로 변경
+innerList.style.marginLeft = `-${outer.clientWidth * currentIndex}px`; // index만큼 margin을 주어 옆으로 밀기
+clearInterval(interval); // 기존 동작되던 interval 제거
+interval = getInterval(); // 새로운 interval 등록
+});
+
+/*
+주기적으로 화면 넘기기
+*/
+const getInterval = () => {
+return setInterval(() => {
+  currentIndex++;
+  currentIndex = currentIndex >= inners.length ? 0 : currentIndex;
+  innerList.style.marginLeft = `-${outer.clientWidth * currentIndex}px`;
+}, 2000);
+}
+
+let interval = getInterval(); // interval 등록
+</script>
+</html>
