@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>간지나는 페이지</title>
+<!-- 배너 CSS  -->
 <style type="text/css">
 background: linear-gradient(137deg, #fff6b7, #f77c99, #6578f2, #c2ffd8); 
 background-size: 800% 800%; 
@@ -28,7 +29,7 @@ top: 35%; text-align: center;
  }
  
  
- body, ul, li, h1, h2, h3, h4, h5 {
+body, ul, li, h1, h2, h3, h4, h5 {
     margin:0;
     padding:0;
     list-style:none;
@@ -37,6 +38,8 @@ top: 35%; text-align: center;
 .slider-1 {
     height:400px;
     position:relative;
+    
+    
 }
 
 /* 슬라이더 1 - 페이지 버튼 */
@@ -108,8 +111,13 @@ top: 35%; text-align: center;
     left:auto;
     right:20px;
 }
+.abc{
+	font-family: 'Archivo', sans-serif;
+}
+.kor{
+	font-family: 'Nanum Gothic', sans-serif;
+}
 
-/* 슬라이더 1 끝 */
 
 </style>
 </head>
@@ -117,18 +125,26 @@ top: 35%; text-align: center;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
-
+<!--.abc 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap" rel="stylesheet">
+<!--.kor 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap" rel="stylesheet">
+<!-- 배너 부분  -->
 <div class="slider-1">
     <div class="slides">
         <div class="active">
         	<div class="container" style="height: 400px">
-        		<h1 style="font-size: 50px">GOODS JOC</h1>
+        		<h1 class="abc" style="font-size: 60px">GOODS JOC</h1>
 				<b>기초 시스템을 구축 및 매장 운영에 효율적인 매장관리 시스템</b>
         	</div>
         </div>
         <div>
         	<div class="container" style="height: 400px">
-        		<h1 style="font-size: 50px">프로그램 설명</h1>
+        		<h1 class="kor" style="font-size: 60px">프로그램 설명</h1>
 				<b>(대충 프로그램 설명이 들어갈 공간)</b>
         	</div>
         </div>
@@ -147,6 +163,10 @@ top: 35%; text-align: center;
         </div>
     </div>
 </div>
+
+
+
+<!--배너 JS -->
 <script type="text/javascript">
 console.clear();
 
