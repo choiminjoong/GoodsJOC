@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>간지나는 페이지</title>
+<!-- 배너 CSS  -->
+<style type="text/css">
+background: linear-gradient(137deg, #fff6b7, #f77c99, #6578f2, #c2ffd8); 
+background-size: 800% 800%; 
+-webkit-animation: AnimationName 16s ease infinite; 
+-moz-animation: AnimationName 16s ease infinite; 
+-o-animation: AnimationName 16s ease infinite; 
+animation: AnimationName 16s ease infinite; 
+@-webkit-keyframes AnimationName { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} } 
+@-moz-keyframes AnimationName { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} } 
+@-o-keyframes AnimationName { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} } 
+@keyframes AnimationName { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} } 
+.container { color: #fff;
+ background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab); 
+background-size: 400% 400%; 
+animation: AnimationName 8s ease infinite; 
+width: 100%; 
+height: 100vh; 
+display: flex; 
+flex-direction: column; 
+align-items: center; 
+justify-content: center; 
+top: 35%; text-align: center;
+ }
+ 
+ 
+body, ul, li, h1, h2, h3, h4, h5 {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+div {
+    display: block;
+}
+ /* 슬라이더 1 시작 */
+.slider-1 {
+    height:400px;
+    position:relative;
+    
+    
+}
+
+/* 슬라이더 1 - 페이지 버튼 */
+.slider-1 > .page-btns {
+    text-align:center;
+    position:absolute;
+    bottom:20px;
+    left:0;
+    width:100%;
+}
+
+.slider-1 > .page-btns > div {
+    width:20px;
+    height:20px;
+    background-color:rgba(255,255,255,.5);
+    border-radius:4px;
+    display:inline-block;
+    cursor:pointer;
+}
+
+.slider-1 > .page-btns > div.active {
+    background-color:rgba(255,255,255,1);
+}
+
+/* 슬라이더 1 - 슬라이드 */
+
+.slider-1 > .slides > div {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    opacity:0;
+    transition: opacity 0.3s;
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+}
+
+.slider-1 > .slides > div.active {
+    opacity:1;
+}
+
+/* 슬라이더 좌우 버튼 */
+.slider-1 > .side-btns > div {
+    position:absolute;
+    top:0;
+    left:0;
+    width:25%;
+    height:100%;
+    cursor:pointer;
+}
+.slider-1 > .side-btns > div:last-child {
+    left:auto;
+    right:0;
+}
+.slider-1 >.side-btns > div > span {
+    position:absolute;
+    top:50%;
+    left:20px;
+    transform:translatey(-50%);
+    background-color:white;
+    opacity:0.5;
+    padding:1px 13px;
+    border-radius:50px;
+    font-size:25px;
+}
+.slider-1 >.side-btns > div:last-child > span {
+    left:auto;
+    right:20px;
+}
+.abc{
+	font-family: 'Archivo', sans-serif;
+}
+.kor{
+	font-family: 'Nanum Gothic', sans-serif;
+}
+.porfile {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+.myhr{
+	border: 0;
+    height: 1px;
+    background: #000000;
+}
+
+
+</style>
+</head>
+<body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+<!--.abc 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700&display=swap" rel="stylesheet">
+<!--.kor 폰트 -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@800&display=swap" rel="stylesheet">
+<!-- 배너 부분  -->
+<div class="slider-1">
+    <div class="slides">
+        <div class="active">
+        	<div class="container" style="height: 400px">
+        		<h1 class="abc" style="font-size: 60px">GOODS JOC</h1>
+				<b>기초 시스템을 구축 및 매장 운영에 효율적인 매장관리 시스템</b>
+        	</div>
+        </div>
+        <div>
+        	<div class="container" style="height: 400px">
+        		<h1 class="kor" style="font-size: 60px">프로그램 설명</h1>
+				<b>(대충 프로그램 설명이 들어갈 공간.)</b>
+        	</div>
+        </div>
+       
+    </div>
+    <div class="page-btns">
+        <div class="active"></div>
+        <div></div>
+    </div>
+    <div class="side-btns">
+        <div>
+            <span><i class="fas fa-angle-left"></i></span>
+        </div>
+        <div>
+            <span><i class="fas fa-angle-right"></i></span>
+        </div>
+    </div>
+</div>
+
+
+
+<!--배너 JS -->
+<script type="text/javascript">
+console.clear();
+
+//기존 버튼형 슬라이더
+$('.slider-1 > .page-btns > div').click(function(){
+ var $this = $(this);
+ var index = $this.index();
+ 
+ $this.addClass('active');
+ $this.siblings('.active').removeClass('active');
+ 
+ var $slider = $this.parent().parent();
+ 
+ var $current = $slider.find(' > .slides > div.active');
+ 
+ var $post = $slider.find(' > .slides > div').eq(index);
+ 
+ $current.removeClass('active');
+ $post.addClass('active');
+});
+
+//좌/우 버튼 추가 슬라이더
+$('.slider-1 > .side-btns > div').click(function(){
+ var $this = $(this);
+ var $slider = $this.closest('.slider-1');
+ 
+ var index = $this.index();
+ var isLeft = index == 0;
+ 
+ var $current = $slider.find(' > .page-btns > div.active');
+ var $post;
+ 
+ if ( isLeft ){
+     $post = $current.prev();
+ }
+ else {
+     $post = $current.next();
+ };
+ 
+ if ( $post.length == 0 ){
+     if ( isLeft ){
+         $post = $slider.find(' > .page-btns > div:last-child');
+     }
+     else {
+         $post = $slider.find(' > .page-btns > div:first-child');
+     }
+ };
+ 
+ $post.click();
+});
+
+setInterval(function(){
+ $('.slider-1 > .side-btns > div').eq(1).click();
+}, 6000);
+</script>
+</body>
+</html>
