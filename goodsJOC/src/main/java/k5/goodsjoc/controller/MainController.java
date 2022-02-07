@@ -11,11 +11,13 @@ public class MainController {
 	 
 		return "system_management/user/loginForm"; 
 	}
+	
 	@GetMapping("/")
 	public String main() {
 		
-		return "main"; 
+		return "mainPage"; 
 	}
+	
 	@GetMapping("/main")
 	public String mainForm() {
 		
@@ -26,10 +28,10 @@ public class MainController {
 		
 		return "system_management/error/error500"; 
 	}
-	@GetMapping("/profile")
-	public String profile() {
-		return "profile";
-	}
 
+	@GetMapping("/mainPage")
+	public String mainPage() {
+		return "mainPage";
+	}
 	
 }
