@@ -218,6 +218,7 @@ button.primary.ghost {
 	margin: 0 7px 7px 0;
 	padding: 7px;
 }
+
 </style>
 
 </head>
@@ -271,22 +272,24 @@ button.primary.ghost {
         </div>
     </div>
 </div>
-
 	<!-- 최민중 프로필 -->
 	<div class="card-container" style="margin:75px; display:inline-block">
 		<span class="pro">팀장</span>
 		<img style="height: 150px; width:120px;" src="/image/choiminjoong.jpg" class="round" alt="user" />
 		<h3>최민중</h3>
 		<h6>Developer</h6>
-		<p>010-8910-3186 <br/> https://blog.naver.com/chlalswnd1</p>
+		<p>010-8910-3186 <br/> <a style="color: #B3B8CD;" href="https://blog.naver.com/chlalswnd1">https://blog.naver.com/chlalswnd1</a></p>
 		
 		<div class="skills" style="text-align: center;">
 			<h6 style="margin-bottom: 20px">담당기능</h6>
 			<ul>
 				<li>로그인 및 로그아웃</li>
+				<li>회원가입</li>
 				<li>인터셉터 구현</li>
 				<li>매장/사업장 관리</li>
 				<li>상품 관리</li>
+				<li>관리자페이지 구현</li>
+				<li>판매등록 기능</li>
 			</ul>
 		</div>
 	</div>
@@ -297,17 +300,19 @@ button.primary.ghost {
 		<img style="height: 150px; width:120px;" src="/image/jeongdohye.jpg" class="round" alt="user" />
 		<h3>정도혜</h3>
 		<h6>Developer</h6>
-		<p>010-3372-8243 <br/>https://blog.naver.com/ehgp244</p>
+		<p>010-3372-8243 <br/><a style="color: #B3B8CD;" href="https://blog.naver.com/ehgp244">https://blog.naver.com/ehgp244</a></p>
 		
 		<div class="skills" style="text-align: center;">
 			<h6 style="margin-bottom: 20px">담당기능</h6>
 			<ul>
-				<li>메인 화면</li>
+				<li>캘린더 기능 구현</li>
+				<li>사용자권한 수정기능 구현</li>
 				<li>직원 관리</li>
-				<li>거래처 관리</li><br>
+				<li>거래처 관리</li>
 				<li>주문 관리</li>
 				<li>주문상세내역 기능</li><br>
-				<li>매출 및 영수증</li>
+				<li>매출 관리</li>
+				<li>영수증 조회기능 구현</li>
 			</ul>
 		</div>
 	</div>
@@ -315,24 +320,25 @@ button.primary.ghost {
 	<!-- 오대성 프로필 -->
 	<div class="card-container" style="margin:75px; display:inline-block">
 		<span class="pro">팀원</span>
-		<img style="height: 150px; width:120px;" src="" class="round" alt="user" />
+		<img style="height: 150px; width:120px;" src="/image/ohdaesung.jpg" class="round" alt="user" />
 		<h3>오대성</h3>
 		<h6>Developer</h6>
-		<p>010-8910-3186 <br/> https://blog.naver.com/chlalswnd1</p>
+		<p>010-6627-4824 <br/> <a style="color: #B3B8CD;" href="https://blog.naver.com/dheotjd4824">https://blog.naver.com/dheotjd4824</a></p>
 		
 		<div class="skills" style="text-align: center;">
 			<h6 style="margin-bottom: 20px">담당기능</h6>
 			<ul>
-				<li>로그인 및 로그아웃</li>
-				<li>인터셉터 구현</li>
-				<li>매장/사업장 관리</li>
-				<li>상품 관리</li>
+				<li>메인페이지 구현</li>
+				<li>시설관리</li>
+				<li>매입관리</li>
+				<li>거래명세서 조회기능 구현</li>
+				<li>재고관리</li>
+				<li>재고이동 및 상품진열 기능</li>			
 			</ul>
 		</div>
 	</div>
 
 	<th:block th:replace="fragments/script :: scriptFragment"></th:block>
-
 <!--배너 JS -->
 <script type="text/javascript">
 console.clear();
