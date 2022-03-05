@@ -41,8 +41,6 @@ div {
 .slider-1 {
     height:400px;
     position:relative;
-    
-    
 }
 
 /* 슬라이더 1 - 페이지 버튼 */
@@ -81,8 +79,38 @@ div {
     background-size:cover;
     background-repeat:no-repeat;
 }
+.slider-1 > .slides1 > div {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    opacity:0;
+    transition: opacity 0.3s;
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+}
+.slider-1 > .slides2 > div {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    bottom:0;
+    opacity:0;
+    transition: opacity 0.3s;
+    background-position:center;
+    background-size:cover;
+    background-repeat:no-repeat;
+}
 
 .slider-1 > .slides > div.active {
+    opacity:1;
+}
+.slider-1 > .slides1 > div.active {
+    opacity:1;
+}
+.slider-1 > .slides2 > div.active {
     opacity:1;
 }
 
@@ -115,10 +143,10 @@ div {
     right:20px;
 }
 .abc{
-	font-family: 'Archivo', sans-serif;
+   font-family: 'Archivo', sans-serif;
 }
 .kor{
-	font-family: 'Nanum Gothic', sans-serif;
+   font-family: 'Nanum Gothic', sans-serif;
 }
 .porfile {
     padding-right: 15px;
@@ -127,7 +155,7 @@ div {
     margin-left: auto;
 }
 .myhr{
-	border: 0;
+   border: 0;
     height: 1px;
     background: #000000;
 }
@@ -135,89 +163,90 @@ div {
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
 * {
-	box-sizing: border-box;
+   box-sizing: border-box;
 }
 
 h3 {
-	margin: 10px 0;
+   margin: 10px 0;
 }
 
 h6 {
-	margin: 5px 0;
-	text-transform: uppercase;
+   margin: 5px 0;
+   text-transform: uppercase;
 }
 
 p {
-	font-size: 14px;
-	line-height: 21px;
+   font-size: 14px;
+   line-height: 21px;
 }
 
 .card-container {
-	background-color: #231E39;
-	border-radius: 5px;
-	box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
-	color: #B3B8CD;
-	padding-top: 30px;
-	position: relative;
-	width: 350px;
-	max-width: 100%;
-	text-align: center;
+   background-color: #231E39;
+   border-radius: 5px;
+   box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+   color: #B3B8CD;
+   padding-top: 30px;
+   position: relative;
+   width: 350px;
+   max-width: 100%;
+   text-align: center;
 }
 
 .card-container .pro {
-	color: #231E39;
-	background-color: #FEBB0B;
-	border-radius: 3px;
-	font-size: 14px;
-	font-weight: bold;
-	padding: 3px 7px;
-	position: absolute;
-	top: 30px;
-	left: 30px;
+   color: #231E39;
+   background-color: #FEBB0B;
+   border-radius: 3px;
+   font-size: 14px;
+   font-weight: bold;
+   padding: 3px 7px;
+   position: absolute;
+   top: 30px;
+   left: 30px;
 }
 
 .card-container .round {
-	border: 1px solid #03BFCB;
-	border-radius: 50%;
-	padding: 7px;
+   border: 1px solid #03BFCB;
+   border-radius: 50%;
+   padding: 7px;
 }
 
 button.primary {
-	background-color: #03BFCB;
-	border: 1px solid #03BFCB;
-	border-radius: 3px;
-	color: #231E39;
-	font-family: Montserrat, sans-serif;
-	font-weight: 500;
-	padding: 10px 25px;
+   background-color: #03BFCB;
+   border: 1px solid #03BFCB;
+   border-radius: 3px;
+   color: #231E39;
+   font-family: Montserrat, sans-serif;
+   font-weight: 500;
+   padding: 10px 25px;
 }
 
 button.primary.ghost {
-	background-color: transparent;
-	color: #02899C;
+   background-color: transparent;
+   color: #02899C;
 }
 
 .skills {
-	background-color: #1F1A36;
-	text-align: left;
-	padding: 15px;
-	margin-top: 30px;
+   background-color: #1F1A36;
+   text-align: left;
+   padding: 15px;
+   margin-top: 30px;
 }
 
 .skills ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+   list-style-type: none;
+   margin: 0;
+   padding: 0;
 }
 
 .skills ul li {
-	border: 1px solid #2D2747;
-	border-radius: 2px;
-	display: inline-block;
-	font-size: 12px;
-	margin: 0 7px 7px 0;
-	padding: 7px;
+   border: 1px solid #2D2747;
+   border-radius: 2px;
+   display: inline-block;
+   font-size: 12px;
+   margin: 0 7px 7px 0;
+   padding: 7px;
 }
+
 </style>
 
 </head>
@@ -238,25 +267,30 @@ button.primary.ghost {
 <div class="slider-1">
     <div class="slides">
         <div class="active">
-        	<div class="container" style="height: 400px">
-        		<h1 class="abc" style="font-size: 60px">GOODS JOC</h1>
-				<b>기초 시스템을 구축 및 매장 운영에 효율적인 매장관리 시스템</b>
-        	</div>
+           <div class="container" style="height: 400px">
+              <h1 class="abc" style="font-size: 60px">GOODS JOC</h1>
+            <b style="margin-bottom: 10px">기초 시스템을 구축 및 매장 운영에 효율적인 매장관리 시스템</b>
+           </div>
         </div>
+     </div>
+     <div class="slides">
         <div>
-        	<div class="container" style="height: 400px">
-        		<h1 class="kor" style="font-size: 25px; margin-bottom:15px;">매장정보, 직원, 거래처, 상품, 시설 등 기초정보를 손쉽게 관리하여 효율적인 매장관리</h1>
-        		<h1 class="kor" style="font-size: 25px; margin-bottom:15px;">매입-반품-입고-폐기-매장진열-매출-거래취소 등의 정확한 기록으로 확실한 재고관리로 체계적인 매장운영</h1>
-        		<h1 class="kor" style="font-size: 25px; margin-bottom:15px;">거래이력관리와 이를 분석한 통계로 계획적인 상품 및 거래처 관리</h1>
-        	</div>
+           <div class="container" style="height: 400px">
+              <h1 class="kor" style="font-size: 25px; margin-bottom:15px;">매장정보, 직원, 거래처, 상품, 시설 등 기초정보를 손쉽게 관리하여 효율적인 매장관리</h1>
+              <h1 class="kor" style="font-size: 25px; margin-bottom:15px;">매입-반품-입고-폐기-매장진열-매출-거래취소 등의 정확한 기록으로 확실한 재고관리로 체계적인 매장운영</h1>
+              <h1 class="kor" style="font-size: 25px; margin-bottom:15px;">거래이력관리와 이를 분석한 통계로 계획적인 상품 및 거래처 관리</h1>
+           </div>
         </div>
+     </div>
+     <div class="slides">
         <div>
-        	<div class="container" style="height: 400px">
-        		<a style="text-decoration-line: none; color: #fff; " th:href="@{/system_management/user/loginForm}"> <h1 style="font-size: 60px;">체험하기</h1> </a>
-        		<a style="text-decoration-line: none; color: #fff;" href="https://github.com/choiminjoong/GoodsJOC.git"><i class="fab fa-github"></i> https://github.com/choiminjoong/GoodsJOC.git</a>
-        	</div>
+           <div class="container" style="height: 400px">
+              <a style="text-decoration-line: none; color: #fff;" th:href="@{/system_management/user/loginForm}";><h1 style="font-size: 60px;">체험하기</h1> </a>
+              <a style="text-decoration-line: none; color: #fff;" href="https://github.com/choiminjoong/GoodsJOC.git"><i class="fab fa-github"></i> https://github.com/choiminjoong/GoodsJOC.git</a>
+           </div>
         </div>
-    </div>
+     </div>
+    
     <div class="page-btns">
         <div class="active"></div>
         <div></div>
@@ -271,67 +305,72 @@ button.primary.ghost {
         </div>
     </div>
 </div>
-	<!-- 최민중 프로필 -->
-	<div class="card-container" style="margin:75px; display:inline-block">
-		<span class="pro">팀장</span>
-		<img style="height: 150px; width:120px;" src="/image/choiminjoong.jpg" class="round" alt="user" />
-		<h3>최민중</h3>
-		<h6>Developer</h6>
-		<p>010-8910-3186 <br/> https://blog.naver.com/chlalswnd1</p>
-		
-		<div class="skills" style="text-align: center;">
-			<h6 style="margin-bottom: 20px">담당기능</h6>
-			<ul>
-				<li>로그인 및 로그아웃</li>
-				<li>인터셉터 구현</li>
-				<li>매장/사업장 관리</li>
-				<li>상품 관리</li>
-			</ul>
-		</div>
-	</div>
-	
-	<!-- 정도혜 프로필 -->
-	<div class="card-container" style="margin:75px; display:inline-block">
-		<span class="pro">팀원</span>
-		<img style="height: 150px; width:120px;" src="/image/jeongdohye.jpg" class="round" alt="user" />
-		<h3>정도혜</h3>
-		<h6>Developer</h6>
-		<p>010-3372-8243 <br/>https://blog.naver.com/ehgp244</p>
-		
-		<div class="skills" style="text-align: center;">
-			<h6 style="margin-bottom: 20px">담당기능</h6>
-			<ul>
-				<li>메인 화면</li>
-				<li>직원 관리</li>
-				<li>거래처 관리</li><br/>
-				<li>주문 관리</li>
-				<li>매출 관리</li>
-			</ul>
-		</div>
-	</div>
+   <!-- 최민중 프로필 -->
+   <div class="card-container" style="margin:75px; display:inline-block">
+      <span class="pro">팀장</span>
+      <img style="height: 150px; width:120px;" src="/image/choiminjoong.jpg" class="round" alt="user" />
+      <h3>최민중</h3>
+      <h6>Developer</h6>
+      <p>010-8910-3186 <br/> <a style="color: #B3B8CD;" href="https://blog.naver.com/chlalswnd1">https://blog.naver.com/chlalswnd1</a></p>
+      
+      <div class="skills" style="text-align: center;">
+         <h6 style="margin-bottom: 20px">담당기능</h6>
+         <ul>
+            <li>로그인 및 로그아웃</li>
+            <li>회원가입</li>
+            <li>인터셉터 구현</li>
+            <li>매장/사업장 관리</li>
+            <li>상품 관리</li>
+            <li>관리자페이지 구현</li>
+            <li>판매등록 기능</li>
+         </ul>
+      </div>
+   </div>
+   
+   <!-- 정도혜 프로필 -->
+   <div class="card-container" style="margin:75px; display:inline-block">
+      <span class="pro">팀원</span>
+      <img style="height: 150px; width:120px;" src="/image/jeongdohye.jpg" class="round" alt="user" />
+      <h3>정도혜</h3>
+      <h6>Developer</h6>
+      <p>010-3372-8243 <br/><a style="color: #B3B8CD;" href="https://blog.naver.com/ehgp244">https://blog.naver.com/ehgp244</a></p>
+      
+      <div class="skills" style="text-align: center;">
+         <h6 style="margin-bottom: 20px">담당기능</h6>
+         <ul>
+            <li>캘린더 기능 구현</li>
+            <li>사용자권한 수정기능 구현</li>
+            <li>직원 관리</li>
+            <li>거래처 관리</li>
+            <li>주문 관리</li>
+            <li>매출 관리</li>
+            <li>영수증 조회기능 구현</li>
+         </ul>
+      </div>
+   </div>
 
-	<!-- 오대성 프로필 -->
-	<div class="card-container" style="margin:75px; display:inline-block">
-		<span class="pro">팀원</span>
-		<img style="height: 150px; width:120px;" src="/image/ohdaesung.jpg" class="round" alt="user" />
-		<h3>오대성</h3>
-		<h6>Developer</h6>
-		<p>010-6627-4824 <br/> https://blog.naver.com/dheotjd4824</p>
-		
-		<div class="skills" style="text-align: center;">
-			<h6 style="margin-bottom: 20px">담당기능</h6>
-			<ul>
-				<li>시설관리</li>
-				<li>매입 및 거래명세서</li>
-				<li>입고등록</li>
-				<li>재고이동조회 기능</li>
-				<li>반품 및 폐기</li>
-				<li>메인페이지 배너</li>
-			</ul>
-		</div>
-	</div>
+   <!-- 오대성 프로필 -->
+   <div class="card-container" style="margin:75px; display:inline-block">
+      <span class="pro">팀원</span>
+      <img style="height: 150px; width:120px;" src="/image/ohdaesung.jpg" class="round" alt="user" />
+      <h3>오대성</h3>
+      <h6>Developer</h6>
+      <p>010-6627-4824 <br/> <a style="color: #B3B8CD;" href="https://blog.naver.com/dheotjd4824">https://blog.naver.com/dheotjd4824</a></p>
+      
+      <div class="skills" style="text-align: center;">
+         <h6 style="margin-bottom: 20px">담당기능</h6>
+         <ul>
+            <li>메인페이지 구현</li>
+            <li>시설관리</li>
+            <li>매입관리</li>
+            <li>거래명세서 조회기능 구현</li>
+            <li>재고관리</li>
+            <li>재고이동 및 상품진열 기능</li>         
+         </ul>
+      </div>
+   </div>
 
-	<th:block th:replace="fragments/script :: scriptFragment"></th:block>
+   <th:block th:replace="fragments/script :: scriptFragment"></th:block>
 <!--배너 JS -->
 <script type="text/javascript">
 console.clear();
